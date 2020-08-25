@@ -67,7 +67,7 @@ export default class Header extends Component {
 
                 <ul id="nav-mobile">
                     <li id="nav-dropdown" className="nav-list-item">
-                        <a href=" ">
+                        <a href={document.URL}>
                             <h2>☰</h2>
                         </a>
                         <div id="nav-dropdown-content">
