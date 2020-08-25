@@ -1,5 +1,9 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+/**
+ * Must use HashRouter for GitHub Pages.
+ * Would otherwise be using BrowserRouter as this removes the need for # in the URL.
+ */
+import { HashRouter, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
@@ -13,7 +17,7 @@ export default class App extends Component {
     public render() {
         document.title = "oathompsonjones";
         return (
-            <BrowserRouter>
+            <HashRouter>
                 <Header />
                 <Switch>
                     <Route exact path="/" component={Home} />
@@ -23,7 +27,7 @@ export default class App extends Component {
                     <Route component={Error} />
                 </Switch>
                 <Footer />
-            </BrowserRouter >
+            </HashRouter >
         );
     }
 }
