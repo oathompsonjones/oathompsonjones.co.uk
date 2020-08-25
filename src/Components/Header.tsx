@@ -51,7 +51,7 @@ export default class Header extends Component {
                     <NavLink label="Portfolio" link="/portfolio" />
                     <NavLink label="Projects" link="/projects" />
                     <li id="nav-dropdown" className="nav-list-item">
-                        <a href="/contact">
+                        <a href="/#/contact">
                             <h2>Contact</h2>
                         </a>
                         <div id="nav-dropdown-content">
