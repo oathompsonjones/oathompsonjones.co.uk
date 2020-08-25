@@ -5,7 +5,7 @@ export default class Social extends Component {
     public render() {
         document.title = "Oliver Jones | Contact";
         return (
-            <div id="social">
+            <div id="contact">
                 <Card heading="Contact Links" text={[
                     "I am available on many platforms, so feel free to contact me via any of those listed below.", <br />,
                     <br />,

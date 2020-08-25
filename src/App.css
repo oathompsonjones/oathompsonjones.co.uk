@@ -127,7 +127,7 @@ a {
 #instagram:hover { background-color: var(--colour-secondary-instagram); }
 #github          { background-color: var(--colour-primary-github);      }
 #github:hover    { background-color: var(--colour-secondary-github);    }
-/* Mobile */
+/* Mobile Nav */
 @media screen and (max-width: 700px) {
     #nav { display: none; }
     #nav-mobile {
@@ -158,6 +158,14 @@ a {
     width: 100%;
 }
 #qualifications div { width: 50%; }
+@media screen and (max-width: 700px) {
+    #qualifications {
+        display: block;
+        justify-content: center;
+        width: 100%;
+    }
+    #qualifications div { width: 100%; }
+}
 
 /* Projects Page */
 .project img {

@@ -5,7 +5,7 @@ export default class Portfolio extends Component {
     public render() {
         document.title = "Oliver Jones | Portfolio";
         return (
-            <div id="home">
+            <div id="portfolio">
                 <Card heading="Biography" text={[
                     "My name is Oliver Jones. My online username is oathompsonjones.", <br />,
                     "I am a British student, currently studying Maths, Further Maths, Physics and Computer Science at A Level.", <br />,
