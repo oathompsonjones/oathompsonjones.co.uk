@@ -1,38 +1,170 @@
-.App {
-  text-align: center;
+@import url(https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic);
+:root {
+    /* Background Colours */
+    --colour-primary-background: #171717;
+    --colour-secondary-background: #4a4a4a;
+    --colour-tertiary-background: #7d7d7d;
+    /* Foreground Colours */
+    --colour-primary-foreground: #1c7eea;
+    --colour-secondary-foreground: #0b6dd9;
+    /* Text Colours */
+    --colour-primary-text: #ededed;
+    --colour-secondary-text: var(--colour-primary-foreground);
+    /* Social Media Colours */
+    --colour-primary-discord: #7289da;
+    --colour-secondary-discord: #6178c9;
+    --colour-primary-twitter: #1da1f2;
+    --colour-secondary-twitter: #0c90e1;
+    --colour-primary-facebook: #3b5998;
+    --colour-secondary-facebook: #2a4887;
+    --colour-primary-instagram: #c32aa3;
+    --colour-secondary-instagram: #b21992;
+    --colour-primary-github: #211f1f;
+    --colour-secondary-github: #100e0e;
+    --colour-primary-linkedin: #1f52a3;
+    --colour-secondary-linkedin: #0e4192;
+}
+html, body {
+    height: auto;
+    width: 100%;
+}
+body {
+    background: var(--colour-primary-background);
+    color: var(--colour-primary-text);
+    margin: 0px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Cards */
+.card {
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+    position: relative;
+}
+.card-header {
+    background: var(--colour-tertiary-background);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    width: 100%;
+}
+.card-body {
+    background: var(--colour-secondary-background);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Fonts */
+h1, h2, h3, p {
+    font-family: Lato; 
+    font-style: normal; 
+    font-variant: normal; 
+    margin: 10px;
+}
+h1, h2, h3 { font-weight: bold; }
+h1 { font-size: 35px; }
+h2 { font-size: 30px; }
+h3 { font-size: 25px; }
+p { font-size: 20px; }
+a {
+    color: var(--colour-secondary-text);
+    text-decoration: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Header */
+#header {
+    background-color: var(--colour-primary-foreground);
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1;
+}
+#nav {
+    list-style-type: none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+#nav-mobile { display: none; }
+.nav-list-item { float: left; }
+.nav-list-item a {
+    color: var(--colour-primary-text);
+    display: inline-block;
+    padding: 14px 16px;
+    text-align: left;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.nav-list-item a:hover { background-color: var(--colour-secondary-foreground); }
+#nav-dropdown { float: right; }
+#nav-dropdown a { min-width: 210px; }
+#nav-dropdown-content {
+    background-color: var(--colour-primary-foreground);
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+.nav-social-link {
+    color: var(--colour-primary-text);
+    display: block;
+    text-align: left;
+    text-decoration: none;
+}
+.nav-social-link img { 
+    float: left;
+    height: 50px;
+    padding-right: 10px;
+}
+#nav-dropdown:hover #nav-dropdown-content { display: block; }
+/* Social links */
+#discord         { background-color: var(--colour-primary-discord);     }
+#discord:hover   { background-color: var(--colour-secondary-discord);   }
+#twitter         { background-color: var(--colour-primary-twitter);     }
+#twitter:hover   { background-color: var(--colour-secondary-twitter);   }
+#facebook        { background-color: var(--colour-primary-facebook);    }
+#facebook:hover  { background-color: var(--colour-secondary-facebook);  }
+#instagram       { background-color: var(--colour-primary-instagram);   }
+#instagram:hover { background-color: var(--colour-secondary-instagram); }
+#github          { background-color: var(--colour-primary-github);      }
+#github:hover    { background-color: var(--colour-secondary-github);    }
+/* Mobile */
+@media screen and (max-width: 700px) {
+    #nav { display: none; }
+    #nav-mobile {
+        display: block;
+        list-style-type: none;
+        margin: 0;
+        overflow: hidden;
+        padding: 0;
+    }
+    #nav-dropdown { float: none; }
+    #nav-dropdown, .nav-list-item, .nav-list-item a { width: 100%; }
 }
 
-.App-link {
-  color: #61dafb;
+/* Footer */
+#footer { 
+    background-color: var(--colour-secondary-background);
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+}
+#footer p { font-size: 10px; }
+
+/* Portfolio Page */
+#qualifications {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+#qualifications div { width: 50%; }
+
+/* Projects Page */
+.project img {
+    float: left;
+    height: 100px;
+    padding: 0 10px 10px 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* Contact Page */
+#contact-links { text-align: center; }

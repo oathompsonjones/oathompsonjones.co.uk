@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import "./App.css";
+import Footer from "./Components/Footer";
+import Header from "./Components/Header";
+import Social from "./Pages/Contact";
+import Error from "./Pages/Error";
+import Home from "./Pages/Home";
+import Portfolio from "./Pages/Portfolio";
+import Projects from "./Pages/Projects";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+    public render() {
+        document.title = "oathompsonjones";
+        return (
+            <BrowserRouter>
+                <Header />
+                <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route exact path="/portfolio" component={Portfolio} />
+                    <Route exact path="/projects" component={Projects} />
+                    <Route path="/contact" component={Social} />
+                    <Route component={Error} />
+                </Switch>
+                <Footer />
+            </BrowserRouter >
+        );
+    }
 }
-
-export default App;
