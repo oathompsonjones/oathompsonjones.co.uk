@@ -14,7 +14,7 @@ export default class Portfolio extends Component {
                     "When I'm not sat infront of a computer screen, I am often kept busy as the President of my school's chairity orgainsation called ", <a href="https://tbshsinteract.live">Interact</a>, ".", <br />,
                     "Raising money and awareness for good causes is very important to me, and is something I will continue to do even after my term as Interact President has ended.",
                     <br />, <br />,
-                    "Reading this, you might get the impression that I'm not a particularly sporty person. This assumption would be correct. However, I will never pass up the opportunity to go skiing, something I've been doing for as long as I can remember, and thoroughly enjoy. You can view the ", <a href="/gallery">gallery</a>, " section to see some of my holidays in the mountains."
+                    "Reading this, you might get the impression that I'm not a particularly sporty person. This assumption would be correct. However, I will never pass up the opportunity to go skiing, something I've been doing for as long as I can remember, and thoroughly enjoy. You can view the ", <a href="/#/gallery">gallery</a>, " section to see some of my holidays in the mountains."
                 ]} />
 
                 <Card heading="Qualifications" text={[
