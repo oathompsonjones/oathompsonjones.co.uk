@@ -16,7 +16,7 @@ class NavLink extends Component {
 
     public render() {
         // /#/link is needed for the HashRouter
-        const link: string = `/#/${this.props.link}`;
+        const link: string = `/#${this.props.link}`;
         return (
             <li className="nav-list-item">
                 <a href={link}>
