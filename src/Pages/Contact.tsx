@@ -1,15 +1,19 @@
-import React, { Component } from "react";
+import React, { Component, CSSProperties } from "react";
 import Card from "../Components/Card";
 
 export default class Social extends Component {
     public render() {
         document.title = "Oliver Jones | Contact";
+        const contactLinkStyle: CSSProperties = {
+            textAlign: "center"
+        };
+
         return (
             <div id="contact">
                 <Card heading="Contact Links" text={[
                     "I am available on many platforms, so feel free to contact me via any of those listed below.", <br />,
                     <br />,
-                    <div id="contact-links">
+                    <div id="contact-links" style={contactLinkStyle}>
                         <a href="mailto:oathompsonjones@gmail.com">oathompsonjones@gmail.com</a><br />
                         <a href="https://discord.com/users/310145094684639235">Discord</a><br />
                         <a href="https://twitter.com/oathompsonjones">Twitter</a> <br />

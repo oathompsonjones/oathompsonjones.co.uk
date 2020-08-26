@@ -34,26 +34,6 @@ body {
     margin: 0px;
 }
 
-/* Cards */
-.card {
-    display: flex;
-    flex-direction: column;
-    margin: 50px;
-    position: relative;
-}
-.card-header {
-    background: var(--colour-tertiary-background);
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    width: 100%;
-}
-.card-body {
-    background: var(--colour-secondary-background);
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    width: 100%;
-}
-
 /* Fonts */
 h1, h2, h3, p {
     font-family: Lato; 
@@ -166,13 +146,3 @@ a {
     }
     #qualifications div { width: 100%; }
 }
-
-/* Projects Page */
-.project img {
-    float: left;
-    height: 100px;
-    padding: 0 10px 10px 0;
-}
-
-/* Contact Page */
-#contact-links { text-align: center; }
