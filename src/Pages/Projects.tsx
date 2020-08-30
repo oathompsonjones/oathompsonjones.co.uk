@@ -52,16 +52,25 @@ class ProjectCard extends Component {
     }
 
     public render() {
+        console.log(!window.matchMedia("(max-width: 700px)").matches)
         return (
             <div >
                 <Card heading={this.props.heading} text={
-                    <div className="project">
-                        <img alt={this.props.heading} src={this.props.image} style={{
-                            float: "left",
-                            height: "100px",
-                            margin: 10
-                        }} />
-                        <p>{this.props.text}</p>
+                    <div>
+                        <img alt={this.props.heading} src={this.props.image} style={!window.matchMedia("(max-width: 700px)").matches
+                            ? {
+                                float: "left",
+                                height: 100,
+                                margin: 10,
+                                display: "block"
+                            } : {
+                                width: "75%",
+                                height: "auto",
+                                margin: "auto",
+                                padding: 10,
+                                display: "block"
+                            }} />
+                        {this.props.text}
                     </div>
                 } />
             </div>

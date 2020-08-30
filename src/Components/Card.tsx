@@ -11,19 +11,19 @@ export default class Card extends Component {
             <div style={{
                 display: "flex",
                 flexDirection: "column",
-                margin: "50px",
+                margin: 50,
                 position: "relative"
             }}>
                 <div style={{
                     background: Colours.background[2],
-                    borderTopLeftRadius: "20px",
-                    borderTopRightRadius: "20px",
+                    borderTopLeftRadius: 20,
+                    borderTopRightRadius: 20,
                     width: "100%"
                 }}><h3>{this.props.heading}</h3></div>
                 <div style={{
                     background: Colours.background[1],
-                    borderBottomLeftRadius: "20px",
-                    borderBottomRightRadius: "20px",
+                    borderBottomLeftRadius: 20,
+                    borderBottomRightRadius: 20,
                     width: "100%"
                 }}>{this.props.text}</div>
             </div>

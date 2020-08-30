@@ -20,7 +20,7 @@ export default class Portfolio extends Component {
                 } />
 
                 <Card heading="Qualifications" text={
-                    <div style={!window.matchMedia("max-width: 700px").matches
+                    <div style={!window.matchMedia("(max-width: 700px)").matches
                         // Desktop
                         ? {
                             display: "flex",
@@ -34,7 +34,7 @@ export default class Portfolio extends Component {
                             justifyContent: "center",
                             width: "100%"
                         }}>
-                        <div style={!window.matchMedia("max-width: 700px").matches ? { width: "50%" } : { width: "100%" }}>
+                        <div style={!window.matchMedia("(max-width: 700px)").matches ? { width: "50%" } : { width: "100%" }}>
                             <h3>GCSEs (9-1)</h3>
                             <p>
                                 Biology - 8 <br />
@@ -48,7 +48,7 @@ export default class Portfolio extends Component {
                                 Physics - 8 <br />
                             </p>
                         </div>
-                        <div style={!window.matchMedia("max-width: 700px").matches ? { width: "50%" } : { width: "100%" }}>
+                        <div style={!window.matchMedia("(max-width: 700px)").matches ? { width: "50%" } : { width: "100%" }}>
                             <h3>A-Levels</h3>
                             <p>
                                 Computer Science - TBC <br />

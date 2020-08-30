@@ -18,11 +18,11 @@ class NavLink extends Component {
         // /#/link is needed for the HashRouter
         const link: string = `/#${this.props.link}`;
         return (
-            <li className="nav-list-item">
+            <div className="nav-list-item">
                 <a href={link}>
                     <h2>{this.props.label}</h2>
                 </a>
-            </li>
+            </div>
         );
     }
 }
