@@ -29,7 +29,7 @@ export default class Projects extends Component {
                 } image={NodeJS} />
                 <ProjectCard heading="TBSHS Interact Website" text={
                     <p>
-                        Interact is the the charity and fundraising organisation at <a href="https://tbshs.org">The Bishop's Stortford High School</a>.<br />
+                        Interact is the the charity and fundraising organisation at <a href="http://tbshs.org">The Bishop's Stortford High School</a>.<br />
                         I served as the President of Interact during 2020 and the beginning of 2021.<br />
                         <br />
                         Interact's website is located at <a href="https://tbshsinteract.live">tbshsinteract.live</a>.
