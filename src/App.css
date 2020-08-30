@@ -12,7 +12,7 @@
     --colour-secondary-text: var(--colour-primary-foreground);
 }
 html, body { height: 100%; width: 100%; }
-body { background: var(--colour-primary-background); color: var(--colour-primary-text); margin: 0px; }
+body { background: var(--colour-primary-background); color: var(--colour-primary-text); }
 
 /* Fonts */
 h1, h2, h3, p {

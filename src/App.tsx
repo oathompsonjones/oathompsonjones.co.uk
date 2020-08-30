@@ -5,7 +5,6 @@ import React, { Component } from "react";
  */
 import { HashRouter, Route, Switch } from "react-router-dom";
 import "./App.css";
-import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import Social from "./Pages/Contact";
 import Error from "./Pages/Error";
@@ -26,7 +25,7 @@ export default class App extends Component {
                     <Route path="/contact" component={Social} />
                     <Route component={Error} />
                 </Switch>
-                <Footer />
+                <div style={{ height: .01 }} />
             </HashRouter >
         );
     }
