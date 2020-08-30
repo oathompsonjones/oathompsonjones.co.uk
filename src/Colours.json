@@ -1,41 +1,15 @@
 {
-    "background": {
-        "primary": "#171717",
-        "secondary": "#4a4a4a",
-        "tertiary": "#7d7d7d"
-    },
-    "foreground": {
-        "primary": "#1c7eea",
-        "secondary": "#0b6dd9"
-    },
-    "text": {
-        "primary": "#ededed",
-        "secondary": "#1x7eea"
-    },
-    "social": {
-        "discord": {
-            "primary": "#7289da",
-            "secondary": "#6178c9"
-        },
-        "twitter": {
-            "primary": "#1da1f2",
-            "secondary": "#0c90e1"
-        },
-        "facebook": {
-            "primary": "#3b5998",
-            "secondary": "#2a4887"
-        },
-        "instagram": {
-            "primary": "#c32aa3",
-            "secondary": "#b21992"
-        },
-        "github": {
-            "primary": "#211f1f",
-            "secondary": "#100e0e"
-        },
-        "linkedin": {
-            "primary": "#1f52a3",
-            "secondary": "#0e4192"
-        }
-    }
+    "background": [
+        "#171717",
+        "#4a4a4a",
+        "#7d7d7d"
+    ],
+    "foreground": [
+        "#1c7eea",
+        "#0b6dd9"
+    ],
+    "text": [
+        "#ededed",
+        "#1x7eea"
+    ]
 }

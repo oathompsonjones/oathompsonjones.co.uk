@@ -10,29 +10,9 @@
     /* Text Colours */
     --colour-primary-text: #ededed;
     --colour-secondary-text: var(--colour-primary-foreground);
-    /* Social Media Colours */
-    --colour-primary-discord: #7289da;
-    --colour-secondary-discord: #6178c9;
-    --colour-primary-twitter: #1da1f2;
-    --colour-secondary-twitter: #0c90e1;
-    --colour-primary-facebook: #3b5998;
-    --colour-secondary-facebook: #2a4887;
-    --colour-primary-instagram: #c32aa3;
-    --colour-secondary-instagram: #b21992;
-    --colour-primary-github: #211f1f;
-    --colour-secondary-github: #100e0e;
-    --colour-primary-linkedin: #1f52a3;
-    --colour-secondary-linkedin: #0e4192;
 }
-html, body {
-    height: auto;
-    width: 100%;
-}
-body {
-    background: var(--colour-primary-background);
-    color: var(--colour-primary-text);
-    margin: 0px;
-}
+html, body { height: 100%; width: 100%; }
+body { background: var(--colour-primary-background); color: var(--colour-primary-text); margin: 0px; }
 
 /* Fonts */
 h1, h2, h3, p {
@@ -46,10 +26,7 @@ h1 { font-size: 35px; }
 h2 { font-size: 30px; }
 h3 { font-size: 25px; }
 p { font-size: 20px; }
-a {
-    color: var(--colour-secondary-text);
-    text-decoration: none;
-}
+a { color: var(--colour-secondary-text); text-decoration: none; }
 
 /* Header */
 #header {
@@ -97,16 +74,18 @@ a {
 }
 #nav-dropdown:hover #nav-dropdown-content { display: block; }
 /* Social links */
-#discord         { background-color: var(--colour-primary-discord);     }
-#discord:hover   { background-color: var(--colour-secondary-discord);   }
-#twitter         { background-color: var(--colour-primary-twitter);     }
-#twitter:hover   { background-color: var(--colour-secondary-twitter);   }
-#facebook        { background-color: var(--colour-primary-facebook);    }
-#facebook:hover  { background-color: var(--colour-secondary-facebook);  }
-#instagram       { background-color: var(--colour-primary-instagram);   }
-#instagram:hover { background-color: var(--colour-secondary-instagram); }
-#github          { background-color: var(--colour-primary-github);      }
-#github:hover    { background-color: var(--colour-secondary-github);    }
+#discord         { background-color: #7289da; }
+#discord:hover   { background-color: #6178c9; }
+#twitter         { background-color: #1da1f2; }
+#twitter:hover   { background-color: #0c90e1; }
+#facebook        { background-color: #3b5998; }
+#facebook:hover  { background-color: #2a4887; }
+#instagram       { background-color: #c32aa3; }
+#instagram:hover { background-color: #b21992; }
+#github          { background-color: #211f1f; }
+#github:hover    { background-color: #100e0e; }
+#linkedin        { background-color: #1f52a3; }
+#linkedin:hover  { background-color: #0e4192; }
 /* Mobile Nav */
 @media screen and (max-width: 700px) {
     #nav { display: none; }
@@ -119,30 +98,4 @@ a {
     }
     #nav-dropdown { float: none; }
     #nav-dropdown, .nav-list-item, .nav-list-item a { width: 100%; }
-}
-
-/* Footer */
-#footer { 
-    background-color: var(--colour-secondary-background);
-    bottom: 0;
-    position: fixed;
-    width: 100%;
-}
-#footer p { font-size: 10px; }
-
-/* Portfolio Page */
-#qualifications {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-}
-#qualifications div { width: 50%; }
-@media screen and (max-width: 700px) {
-    #qualifications {
-        display: block;
-        justify-content: center;
-        width: 100%;
-    }
-    #qualifications div { width: 100%; }
 }
