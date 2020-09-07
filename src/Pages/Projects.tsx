@@ -21,7 +21,7 @@ export default class Projects extends Component {
                 } image={Astro} />
                 <ProjectCard heading="Simple Node Utils" text={
                     <p>
-                        This NPM package is designed to make programmers lives a little bit easier by providing a collection of useful functions.<br />
+                        This NPM package is designed to make programmers' lives a little bit easier by providing a collection of useful functions.<br />
                         These functions generally extend the prototypes of primitive objects in JavaScript, meaning you only need to import the package into your root file. <br />
                         <br />
                         For more information, go to <a href="https://github.com/oathompsonjones/simple-node-utils">github.com</a> or <a href="https://www.npmjs.com/package/simple-node-utils">npmjs.com</a>.

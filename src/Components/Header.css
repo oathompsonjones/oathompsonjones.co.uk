@@ -1,0 +1,70 @@
+#header {
+    background-color: var(--colour-primary-foreground);
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1;
+}
+#nav { 
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+#nav-mobile { display: none; }
+.nav-list-item {
+    padding: 14px 16px;
+    text-align: left;
+    text-decoration: none;
+    transition: 0.3s;
+    display: inline-block;
+}
+.nav-list-item:hover { background-color: var(--colour-secondary-foreground); }
+/* Dropdown */
+#nav-dropdown { float: right; }
+#nav-dropdown a { min-width: 210px; }
+#nav-dropdown-content { display: none; }
+#nav-dropdown:hover #nav-dropdown-content { 
+    display: block;
+    background-color: var(--colour-primary-foreground);
+    z-index: 1;
+    position: absolute;
+}
+/* Social links */
+#discord         { background-color: #7289da; }
+#discord:hover   { background-color: #6178c9; }
+#twitter         { background-color: #1da1f2; }
+#twitter:hover   { background-color: #0c90e1; }
+#facebook        { background-color: #3b5998; }
+#facebook:hover  { background-color: #2a4887; }
+#instagram       { background-color: #c32aa3; }
+#instagram:hover { background-color: #b21992; }
+#github          { background-color: #211f1f; }
+#github:hover    { background-color: #100e0e; }
+#linkedin        { background-color: #1f52a3; }
+#linkedin:hover  { background-color: #0e4192; }
+.nav-social-link {
+    color: var(--colour-primary-text);
+    display: inline-block;
+    text-align: left;
+    text-decoration: none;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.nav-social-link img { 
+    float: left;
+    height: 50px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+/* Mobile Nav */
+@media screen and (max-width: 700px) {
+    #nav { display: none; }
+    #nav-mobile {
+        display: block; 
+        overflow: hidden;
+    }
+    #nav-dropdown, .nav-list-item { width: 100%; }
+}

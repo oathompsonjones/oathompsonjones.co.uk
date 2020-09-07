@@ -12,9 +12,7 @@ export default class Social extends Component {
                             I am available on many platforms, so feel free to contact me via any of those listed below. <br />
                             <br />
                         </p>
-                        <div id="contact-links" style={{
-                            textAlign: "center"
-                        }}>
+                        <div id="contact-links" style={{ textAlign: "center" }}>
                             <p>
                                 <a href="mailto:oathompsonjones@gmail.com">oathompsonjones@gmail.com</a><br />
                                 <a href="https://discord.com/users/310145094684639235">Discord</a><br />
