@@ -1,3 +1,4 @@
+import { relative } from "path";
 import React, { Component } from "react";
 import Card from "../Components/Card";
 
@@ -49,7 +50,10 @@ export default class Portfolio extends Component {
                             </p>
                         </div>
                         <div style={!window.matchMedia("(max-width: 700px)").matches ? { width: "50%" } : { width: "100%" }}>
-                            <h3>A-Levels <small>*predictions</small></h3>
+                            <div style={{ alignItems: "center", display: "flex" }}>
+                                <h3>A-Levels</h3>
+                                <small>*predictions</small>
+                            </div>
                             <p>
                                 Computer Science - A* <br />
                                 Further Mathematics - A <br />
