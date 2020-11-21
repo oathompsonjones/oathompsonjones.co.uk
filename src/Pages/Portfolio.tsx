@@ -49,12 +49,12 @@ export default class Portfolio extends Component {
                             </p>
                         </div>
                         <div style={!window.matchMedia("(max-width: 700px)").matches ? { width: "50%" } : { width: "100%" }}>
-                            <h3>A-Levels</h3>
+                            <h3>A-Levels <small>*predictions</small></h3>
                             <p>
-                                Computer Science - TBC <br />
-                                Further Mathematics - TBC <br />
-                                Mathematics - TBC <br />
-                                Physics - TBC <br />
+                                Computer Science - A* <br />
+                                Further Mathematics - A <br />
+                                Mathematics - A* <br />
+                                Physics - A* <br />
                             </p>
                         </div>
                     </div>
