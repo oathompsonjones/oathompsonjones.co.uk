@@ -22,11 +22,11 @@ export default class App extends Component {
                     <Route exact path="/" component={Home} />
                     <Route exact path="/portfolio" component={Portfolio} />
                     <Route exact path="/projects" component={Projects} />
-                    <Route path="/contact" component={Social} />
+                    <Route exact path="/contact" component={Social} />
                     <Route component={Error} />
                 </Switch>
-                <div style={{ height: .01 }} />
-            </HashRouter >
+                <div style={{ height: 0.01 }} />
+            </HashRouter>
         );
     }
 }
