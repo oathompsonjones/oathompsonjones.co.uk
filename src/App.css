@@ -21,6 +21,15 @@ body {
     color: var(--colour-primary-text);
 }
 
+/* Cards */
+.card {
+    margin: 5px;
+    width: 100%;
+}
+.card-img {
+    border-radius: 30%;
+}
+
 /* Fonts */
 h1,
 h2,

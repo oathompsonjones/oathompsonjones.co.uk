@@ -10,6 +10,20 @@
     ],
     "text": [
         "#ededed",
-        "#1x7eea"
-    ]
+        "#1c7eea"
+    ],
+    "social": {
+        "discord": "#7289da",
+        "discordDark": "#6178c9",
+        "twitter": "#1da1f2",
+        "twitterDark": "#0c90e1",
+        "facebook": "#3b5998",
+        "facebookDark": "#2a4887",
+        "instagram": "#c32aa3",
+        "instagramDark": "#b21992",
+        "github": "#211f1f",
+        "githubDark": "#100e0e",
+        "linkedin": "#1f52a3",
+        "linkedinDark": "#0e4192"
+    }
 }

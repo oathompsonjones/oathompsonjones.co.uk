@@ -13,15 +13,15 @@ export default class App extends Component {
         document.title = "oathompsonjones";
         return (
             <HashRouter>
-                <Header />
+                <Header/>
                 <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route exact path="/portfolio" component={Portfolio} />
-                    <Route exact path="/projects" component={Projects} />
-                    <Route exact path="/contact" component={Social} />
-                    <Route component={Error} />
+                    <Route exact path="/" component={Home}/>
+                    <Route exact path="/portfolio" component={Portfolio}/>
+                    <Route exact path="/projects" component={Projects}/>
+                    <Route exact path="/contact" component={Social}/>
+                    <Route component={Error}/>
                 </Switch>
-                <div style={{ height: 0.01 }} />
+                <div style={{ height: 0.01 }}/>
             </HashRouter>
         );
     }
