@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Card from "../Components/Card";
 
 export default class Social extends Component {
-    public render() {
+    public render(): JSX.Element {
         document.title = "Oliver Jones | Contact";
         return (
             <div id="contact">

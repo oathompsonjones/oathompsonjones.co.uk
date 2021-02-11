@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import Colours from "../Colours.json";
 
 export default class Card extends Component {
-    constructor(public props: { heading: string; text: JSX.Element; }) {
+    public constructor(public props: { heading: string; text: JSX.Element; }) {
         super(props);
     }
 
-    public render() {
+    public render(): JSX.Element {
         return (
             <div style={{
                 display: "flex",

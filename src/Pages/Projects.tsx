@@ -1,13 +1,46 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import Card from "../Components/Card";
 import Astro from "../Images/Project Logos/Astro.png";
-import NodeJS from "../Images/Project Logos/NodeJS.png";
+import Card from "../Components/Card";
 import Interact from "../Images/Project Logos/Interact.png";
+import { Link } from "react-router-dom";
+import NodeJS from "../Images/Project Logos/NodeJS.png";
 import React1 from "../Images/Project Logos/React.png";
 
+class ProjectCard extends Component {
+    public constructor(public props: { heading: string; image: string; text: JSX.Element; }) {
+        super(props);
+    }
+
+    public render(): JSX.Element {
+        return (
+            <div >
+                <Card heading={this.props.heading} text={
+                    <div>
+                        <img alt={this.props.heading} src={this.props.image} style={!window.matchMedia("(max-width: 700px)").matches
+                            ? {
+                                borderRadius: 20,
+                                display: "block",
+                                float: "left",
+                                height: 100,
+                                margin: 10
+                            } : {
+                                borderRadius: 20,
+                                display: "block",
+                                height: "auto",
+                                margin: "auto",
+                                padding: 10,
+                                width: "75%"
+                            }} />
+                        {this.props.text}
+                    </div>
+                } />
+            </div>
+        );
+    }
+}
+
 export default class Projects extends Component {
-    public render() {
+    public render(): JSX.Element {
         document.title = "Oliver Jones | Projects";
         return (
             <div>
@@ -40,39 +73,6 @@ export default class Projects extends Component {
                         This website needs litte explanation. Read the <Link to="/">Home</Link> page to find out more.
                     </p>
                 } image={React1} />
-            </div>
-        );
-    }
-}
-
-
-class ProjectCard extends Component {
-    constructor(public props: { heading: string; text: JSX.Element; image: string; }) {
-        super(props);
-    }
-
-    public render() {
-        console.log(!window.matchMedia("(max-width: 700px)").matches)
-        return (
-            <div >
-                <Card heading={this.props.heading} text={
-                    <div>
-                        <img alt={this.props.heading} src={this.props.image} style={!window.matchMedia("(max-width: 700px)").matches
-                            ? {
-                                float: "left",
-                                height: 100,
-                                margin: 10,
-                                display: "block"
-                            } : {
-                                width: "75%",
-                                height: "auto",
-                                margin: "auto",
-                                padding: 10,
-                                display: "block"
-                            }} />
-                        {this.props.text}
-                    </div>
-                } />
             </div>
         );
     }

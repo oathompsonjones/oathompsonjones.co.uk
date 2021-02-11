@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 export default class Error extends Component {
-    public render() {
+    public render(): JSX.Element {
         document.title = "Oliver Jones | 404 Error";
         return (
             <div id="404">

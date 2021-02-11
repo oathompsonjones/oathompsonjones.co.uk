@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Card from "../Components/Card";
 
 export default class Home extends Component {
-    public render() {
+    public render(): JSX.Element {
         document.title = "Oliver Jones";
         return (
             <div id="home">
