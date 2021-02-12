@@ -19,7 +19,7 @@ export default class Portfolio extends Component {
                     </Card>
                 </Row>
                 <Row className="justify-content-md-center">
-                    <Card style={{ width: "49%" }} bg="dark">
+                    <Card style={!window.matchMedia("(max-width: 700px)").matches ? { width: "49%" } : { width: "100%" }} bg="dark">
                         <Card.Body>
                             <Card.Title>GCSEs (9-1)</Card.Title>
                             <Card.Text>
@@ -35,7 +35,7 @@ export default class Portfolio extends Component {
                             </Card.Text>
                         </Card.Body>
                     </Card>
-                    <Card style={{ width: "49%" }} bg="dark">
+                    <Card style={!window.matchMedia("(max-width: 700px)").matches ? { width: "49%" } : { width: "100%" }} bg="dark">
                         <Card.Body>
                             <Card.Title>A-Levels <Badge pill variant="primary">Predicted</Badge></Card.Title>
                             <Card.Text>

@@ -12,7 +12,7 @@ export default class Projects extends Component {
         return (
             <Container style={{ width: "90%" }}>
                 <Row className="justify-content-md-center">
-                    <Card style={{ width: "24%" }} bg="dark">
+                    <Card style={!window.matchMedia("(max-width: 700px)").matches ? { width: "24%" } : { width: "100%" }} bg="dark">
                         <Card.Img src={Astro}/>
                         <Card.Body>
                             <Card.Title>Astro</Card.Title>
@@ -24,7 +24,7 @@ export default class Projects extends Component {
                             </Card.Text>
                         </Card.Body>
                     </Card>
-                    <Card style={{ width: "24%" }} bg="dark">
+                    <Card style={!window.matchMedia("(max-width: 700px)").matches ? { width: "24%" } : { width: "100%" }} bg="dark">
                         <Card.Img src={NodeJS}/>
                         <Card.Body>
                             <Card.Title>Simple Node Utils</Card.Title>
@@ -36,7 +36,7 @@ export default class Projects extends Component {
                             </Card.Text>
                         </Card.Body>
                     </Card>
-                    <Card style={{ width: "24%" }} bg="dark">
+                    <Card style={!window.matchMedia("(max-width: 700px)").matches ? { width: "24%" } : { width: "100%" }} bg="dark">
                         <Card.Img src={Interact}/>
                         <Card.Body>
                             <Card.Title>TBSHS Interact Website</Card.Title>
@@ -48,7 +48,7 @@ export default class Projects extends Component {
                             </Card.Text>
                         </Card.Body>
                     </Card>
-                    <Card style={{ width: "24%" }} bg="dark">
+                    <Card style={!window.matchMedia("(max-width: 700px)").matches ? { width: "24%" } : { width: "100%" }} bg="dark">
                         <Card.Img src={React1}/>
                         <Card.Body>
                             <Card.Title>This Website</Card.Title>
