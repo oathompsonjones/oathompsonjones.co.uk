@@ -1,5 +1,6 @@
 import { Card, Container, Row } from "react-bootstrap";
 import React, { Component } from "react";
+import MobBr from "../Components/MobileBr";
 
 export default class Social extends Component {
     public render(): JSX.Element {
@@ -12,13 +13,13 @@ export default class Social extends Component {
                             <Card.Title>Contact Information</Card.Title>
                         </Card.Header>
                         <Card.Body>
-                            <Card.Link href="mailto:oathompsonjones@gmail.com">oathompsonjones@gmail.com</Card.Link>
-                            <Card.Link href="https://discord.com/users/310145094684639235">Discord</Card.Link>
-                            <Card.Link href="https://facebook.com/oathompsonjones">Facebook</Card.Link>
-                            <Card.Link href="https://github.com/oathompsonjones">GitHub</Card.Link>
-                            <Card.Link href="https://instagram.com/oathompsonjones">Instagram</Card.Link>
-                            <Card.Link href="https://linkedin.com/in/oathompsonjones">LinkedIn</Card.Link>
-                            <Card.Link href="https://twitter.com/oathompsonjones">Twitter</Card.Link>
+                            <Card.Link href="mailto:oathompsonjones@gmail.com">oathompsonjones@gmail.com</Card.Link><MobBr/>
+                            <Card.Link href="https://discord.com/users/310145094684639235">Discord</Card.Link><MobBr/>
+                            <Card.Link href="https://facebook.com/oathompsonjones">Facebook</Card.Link><MobBr/>
+                            <Card.Link href="https://github.com/oathompsonjones">GitHub</Card.Link><MobBr/>
+                            <Card.Link href="https://instagram.com/oathompsonjones">Instagram</Card.Link><MobBr/>
+                            <Card.Link href="https://linkedin.com/in/oathompsonjones">LinkedIn</Card.Link><MobBr/>
+                            <Card.Link href="https://twitter.com/oathompsonjones">Twitter</Card.Link><MobBr/>
                         </Card.Body>
                     </Card>
                 </Row>
