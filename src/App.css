@@ -1,24 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic);
-:root {
-    /* Background Colours */
-    --colour-primary-background: #171717;
-    --colour-secondary-background: #4a4a4a;
-    --colour-tertiary-background: #7d7d7d;
-    /* Foreground Colours */
-    --colour-primary-foreground: #1c7eea;
-    --colour-secondary-foreground: #0b6dd9;
-    /* Text Colours */
-    --colour-primary-text: #ededed;
-    --colour-secondary-text: var(--colour-primary-foreground);
-}
+
 html,
 body {
     height: 100%;
     width: 100%;
 }
 body {
-    background: var(--colour-primary-background);
-    color: var(--colour-primary-text);
+    background: #171717;
+    color: #ededed;
 }
 
 /* Cards */
@@ -34,12 +23,13 @@ body {
 h1,
 h2,
 h3,
+h4,
+h5,
+h6,
 p {
     font-family: Lato;
     font-style: normal;
     font-variant: normal;
-    margin: 10px;
-    color: var(--colour-primary-text);
 }
 h1,
 h2,
@@ -59,6 +49,5 @@ p {
     font-size: 20px;
 }
 a {
-    color: var(--colour-secondary-text);
     text-decoration: none;
 }

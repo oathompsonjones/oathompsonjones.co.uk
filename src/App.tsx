@@ -21,7 +21,6 @@ export default class App extends Component {
                     <Route exact path="/contact" component={Social}/>
                     <Route component={Error}/>
                 </Switch>
-                <div style={{ height: 0.01 }}/>
             </HashRouter>
         );
     }

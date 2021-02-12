@@ -5,7 +5,7 @@ export default class Home extends Component {
     public render(): JSX.Element {
         document.title = "Oliver Jones";
         return (
-            <Container fluid style={{ width: "90%" }}>
+            <Container style={{ width: "90%" }}>
                 <Row className="justify-content-md-center">
                     <Card bg="dark">
                         <Card.Body>
