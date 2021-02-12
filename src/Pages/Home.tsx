@@ -8,8 +8,10 @@ export default class Home extends Component {
             <Container style={{ width: "90%" }}>
                 <Row className="justify-content-md-center">
                     <Card bg="dark">
-                        <Card.Body>
+                        <Card.Header>
                             <Card.Title>Info</Card.Title>
+                        </Card.Header>
+                        <Card.Body>
                             <Card.Text>
                                 My name is Oliver Jones, and this website is the hub on my online presence. <br/>
                                 You can find my <a href="/#/portfolio">portfolio</a>, my <a href="/#/contact">contact information</a>, and a collection of some of my <a href="/#/projects">projects</a>.

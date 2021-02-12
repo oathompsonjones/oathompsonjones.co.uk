@@ -8,8 +8,10 @@ export default class Portfolio extends Component {
             <Container style={{ width: "90%" }}>
                 <Row className="justify-content-md-center">
                     <Card bg="dark">
-                        <Card.Body>
+                        <Card.Header>
                             <Card.Title>Biography</Card.Title>
+                        </Card.Header>
+                        <Card.Body>
                             <Card.Text>
                                 <strong>Name:</strong> Oliver Jones <br/>
                                 <strong>Username:</strong> oathompsonjones <br/>
@@ -20,8 +22,10 @@ export default class Portfolio extends Component {
                 </Row>
                 <Row className="justify-content-md-center">
                     <Card style={!window.matchMedia("(max-width: 700px)").matches ? { width: "49%" } : { width: "100%" }} bg="dark">
-                        <Card.Body>
+                        <Card.Header>
                             <Card.Title>GCSEs (9-1)</Card.Title>
+                        </Card.Header>
+                        <Card.Body>
                             <Card.Text>
                                 Biology - 8 <br/>
                                 Chemistry - 7 <br/>
@@ -36,8 +40,10 @@ export default class Portfolio extends Component {
                         </Card.Body>
                     </Card>
                     <Card style={!window.matchMedia("(max-width: 700px)").matches ? { width: "49%" } : { width: "100%" }} bg="dark">
-                        <Card.Body>
+                        <Card.Header>
                             <Card.Title>A-Levels <Badge pill variant="primary">Predicted</Badge></Card.Title>
+                        </Card.Header>
+                        <Card.Body>
                             <Card.Text>
                                 Computer Science - A* <br/>
                                 Further Mathematics - A <br/>

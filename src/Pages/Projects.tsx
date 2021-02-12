@@ -14,8 +14,10 @@ export default class Projects extends Component {
                 <Row className="justify-content-md-center">
                     <Card style={!window.matchMedia("(max-width: 700px)").matches ? { width: "24%" } : { width: "100%" }} bg="dark">
                         <Card.Img src={Astro}/>
-                        <Card.Body>
+                        <Card.Header>
                             <Card.Title>Astro</Card.Title>
+                        </Card.Header>
+                        <Card.Body>
                             <Card.Text>
                                 Astro is a multi-purpose Discord Bot which I have been working on for a few years, and which I am still constantly updating. <br/>
                                 It is designed to be the only bot you could need in a Discord Server, and is made to be easy to operate for any user.<br/>
@@ -26,8 +28,10 @@ export default class Projects extends Component {
                     </Card>
                     <Card style={!window.matchMedia("(max-width: 700px)").matches ? { width: "24%" } : { width: "100%" }} bg="dark">
                         <Card.Img src={NodeJS}/>
-                        <Card.Body>
+                        <Card.Header>
                             <Card.Title>Simple Node Utils</Card.Title>
+                        </Card.Header>
+                        <Card.Body>
                             <Card.Text>
                                 This NPM package is designed to make programmers' lives a little bit easier by providing a collection of useful functions.<br/>
                                 These functions generally extend the prototypes of primitive objects in JavaScript, meaning you only need to import the package into your root file. <br/>
@@ -38,8 +42,10 @@ export default class Projects extends Component {
                     </Card>
                     <Card style={!window.matchMedia("(max-width: 700px)").matches ? { width: "24%" } : { width: "100%" }} bg="dark">
                         <Card.Img src={Interact}/>
-                        <Card.Body>
+                        <Card.Header>
                             <Card.Title>TBSHS Interact Website</Card.Title>
+                        </Card.Header>
+                        <Card.Body>
                             <Card.Text>
                                 Interact is the the charity and fundraising organisation at <a href="http://tbshs.org">The Bishop's Stortford High School</a>.<br/>
                                 I served as the President of Interact during the 2020/21 school year.<br/>
@@ -50,10 +56,12 @@ export default class Projects extends Component {
                     </Card>
                     <Card style={!window.matchMedia("(max-width: 700px)").matches ? { width: "24%" } : { width: "100%" }} bg="dark">
                         <Card.Img src={React1}/>
-                        <Card.Body>
+                        <Card.Header>
                             <Card.Title>This Website</Card.Title>
+                        </Card.Header>
+                        <Card.Body>
                             <Card.Text>
-                                This website needs litte explanation. Read the <Link to="/">Home</Link> page to find out more.
+                                This website needs little explanation. Read the <Link to="/">Home</Link> page to find out more.
                             </Card.Text>
                         </Card.Body>
                     </Card>
