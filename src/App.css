@@ -10,15 +10,6 @@ body {
     color: #ededed;
 }
 
-/* Cards */
-.card {
-    margin: 5px;
-    width: 100%;
-}
-.card-img {
-    border-radius: 5%;
-}
-
 /* Fonts */
 h1,
 h2,

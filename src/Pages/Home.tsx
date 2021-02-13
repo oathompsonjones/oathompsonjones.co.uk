@@ -1,5 +1,6 @@
-import { Card, Container, Row } from "react-bootstrap";
+import { Carousel, Container, Row } from "react-bootstrap";
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class Home extends Component {
     public render(): JSX.Element {
@@ -7,19 +8,44 @@ export default class Home extends Component {
         return (
             <Container style={{ width: "90%" }}>
                 <Row className="justify-content-md-center">
-                    <Card bg="dark">
-                        <Card.Header>
-                            <Card.Title>Info</Card.Title>
-                        </Card.Header>
-                        <Card.Body>
-                            <Card.Text>
-                                My name is Oliver Jones, and this website is the hub on my online presence. <br/>
-                                You can find my <a href="/#/portfolio">portfolio</a>, my <a href="/#/contact">contact information</a>, and a collection of some of my <a href="/#/projects">projects</a>.
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
+                    <Carousel>
+                        <Carousel.Item>
+                            <img className="d-block w-100" src={this._createImage()} alt="Portfolio"/>
+                            <Carousel.Caption>
+                                <Link to="/portfolio">
+                                    <h1>Portfolio</h1>
+                                </Link>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img className="d-block w-100" src={this._createImage()} alt="Projects"/>
+                            <Carousel.Caption>
+                                <Link to="/projects">
+                                    <h1>Projects</h1>
+                                </Link>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img className="d-block w-100" src={this._createImage()} alt="Contact"/>
+                            <Carousel.Caption>
+                                <Link to="/contact">
+                                    <h1>Contact</h1>
+                                </Link>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                    </Carousel>
                 </Row>
             </Container>
         );
+    }
+
+    private _createImage(): string {
+        const canvas: HTMLCanvasElement = document.createElement("canvas");
+        canvas.width = 500;
+        canvas.height = 250;
+        const context: CanvasRenderingContext2D = canvas.getContext("2d") as CanvasRenderingContext2D;
+        context.fillStyle = "rgba(255, 255, 255, 0.1)";
+        context.fillRect(0, 0, 500, 250);
+        return canvas.toDataURL();
     }
 }

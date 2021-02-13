@@ -8,11 +8,11 @@ export default class Social extends Component {
         return (
             <Container style={{ width: "90%" }}>
                 <Row className="justify-content-md-center">
-                    <Card bg="dark">
+                    <Card style={{ width: "100%" }} bg="dark">
                         <Card.Header>
                             <Card.Title>Contact Information</Card.Title>
                         </Card.Header>
-                        <Card.Body>
+                        <Card.Body style={{ textAlign: "center" }}>
                             <Card.Link href="mailto:oathompsonjones@gmail.com">oathompsonjones@gmail.com</Card.Link><MobBr/>
                             <Card.Link href="https://discord.com/users/310145094684639235">Discord</Card.Link><MobBr/>
                             <Card.Link href="https://facebook.com/oathompsonjones">Facebook</Card.Link><MobBr/>
