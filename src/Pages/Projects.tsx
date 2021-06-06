@@ -23,7 +23,7 @@ export default class Projects extends Component {
                         Interact is the the charity and fundraising organisation at <a href="http://tbshs.org">The Bishop's Stortford High School</a>.<br/>
                         I served as the President of Interact during the 2020/21 school year.<br/>
                         <br/>
-                        Interact's website is located at <a href="https://tbshsinteract.live">tbshsinteract.live</a>.
+                        Interact's website is located at <a href="https://tbshs-interact.github.io">tbshs-interact.github.io</a>.
                     </Project>
                     <Project title="This Website" img={React1}>
                         This website needs little explanation. Read the <Link to="/">Home</Link> page to find out more.
