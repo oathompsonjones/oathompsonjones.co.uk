@@ -11,7 +11,7 @@ export default class Projects extends Component {
     public render(): JSX.Element {
         document.title = "Oliver Jones | Projects";
         return (
-            <Container style={{ width: "90%" }}>
+            <Container>
                 <CardColumns>
                     <Project title="Astro" img={Astro}>
                         Astro is a multi-purpose Discord Bot which I have been working on for a few years, and which I am still constantly updating. <br/>
