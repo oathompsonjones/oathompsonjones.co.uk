@@ -70,6 +70,19 @@ export default class Portfolio extends Component {
                                     Attained at <a href="https://tbshs.org">The Bishop's Stortford High School</a> in 2021.
                                 </Card.Footer>
                             </Card>
+                            <Card bg="dark">
+                                <Card.Header>
+                                    <Card.Title>Further Education</Card.Title>
+                                </Card.Header>
+                                <Card.Body>
+                                    <Card.Text>
+                                        Currently studying Undergraduate Computer Science at the University of Edinburgh.
+                                    </Card.Text>
+                                </Card.Body>
+                                <Card.Footer>
+                                    <a href="https://ed.ac.uk">The University of Edinburgh</a>
+                                </Card.Footer>
+                            </Card>
                         </CardColumns>
                     </Col>
                 </Row>
