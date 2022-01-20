@@ -15,7 +15,6 @@ export default class Portfolio extends Component {
                             <Card.Body>
                                 <Card.Text>
                                     <strong>Name:</strong> Oliver Andrew Thompson Jones <br/>
-                                    {/* <strong>Online Name:</strong> oathompsonjones (pronounced o-a-thompson-jones) <br/> */}
                                     <strong>Nationality:</strong> British <br />
                                     <strong>Age:</strong> {((): number => {
                                         const today: Date = new Date();

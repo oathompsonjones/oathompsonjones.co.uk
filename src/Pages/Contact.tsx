@@ -1,6 +1,6 @@
 import { Card, Col, Container, Row } from "react-bootstrap";
 import React, { Component } from "react";
-import MobBr from "../Components/MobileBr";
+import MobBr from "../Components/MobBr";
 
 export default class Social extends Component {
     public render(): JSX.Element {

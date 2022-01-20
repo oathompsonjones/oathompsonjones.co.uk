@@ -1,6 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic);
 
-// CSpell:disable-next-line
 $theme-colors: (
     "primary": #1c7eea
 );
@@ -10,6 +9,7 @@ html,
 body {
     height: 100%;
     width: 100%;
+    margin: 0;
 }
 body {
     background: rgb(35, 39, 42);
@@ -34,8 +34,6 @@ h3 {
     font-weight: bold;
 }
 h1 {
-    font-size: 35px;
-    // CSpell:disable-next-line
     color: map-get($theme-colors, "primary");
 }
 h2 {
@@ -59,11 +57,9 @@ code {
     white-space: pre;
 }
 strong {
-    // CSpell:disable-next-line
     color: map-get($theme-colors, "primary");
 }
 hr {
-    // CSpell:disable-next-line
     background-color: map-get($theme-colors, "primary");
 }
 
@@ -73,14 +69,11 @@ hr {
     height: 1px;
 }
 ::-webkit-scrollbar-track {
-    // CSpell:disable-next-line
     background: map-get($theme-colors, "dark");
 }
 ::-webkit-scrollbar-thumb {
-    // CSpell:disable-next-line
     background: map-get($theme-colors, "primary");
 }
 ::-webkit-scrollbar-thumb:hover {
-    // CSpell:disable-next-line
     background: map-get($theme-colors, "primary");
 }
