@@ -27,10 +27,10 @@ export default class Home extends Component {
                                 </Carousel.Caption>
                             </Carousel.Item>
                             <Carousel.Item>
-                                <Image src={this._createImage()} alt="Instagram" />
+                                <Image src={this._createImage()} alt="Gallery" />
                                 <Carousel.Caption>
-                                    <Link to="/instagramPosts">
-                                        <h1>Instagram</h1>
+                                    <Link to="/gallery">
+                                        <h1>Gallery</h1>
                                     </Link>
                                 </Carousel.Caption>
                             </Carousel.Item>

@@ -1,10 +1,10 @@
-import * as Typings from "../../../Typings";
 import { CardColumns, Col, Container, Row, Spinner } from "react-bootstrap";
 import React, { Component } from "react";
 import axios, { AxiosResponse } from "axios";
+import { Instagram } from "../../../Typings";
 import InstagramPost from "../Components/InstagramPost";
 
-export default class Instagram extends Component<{}, { posts: Typings.Instagram.IPost[]; }> {
+export default class Gallery extends Component<{}, { posts: Instagram.IPost[]; }> {
     public constructor() {
         super({});
         this.state = { posts: [] };
@@ -12,7 +12,7 @@ export default class Instagram extends Component<{}, { posts: Typings.Instagram.
 
     public async componentDidMount(): Promise<void> {
         try {
-            const res: AxiosResponse<Typings.Instagram.IPost[]> = await axios.get("/api/instagram");
+            const res: AxiosResponse<Instagram.IPost[]> = await axios.get("/api/instagram");
             this.setState({ posts: res.data });
         } catch (err) {
             console.error(err);
@@ -20,7 +20,7 @@ export default class Instagram extends Component<{}, { posts: Typings.Instagram.
     }
 
     public render(): JSX.Element {
-        document.title = "Oliver Jones | Instagram";
+        document.title = "Oliver Jones | Gallery";
         return this.state.posts.length === 0
             ? <Container style={{ textAlign: "center" }}>
                 <Row>
