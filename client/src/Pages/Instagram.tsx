@@ -11,14 +11,12 @@ export default class Instagram extends Component<{}, { posts: Typings.Instagram.
     }
 
     public async componentDidMount(): Promise<void> {
-        console.time();
         try {
             const res: AxiosResponse<Typings.Instagram.IPost[]> = await axios.get("/api/instagram");
             this.setState({ posts: res.data });
         } catch (err) {
             console.error(err);
         }
-        console.timeEnd();
     }
 
     public render(): JSX.Element {

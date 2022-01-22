@@ -13,7 +13,7 @@ export default class Home extends Component {
                             <Carousel.Item>
                                 <Image src={this._createImage()} alt="Portfolio"/>
                                 <Carousel.Caption>
-                                    <Link to="/portfolio">
+                                    <Link to="oathompsonjones.co.uk/portfolio">
                                         <h1>Portfolio</h1>
                                     </Link>
                                 </Carousel.Caption>
@@ -21,15 +21,23 @@ export default class Home extends Component {
                             <Carousel.Item>
                                 <Image src={this._createImage()} alt="Projects"/>
                                 <Carousel.Caption>
-                                    <Link to="/projects">
+                                    <Link to="oathompsonjones.co.uk/projects">
                                         <h1>Projects</h1>
+                                    </Link>
+                                </Carousel.Caption>
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <Image src={this._createImage()} alt="Instagram" />
+                                <Carousel.Caption>
+                                    <Link to="oathompsonjones.co.uk/instagramPosts">
+                                        <h1>Instagram</h1>
                                     </Link>
                                 </Carousel.Caption>
                             </Carousel.Item>
                             <Carousel.Item>
                                 <Image src={this._createImage()} alt="Contact"/>
                                 <Carousel.Caption>
-                                    <Link to="/contact">
+                                    <Link to="oathompsonjones.co.uk/contact">
                                         <h1>Contact</h1>
                                     </Link>
                                 </Carousel.Caption>
