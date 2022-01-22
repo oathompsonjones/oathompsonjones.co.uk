@@ -1,7 +1,7 @@
 {
     "name": "oathompsonjones",
     "scripts": {
-        "start": "cd client && npm run build && cd ../ && tsc && sudo node index",
+        "start": "cd client && npm run build && cd ../ && tsc && node index",
         "eslint": "cd client && eslint \"**\" && cd ../ && eslint \"**\"",
         "check": "cd client && eslint \"**\" && cd ../ && eslint \"**\" && tsc"
     },
