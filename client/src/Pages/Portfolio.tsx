@@ -79,7 +79,7 @@ export default class Portfolio extends Component {
                                     </Card.Text>
                                 </Card.Body>
                                 <Card.Footer>
-                                    <a href="https://ed.ac.uk">The University of Edinburgh</a>
+                                    Studying at <a href="https://ed.ac.uk">The University of Edinburgh</a> since 2021.
                                 </Card.Footer>
                             </Card>
                         </CardColumns>

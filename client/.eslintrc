@@ -3,7 +3,7 @@
     "parserOptions": {
         "ecmaVersion": 2021,
         "sourceType": "module",
-        "project": "tsconfig.json"
+        "project": "./tsconfig.json"
     },
     "env": {
         "node": true
@@ -11,9 +11,19 @@
     "root": true,
     "ignorePatterns": [
         "node_modules",
+        "build",
         "**/*.json",
-        "client",
-        "Typings"
+        "**/*.md",
+        "**/*.css",
+        "**/*.scss",
+        "**/*.png",
+        "**/*.html",
+        "**/*.txt",
+        "**/*.ico",
+        "setupTests.ts",
+        "reportWebVitals.ts",
+        "react-app-env.d.ts",
+        "index.tsx"
     ],
     "plugins": [
         "@typescript-eslint"
@@ -190,12 +200,7 @@
         "@typescript-eslint/no-empty-interface": 2,
         "@typescript-eslint/no-explicit-any": 2,
         "@typescript-eslint/no-extra-non-null-assertion": 2,
-        "@typescript-eslint/no-extraneous-class": [
-            2,
-            {
-                "allowStaticOnly": true
-            }
-        ],
+        "@typescript-eslint/no-extraneous-class": 2,
         "@typescript-eslint/no-floating-promises": 2,
         "@typescript-eslint/no-for-in-array": 2,
         "@typescript-eslint/no-misused-new": 2,
@@ -371,6 +376,7 @@
         "prefer-spread": 2,
         "prefer-template": 2,
         "sort-imports": 2,
-        "no-multiple-empty-lines": 2
+        "no-multiple-empty-lines": 2,
+        // "no-console": 2
     }
 }

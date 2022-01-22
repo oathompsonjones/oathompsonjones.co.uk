@@ -1,20 +1,32 @@
 {
     "compilerOptions": {
-        "target": "es5",
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "allowJs": true,
-        "skipLibCheck": true,
+        // Project Options
+        "module": "CommonJS",
+        "removeComments": true,
+        "target": "esNext",
+        // Strict Checks
+        "alwaysStrict": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strict": true,
+        "strictBindCallApply": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+        // Module Resolution
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
-        "strict": true,
-        "forceConsistentCasingInFileNames": true,
+        // Linter Checks
         "noFallthroughCasesInSwitch": true,
-        "module": "esnext",
-        "moduleResolution": "node",
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        // Advanced
+        "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
-        "isolatedModules": true,
-        "noEmit": true,
-        "jsx": "react-jsx"
+        "useDefineForClassFields": true
     },
-    "include": ["src"]
+    "include": [
+        "index.ts"
+    ]
 }
