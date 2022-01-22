@@ -76,7 +76,10 @@ void (async (): Promise<void> => {
 
     // Forward all other routes to the website.
     app.use(e.static(`${__dirname}/client/build`));
-    app.get("*", (_req, res) => void res.sendFile(`${__dirname}/client/build/index.html`));
+    app.get("*", (req, res) => {
+        console.log(req);
+        res.sendFile(`${__dirname}/client/build/index.html`);
+    });
 
     app.listen(config.port, () => void console.log(`Listening on port ${config.port}.`));
 })();
