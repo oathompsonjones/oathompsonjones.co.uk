@@ -13,7 +13,7 @@ export default class Home extends Component {
                             <Carousel.Item>
                                 <Image src={this._createImage()} alt="Portfolio"/>
                                 <Carousel.Caption>
-                                    <Link to="oathompsonjones.co.uk/portfolio">
+                                    <Link to="/portfolio">
                                         <h1>Portfolio</h1>
                                     </Link>
                                 </Carousel.Caption>
@@ -21,7 +21,7 @@ export default class Home extends Component {
                             <Carousel.Item>
                                 <Image src={this._createImage()} alt="Projects"/>
                                 <Carousel.Caption>
-                                    <Link to="oathompsonjones.co.uk/projects">
+                                    <Link to="/projects">
                                         <h1>Projects</h1>
                                     </Link>
                                 </Carousel.Caption>
@@ -29,7 +29,7 @@ export default class Home extends Component {
                             <Carousel.Item>
                                 <Image src={this._createImage()} alt="Instagram" />
                                 <Carousel.Caption>
-                                    <Link to="oathompsonjones.co.uk/instagramPosts">
+                                    <Link to="/instagramPosts">
                                         <h1>Instagram</h1>
                                     </Link>
                                 </Carousel.Caption>
@@ -37,7 +37,7 @@ export default class Home extends Component {
                             <Carousel.Item>
                                 <Image src={this._createImage()} alt="Contact"/>
                                 <Carousel.Caption>
-                                    <Link to="oathompsonjones.co.uk/contact">
+                                    <Link to="/contact">
                                         <h1>Contact</h1>
                                     </Link>
                                 </Carousel.Caption>
