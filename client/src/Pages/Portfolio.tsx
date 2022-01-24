@@ -23,7 +23,7 @@ export default class Portfolio extends Component {
                                             maxWidth: "33%"
                                         }} />
                                     </Col>
-                                    <Col>
+                                    <Col md="auto">
                                         <Card.Text>
                                             <strong>Name:</strong> Oliver Andrew Thompson Jones <br/>
                                             <strong>Nationality:</strong> British <br />
