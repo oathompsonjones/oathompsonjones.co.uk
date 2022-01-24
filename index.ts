@@ -99,7 +99,7 @@ void (async (): Promise<void> => {
         httpServer.listen(config.port, "oathompsonjones.co.uk");
         httpsServer.listen(config.port, "oathompsonjones.co.uk");
     } catch (err) {
-        console.log("HTTPS failed.");
+        console.log(`HTTPS failed.\n${err}`);
         app.listen(config.port);
     } finally {
         console.log(`Listening on port ${config.port}.`);
