@@ -15,7 +15,7 @@ export default class Portfolio extends Component {
                             </Card.Header>
                             <Card.Body>
                                 <Row>
-                                    <Col>
+                                    <Col md="auto">
                                         <Image src={Pfp} alt="Me" style={{
                                             borderRadius: 15,
                                             float: "left",
@@ -36,7 +36,6 @@ export default class Portfolio extends Component {
                                             })()}
                                         </Card.Text>
                                     </Col>
-                                    <Col></Col>
                                 </Row>
                             </Card.Body>
                         </Card>
