@@ -18,7 +18,8 @@ export default class Portfolio extends Component {
                                     borderRadius: 15,
                                     float: "left",
                                     height: "auto",
-                                    maxWidth: "33%"
+                                    margin: "10px",
+                                    maxWidth: "25%"
                                 }} />
                                 <Card.Text>
                                     <strong>Name:</strong> Oliver Andrew Thompson Jones <br/>
