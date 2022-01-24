@@ -12,7 +12,7 @@ import Social from "./Pages/Contact";
 
 export default class App extends Component {
     public render(): JSX.Element {
-        document.title = "oathompsonjones";
+        document.title = "Oliver Jones";
         return (
             <BrowserRouter>
                 <Header/>
