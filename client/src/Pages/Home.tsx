@@ -7,7 +7,7 @@ export default class Home extends Component {
         document.title = "Oliver Jones";
         return (
             <Container>
-                <Row>
+                <Row style={{ width: "100%" }}>
                     <Col>
                         <Carousel>
                             <Carousel.Item>
