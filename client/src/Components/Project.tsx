@@ -16,7 +16,7 @@ export default class Project extends Component {
                             {this.props.title}
                         </Card.Title>
                     </Card.Header>
-                    <Accordion.Toggle as={Card.Footer} className="text-muted" eventKey="0">
+                    <Accordion.Toggle as={Card.Footer}/*  ClassName="text-muted" */ eventKey="0">
                         Learn more
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey="0">
