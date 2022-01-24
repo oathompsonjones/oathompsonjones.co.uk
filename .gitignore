@@ -3,6 +3,7 @@ build
 node_modules
 package-lock.json
 config.json
+*.js
 
 .DS_Store
 .env.local
