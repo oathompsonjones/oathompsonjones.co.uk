@@ -4,7 +4,7 @@ import e, { Express } from "express";
 import { Instagram } from "./Typings";
 import bodyParser from "body-parser";
 import fs from "fs";
-// Import http from "http";
+import http from "http";
 import https from "https";
 
 void (async (): Promise<void> => {
@@ -94,14 +94,14 @@ void (async (): Promise<void> => {
         // HTTPS Certificate.
         const cert = fs.readFileSync("/etc/letsencrypt/live/oathompsonjones.co.uk/fullchain.pem");
         const key = fs.readFileSync("/etc/letsencrypt/live/oathompsonjones.co.uk/privkey.pem");
-        // Const httpServer = http.createServer(app);
+        const httpServer = http.createServer(app);
         const httpsServer = https.createServer({ cert, key }, app);
-        // HttpServer.listen(80, "oathompsonjones.co.uk");
-        httpsServer.listen(config.port, "oathompsonjones.co.uk");
+        httpServer.listen(80, "oathompsonjones.co.uk");
+        httpsServer.listen(443, "oathompsonjones.co.uk");
+        console.log("Listening on ports 443 and 80.");
     } catch (err) {
         console.log(`HTTPS failed.\n${err}`);
-        app.listen(config.port);
-    } finally {
-        console.log(`Listening on port ${config.port}.`);
+        app.listen(80);
+        console.log("Listening on port 80.");
     }
 })();
