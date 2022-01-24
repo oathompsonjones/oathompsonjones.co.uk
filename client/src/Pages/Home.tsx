@@ -11,36 +11,36 @@ export default class Home extends Component {
                     <Col>
                         <Carousel>
                             <Carousel.Item>
-                                <Image src={this._createImage()} alt="Portfolio"/>
-                                <Carousel.Caption>
-                                    <Link to="/portfolio">
+                                <Link to="/portfolio">
+                                    <Image src={this._createImage()} alt="Portfolio"/>
+                                    <Carousel.Caption>
                                         <h1>Portfolio</h1>
-                                    </Link>
-                                </Carousel.Caption>
+                                    </Carousel.Caption>
+                                </Link>
                             </Carousel.Item>
                             <Carousel.Item>
-                                <Image src={this._createImage()} alt="Projects"/>
-                                <Carousel.Caption>
-                                    <Link to="/projects">
+                                <Link to="/projects">
+                                    <Image src={this._createImage()} alt="Projects"/>
+                                    <Carousel.Caption>
                                         <h1>Projects</h1>
-                                    </Link>
-                                </Carousel.Caption>
+                                    </Carousel.Caption>
+                                </Link>
                             </Carousel.Item>
                             <Carousel.Item>
-                                <Image src={this._createImage()} alt="Gallery" />
-                                <Carousel.Caption>
-                                    <Link to="/gallery">
+                                <Link to="/gallery">
+                                    <Image src={this._createImage()} alt="Gallery" />
+                                    <Carousel.Caption>
                                         <h1>Gallery</h1>
-                                    </Link>
-                                </Carousel.Caption>
+                                    </Carousel.Caption>
+                                </Link>
                             </Carousel.Item>
                             <Carousel.Item>
-                                <Image src={this._createImage()} alt="Contact"/>
-                                <Carousel.Caption>
-                                    <Link to="/contact">
+                                <Link to="/contact">
+                                    <Image src={this._createImage()} alt="Contact"/>
+                                    <Carousel.Caption>
                                         <h1>Contact</h1>
-                                    </Link>
-                                </Carousel.Caption>
+                                    </Carousel.Caption>
+                                </Link>
                             </Carousel.Item>
                         </Carousel>
                     </Col>
