@@ -16,7 +16,11 @@ export default class Portfolio extends Component {
                             <Card.Body>
                                 <Row>
                                     <Col>
-                                        <Image src={Pfp} alt="Me" />
+                                        <Image src={Pfp} alt="Me" style={{
+                                            float: "left",
+                                            height: "auto",
+                                            maxWidth: "25%"
+                                        }} />
                                     </Col>
                                     <Col>
                                         <Card.Text>
