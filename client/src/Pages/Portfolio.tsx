@@ -1,6 +1,6 @@
 import { Card, CardColumns, Col, Container, Image, Row } from "react-bootstrap";
 import React, { Component } from "react";
-import Pfp from "../Images/Pfp.JPG";
+import Pfp from "../Images/pfp.jpg";
 
 export default class Portfolio extends Component {
     public render(): JSX.Element {
