@@ -1,5 +1,6 @@
-import { Card, CardColumns, Col, Container, Row } from "react-bootstrap";
+import { Card, CardColumns, Col, Container, Image, Row } from "react-bootstrap";
 import React, { Component } from "react";
+import Pfp from "../Images/Pfp.JPG";
 
 export default class Portfolio extends Component {
     public render(): JSX.Element {
@@ -13,6 +14,7 @@ export default class Portfolio extends Component {
                                 <Card.Title>Biography</Card.Title>
                             </Card.Header>
                             <Card.Body>
+                                <Image src={Pfp} alt="Me" />
                                 <Card.Text>
                                     <strong>Name:</strong> Oliver Andrew Thompson Jones <br/>
                                     <strong>Nationality:</strong> British <br />
