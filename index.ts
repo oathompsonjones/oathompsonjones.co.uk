@@ -76,8 +76,7 @@ void (async (): Promise<void> => {
 
     // Forward all other routes to the website.
     app.use(e.static(`${__dirname}/client/build`));
-    app.get("*", (req, res) => {
-        console.log(req);
+    app.get("*", (_req, res) => {
         res.sendFile(`${__dirname}/client/build/index.html`);
     });
 
