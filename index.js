@@ -27,8 +27,10 @@ const axios_1 = __importDefault(require("axios"));
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const fs_1 = __importDefault(require("fs"));
+const http_1 = __importDefault(require("http"));
+const https_1 = __importDefault(require("https"));
 void (async () => {
-    const app = (0, express_1.default)();
+    const app = express_1.default();
     app.use(body_parser_1.default.json());
     app.use(body_parser_1.default.urlencoded({ extended: true }));
     const jsonImport = (await Promise.resolve().then(() => __importStar(require("./config.json")))).default;
@@ -58,7 +60,7 @@ void (async () => {
             console.error(err);
             process.exit(0);
         }
-    }, 60_000);
+    }, 60000);
     app.get("/api/twitter", async (_req, res) => {
         res.sendStatus(500);
     });
@@ -82,7 +84,28 @@ void (async () => {
     app.get("/instagram", (_req, res) => void res.redirect("https://instagram.com/oathompsonjones"));
     app.get("/linkedin", (_req, res) => void res.redirect("https://linkedin.com/in/oathompsonjones"));
     app.get("/twitter", (_req, res) => void res.redirect("https://twitter.com/oathompsonjones"));
+    app.use((req, res, next) => {
+        if (req.protocol === "http")
+            res.redirect(301, `https://${req.headers.host}${req.url}`);
+        next();
+    });
     app.use(express_1.default.static(`${__dirname}/client/build`));
-    app.get("*", (_req, res) => void res.sendFile(`${__dirname}/client/build/index.html`));
-    app.listen(config.port, () => void console.log(`Listening on port ${config.port}.`));
+    app.get("*", (_req, res) => {
+        res.sendFile(`${__dirname}/client/build/index.html`);
+    });
+    try {
+        const cert = fs_1.default.readFileSync("/etc/letsencrypt/live/oathompsonjones.co.uk/fullchain.pem");
+        const key = fs_1.default.readFileSync("/etc/letsencrypt/live/oathompsonjones.co.uk/privkey.pem");
+        const httpServer = http_1.default.createServer(app);
+        const httpsServer = https_1.default.createServer({ cert, key }, app);
+        httpServer.listen(config.port, "oathompsonjones.co.uk");
+        httpsServer.listen(config.port, "oathompsonjones.co.uk");
+    }
+    catch (err) {
+        console.log("HTTPS failed.");
+        app.listen(config.port);
+    }
+    finally {
+        console.log(`Listening on port ${config.port}.`);
+    }
 })();
