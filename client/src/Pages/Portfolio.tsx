@@ -13,30 +13,24 @@ export default class Portfolio extends Component {
                             <Card.Header>
                                 <Card.Title>Biography</Card.Title>
                             </Card.Header>
-                            <Card.Body>
-                                <Row>
-                                    <Col md="auto">
-                                        <Image src={Pfp} alt="Me" style={{
-                                            borderRadius: 15,
-                                            float: "left",
-                                            height: "auto",
-                                            maxWidth: "33%"
-                                        }} />
-                                    </Col>
-                                    <Col md="auto">
-                                        <Card.Text>
-                                            <strong>Name:</strong> Oliver Andrew Thompson Jones <br/>
-                                            <strong>Nationality:</strong> British <br />
-                                            <strong>Age:</strong> {((): number => {
-                                                const today: Date = new Date();
-                                                const birthDate: Date = new Date(2003, 0, 2);
-                                                return today.getMonth() - birthDate.getMonth() <= 0 && today.getDate() < birthDate.getDate()
-                                                    ? today.getFullYear() - birthDate.getFullYear() - 1
-                                                    : today.getFullYear() - birthDate.getFullYear();
-                                            })()}
-                                        </Card.Text>
-                                    </Col>
-                                </Row>
+                            <Card.Body style={{ display: "flex" }}>
+                                <Image src={Pfp} alt="Me" style={{
+                                    borderRadius: 15,
+                                    float: "left",
+                                    height: "auto",
+                                    maxWidth: "33%"
+                                }} />
+                                <Card.Text>
+                                    <strong>Name:</strong> Oliver Andrew Thompson Jones <br/>
+                                    <strong>Nationality:</strong> British <br />
+                                    <strong>Age:</strong> {((): number => {
+                                        const today: Date = new Date();
+                                        const birthDate: Date = new Date(2003, 0, 2);
+                                        return today.getMonth() - birthDate.getMonth() <= 0 && today.getDate() < birthDate.getDate()
+                                            ? today.getFullYear() - birthDate.getFullYear() - 1
+                                            : today.getFullYear() - birthDate.getFullYear();
+                                    })()}
+                                </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
