@@ -14,18 +14,24 @@ export default class Portfolio extends Component {
                                 <Card.Title>Biography</Card.Title>
                             </Card.Header>
                             <Card.Body>
-                                <Image src={Pfp} alt="Me" />
-                                <Card.Text>
-                                    <strong>Name:</strong> Oliver Andrew Thompson Jones <br/>
-                                    <strong>Nationality:</strong> British <br />
-                                    <strong>Age:</strong> {((): number => {
-                                        const today: Date = new Date();
-                                        const birthDate: Date = new Date(2003, 0, 2);
-                                        return today.getMonth() - birthDate.getMonth() <= 0 && today.getDate() < birthDate.getDate()
-                                            ? today.getFullYear() - birthDate.getFullYear() - 1
-                                            : today.getFullYear() - birthDate.getFullYear();
-                                    })()}
-                                </Card.Text>
+                                <Row>
+                                    <Col>
+                                        <Image src={Pfp} alt="Me" />
+                                    </Col>
+                                    <Col>
+                                        <Card.Text>
+                                            <strong>Name:</strong> Oliver Andrew Thompson Jones <br/>
+                                            <strong>Nationality:</strong> British <br />
+                                            <strong>Age:</strong> {((): number => {
+                                                const today: Date = new Date();
+                                                const birthDate: Date = new Date(2003, 0, 2);
+                                                return today.getMonth() - birthDate.getMonth() <= 0 && today.getDate() < birthDate.getDate()
+                                                    ? today.getFullYear() - birthDate.getFullYear() - 1
+                                                    : today.getFullYear() - birthDate.getFullYear();
+                                            })()}
+                                        </Card.Text>
+                                    </Col>
+                                </Row>
                             </Card.Body>
                         </Card>
                     </Col>
