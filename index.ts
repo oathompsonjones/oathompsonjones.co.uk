@@ -4,7 +4,7 @@ import e, { Express } from "express";
 import { Instagram } from "./Typings";
 import bodyParser from "body-parser";
 import fs from "fs";
-import http from "http";
+// Import http from "http";
 import https from "https";
 
 void (async (): Promise<void> => {
@@ -77,11 +77,11 @@ void (async (): Promise<void> => {
     app.get("/twitter", (_req, res) => void res.redirect("https://twitter.com/oathompsonjones"));
 
     // Redirect http to https.
-    app.use((req, res, next) => {
+    /* App.use((req, res, next) => {
         if (req.protocol === "http")
             res.redirect(301, `https://${req.headers.host}${req.url}`);
         next();
-    });
+    }); */
     app.use(e.static(`${__dirname}/client/build`));
 
     // Forward all other routes to the website.
@@ -94,9 +94,9 @@ void (async (): Promise<void> => {
         // HTTPS Certificate.
         const cert = fs.readFileSync("/etc/letsencrypt/live/oathompsonjones.co.uk/fullchain.pem");
         const key = fs.readFileSync("/etc/letsencrypt/live/oathompsonjones.co.uk/privkey.pem");
-        const httpServer = http.createServer(app);
+        // Const httpServer = http.createServer(app);
         const httpsServer = https.createServer({ cert, key }, app);
-        httpServer.listen(config.port, "oathompsonjones.co.uk");
+        // HttpServer.listen(80, "oathompsonjones.co.uk");
         httpsServer.listen(config.port, "oathompsonjones.co.uk");
     } catch (err) {
         console.log(`HTTPS failed.\n${err}`);
