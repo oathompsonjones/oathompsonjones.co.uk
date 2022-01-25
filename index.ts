@@ -45,7 +45,7 @@ void (async (): Promise<void> => {
     // Redirect http to https.
     app.use((req, res, next) => {
         if (req.protocol === "http") res.redirect(`https://${req.headers.host}${req.url}`);
-        next();
+        else next();
     });
 
     // Serve static content.
@@ -75,10 +75,7 @@ void (async (): Promise<void> => {
     app.get("/twitter", (_req, res) => void res.redirect("https://twitter.com/oathompsonjones"));
 
     // Forward all other routes to the index.html file.
-    app.get("*", (_req, res, next) => {
-        res.sendFile(`${__dirname}/client/build/index.html`);
-        next();
-    });
+    app.get("*", (_req, res) => void res.sendFile(`${__dirname}/client/build/index.html`));
 
     // Start server.
     try {
