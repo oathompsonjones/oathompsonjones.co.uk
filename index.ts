@@ -77,7 +77,10 @@ void (async (): Promise<void> => {
     app.get("/twitter", (_req, res) => void res.redirect("https://twitter.com/oathompsonjones"));
 
     // Redirect http to https.
-    app.use(e.static(`${__dirname}/client/build`));
+    app.use((req, res, next) => {
+        e.static(`${__dirname}/client/build`)(req, res, next);
+        next();
+    });
     app.use((req, res) => {
         if (req.protocol === "http") res.redirect(`https://${req.headers.host}${req.url}`);
     });
