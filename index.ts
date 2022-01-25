@@ -75,7 +75,10 @@ void (async (): Promise<void> => {
     app.get("/twitter", (_req, res) => void res.redirect("https://twitter.com/oathompsonjones"));
 
     // Forward all other routes to the index.html file.
-    app.get("*", (_req, res) => void res.sendFile(`${__dirname}/client/build/index.html`));
+    app.get("*", (_req, res, next) => {
+        res.sendFile(`${__dirname}/client/build/index.html`);
+        next();
+    });
 
     // Start server.
     try {
