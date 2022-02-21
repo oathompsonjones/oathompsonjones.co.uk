@@ -44,7 +44,8 @@ void (async (): Promise<void> => {
 
     // Redirect http to https.
     app.use((req, res, next) => {
-        if (req.protocol === "http") res.redirect(`https://${req.headers.host}${req.url}`);
+        if (req.protocol === "http" && req.get("host") !== "localhost")
+            res.redirect(`https://${req.headers.host}${req.url}`);
         else next();
     });
 
