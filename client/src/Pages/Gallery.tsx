@@ -22,7 +22,7 @@ export default class Gallery extends Component<{}, { posts: Instagram.IPost[]; }
     public render(): JSX.Element {
         document.title = "Oliver Jones | Gallery";
         return this.state.posts.length === 0
-            ? <Container style={{ textAlign: "center" }}>
+            ? <Container>
                 <Row>
                     <Col>
                         <Spinner animation="border" variant="primary" />

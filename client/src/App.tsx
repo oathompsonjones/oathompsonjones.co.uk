@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
 import Error from "./Pages/Error";
+import Footer from "./Components/Footer";
 import Gallery from "./Pages/Gallery";
 import Header from "./Components/Header";
 import Home from "./Pages/Home";
@@ -24,6 +25,7 @@ export default class App extends Component {
                     <Route exact path="/contact" component={Contact}/>
                     <Route component={Error}/>
                 </Switch>
+                <Footer/>
             </BrowserRouter>
         );
     }
