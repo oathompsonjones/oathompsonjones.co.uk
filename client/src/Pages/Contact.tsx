@@ -15,12 +15,6 @@ export default class Contact extends Component<{}, { email: string | null; first
             <Container>
                 <Row>
                     <Col>
-                        <a href="https://twitter.com/oathompsonjones?ref_src=twsrc%5Etfw" className="twitter-follow-button" data-show-count="false">Follow @oathompsonjones</a>
-                        <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
                         <Card bg="dark">
                             <Card.Header>
                                 <Card.Title>Quick Links</Card.Title>
