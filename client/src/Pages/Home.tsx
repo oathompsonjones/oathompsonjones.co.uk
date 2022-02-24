@@ -19,16 +19,16 @@ export default class Home extends Component {
                                 </Link>
                             </Carousel.Item>
                             <Carousel.Item>
-                                <Link to="/projects">
-                                    <Image src={this._createImage()} alt="Projects"/>
+                                <Link to="/about">
+                                    <Image src={this._createImage()} alt="About Me"/>
                                     <Carousel.Caption>
-                                        <h1>Projects</h1>
+                                        <h1>About Me</h1>
                                     </Carousel.Caption>
                                 </Link>
                             </Carousel.Item>
                             <Carousel.Item>
                                 <Link to="/gallery">
-                                    <Image src={this._createImage()} alt="Gallery" />
+                                    <Image src={this._createImage()} alt="Gallery"/>
                                     <Carousel.Caption>
                                         <h1>Gallery</h1>
                                     </Carousel.Caption>
@@ -36,9 +36,9 @@ export default class Home extends Component {
                             </Carousel.Item>
                             <Carousel.Item>
                                 <Link to="/contact">
-                                    <Image src={this._createImage()} alt="Contact"/>
+                                    <Image src={this._createImage()} alt="Contact Me"/>
                                     <Carousel.Caption>
-                                        <h1>Contact</h1>
+                                        <h1>Contact Me</h1>
                                     </Carousel.Caption>
                                 </Link>
                             </Carousel.Item>

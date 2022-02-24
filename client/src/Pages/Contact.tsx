@@ -2,14 +2,14 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 import React, { Component } from "react";
 import MobBr from "../Components/MobBr";
 
-export default class Social extends Component<{}, { email: string | null; firstName: string | null; lastName: string | null; message: string | null; subject: string | null; }> {
+export default class Contact extends Component<{}, { email: string | null; firstName: string | null; lastName: string | null; message: string | null; subject: string | null; }> {
     public constructor(props: {}) {
         super(props);
         this.state = { email: null, firstName: null, lastName: null, message: null, subject: null };
     }
 
     public render(): JSX.Element {
-        document.title = "Oliver Jones | Contact";
+        document.title = "Oliver Jones | Contact Me";
 
         return (
             <Container>
