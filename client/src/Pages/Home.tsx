@@ -1,13 +1,26 @@
-import { Carousel, Col, Container, Image, Row } from "react-bootstrap";
+import { Button, Carousel, Col, Container, Image, Row } from "react-bootstrap";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Pfp from "../Images/pfp.jpg";
 
 export default class Home extends Component {
     public render(): JSX.Element {
         document.title = "Oliver Jones";
         return (
             <Container>
-                <Row style={{ width: "100%" }}>
+                <Image src={Pfp} alt="Me" style={{ borderRadius: 15, maxWidth: "50%" }} />
+                <h1>Oliver Jones</h1>
+                <hr />
+                <Row>
+                    <Col>
+                        <Button href="/about">About Me</Button>
+                    </Col>
+                    <Col>
+                        <Button href="/contact">Contact Me</Button>
+                    </Col>
+                </Row>
+                <hr/>
+                <Row>
                     <Col>
                         <Carousel>
                             <Carousel.Item>
