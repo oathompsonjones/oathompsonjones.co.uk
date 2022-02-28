@@ -6,6 +6,7 @@
         "check": "cd client && eslint \"**\" && cd ../ && eslint \"**\" && tsc"
     },
     "dependencies": {
+        "@octokit/graphql": "^4.8.0",
         "@types/express": "^4.17.11",
         "@types/node": "^17.0.6",
         "@typescript-eslint/eslint-plugin": "^4.15.1",

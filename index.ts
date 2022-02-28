@@ -1,9 +1,10 @@
 import "simple-node-utils";
+import { GitHub, Instagram } from "./Typings";
 import axios, { AxiosResponse } from "axios";
 import e, { Express } from "express";
-import { Instagram } from "./Typings";
 import bodyParser from "body-parser";
 import fs from "fs";
+import { graphql } from "@octokit/graphql";
 import http from "http";
 import https from "https";
 
@@ -64,7 +65,39 @@ void (async (): Promise<void> => {
         }
     });
     app.get("/api/twitter", async (_req, res) => res.sendStatus(500));
-    app.get("/api/github", async (_req, res) => res.sendStatus(500));
+    app.get("/api/github", async (_req, res) => {
+        try {
+            const graphqlWithAuth = graphql.defaults(config.github);
+            const { user: { repositories: { repos } } } = await graphqlWithAuth(`{
+                user(login: "oathompsonjones") {
+                    repositories(first: 100) {
+                        repos: nodes {
+                            description
+                            homepageUrl
+                            isFork
+                            isPrivate
+                            languages(first: 100) {
+                                nodes {
+                                    name
+                                }
+                            }
+                            name
+                            nameWithOwner
+                            openGraphImageUrl
+                            primaryLanguage {
+                                name
+                            }
+                            url
+                        }
+                    }
+                }
+            }`);
+            res.send(repos.filter((repo: GitHub.IRepo) => !repo.isFork));
+        } catch (err) {
+            console.error(err);
+            res.sendStatus(500);
+        }
+    });
 
     // Handle redirects.
     app.get("/email", (_req, res) => void res.redirect("mailto:oathompsonjones@gmail.com"));
