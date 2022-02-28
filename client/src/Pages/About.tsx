@@ -17,7 +17,6 @@ export default class About extends Component {
                                 <Image src={Pfp} alt="Me" style={{
                                     borderRadius: 15,
                                     float: "left",
-                                    height: "auto",
                                     margin: "10px",
                                     maxWidth: "25%"
                                 }} />
