@@ -1,6 +1,7 @@
 export interface IRepo {
     description: string;
     homepageUrl: string | null;
+    image: string;
     isFork: boolean;
     isPrivate: boolean;
     languages: {
@@ -15,4 +16,5 @@ export interface IRepo {
         name: string;
     };
     url: string;
+    usesCustomOpenGraphImage: boolean;
 }
