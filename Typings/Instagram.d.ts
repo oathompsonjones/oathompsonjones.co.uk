@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export interface IAuthResponse {
     access_token: string;
     expires_in: number;
