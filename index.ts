@@ -57,7 +57,7 @@ void (async (): Promise<void> => {
     // Handle API calls.
     app.get("/api/instagram", async (_req, res) => {
         try {
-            const response: AxiosResponse<Instagram.IMediaResponse> = await axios.get(`https://graph.instagram.com/me/media?fields=caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username&access_token=${config.instagram.accessToken}`);
+            const response: AxiosResponse<Instagram.IMediaResponse> = await axios.get(`https://graph.instagram.com/me/media?fields=caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username,children{media_type,media_url}&access_token=${config.instagram.accessToken}`);
             res.send(response.data.data);
         } catch (err) {
             console.error(err);

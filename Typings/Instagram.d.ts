@@ -15,12 +15,27 @@ export interface IMediaResponse {
     };
 }
 
-export interface IPost {
+type IPost = ICarouselPost | ISinglePost;
+
+interface IBasePost {
     caption?: string;
     id: string;
-    media_type: "IMAGE" | "VIDEO" | "CAROUSEL_ALBUM";
     media_url: string;
     permalink: string;
     timestamp: string;
     username: "oathompsonjones";
+}
+
+interface ICarouselPost extends IBasePost {
+    children: {
+        data: Array<{
+            media_type: "IMAGE" | "VIDEO";
+            media_url: string;
+        }>;
+    };
+    media_type: "CAROUSEL_ALBUM";
+}
+
+interface ISinglePost extends IBasePost {
+    media_type: "IMAGE" | "VIDEO";
 }
