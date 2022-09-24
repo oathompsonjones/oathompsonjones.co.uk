@@ -1,6 +1,5 @@
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Container, Divider, Paper, Stack, Typography } from "@mui/material";
 import React, { Component } from "react";
-import MobBr from "../Components/MobBr";
 
 export default class Contact extends Component<{}, { email: string | null; firstName: string | null; lastName: string | null; message: string | null; subject: string | null; }> {
     public constructor(props: {}) {
@@ -13,24 +12,19 @@ export default class Contact extends Component<{}, { email: string | null; first
 
         return (
             <Container>
-                <Row>
-                    <Col>
-                        <Card bg="dark">
-                            <Card.Header>
-                                <Card.Title>Quick Links</Card.Title>
-                            </Card.Header>
-                            <Card.Body style={{ textAlign: "center" }}>
-                                <Card.Link href="/email">oathompsonjones@gmail.com</Card.Link><MobBr/>
-                                <Card.Link href="/discord">Discord</Card.Link><MobBr/>
-                                <Card.Link href="/facebook">Facebook</Card.Link><MobBr/>
-                                <Card.Link href="/github">GitHub</Card.Link><MobBr/>
-                                <Card.Link href="/instagram">Instagram</Card.Link><MobBr/>
-                                <Card.Link href="/linkedin">LinkedIn</Card.Link><MobBr/>
-                                <Card.Link href="/twitter">Twitter</Card.Link><MobBr/>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
+                <Paper style={{ padding: "2.5% 5% 5%" }}>
+                    <Typography component="h1" variant="h4">Contact Links</Typography>
+                    <Divider variant="middle" style={{ margin: "1.25% 0%" }} />
+                    <Stack direction={{ md: "row", sm: "column" }} justifyContent="space-evenly" alignItems="center">
+                        <a href="/email">oathompsonjones@gmail.com</a>
+                        <a href="/discord">Discord</a>
+                        <a href="/facebook">Facebook</a>
+                        <a href="/github">GitHub</a>
+                        <a href="/instagram">Instagram</a>
+                        <a href="/linkedin">LinkedIn</a>
+                        <a href="/twitter">Twitter</a>
+                    </Stack>
+                </Paper>
             </Container>
         );
     }

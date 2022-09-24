@@ -1,4 +1,4 @@
-import { Card, CardColumns, Col, Container, Image, Row } from "react-bootstrap";
+import { Avatar, Container, Divider, Grid, Paper, Stack, Typography } from "@mui/material";
 import React, { Component } from "react";
 import Pfp from "../Images/pfp.jpg";
 
@@ -7,91 +7,110 @@ export default class About extends Component {
         document.title = "Oliver Jones | About Me";
         return (
             <Container>
-                <Row>
-                    <Col>
-                        <Card bg="dark">
-                            <Card.Header>
-                                <Card.Title>Biography</Card.Title>
-                            </Card.Header>
-                            <Card.Body style={{ display: "flex" }}>
-                                <Image src={Pfp} alt="Me" style={{
-                                    borderRadius: 15,
-                                    float: "left",
-                                    margin: "10px",
-                                    maxWidth: "25%"
-                                }} />
-                                <Card.Text>
-                                    <strong>Name:</strong> Oliver Andrew Thompson Jones <br/>
-                                    <strong>Nationality:</strong> British <br />
-                                    <strong>Age:</strong> {((): number => {
+                <Grid container direction="column" justifyContent="center" alignItems="center" flexGrow={1}>
+                    <Paper style={{ padding: "2.5% 5% 5%" }}>
+                        <Typography component="h1" variant="h4">Biography</Typography>
+                        <Divider variant="middle" style={{ margin: "1.25% 0%" }} />
+                        <Stack direction="row">
+                            <Avatar src={Pfp} style={{
+                                float: "left",
+                                height: "25%",
+                                marginRight: "5%",
+                                width: "25%"
+                            }} />
+                            <Grid container direction="column" justifyContent="center" flexGrow={1}>
+                                <Typography component="h6" variant="h6">Name</Typography>
+                                <Typography variant="body1">
+                                    <strong>O</strong>liver <strong>A</strong>ndrew <strong>Thompson Jones</strong>
+                                </Typography>
+                                <Divider variant="middle" style={{ margin: "1.25% 0%" }} flexItem />
+                                <Typography component="h6" variant="h6">Nationality</Typography>
+                                <Typography variant="body1">British</Typography>
+                                <Divider variant="middle" style={{ margin: "1.25% 0%" }} flexItem />
+                                <Typography component="h6" variant="h6">Age</Typography>
+                                <Typography variant="body1">
+                                    {((): number => {
                                         const today: Date = new Date();
                                         const birthDate: Date = new Date(2003, 0, 2);
                                         return today.getMonth() - birthDate.getMonth() <= 0 && today.getDate() < birthDate.getDate()
                                             ? today.getFullYear() - birthDate.getFullYear() - 1
                                             : today.getFullYear() - birthDate.getFullYear();
                                     })()}
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
+                                </Typography>
+                            </Grid>
+                        </Stack>
+                    </Paper>
+                </Grid>
                 <br/>
-                <Row>
-                    <Col>
-                        <CardColumns>
-                            <Card bg="dark">
-                                <Card.Header>
-                                    <Card.Title>GCSEs</Card.Title>
-                                </Card.Header>
-                                <Card.Body>
-                                    <Card.Text>
-                                        Biology - 8 <br/>
-                                        Chemistry - 7 <br/>
-                                        Computer Science - 8 <br/>
-                                        English Language - 8 <br/>
-                                        English Literature - 7 <br/>
-                                        French - 7 <br/>
-                                        History - 8 <br/>
-                                        Mathematics - 8 <br/>
-                                        Physics - 8 <br/>
-                                    </Card.Text>
-                                </Card.Body>
-                                <Card.Footer>
-                                    Attained at <a href="https://tbshs.org">The Bishop's Stortford High School</a> in 2019.
-                                </Card.Footer>
-                            </Card>
-                            <Card bg="dark">
-                                <Card.Header>
-                                    <Card.Title>A-Levels</Card.Title>
-                                </Card.Header>
-                                <Card.Body>
-                                    <Card.Text>
-                                        Computer Science - A* <br/>
-                                        Further Mathematics - B <br/>
-                                        Mathematics - A* <br/>
-                                        Physics - A* <br/>
-                                    </Card.Text>
-                                </Card.Body>
-                                <Card.Footer>
-                                    Attained at <a href="https://tbshs.org">The Bishop's Stortford High School</a> in 2021.
-                                </Card.Footer>
-                            </Card>
-                            <Card bg="dark">
-                                <Card.Header>
-                                    <Card.Title>Further Education</Card.Title>
-                                </Card.Header>
-                                <Card.Body>
-                                    <Card.Text>
-                                        Currently studying Undergraduate Computer Science at the University of Edinburgh.
-                                    </Card.Text>
-                                </Card.Body>
-                                <Card.Footer>
-                                    Studying at <a href="https://ed.ac.uk">The University of Edinburgh</a> since 2021.
-                                </Card.Footer>
-                            </Card>
-                        </CardColumns>
-                    </Col>
-                </Row>
+                <Stack direction={{ md: "row", sm: "column" }} justifyContent="space-evenly">
+                    <Paper sx={{ display: "flex", flexDirection: "column", maxWidth: { md: "33%", sm: "100%" }, padding: "1.25% 2.5% 2.5%" }}>
+                        <Typography component="h1" variant="h4">GCSEs</Typography>
+                        <Divider variant="middle" style={{ margin: "1.25% 0%" }} />
+                        <Stack direction="row" flexGrow={1}>
+                            <Typography variant="body1" flexGrow={1}>
+                                Biology<br/>
+                                Chemistry<br/>
+                                Computer Science<br/>
+                                English Language<br />
+                                English Literature<br />
+                                French<br/>
+                                History<br/>
+                                Mathematics<br />
+                                Physics<br />
+                            </Typography>
+                            <Typography variant="body1" flexGrow={1}>
+                                8 <br />
+                                7 <br />
+                                8 <br />
+                                8 <br />
+                                7 <br />
+                                7 <br />
+                                8 <br />
+                                8 <br />
+                                8 <br />
+                            </Typography>
+                        </Stack>
+                        <Divider variant="middle" style={{ margin: "1.25% 0%" }} />
+                        <Typography variant="caption" style={{ bottom: 0 }}>
+                            Attained at <a href="https://tbshs.org">The Bishop's Stortford High School</a> in 2019.
+                        </Typography>
+                    </Paper>
+                    <br />
+                    <Paper sx={{ display: "flex", flexDirection: "column", maxWidth: { md: "33%", sm: "100%" }, padding: "1.25% 2.5% 2.5%" }}>
+                        <Typography component="h1" variant="h4">A-Levels</Typography>
+                        <Divider variant="middle" style={{ margin: "1.25% 0%" }} />
+                        <Stack direction="row" flexGrow={1}>
+                            <Typography variant="body1" flexGrow={1}>
+                                Computer Science<br/>
+                                Further Mathematics<br/>
+                                Mathematics<br/>
+                                Physics<br />
+                            </Typography>
+                            <Typography variant="body1" flexGrow={1}>
+                                A* <br />
+                                B <br />
+                                A* <br />
+                                A* <br />
+                            </Typography>
+                        </Stack>
+                        <Divider variant="middle" style={{ margin: "1.25% 0%" }} />
+                        <Typography variant="caption" style={{ bottom: 0 }}>
+                            Attained at <a href="https://tbshs.org">The Bishop's Stortford High School</a> in 2021.
+                        </Typography>
+                    </Paper>
+                    <br />
+                    <Paper sx={{ display: "flex", flexDirection: "column", maxWidth: { md: "33%", sm: "100%" }, padding: "1.25% 2.5% 2.5%" }}>
+                        <Typography component="h1" variant="h4">Further Education</Typography>
+                        <Divider variant="middle" style={{ margin: "1.25% 0%" }} />
+                        <Typography variant="body1" flexGrow={1}>
+                            Currently studying Undergraduate Computer Science at the University of Edinburgh.
+                        </Typography>
+                        <Divider variant="middle" style={{ margin: "1.25% 0%" }} />
+                        <Typography variant="caption" style={{ bottom: 0 }}>
+                            Studying at <a href="https://ed.ac.uk">The University of Edinburgh</a> since 2021.
+                        </Typography>
+                    </Paper>
+                </Stack>
             </Container>
         );
     }

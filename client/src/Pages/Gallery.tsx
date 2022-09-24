@@ -1,8 +1,9 @@
-import { CardColumns, Col, Container, Row, Spinner } from "react-bootstrap";
+import { CircularProgress, Container, Stack } from "@mui/material";
 import React, { Component } from "react";
 import axios, { AxiosResponse } from "axios";
 import { Instagram } from "../../../Typings";
 import InstagramPost from "../Components/InstagramPost";
+import { Masonry } from "@mui/lab";
 
 export default class Gallery extends Component<{}, { posts: Instagram.IPost[]; }> {
     public constructor() {
@@ -21,18 +22,19 @@ export default class Gallery extends Component<{}, { posts: Instagram.IPost[]; }
 
     public render(): JSX.Element {
         document.title = "Oliver Jones | Gallery";
-        return this.state.posts.length === 0
-            ? <Container>
-                <Row>
-                    <Col>
-                        <Spinner animation="border" variant="primary" />
-                    </Col>
-                </Row>
+        console.log(this.state.posts);
+        return (
+            <Container>
+                {
+                    this.state.posts.length === 0
+                        ? <Stack justifyContent="center" alignItems="center">
+                            <CircularProgress />
+                        </Stack>
+                        : <Masonry>
+                            {this.state.posts.map((post) => <InstagramPost post={post} />)}
+                        </Masonry>
+                }
             </Container>
-            : <Container>
-                <CardColumns>
-                    {this.state.posts.map((post) => <InstagramPost post={post} />)}
-                </CardColumns>
-            </Container>;
+        );
     }
 }

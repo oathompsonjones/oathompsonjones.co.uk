@@ -1,4 +1,3 @@
-import "simple-node-utils";
 import { Canvas, Image } from "canvas";
 import { GitHub, Instagram } from "./Typings";
 import axios, { AxiosResponse } from "axios";
@@ -68,7 +67,7 @@ void (async (): Promise<void> => {
     app.get("/api/github", async (_req, res) => {
         try {
             const graphqlWithAuth = graphql.defaults(config.github);
-            const { user: { repositories: { repos } } } = await graphqlWithAuth(`{
+            const { user: { repositories: { repos } } } = await graphqlWithAuth<{ user: { repositories: { repos: GitHub.IRepo[]; }; }; }>(`{
                 user(login: "oathompsonjones") {
                     repositories(first: 100) {
                         repos: nodes {
@@ -88,21 +87,17 @@ void (async (): Promise<void> => {
                                 name
                             }
                             url
-                            usesCustomOpenGraphImage
                         }
                     }
                 }
             }`);
             const formattedRepos: GitHub.IRepo[] = [];
-            for (const repo of repos.filter((r: GitHub.IRepo) => !r.isFork) as GitHub.IRepo[]) {
+            for (const repo of repos.filter((r: GitHub.IRepo) => !r.isFork) ) {
                 const image: Image = new Image();
                 image.src = Buffer.from((await axios.get(repo.openGraphImageUrl, { responseType: "arraybuffer" })).data, "binary");
                 const canvas = new Canvas(1280, 640);
                 const context = canvas.getContext("2d");
-                if (repo.usesCustomOpenGraphImage)
-                    context.drawImage(image, 0, 0);
-                else
-                    context.drawImage(image, 0, image.height / 4, image.width, image.height / 2, 0, 0, canvas.width, canvas.height);
+                context.drawImage(image, 0, 0);
                 formattedRepos.push({ ...repo, image: `data:image/png;base64,${canvas.toBuffer().toString("base64")}` });
             }
             res.send(formattedRepos);
