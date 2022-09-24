@@ -29,7 +29,7 @@ export default class Portfolio extends Component<{}, { repos: GitHub.IRepo[]; }>
                         ? <Stack justifyContent="center" alignItems="center">
                             <CircularProgress />
                         </Stack>
-                        : <Masonry>
+                        : <Masonry columns={{ lg: 4, md: 3, xs: 1 }}>
                             {this.state.repos.map((repo) => <GitHubRepo repo={repo} />)}
                         </Masonry>
                 }

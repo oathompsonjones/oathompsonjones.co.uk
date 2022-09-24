@@ -30,7 +30,7 @@ export default class Gallery extends Component<{}, { posts: Instagram.IPost[]; }
                         ? <Stack justifyContent="center" alignItems="center">
                             <CircularProgress />
                         </Stack>
-                        : <Masonry>
+                        : <Masonry columns={{ lg: 4, md: 3, xs: 1 }}>
                             {this.state.posts.map((post) => <InstagramPost post={post} />)}
                         </Masonry>
                 }
