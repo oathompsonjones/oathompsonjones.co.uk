@@ -49,15 +49,15 @@ export default class About extends Component {
                         <Divider variant="middle" style={{ margin: "1.25% 0%" }} />
                         <Stack direction="row" flexGrow={1}>
                             <Typography variant="body1" flexGrow={1}>
-                                Biology<br/>
-                                Chemistry<br/>
-                                Computer Science<br/>
-                                English Language<br />
-                                English Literature<br />
-                                French<br/>
-                                History<br/>
-                                Mathematics<br />
-                                Physics<br />
+                                Biology <br />
+                                Chemistry <br />
+                                Computer Science <br />
+                                English Language <br />
+                                English Literature <br />
+                                French <br />
+                                History <br />
+                                Mathematics <br />
+                                Physics <br />
                             </Typography>
                             <Typography variant="body1" flexGrow={1}>
                                 8 <br />
@@ -82,14 +82,14 @@ export default class About extends Component {
                         <Divider variant="middle" style={{ margin: "1.25% 0%" }} />
                         <Stack direction="row" flexGrow={1}>
                             <Typography variant="body1" flexGrow={1}>
-                                Computer Science<br/>
-                                Further Mathematics<br/>
-                                Mathematics<br/>
-                                Physics<br />
+                                Computer Science <br />
+                                Further Mathematics <br />
+                                Mathematics <br />
+                                Physics <br />
                             </Typography>
                             <Typography variant="body1" flexGrow={1}>
                                 A* <br />
-                                B <br />
+                                B  <br />
                                 A* <br />
                                 A* <br />
                             </Typography>
@@ -106,6 +106,20 @@ export default class About extends Component {
                         <Typography variant="body1" flexGrow={1}>
                             Currently studying Undergraduate Computer Science at the University of Edinburgh.
                         </Typography>
+                        <Stack direction="row" flexGrow={1}>
+                            <Typography variant="body1" flexGrow={1}>
+                                1st Year <br />
+                                2nd Year <br />
+                                3rd Year <br />
+                                4th Year <br />
+                            </Typography>
+                            <Typography variant="body1" flexGrow={1}>
+                                I   <br />
+                                TBD <br />
+                                TBD <br />
+                                TBD <br />
+                            </Typography>
+                        </Stack>
                         <Divider variant="middle" style={{ margin: "1.25% 0%" }} />
                         <Typography variant="caption" style={{ bottom: 0 }}>
                             Studying at <a href="https://ed.ac.uk">The University of Edinburgh</a> since 2021.
