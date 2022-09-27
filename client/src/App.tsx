@@ -77,7 +77,7 @@ export default class App extends Component {
                         <Route path="/portfolio" element={<Portfolio />} />
                         <Route path="/gallery" element={<Gallery />} />
                         <Route path="/contact" element={<Contact />} />
-                        <Route element={<Error />} />
+                        <Route path="*" element={<Error />} />
                     </Routes>
                     <Footer />
                 </BrowserRouter>
