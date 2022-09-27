@@ -7,6 +7,7 @@ export default class About extends Component {
         document.title = "Oliver Jones | About Me";
         return (
             <Container>
+                <Typography component="h1" variant="h2">About Me</Typography>
                 <Grid container direction="column" justifyContent="center" alignItems="center" flexGrow={1}>
                     <Paper style={{ padding: "2.5% 5% 5%" }}>
                         <Typography component="h1" variant="h4">Biography</Typography>

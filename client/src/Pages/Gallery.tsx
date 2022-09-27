@@ -1,4 +1,4 @@
-import { CircularProgress, Container, Stack } from "@mui/material";
+import { CircularProgress, Container, Stack, Typography } from "@mui/material";
 import React, { Component } from "react";
 import axios, { AxiosResponse } from "axios";
 import { Instagram } from "../../../Typings";
@@ -25,6 +25,7 @@ export default class Gallery extends Component<{}, { posts: Instagram.IPost[]; }
         console.log(this.state.posts);
         return (
             <Container>
+                <Typography component="h1" variant="h2">Gallery</Typography>
                 {
                     this.state.posts.length === 0
                         ? <Stack justifyContent="center" alignItems="center">
@@ -34,6 +35,7 @@ export default class Gallery extends Component<{}, { posts: Instagram.IPost[]; }
                             {this.state.posts.map((post) => <InstagramPost post={post} />)}
                         </Masonry>
                 }
+                <Typography component="h2" variant="subtitle1">These images are pulled directly from my <a href="/instagram">Instagram</a> profile.</Typography>
             </Container>
         );
     }

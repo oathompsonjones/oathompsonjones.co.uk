@@ -12,8 +12,9 @@ export default class Contact extends Component<{}, { email: string | null; first
 
         return (
             <Container>
+                <Typography component="h1" variant="h2">Contact Me</Typography>
                 <Paper style={{ padding: "2.5% 5% 5%" }}>
-                    <Typography component="h1" variant="h4">Contact Links</Typography>
+                    <Typography component="h1" variant="h4">Quick Links</Typography>
                     <Divider variant="middle" style={{ margin: "1.25% 0%" }} />
                     <Stack direction={{ md: "row", sm: "column" }} justifyContent="space-evenly" alignItems="center">
                         <a href="/email">oathompsonjones@gmail.com</a>

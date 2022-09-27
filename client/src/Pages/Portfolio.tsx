@@ -1,4 +1,4 @@
-import { CircularProgress, Container, Stack } from "@mui/material";
+import { CircularProgress, Container, Stack, Typography } from "@mui/material";
 import React, { Component } from "react";
 import { GitHub } from "../../../Typings";
 import GitHubRepo from "../Components/GitHubRepo";
@@ -24,6 +24,7 @@ export default class Portfolio extends Component<{}, { repos: GitHub.IRepo[]; }>
         document.title = "Oliver Jones | Portfolio";
         return (
             <Container>
+                <Typography component="h1" variant="h2">Portfolio</Typography>
                 {
                     this.state.repos.length === 0
                         ? <Stack justifyContent="center" alignItems="center">
@@ -33,6 +34,7 @@ export default class Portfolio extends Component<{}, { repos: GitHub.IRepo[]; }>
                             {this.state.repos.map((repo) => <GitHubRepo repo={repo} />)}
                         </Masonry>
                 }
+                <Typography component="h2" variant="subtitle1">These projects are pulled directly from my <a href="/github">GitHub</a> profile.</Typography>
             </Container>
         );
     }
