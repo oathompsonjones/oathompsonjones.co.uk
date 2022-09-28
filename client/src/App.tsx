@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, createTheme, ThemeProvider } from "@mui/material";
 import React, { Component } from "react";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
@@ -9,7 +9,6 @@ import Gallery from "./Pages/Gallery";
 import Header from "./Components/Header";
 import Home from "./Pages/Home";
 import Portfolio from "./Pages/Portfolio";
-import { createTheme } from "@mui/material/styles";
 
 export default class App extends Component {
     public render(): JSX.Element {
