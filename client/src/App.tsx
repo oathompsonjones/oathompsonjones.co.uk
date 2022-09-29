@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import { CssBaseline, ThemeProvider, createTheme, useMediaQuery } from "@mui/material";
 import React, { Component } from "react";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
@@ -17,7 +17,7 @@ export default class App extends Component {
         const getTheme = (): "dark" | "light" => {
             let storedTheme: string | null = localStorage.getItem("theme");
             if (storedTheme === null) {
-                storedTheme = "dark";
+                storedTheme = useMediaQuery("(prefers-color-scheme: dark)") ? "dark" : "light";
                 localStorage.setItem("theme", storedTheme);
             }
             return storedTheme as "dark" | "light";
