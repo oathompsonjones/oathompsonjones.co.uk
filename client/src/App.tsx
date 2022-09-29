@@ -29,40 +29,17 @@ export default class App extends Component {
         };
 
         const mainColour = "#1c7eea";
-        // Not using Material UIs dark mode for the theme, because it changes the app bar colour.
-        const theme = getTheme() === "dark"
-            ? createTheme({
-                palette: {
-                    background: {
-                        default: "#121212",
-                        paper: "#1f1f1f"
-                    },
-                    divider: "rgba(255, 255, 255, 0.12)",
-                    primary: {
-                        main: mainColour
-                    },
-                    text: {
-                        disabled: "rgba(255, 255, 255, 0.5)",
-                        primary: "#fff",
-                        secondary: "rgba(255, 255, 255, 0.7)"
-                    }
-                },
-                typography: ["body2", "h1", "h2", "h3", "h4", "h5", "h6"]
-                    .map((tag) => ({ [tag]: { color: mainColour } }))
-                    .concat(["subtitle1", "subtitle2", "body1", "body2", "caption", "button", "overline"]
-                        .map((tag) => ({ [tag]: { color: "#ededed" } }))
-                    ).reduce((a, b) => ({ ...a, ...b }))
-            })
-            : createTheme({
-                palette: {
-                    primary: {
-                        main: mainColour
-                    }
-                },
-                typography: ["body2", "h1", "h2", "h3", "h4", "h5", "h6"]
-                    .map((tag) => ({ [tag]: { color: mainColour } }))
-                    .reduce((a, b) => ({ ...a, ...b }))
-            });
+        const theme = createTheme({
+            palette: {
+                mode: getTheme(),
+                primary: {
+                    main: mainColour
+                }
+            },
+            typography: ["body2", "h1", "h2", "h3", "h4", "h5", "h6"]
+                .map((tag) => ({ [tag]: { color: mainColour } }))
+                .reduce((a, b) => ({ ...a, ...b }))
+        });
 
         return (
             <ThemeProvider theme={theme}>
