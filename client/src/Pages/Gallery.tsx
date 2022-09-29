@@ -22,7 +22,6 @@ export default class Gallery extends Component<{}, { posts: Instagram.IPost[]; }
 
     public render(): JSX.Element {
         document.title = "Oliver Jones | Gallery";
-        console.log(this.state.posts);
         return (
             <Container>
                 <Typography component="h1" variant="h2">Gallery</Typography>
@@ -32,7 +31,7 @@ export default class Gallery extends Component<{}, { posts: Instagram.IPost[]; }
                             <CircularProgress />
                         </Stack>
                         : <Masonry columns={{ lg: 4, md: 3, xs: 1 }}>
-                            {this.state.posts.map((post) => <InstagramPost post={post} />)}
+                            {this.state.posts.map((post, i) => <InstagramPost post={post} index={i} />)}
                         </Masonry>
                 }
                 <Typography component="h2" variant="subtitle1">These images are pulled directly from my <a href="/instagram">Instagram</a> profile.</Typography>

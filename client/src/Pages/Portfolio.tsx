@@ -31,7 +31,7 @@ export default class Portfolio extends Component<{}, { repos: GitHub.IRepo[]; }>
                             <CircularProgress />
                         </Stack>
                         : <Masonry columns={{ lg: 4, md: 3, xs: 1 }}>
-                            {this.state.repos.map((repo) => <GitHubRepo repo={repo} />)}
+                            {this.state.repos.map((repo, i) => <GitHubRepo repo={repo} index={i} />)}
                         </Masonry>
                 }
                 <Typography component="h2" variant="subtitle1">These projects are pulled directly from my <a href="/github">GitHub</a> profile.</Typography>
