@@ -55,7 +55,7 @@ export default class Header extends Component<{ colour: string; theme: "dark" | 
                             </Menu>
                         </Box>
                         {/* Displays the main page title for the mobile nav bar. */}
-                        <Typography variant="h5" noWrap component="a" href="" sx={{
+                        <Typography variant="h5" noWrap component="a" href="/" sx={{
                             color: "inherit",
                             display: { md: "none", xs: "flex" },
                             flexGrow: 1,
