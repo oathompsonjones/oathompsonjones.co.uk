@@ -376,7 +376,6 @@
         "prefer-spread": 2,
         "prefer-template": 2,
         "sort-imports": 2,
-        "no-multiple-empty-lines": 2,
-        // "no-console": 2
+        "no-multiple-empty-lines": 2
     }
 }
