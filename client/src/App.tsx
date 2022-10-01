@@ -65,7 +65,7 @@ export default class App extends Component {
                             background: ${theme.palette.primary.main};
                         }
                     `}</style>
-                    <Header toggleTheme={toggleTheme} theme={getTheme()} />
+                    <Header toggleTheme={toggleTheme} theme={getTheme()} colour={mainColour} />
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/about" element={<About />} />
