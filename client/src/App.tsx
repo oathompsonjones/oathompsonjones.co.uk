@@ -46,6 +46,9 @@ export default class App extends Component {
                 <CssBaseline enableColorScheme />
                 <BrowserRouter>
                     <style>{`
+                        body {
+                            transition: all 0.25s ease-in-out;
+                        }
                         a {
                             color: ${mainColour}
                         }
