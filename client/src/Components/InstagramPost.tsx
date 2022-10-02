@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import Carousel from "react-material-ui-carousel";
 import { Instagram } from "../../../Typings";
 
-export default class InstagramPost extends Component<{ index: number; post: Instagram.IPost; }> {
+export class InstagramPost extends Component<{ index: number; post: Instagram.IPost; }> {
     public constructor(public readonly props: { index: number; post: Instagram.IPost; }) {
         super(props);
     }

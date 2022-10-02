@@ -1,11 +1,11 @@
 import { CircularProgress, Container, Stack, Typography } from "@mui/material";
 import React, { Component } from "react";
 import { GitHub } from "../../../Typings";
-import GitHubRepo from "../Components/GitHubRepo";
+import { GitHubRepo } from "../Components";
 import { Masonry } from "@mui/lab";
 import axios from "axios";
 
-export default class Portfolio extends Component<{}, { repos: GitHub.IRepo[]; }> {
+export class Portfolio extends Component<{}, { repos: GitHub.IRepo[]; }> {
     public constructor() {
         super({});
         this.state = { repos: [] };

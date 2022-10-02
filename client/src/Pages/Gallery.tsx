@@ -2,10 +2,10 @@ import { CircularProgress, Container, Stack, Typography } from "@mui/material";
 import React, { Component } from "react";
 import axios, { AxiosResponse } from "axios";
 import { Instagram } from "../../../Typings";
-import InstagramPost from "../Components/InstagramPost";
+import { InstagramPost } from "../Components";
 import { Masonry } from "@mui/lab";
 
-export default class Gallery extends Component<{}, { posts: Instagram.IPost[]; }> {
+export class Gallery extends Component<{}, { posts: Instagram.IPost[]; }> {
     public constructor() {
         super({});
         this.state = { posts: [] };

@@ -1,7 +1,7 @@
 import { Container, Divider, Paper, Stack, Typography } from "@mui/material";
 import React, { Component } from "react";
 
-export default class Contact extends Component<{}, { email: string | null; firstName: string | null; lastName: string | null; message: string | null; subject: string | null; }> {
+export class Contact extends Component<{}, { email: string | null; firstName: string | null; lastName: string | null; message: string | null; subject: string | null; }> {
     public constructor(props: {}) {
         super(props);
         this.state = { email: null, firstName: null, lastName: null, message: null, subject: null };

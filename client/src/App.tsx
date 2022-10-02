@@ -1,14 +1,8 @@
+import { About, Contact, Error, Gallery, Home, Portfolio } from "./Pages";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CssBaseline, ThemeProvider, createTheme, useMediaQuery } from "@mui/material";
+import { Footer, Header, PageContainer } from "./Components";
 import React, { Component } from "react";
-import About from "./Pages/About";
-import Contact from "./Pages/Contact";
-import Error from "./Pages/Error";
-import Footer from "./Components/Footer";
-import Gallery from "./Pages/Gallery";
-import Header from "./Components/Header";
-import Home from "./Pages/Home";
-import Portfolio from "./Pages/Portfolio";
 
 export default class App extends Component {
     public render(): JSX.Element {

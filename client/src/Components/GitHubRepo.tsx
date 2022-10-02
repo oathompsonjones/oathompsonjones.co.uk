@@ -4,7 +4,7 @@ import { ExpandMore } from "@mui/icons-material";
 import { GitHub } from "../../../Typings";
 import { Stack } from "@mui/system";
 
-export default class GitHubRepo extends Component<{ index: number; repo: GitHub.IRepo; }> {
+export class GitHubRepo extends Component<{ index: number; repo: GitHub.IRepo; }> {
     public constructor(public readonly props: { index: number; repo: GitHub.IRepo; }) {
         super(props);
     }

@@ -2,7 +2,7 @@ import { Avatar, Button, Container, Divider, Grid, Stack, Typography } from "@mu
 import React, { Component } from "react";
 import Pfp from "../Images/pfp.jpg";
 
-export default class Home extends Component {
+export class Home extends Component {
     public render(): JSX.Element {
         document.title = "Oliver Jones";
         return (
