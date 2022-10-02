@@ -126,6 +126,7 @@ export class About extends Component {
                         </Typography>
                     </Paper>
                 </Stack>
+                <br />
             </Container>
         );
     }

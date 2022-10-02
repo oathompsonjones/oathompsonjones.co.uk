@@ -36,12 +36,14 @@ export default class App extends Component {
         });
 
         return (
-            <ThemeProvider theme={theme}>
-                <CssBaseline enableColorScheme />
-                <BrowserRouter>
+            <BrowserRouter>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline enableColorScheme />
                     <style>{`
                         body {
                             transition: all 0.25s ease-in-out;
+                            position: relative;
+                            min-height: 98vh;
                         }
                         a {
                             color: ${mainColour}
@@ -64,16 +66,18 @@ export default class App extends Component {
                     `}</style>
                     <Header toggleTheme={toggleTheme} theme={getTheme()} colour={mainColour} />
                     <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/about" element={<About />} />
-                        <Route path="/portfolio" element={<Portfolio />} />
-                        <Route path="/gallery" element={<Gallery />} />
-                        <Route path="/contact" element={<Contact />} />
-                        <Route path="*" element={<Error />} />
+                        <Route path="/" element={<PageContainer />}>
+                            <Route index element={<Home />} />
+                            <Route path="/about" element={<About />} />
+                            <Route path="/portfolio" element={<Portfolio />} />
+                            <Route path="/gallery" element={<Gallery />} />
+                            <Route path="/contact" element={<Contact />} />
+                            <Route path="*" element={<Error />} />
+                        </Route>
                     </Routes>
                     <Footer />
-                </BrowserRouter>
-            </ThemeProvider>
+                </ThemeProvider>
+            </BrowserRouter>
         );
     }
 }
