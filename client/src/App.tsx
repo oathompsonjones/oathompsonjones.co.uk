@@ -41,7 +41,7 @@ export default class App extends Component {
                     <CssBaseline enableColorScheme />
                     <style>{`
                         body {
-                            transition: all 0.25s ease-in-out;
+                            transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out;
                             position: relative;
                             min-height: 98vh;
                         }
