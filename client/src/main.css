@@ -23,7 +23,7 @@ a {
 
 /* Scroll Bar */
 ::-webkit-scrollbar {
-    /* Sets the dimensions of the scroll bar to only be 1 pixel. */
+    /* Sets the dimensions of the scroll bar. */
     width: 1px;
     height: 1px;
 }
