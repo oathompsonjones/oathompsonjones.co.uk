@@ -25,6 +25,7 @@ export class Portfolio extends Component<{}, { repos: GitHub.IRepo[]; }> {
         return (
             <Container>
                 <Typography component="h1" variant="h2">Portfolio</Typography>
+                <Typography component="h2" variant="subtitle1">These projects are pulled directly from my <a href="/github">GitHub</a> profile.</Typography>
                 {
                     this.state.repos.length === 0
                         ? <Stack justifyContent="center" alignItems="center">
@@ -34,7 +35,6 @@ export class Portfolio extends Component<{}, { repos: GitHub.IRepo[]; }> {
                             {this.state.repos.map((repo, i) => <GitHubRepo repo={repo} index={i} />)}
                         </Masonry>
                 }
-                <Typography component="h2" variant="subtitle1">These projects are pulled directly from my <a href="/github">GitHub</a> profile.</Typography>
             </Container>
         );
     }

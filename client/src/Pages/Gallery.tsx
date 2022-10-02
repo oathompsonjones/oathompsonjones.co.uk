@@ -25,6 +25,7 @@ export class Gallery extends Component<{}, { posts: Instagram.IPost[]; }> {
         return (
             <Container>
                 <Typography component="h1" variant="h2">Gallery</Typography>
+                <Typography component="h2" variant="subtitle1">These images are pulled directly from my <a href="/instagram">Instagram</a> profile.</Typography>
                 {
                     this.state.posts.length === 0
                         ? <Stack justifyContent="center" alignItems="center">
@@ -34,7 +35,6 @@ export class Gallery extends Component<{}, { posts: Instagram.IPost[]; }> {
                             {this.state.posts.map((post, i) => <InstagramPost post={post} index={i} />)}
                         </Masonry>
                 }
-                <Typography component="h2" variant="subtitle1">These images are pulled directly from my <a href="/instagram">Instagram</a> profile.</Typography>
             </Container>
         );
     }
