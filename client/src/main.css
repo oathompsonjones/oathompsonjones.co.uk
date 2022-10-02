@@ -1,29 +1,40 @@
+/* Entire page */
 body {
+    /* Allows a smooth transition when changing colour theme. */
     transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+    /* Helps move footer to the bottom of the page. */
     position: relative;
     min-height: 98vh;
 }
 
+/* Links */
 a {
+    /* Sets the colour of the text. */
     color: var(--linkColour)
 }
 
 a:hover,
 a {
+    /* Remove the underlining from the text. */
     text-decoration: none;
+    /* Changes the cursor when hovering over the link to show it's clickable. */
     cursor: pointer;
 }
 
+/* Scroll Bar */
 ::-webkit-scrollbar {
+    /* Sets the dimensions of the scroll bar to only be 1 pixel. */
     width: 1px;
     height: 1px;
 }
 
 ::-webkit-scrollbar-track {
+    /* Sets the background of the scroll bar to the same as the rest of the page. */
     background: var(--backgroundColour);
 }
 
 ::-webkit-scrollbar-thumb:hover,
 ::-webkit-scrollbar-thumb {
-    background: var(--mainColour);
+    /* Sets the scroll bar to be the link colour. */
+    background: var(--linkColour);
 }
