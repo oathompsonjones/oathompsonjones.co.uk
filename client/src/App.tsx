@@ -61,7 +61,7 @@ export default class App extends Component {
                         }
                         ::-webkit-scrollbar-thumb:hover,
                         ::-webkit-scrollbar-thumb {
-                            background: ${theme.palette.primary.main};
+                            background: ${mainColour};
                         }
                     `}</style>
                     <Header toggleTheme={toggleTheme} theme={getTheme()} colour={mainColour} />
