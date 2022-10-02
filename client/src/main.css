@@ -1,0 +1,29 @@
+body {
+    transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+    position: relative;
+    min-height: 98vh;
+}
+
+a {
+    color: var(--linkColour)
+}
+
+a:hover,
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar {
+    width: 1px;
+    height: 1px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--backgroundColour);
+}
+
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb {
+    background: var(--mainColour);
+}

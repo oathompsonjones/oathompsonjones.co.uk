@@ -1,7 +1,8 @@
+import "./main.css";
 import { About, Contact, Error, Gallery, Home, Portfolio } from "./Pages";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { CSSVariableLoader, Footer, Header, PageContainer } from "./Components";
 import { CssBaseline, ThemeProvider, createTheme, useMediaQuery } from "@mui/material";
-import { Footer, Header, PageContainer } from "./Components";
 import React, { Component } from "react";
 
 export default class App extends Component {
@@ -22,16 +23,23 @@ export default class App extends Component {
             this.forceUpdate();
         };
 
-        const mainColour = "#1c7eea";
+        const mode = getTheme();
+
+        const cssVars = {
+            backgroundColour: "#121212",
+            linkColour: "#1c7eea",
+            mainColour: "#1c7eea"
+        };
+
         const theme = createTheme({
             palette: {
-                mode: getTheme(),
+                mode,
                 primary: {
-                    main: mainColour
+                    main: cssVars.mainColour
                 }
             },
             typography: ["body2", "h1", "h2", "h3", "h4", "h5", "h6"]
-                .map((tag) => ({ [tag]: { color: mainColour } }))
+                .map((tag) => ({ [tag]: { color: cssVars.mainColour } }))
                 .reduce((a, b) => ({ ...a, ...b }))
         });
 
@@ -39,32 +47,8 @@ export default class App extends Component {
             <BrowserRouter>
                 <ThemeProvider theme={theme}>
                     <CssBaseline enableColorScheme />
-                    <style>{`
-                        body {
-                            transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out;
-                            position: relative;
-                            min-height: 98vh;
-                        }
-                        a {
-                            color: ${mainColour}
-                        }
-                        a:hover, a {
-                            text-decoration: none;
-                            cursor: pointer;
-                        }
-                        ::-webkit-scrollbar {
-                            width: 1px;
-                            height: 1px;
-                        }
-                        ::-webkit-scrollbar-track {
-                            background: #121212;
-                        }
-                        ::-webkit-scrollbar-thumb:hover,
-                        ::-webkit-scrollbar-thumb {
-                            background: ${mainColour};
-                        }
-                    `}</style>
-                    <Header toggleTheme={toggleTheme} theme={getTheme()} colour={mainColour} />
+                    <CSSVariableLoader cssVars={cssVars} />
+                    <Header toggleTheme={toggleTheme} theme={getTheme()} colour={cssVars.mainColour} />
                     <Routes>
                         <Route path="/" element={<PageContainer />}>
                             <Route index element={<Home />} />
