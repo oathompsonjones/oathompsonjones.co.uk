@@ -1,10 +1,17 @@
 /* Entire page */
 body {
-    /* Allows a smooth transition when changing colour theme. */
-    transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+    /* Prevents a horizontal scrollbar. */
+    overflow-x: hidden;
     /* Helps move footer to the bottom of the page. */
     position: relative;
-    min-height: 98vh;
+    min-height: 100vh;
+}
+
+header,
+body,
+footer {
+    /* Allows a smooth transition when changing colour theme. */
+    transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out;
 }
 
 /* Links */
