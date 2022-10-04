@@ -11,7 +11,7 @@ export class Footer extends Component<{ footerHeight: string; }> {
             <footer style={{
                 bottom: 0,
                 height: this.props.footerHeight,
-                padding: "0% 1%",
+                padding: "1%",
                 position: "absolute",
                 width: "100%"
             }}>
