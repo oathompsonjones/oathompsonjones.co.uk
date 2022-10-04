@@ -43,6 +43,8 @@ export default class App extends Component {
                 .reduce((a, b) => ({ ...a, ...b }))
         });
 
+        const footerHeight = "1vh";
+
         return (
             <BrowserRouter>
                 <ThemeProvider theme={theme}>
@@ -50,7 +52,7 @@ export default class App extends Component {
                     <CSSVariableLoader cssVars={cssVars} />
                     <Header toggleTheme={toggleTheme} theme={getTheme()} colour={cssVars.mainColour} />
                     <Routes>
-                        <Route path="/" element={<PageContainer />}>
+                        <Route path="/" element={<PageContainer footerHeight={footerHeight} />}>
                             <Route index element={<Home />} />
                             <Route path="/about" element={<About />} />
                             <Route path="/portfolio" element={<Portfolio />} />
@@ -59,7 +61,7 @@ export default class App extends Component {
                             <Route path="*" element={<Error />} />
                         </Route>
                     </Routes>
-                    <Footer />
+                    <Footer footerHeight={footerHeight} />
                 </ThemeProvider>
             </BrowserRouter>
         );
