@@ -1,4 +1,4 @@
-import { Avatar, Container, Divider, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Avatar, Container, Divider, Paper, Stack, Typography } from "@mui/material";
 import { Component } from "react";
 import Pfp from "../Images/pfp.jpg";
 
@@ -8,7 +8,7 @@ export class About extends Component {
         return (
             <Container>
                 <Typography component="h1" variant="h2">About Me</Typography>
-                <Grid container direction="column" justifyContent="center" alignItems="center" flexGrow={1}>
+                <Stack direction="column" justifyContent="center" alignItems="center" flexGrow={1}>
                     <Paper style={{ padding: "2.5% 5% 5%" }}>
                         <Typography component="h1" variant="h4">Biography</Typography>
                         <Divider variant="middle" style={{ margin: "1.25% 0%" }} />
@@ -19,7 +19,7 @@ export class About extends Component {
                                 marginRight: "5%",
                                 width: "25%"
                             }} />
-                            <Grid container direction="column" justifyContent="center" flexGrow={1}>
+                            <Stack direction="column" justifyContent="center" flexGrow={1}>
                                 <Typography component="h6" variant="h6">Name</Typography>
                                 <Typography variant="body1">
                                     <strong>O</strong>liver <strong>A</strong>ndrew <strong>Thompson Jones</strong>
@@ -38,10 +38,10 @@ export class About extends Component {
                                             : today.getFullYear() - birthDate.getFullYear();
                                     })()}
                                 </Typography>
-                            </Grid>
+                            </Stack>
                         </Stack>
                     </Paper>
-                </Grid>
+                </Stack>
                 <br />
                 <Stack direction={{ md: "row", sm: "column" }} justifyContent="space-evenly">
                     <Paper sx={{ display: "flex", flexDirection: "column", maxWidth: { md: "33%", sm: "100%" }, padding: "1.25% 2.5% 2.5%" }}>
