@@ -1,5 +1,5 @@
 import { CircularProgress, Container, Stack, Typography } from "@mui/material";
-import React, { Component } from "react";
+import { Component } from "react";
 import { GitHub } from "../../../Typings";
 import { GitHubRepo } from "../Components";
 import { Masonry } from "@mui/lab";

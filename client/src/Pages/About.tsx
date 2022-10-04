@@ -1,5 +1,5 @@
 import { Avatar, Container, Divider, Grid, Paper, Stack, Typography } from "@mui/material";
-import React, { Component } from "react";
+import { Component } from "react";
 import Pfp from "../Images/pfp.jpg";
 
 export class About extends Component {
@@ -42,7 +42,7 @@ export class About extends Component {
                         </Stack>
                     </Paper>
                 </Grid>
-                <br/>
+                <br />
                 <Stack direction={{ md: "row", sm: "column" }} justifyContent="space-evenly">
                     <Paper sx={{ display: "flex", flexDirection: "column", maxWidth: { md: "33%", sm: "100%" }, padding: "1.25% 2.5% 2.5%" }}>
                         <Typography component="h1" variant="h4">GCSEs</Typography>

@@ -1,6 +1,6 @@
 import { AppBar, Box, Container, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
+import { Component, MouseEvent } from "react";
 import { DarkMode as DarkModeIcon, LightMode as LightModeIcon, Menu as MenuIcon } from "@mui/icons-material";
-import React, { Component, MouseEvent } from "react";
 
 export class Header extends Component<{ colour: string; theme: "dark" | "light"; toggleTheme(): void; }, { anchorElNav: HTMLElement | null; }> {
     public constructor(public readonly props: { colour: string; theme: "dark" | "light"; toggleTheme(): void; }, public readonly state: { anchorElNav: HTMLElement | null; }) {

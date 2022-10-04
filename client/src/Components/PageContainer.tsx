@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { Container } from "@mui/material";
 import { Outlet } from "react-router-dom";
 

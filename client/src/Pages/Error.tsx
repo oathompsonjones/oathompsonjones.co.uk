@@ -1,5 +1,5 @@
 import { Container, Typography } from "@mui/material";
-import React, { Component } from "react";
+import { Component } from "react";
 
 export class Error extends Component {
     public render(): JSX.Element {

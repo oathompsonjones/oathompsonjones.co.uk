@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 
 export class CSSVariableLoader extends Component<{ cssVars: { [key: string]: string; }; }> {
     public constructor(public readonly props: { cssVars: { [key: string]: string; }; }) {

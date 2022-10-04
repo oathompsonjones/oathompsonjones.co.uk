@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { Typography } from "@mui/material";
 
 export class Footer extends Component<{ footerHeight: string; }> {

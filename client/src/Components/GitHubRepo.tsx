@@ -1,5 +1,5 @@
 import { Accordion, AccordionDetails, AccordionSummary, Button, Card, CardActions, CardContent, CardMedia, Typography, Zoom } from "@mui/material";
-import React, { Component } from "react";
+import { Component } from "react";
 import { ExpandMore } from "@mui/icons-material";
 import { GitHub } from "../../../Typings";
 import { Stack } from "@mui/system";

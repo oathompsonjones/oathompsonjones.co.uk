@@ -1,6 +1,6 @@
 import { CircularProgress, Container, Stack, Typography } from "@mui/material";
-import React, { Component } from "react";
 import axios, { AxiosResponse } from "axios";
+import { Component } from "react";
 import { Instagram } from "../../../Typings";
 import { InstagramPost } from "../Components";
 import { Masonry } from "@mui/lab";

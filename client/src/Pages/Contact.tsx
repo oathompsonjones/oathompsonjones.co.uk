@@ -1,5 +1,5 @@
 import { Container, Divider, Paper, Stack, Typography } from "@mui/material";
-import React, { Component } from "react";
+import { Component } from "react";
 
 export class Contact extends Component<{}, { email: string | null; firstName: string | null; lastName: string | null; message: string | null; subject: string | null; }> {
     public constructor(props: {}) {

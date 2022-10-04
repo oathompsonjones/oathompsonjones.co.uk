@@ -1,5 +1,5 @@
 import { Avatar, Button, Container, Divider, Grid, Stack, Typography } from "@mui/material";
-import React, { Component } from "react";
+import { Component } from "react";
 import Pfp from "../Images/pfp.jpg";
 
 export class Home extends Component {
