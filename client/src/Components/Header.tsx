@@ -47,8 +47,8 @@ export class Header extends Component<{ colour: string; theme: "dark" | "light";
                                 sx={{ display: { md: "none", xs: "block" } }}
                             >
                                 {/* Renders a link to each page. */}
-                                {pages.map((page) =>
-                                    <MenuItem component="a" href={page.link} onClick={handleCloseNavMenu}>
+                                {pages.map((page, i) =>
+                                    <MenuItem key={i} component="a" href={page.link} onClick={handleCloseNavMenu}>
                                         <Typography textAlign="center">{page.label}</Typography>
                                     </MenuItem>
                                 )}
@@ -78,8 +78,8 @@ export class Header extends Component<{ colour: string; theme: "dark" | "light";
                         {/* Contains the full screen nav bar. */}
                         <Box sx={{ display: { md: "flex", xs: "none" }, flexGrow: 1 }}>
                             {/* Renders a link to each page. */}
-                            {pages.map((page) =>
-                                <MenuItem component="a" href={page.link} onClick={handleCloseNavMenu} sx={{ color: "white", display: "block", my: 2 }}>
+                            {pages.map((page, i) =>
+                                <MenuItem key={i} component="a" href={page.link} onClick={handleCloseNavMenu} sx={{ color: "white", display: "block", my: 2 }}>
                                     {page.label}
                                 </MenuItem>
                             )}

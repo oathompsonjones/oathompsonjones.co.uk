@@ -32,7 +32,7 @@ export class Gallery extends Component<{}, { posts: Instagram.IPost[]; }> {
                             <CircularProgress />
                         </Stack>
                         : <Masonry columns={{ lg: 4, md: 3, xs: 1 }}>
-                            {this.state.posts.map((post, i) => <InstagramPost post={post} index={i} />)}
+                            {this.state.posts.map((post, i) => <InstagramPost key={i} post={post} index={i} />)}
                         </Masonry>
                 }
             </Container>
