@@ -1,3 +1,4 @@
+export * from "./AdaptiveTypography";
 export * from "./CSSVariableLoader";
 export * from "./Footer";
 export * from "./GitHubRepo";

@@ -2,7 +2,7 @@ import "./main.css";
 import { About, Contact, Error, Gallery, Home, Portfolio } from "./Pages";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CSSVariableLoader, Footer, Header, PageContainer } from "./Components";
-import { CssBaseline, ThemeProvider, createTheme, useMediaQuery } from "@mui/material";
+import { CssBaseline, ThemeProvider, createTheme, responsiveFontSizes, useMediaQuery } from "@mui/material";
 import { Component } from "react";
 
 export default class App extends Component {
@@ -31,7 +31,7 @@ export default class App extends Component {
             mainColour: "#1c7eea"
         };
 
-        const theme = createTheme({
+        const theme = responsiveFontSizes(createTheme({
             palette: {
                 mode,
                 primary: {
@@ -41,7 +41,7 @@ export default class App extends Component {
             typography: ["body2", "h1", "h2", "h3", "h4", "h5", "h6"]
                 .map((tag) => ({ [tag]: { color: cssVars.mainColour } }))
                 .reduce((a, b) => ({ ...a, ...b }))
-        });
+        }));
 
         const footerHeight = "1vh";
 
