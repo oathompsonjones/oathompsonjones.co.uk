@@ -3,8 +3,8 @@ import { Component, MouseEvent } from "react";
 import { DarkMode as DarkModeIcon, LightMode as LightModeIcon, Menu as MenuIcon } from "@mui/icons-material";
 import { AdaptiveTypography } from "./";
 
-export class Header extends Component<{ colour: string; theme: "dark" | "light"; toggleTheme(): void; }, { anchorElNav: HTMLElement | null; }> {
-    public constructor(public readonly props: { colour: string; theme: "dark" | "light"; toggleTheme(): void; }, public readonly state: { anchorElNav: HTMLElement | null; }) {
+export class Header extends Component<{ theme: "dark" | "light"; toggleTheme(): void; }, { anchorElNav: HTMLElement | null; }> {
+    public constructor(public readonly props: { theme: "dark" | "light"; toggleTheme(): void; }, public readonly state: { anchorElNav: HTMLElement | null; }) {
         super(props);
         this.state = {
             anchorElNav: null
@@ -28,7 +28,7 @@ export class Header extends Component<{ colour: string; theme: "dark" | "light";
         };
 
         return (
-            <AppBar position="sticky" sx={{ background: this.props.colour, marginBottom: "1%" }} enableColorOnDark>
+            <AppBar position="sticky" sx={{ backgroundImage: "none", marginBottom: "1%" }} enableColorOnDark>
                 <Container maxWidth="xl">
                     <Toolbar variant="dense" disableGutters>
                         {/* Contains the nav bar for mobile devices. */}

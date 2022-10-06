@@ -50,7 +50,7 @@ export default class App extends Component {
                 <ThemeProvider theme={theme}>
                     <CssBaseline enableColorScheme />
                     <CSSVariableLoader cssVars={cssVars} />
-                    <Header toggleTheme={toggleTheme} theme={getTheme()} colour={cssVars.mainColour} />
+                    <Header toggleTheme={toggleTheme} theme={getTheme()} />
                     <Routes>
                         <Route path="/" element={<PageContainer footerHeight={footerHeight} />}>
                             <Route index element={<Home />} />
