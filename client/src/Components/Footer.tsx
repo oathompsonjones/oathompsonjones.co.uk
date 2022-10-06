@@ -2,6 +2,7 @@ import { Avatar, Container, Divider, Link, Stack, Typography } from "@mui/materi
 import { Component, ReactElement } from "react";
 import { Email, Facebook, GitHub, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
 import { Discord } from "./";
+import Pfp from "../Images/pfp.jpg";
 
 export class Footer extends Component<{ backgroundColour: string; borderColour: string; footerHeight: string; }> {
     public constructor(public readonly props: { backgroundColour: string; borderColour: string; footerHeight: string; }) {
@@ -34,7 +35,7 @@ export class Footer extends Component<{ backgroundColour: string; borderColour: 
                 <Container>
                     <Stack divider={<Divider sx={{ margin: "0.5%" }} />}>
                         <Stack direction="row" alignItems="center">
-                            <Avatar src={undefined} sx={{ margin: "1%" }} />
+                            <Avatar src={Pfp} sx={{ margin: "1%" }} />
                             <Stack flexGrow={1}>
                                 <Typography variant="h6">Oliver Andrew</Typography>
                                 <Typography variant="h6">Thompson Jones</Typography>
