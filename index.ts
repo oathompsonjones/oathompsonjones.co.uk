@@ -54,16 +54,6 @@ void (async (): Promise<void> => {
     app.use(e.static(`${__dirname}/client/build`));
 
     // Handle API calls.
-    app.get("/api/instagram", async (_req, res) => {
-        try {
-            const response: AxiosResponse<Instagram.IMediaResponse> = await axios.get(`https://graph.instagram.com/me/media?fields=caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username,children{media_type,media_url}&access_token=${config.instagram.accessToken}`);
-            res.send(response.data.data);
-        } catch (err) {
-            console.error(err);
-            res.sendStatus(500);
-        }
-    });
-    app.get("/api/twitter", async (_req, res) => res.sendStatus(500));
     app.get("/api/github", async (_req, res) => {
         try {
             const graphqlWithAuth = graphql.defaults(config.github);
@@ -105,6 +95,20 @@ void (async (): Promise<void> => {
             console.error(err);
             res.sendStatus(500);
         }
+    });
+    app.get("/api/instagram", async (_req, res) => {
+        try {
+            const response: AxiosResponse<Instagram.IMediaResponse> = await axios.get(`https://graph.instagram.com/me/media?fields=caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username,children{media_type,media_url}&access_token=${config.instagram.accessToken}`);
+            res.send(response.data.data);
+        } catch (err) {
+            console.error(err);
+            res.sendStatus(500);
+        }
+    });
+    app.post("/api/contact", async (req, res) => {
+        const { content, email, name, subject } = req.body;
+        void [content, email, name, subject];
+        res.sendStatus(200);
     });
 
     // Handle redirects.
