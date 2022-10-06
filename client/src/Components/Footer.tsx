@@ -1,6 +1,6 @@
 import { Avatar, Container, Divider, Link, Stack, Typography } from "@mui/material";
 import { Component, ReactElement } from "react";
-import { Facebook, GitHub, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
+import { Email, Facebook, GitHub, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
 import { Discord } from "./";
 
 export class Footer extends Component<{ backgroundColour: string; borderColour: string; footerHeight: string; }> {
@@ -16,7 +16,8 @@ export class Footer extends Component<{ backgroundColour: string; borderColour: 
             { icon: <Discord />, link: "/discord" },
             { icon: <Twitter />, link: "/twitter" },
             { icon: <Instagram />, link: "/instagram" },
-            { icon: <Facebook />, link: "/facebook" }
+            { icon: <Facebook />, link: "/facebook" },
+            { icon: <Email />, link: "/email" }
         ];
 
         return (
