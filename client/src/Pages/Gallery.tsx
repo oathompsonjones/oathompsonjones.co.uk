@@ -24,8 +24,8 @@ export class Gallery extends Component<{}, { posts: Instagram.IPost[]; }> {
         document.title = "Oliver Jones | Gallery";
         return (
             <Container>
-                <Typography component="h1" variant="h2">Gallery</Typography>
-                <Typography component="h2" variant="subtitle1">These images are pulled directly from my <a href="/instagram">Instagram</a> profile.</Typography>
+                <Typography variant="h2">Gallery</Typography>
+                <Typography variant="subtitle1">These images are pulled directly from my <a href="/instagram">Instagram</a> profile.</Typography>
                 {
                     this.state.posts.length === 0
                         ? <Stack justifyContent="center" alignItems="center">

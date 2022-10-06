@@ -7,10 +7,10 @@ export class About extends Component {
         document.title = "Oliver Jones | About Me";
         return (
             <Container>
-                <Typography component="h1" variant="h2">About Me</Typography>
+                <Typography variant="h2">About Me</Typography>
                 <Stack direction="column" justifyContent="center" alignItems="center" flexGrow={1}>
                     <Paper style={{ padding: "2.5% 5% 5%" }}>
-                        <Typography component="h1" variant="h4">Biography</Typography>
+                        <Typography variant="h4">Biography</Typography>
                         <Divider variant="middle" style={{ margin: "1.25% 0%" }} />
                         <Stack direction="row">
                             <Avatar src={Pfp} style={{
@@ -20,15 +20,15 @@ export class About extends Component {
                                 width: "25%"
                             }} />
                             <Stack direction="column" justifyContent="center" flexGrow={1}>
-                                <Typography component="h6" variant="h6">Name</Typography>
+                                <Typography variant="h6">Name</Typography>
                                 <Typography variant="body1">
                                     <strong>O</strong>liver <strong>A</strong>ndrew <strong>Thompson Jones</strong>
                                 </Typography>
                                 <Divider variant="middle" style={{ margin: "1.25% 0%" }} flexItem />
-                                <Typography component="h6" variant="h6">Nationality</Typography>
+                                <Typography variant="h6">Nationality</Typography>
                                 <Typography variant="body1">British</Typography>
                                 <Divider variant="middle" style={{ margin: "1.25% 0%" }} flexItem />
-                                <Typography component="h6" variant="h6">Age</Typography>
+                                <Typography variant="h6">Age</Typography>
                                 <Typography variant="body1">
                                     {((): number => {
                                         const today: Date = new Date();
@@ -45,7 +45,7 @@ export class About extends Component {
                 <br />
                 <Stack direction={{ md: "row", sm: "column" }} justifyContent="space-evenly">
                     <Paper sx={{ display: "flex", flexDirection: "column", maxWidth: { md: "33%", sm: "100%" }, padding: "1.25% 2.5% 2.5%" }}>
-                        <Typography component="h1" variant="h4">GCSEs</Typography>
+                        <Typography variant="h4">GCSEs</Typography>
                         <Divider variant="middle" style={{ margin: "1.25% 0%" }} />
                         <Stack direction="row" flexGrow={1}>
                             <Typography variant="body1" flexGrow={1}>
@@ -78,7 +78,7 @@ export class About extends Component {
                     </Paper>
                     <br />
                     <Paper sx={{ display: "flex", flexDirection: "column", maxWidth: { md: "33%", sm: "100%" }, padding: "1.25% 2.5% 2.5%" }}>
-                        <Typography component="h1" variant="h4">A-Levels</Typography>
+                        <Typography variant="h4">A-Levels</Typography>
                         <Divider variant="middle" style={{ margin: "1.25% 0%" }} />
                         <Stack direction="row" flexGrow={1}>
                             <Typography variant="body1" flexGrow={1}>
@@ -101,7 +101,7 @@ export class About extends Component {
                     </Paper>
                     <br />
                     <Paper sx={{ display: "flex", flexDirection: "column", maxWidth: { md: "33%", sm: "100%" }, padding: "1.25% 2.5% 2.5%" }}>
-                        <Typography component="h1" variant="h4">Further Education</Typography>
+                        <Typography variant="h4">Further Education</Typography>
                         <Divider variant="middle" style={{ margin: "1.25% 0%" }} />
                         <Typography variant="body1" flexGrow={1}>
                             Currently studying Undergraduate Computer Science at the University of Edinburgh.

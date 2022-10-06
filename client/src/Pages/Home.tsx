@@ -9,7 +9,7 @@ export class Home extends Component {
             <Container>
                 <Stack direction="column" justifyContent="space-evenly" alignItems="center">
                     <Avatar src={Pfp} sx={{ height: "50%", width: "50%" }} />
-                    <Typography component="h1" variant="h2" gutterBottom>Oliver Jones</Typography>
+                    <Typography variant="h2" gutterBottom>Oliver Jones</Typography>
                 </Stack>
                 <Divider sx={{ bgcolor: "primary.main", margin: "1%" }} />
                 <Stack direction={{ sm: "row", xs: "column" }} justifyContent="space-evenly" alignItems="center">

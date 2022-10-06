@@ -24,8 +24,8 @@ export class Portfolio extends Component<{}, { repos: GitHub.IRepo[]; }> {
         document.title = "Oliver Jones | Portfolio";
         return (
             <Container>
-                <Typography component="h1" variant="h2">Portfolio</Typography>
-                <Typography component="h2" variant="subtitle1">These projects are pulled directly from my <a href="/github">GitHub</a> profile.</Typography>
+                <Typography variant="h2">Portfolio</Typography>
+                <Typography variant="subtitle1">These projects are pulled directly from my <a href="/github">GitHub</a> profile.</Typography>
                 {
                     this.state.repos.length === 0
                         ? <Stack justifyContent="center" alignItems="center">

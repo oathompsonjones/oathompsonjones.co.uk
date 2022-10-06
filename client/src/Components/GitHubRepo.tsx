@@ -20,7 +20,7 @@ export class GitHubRepo extends Component<{ index: number; repo: GitHub.IRepo; }
                 <Card>
                     <CardMedia component="img" image={repo.image} />
                     <CardContent>
-                        <Typography component="h1" variant="h5">{repo.name}</Typography>
+                        <Typography variant="h5">{repo.name}</Typography>
                     </CardContent>
                     <Accordion>
                         <AccordionSummary expandIcon={<ExpandMore />}>
@@ -30,13 +30,13 @@ export class GitHubRepo extends Component<{ index: number; repo: GitHub.IRepo; }
                             {
                                 repo.nameWithOwner.split("/")[0] !== "oathompsonjones"
                                     ? <>
-                                        <Typography component="h6" variant="h6">Team</Typography>
-                                        <Typography component="p" variant="body1">{repo.nameWithOwner.split("/")[0]}</Typography>
+                                        <Typography variant="h6">Team</Typography>
+                                        <Typography variant="body1">{repo.nameWithOwner.split("/")[0]}</Typography>
                                     </>
                                     : ""
                             }
-                            <Typography component="h6" variant="h6">Languages</Typography>
-                            <Typography component="p" variant="body1">{repoLanguages}</Typography>
+                            <Typography variant="h6">Languages</Typography>
+                            <Typography variant="body1">{repoLanguages}</Typography>
                             <CardActions>
                                 <Stack direction="row" justifyContent="space-evenly" alignItems="center" width="100%">
                                     {
