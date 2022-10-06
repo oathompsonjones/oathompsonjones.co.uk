@@ -25,23 +25,24 @@ export class Contact extends Component<{}, { email: string | null; firstName: st
         return (
             <Container>
                 <Typography variant="h2">Contact Me</Typography>
+                Contact form coming soon!
                 <Paper sx={{ alignItems: "center", display: "flex", justifyContent: "space-evenly", m: "1%", p: "1%" }} component={FormControl}>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
                             <FormGroup>
                                 <FormLabel>Name</FormLabel>
-                                <TextField label="Name" variant="filled" fullWidth />
+                                <TextField label="Name" variant="filled" fullWidth disabled />
                             </FormGroup>
                         </Grid>
                         <Grid item xs={6}>
                             <FormGroup>
                                 <FormLabel>Email</FormLabel>
-                                <TextField label="Email" variant="filled" fullWidth />
+                                <TextField label="Email" variant="filled" fullWidth disabled />
                             </FormGroup>
                         </Grid>
                     </Grid>
                 </Paper>
-                <Stack direction={{ lg: "row", sm: "column" }} alignItems="center" justifyContent="space-evenly" divider={<Divider orientation="vertical" flexItem />}>
+                <Stack direction="row" alignItems="center" justifyContent="space-evenly" divider={<Divider orientation="vertical" flexItem />}>
                     {socials.map(({ icon, link }, i) => <Link key={i} color="inherit" href={link} sx={{ textDecoration: "none" }}>{icon}</Link>)}
                 </Stack>
             </Container>
