@@ -1,5 +1,7 @@
-import { Container, Divider, Paper, Stack, Typography } from "@mui/material";
-import { Component } from "react";
+import { Component, ReactElement } from "react";
+import { Container, Divider, FormControl, FormGroup, FormLabel, Grid, Link, Paper, Stack, TextField, Typography } from "@mui/material";
+import { Email, Facebook, GitHub, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
+import { Discord } from "../Components";
 
 export class Contact extends Component<{}, { email: string | null; firstName: string | null; lastName: string | null; message: string | null; subject: string | null; }> {
     public constructor(props: {}) {
@@ -10,22 +12,38 @@ export class Contact extends Component<{}, { email: string | null; firstName: st
     public render(): JSX.Element {
         document.title = "Oliver Jones | Contact Me";
 
+        const socials: Array<{ icon: ReactElement; link: string; }> = [
+            { icon: <GitHub />, link: "/github" },
+            { icon: <LinkedIn />, link: "/linkedin" },
+            { icon: <Discord />, link: "/discord" },
+            { icon: <Twitter />, link: "/twitter" },
+            { icon: <Instagram />, link: "/instagram" },
+            { icon: <Facebook />, link: "/facebook" },
+            { icon: <Email />, link: "/email" }
+        ];
+
         return (
             <Container>
-                <Typography component="h1" variant="h2">Contact Me</Typography>
-                <Paper style={{ padding: "2.5% 5% 5%" }}>
-                    <Typography component="h1" variant="h4">Quick Links</Typography>
-                    <Divider variant="middle" style={{ margin: "1.25% 0%" }} />
-                    <Stack direction={{ md: "row", sm: "column" }} justifyContent="space-evenly" alignItems="center">
-                        <a href="/email">oathompsonjones@gmail.com</a>
-                        <a href="/discord">Discord</a>
-                        <a href="/facebook">Facebook</a>
-                        <a href="/github">GitHub</a>
-                        <a href="/instagram">Instagram</a>
-                        <a href="/linkedin">LinkedIn</a>
-                        <a href="/twitter">Twitter</a>
-                    </Stack>
+                <Typography variant="h2">Contact Me</Typography>
+                <Paper sx={{ alignItems: "center", display: "flex", justifyContent: "space-evenly", m: "1%", p: "1%" }} component={FormControl}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={6}>
+                            <FormGroup>
+                                <FormLabel>Name</FormLabel>
+                                <TextField label="Name" variant="filled" fullWidth />
+                            </FormGroup>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <FormGroup>
+                                <FormLabel>Email</FormLabel>
+                                <TextField label="Email" variant="filled" fullWidth />
+                            </FormGroup>
+                        </Grid>
+                    </Grid>
                 </Paper>
+                <Stack direction={{ lg: "row", sm: "column" }} alignItems="center" justifyContent="space-evenly" divider={<Divider orientation="vertical" flexItem />}>
+                    {socials.map(({ icon, link }, i) => <Link key={i} color="inherit" href={link} sx={{ textDecoration: "none" }}>{icon}</Link>)}
+                </Stack>
             </Container>
         );
     }
