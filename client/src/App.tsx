@@ -2,7 +2,7 @@ import "./main.css";
 import { About, Contact, Error, Gallery, Home, Portfolio } from "./Pages";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CSSVariableLoader, Footer, Header, PageContainer } from "./Components";
-import { CssBaseline, ThemeProvider, createTheme, responsiveFontSizes, useMediaQuery } from "@mui/material";
+import { CssBaseline, ThemeProvider, createTheme, darken, lighten, responsiveFontSizes, useMediaQuery } from "@mui/material";
 import { Component } from "react";
 
 export default class App extends Component {
@@ -26,7 +26,7 @@ export default class App extends Component {
         const mode = getTheme();
 
         const cssVars = {
-            backgroundColour: "#121212",
+            backgroundColour: mode === "dark" ? "#121212" : "#ffffff",
             linkColour: "#1c7eea",
             mainColour: "#1c7eea"
         };
@@ -43,7 +43,7 @@ export default class App extends Component {
                 .reduce((a, b) => ({ ...a, ...b }))
         }));
 
-        const footerHeight = "1vh";
+        const footerHeight = "15vh";
 
         return (
             <BrowserRouter>
@@ -61,7 +61,11 @@ export default class App extends Component {
                             <Route path="*" element={<Error />} />
                         </Route>
                     </Routes>
-                    <Footer footerHeight={footerHeight} />
+                    <Footer
+                        backgroundColour={mode === "dark" ? lighten(cssVars.backgroundColour, 0.1) : darken(cssVars.backgroundColour, 0.1)}
+                        borderColour={cssVars.mainColour}
+                        footerHeight={footerHeight}
+                    />
                 </ThemeProvider>
             </BrowserRouter>
         );
