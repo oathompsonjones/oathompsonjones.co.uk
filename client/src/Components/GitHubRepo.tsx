@@ -20,7 +20,7 @@ export class GitHubRepo extends Component<{ index: number; repo: GitHub.IRepo; }
                 <Card>
                     <CardMedia component="img" image={repo.image} />
                     <CardContent>
-                        <Typography variant="h5">{repo.name}</Typography>
+                        <Typography variant="h6">{repo.name}</Typography>
                     </CardContent>
                     <Accordion>
                         <AccordionSummary expandIcon={<ExpandMore />}>
