@@ -6,8 +6,8 @@ export class Error extends Component {
         document.title = "Oliver Jones | 404 Error";
         return (
             <Container>
-                <Typography variant="h1" gutterBottom>Error 404 - Page not found.</Typography>
-                <Typography variant="subtitle1">The page you are looking for does not exist.</Typography>
+                <Typography variant="h2" gutterBottom>Error 404 - Page not found.</Typography>
+                <Typography variant="subtitle1">These aren't the droids you're looking for.</Typography>
             </Container>
         );
     }
