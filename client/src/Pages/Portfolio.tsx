@@ -31,7 +31,7 @@ export class Portfolio extends Component<{}, { repos: GitHub.IRepo[]; }> {
                         ? <Stack justifyContent="center" alignItems="center">
                             <CircularProgress />
                         </Stack>
-                        : <Masonry columns={{ lg: 4, md: 3, xs: 1 }}>
+                        : <Masonry columns={{ lg: 4, md: 3, sm: 2, xs: 1 }}>
                             {this.state.repos.map((repo, i) => <GitHubRepo key={i} repo={repo} index={i} />)}
                         </Masonry>
                 }
