@@ -2,17 +2,21 @@ import "./main.css";
 import { About, Contact, Error, Gallery, Home, Portfolio } from "./Pages";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CSSVariableLoader, Footer, Header, PageContainer } from "./Components";
+import { Component, ReactElement } from "react";
 import { CssBaseline, ThemeProvider, createTheme, darken, lighten, responsiveFontSizes, useMediaQuery } from "@mui/material";
-import { Component } from "react";
 
-export default class App extends Component {
+class App extends Component<{ preferredTheme: "dark" | "light"; }> {
+    public constructor(public readonly props: { preferredTheme: "dark" | "light"; }) {
+        super(props);
+    }
+
     public render(): JSX.Element {
         document.title = "Oliver Jones";
 
         const getTheme = (): "dark" | "light" => {
             let storedTheme: string | null = localStorage.getItem("theme");
             if (storedTheme === null) {
-                storedTheme = useMediaQuery("(prefers-color-scheme: dark)") ? "dark" : "light";
+                storedTheme = this.props.preferredTheme;
                 localStorage.setItem("theme", storedTheme);
             }
             return storedTheme as "dark" | "light";
@@ -70,4 +74,9 @@ export default class App extends Component {
             </BrowserRouter>
         );
     }
+}
+
+export default function (): ReactElement<{ preferredTheme: "dark" | "light"; }> {
+    const preferredTheme = useMediaQuery("(prefers-color-scheme: dark)") ? "dark" : "light";
+    return <App preferredTheme={preferredTheme} />;
 }
