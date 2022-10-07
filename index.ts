@@ -82,12 +82,25 @@ void (async (): Promise<void> => {
                 }
             }`);
             const formattedRepos: GitHub.IRepo[] = [];
-            for (const repo of repos.filter((r: GitHub.IRepo) => !r.isFork) ) {
+            for (const repo of repos.filter((r: GitHub.IRepo) => !r.isFork)) {
+                // Create the image.
                 const image: Image = new Image();
                 image.src = Buffer.from((await axios.get(repo.openGraphImageUrl, { responseType: "arraybuffer" })).data, "binary");
+                // Create a canvas in order to resize the image.
                 const canvas = new Canvas(1280, 640);
                 const context = canvas.getContext("2d");
-                context.drawImage(image, 0, 0);
+                // Draw the image with the correct dimensions.
+                let [dw, dh, dy] = [image.width, image.height, 0];
+                if (image.height >= image.width) {
+                    dw = canvas.width;
+                    dh = image.height / image.width * canvas.width;
+                    dy = (canvas.height - dh) / 2;
+                } else if (image.width > image.height) {
+                    dw = canvas.width;
+                    dh = image.height / image.width * canvas.width;
+                }
+                context.drawImage(image, 0, dy, dw, dh);
+                // Add the image to the repo object.
                 formattedRepos.push({ ...repo, image: `data:image/png;base64,${canvas.toBuffer().toString("base64")}` });
             }
             res.send(formattedRepos);
