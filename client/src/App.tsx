@@ -42,7 +42,7 @@ class App extends Component<{ preferredTheme: "dark" | "light"; }> {
                     main: cssVars.mainColour
                 }
             },
-            typography: ["body2", "h1", "h2", "h3", "h4", "h5", "h6"]
+            typography: ["h1", "h2", "h3", "h4", "h5", "h6"]
                 .map((tag) => ({ [tag]: { color: cssVars.mainColour } }))
                 .reduce((a, b) => ({ ...a, ...b }))
         }));
