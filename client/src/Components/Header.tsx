@@ -2,6 +2,7 @@ import { AppBar, Box, Container, IconButton, Menu, MenuItem, Toolbar, Typography
 import { Component, MouseEvent } from "react";
 import { DarkMode as DarkModeIcon, LightMode as LightModeIcon, Menu as MenuIcon } from "@mui/icons-material";
 import { AdaptiveTypography } from "./";
+import { Stack } from "@mui/system";
 
 export class Header extends Component<{ theme: "dark" | "light"; toggleTheme(): void; }, { anchorElNav: HTMLElement | null; }> {
     public constructor(public readonly props: { theme: "dark" | "light"; toggleTheme(): void; }, public readonly state: { anchorElNav: HTMLElement | null; }) {
@@ -28,8 +29,20 @@ export class Header extends Component<{ theme: "dark" | "light"; toggleTheme(): 
         };
 
         return (
-            <AppBar position="sticky" sx={{ backgroundImage: "none", marginBottom: "1%" }} enableColorOnDark>
-                <Container maxWidth="xl">
+            <AppBar position="sticky" sx={{ backgroundImage: "none", mb: "1%" }} enableColorOnDark>
+                {/* Print header. */}
+                <Container maxWidth="xl" sx={{ display: "none", displayPrint: "block" }}>
+                    <Stack direction="row">
+                        <Typography variant="h3" flexGrow={1}>
+                            Oliver Jones
+                        </Typography>
+                        <Typography variant="h4" flexGrow={1}>
+                            oathompsonjones@gmail.com
+                        </Typography>
+                    </Stack>
+                </Container>
+                {/* Actual header. */}
+                <Container maxWidth="xl" sx={{ displayPrint: "none" }}>
                     <Toolbar variant="dense" disableGutters>
                         {/* Contains the nav bar for mobile devices. */}
                         <Box sx={{ display: { md: "none", xs: "flex" }, flexGrow: 1 }}>
