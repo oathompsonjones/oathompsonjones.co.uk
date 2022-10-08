@@ -31,12 +31,12 @@ export class GitHubRepo extends Component<{ index: number; repo: GitHub.IRepo; }
                                 repo.nameWithOwner.split("/")[0] !== "oathompsonjones"
                                     ? <>
                                         <Typography variant="h6">Team</Typography>
-                                        <Typography variant="body1">{repo.nameWithOwner.split("/")[0]}</Typography>
+                                        <Typography>{repo.nameWithOwner.split("/")[0]}</Typography>
                                     </>
                                     : ""
                             }
                             <Typography variant="h6">Languages</Typography>
-                            <Typography variant="body1">{repoLanguages}</Typography>
+                            <Typography>{repoLanguages}</Typography>
                             <CardActions>
                                 <Stack direction="row" justifyContent="space-evenly" alignItems="center" width="100%">
                                     {
