@@ -2,7 +2,6 @@ export interface IRepo {
     description: string;
     homepageUrl: string | null;
     image: string;
-    isFork: boolean;
     isPrivate: boolean;
     languages: {
         nodes: Array<{
@@ -16,5 +15,4 @@ export interface IRepo {
         name: string;
     };
     url: string;
-    usesCustomOpenGraphImage: boolean;
 }

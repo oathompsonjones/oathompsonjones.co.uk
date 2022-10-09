@@ -57,15 +57,36 @@ void (async (): Promise<void> => {
     app.get("/api/github", async (_req, res) => {
         try {
             const graphqlWithAuth = graphql.defaults(config.github);
-            const { user: { repositories: { repos } } } = await graphqlWithAuth<{ user: { repositories: { repos: GitHub.IRepo[]; }; }; }>(`{
+            const {
+                user: {
+                    repositories: {
+                        repos
+                    },
+                    organizations: {
+                        orgs
+                    }
+                }
+            } = await graphqlWithAuth<{
+                user: {
+                    organizations: {
+                        orgs: Array<{
+                            repositories: {
+                                repos: GitHub.IRepo[];
+                            };
+                        }>;
+                    };
+                    repositories: {
+                        repos: GitHub.IRepo[];
+                    };
+                };
+            }>(`{
                 user(login: "oathompsonjones") {
-                    repositories(first: 100) {
+                    repositories(first: 100, isFork: false, ownerAffiliations: OWNER) {
                         repos: nodes {
                             description
                             homepageUrl
-                            isFork
                             isPrivate
-                            languages(first: 100) {
+                            languages(first: 10) {
                                 nodes {
                                     name
                                 }
@@ -79,10 +100,33 @@ void (async (): Promise<void> => {
                             url
                         }
                     }
+                    organizations(first: 10) {
+                        orgs: nodes {
+                            repositories(first: 100, isFork: false) {
+                                repos: nodes {
+                                    description
+                                    homepageUrl
+                                    isPrivate
+                                    languages(first: 10) {
+                                        nodes {
+                                            name
+                                        }
+                                    }   
+                                    name
+                                    nameWithOwner
+                                    openGraphImageUrl
+                                    primaryLanguage {
+                                        name
+                                    }
+                                    url
+                                }
+                            }
+                        }
+                    }
                 }
             }`);
             const formattedRepos: GitHub.IRepo[] = [];
-            for (const repo of repos.filter((r: GitHub.IRepo) => !r.isFork)) {
+            for (const repo of repos.concat(orgs.map((org) => org.repositories.repos).flat())) {
                 // Create the image.
                 const image: Image = new Image();
                 image.src = Buffer.from((await axios.get(repo.openGraphImageUrl, { responseType: "arraybuffer" })).data, "binary");
@@ -90,16 +134,16 @@ void (async (): Promise<void> => {
                 const canvas = new Canvas(1280, 640);
                 const context = canvas.getContext("2d");
                 // Draw the image with the correct dimensions.
-                let [dw, dh, dy] = [image.width, image.height, 0];
+                let [dw, dh, dx] = [image.width, image.height, 0];
                 if (image.height >= image.width) {
-                    dw = canvas.width;
-                    dh = image.height / image.width * canvas.width;
-                    dy = (canvas.height - dh) / 2;
-                } else if (image.width > image.height) {
+                    dh = canvas.height;
+                    dw = dh / image.height * image.width;
+                    dx = (canvas.width - dw) / 2;
+                } else if (image.height < image.width) {
                     dw = canvas.width;
                     dh = image.height / image.width * canvas.width;
                 }
-                context.drawImage(image, 0, dy, dw, dh);
+                context.drawImage(image, dx, 0, dw, dh);
                 // Add the image to the repo object.
                 formattedRepos.push({ ...repo, image: `data:image/png;base64,${canvas.toBuffer().toString("base64")}` });
             }
