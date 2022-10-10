@@ -27,6 +27,8 @@
         "useDefineForClassFields": true
     },
     "include": [
+        "API",
+        "Config.ts",
         "index.ts"
     ]
 }

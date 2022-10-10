@@ -1,6 +1,6 @@
 import { CircularProgress, Container, Stack, Typography } from "@mui/material";
 import { Component } from "react";
-import { GitHub } from "../../../Typings";
+import { GitHub } from "../../../API";
 import { GitHubRepo } from "../Components";
 import { Masonry } from "@mui/lab";
 import axios from "axios";

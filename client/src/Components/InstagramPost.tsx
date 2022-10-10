@@ -2,7 +2,7 @@ import { ArrowLeft, ArrowRight, Minimize } from "@mui/icons-material";
 import { Card, CardContent, CardMedia, Typography, Zoom } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
 import { Component } from "react";
-import { Instagram } from "../../../Typings";
+import { Instagram } from "../../../API";
 
 export class InstagramPost extends Component<{ index: number; post: Instagram.IPost; }> {
     public constructor(public readonly props: { index: number; post: Instagram.IPost; }) {

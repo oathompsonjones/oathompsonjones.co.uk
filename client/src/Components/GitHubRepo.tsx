@@ -1,7 +1,7 @@
 import { Accordion, AccordionDetails, AccordionSummary, Button, Card, CardActions, CardContent, CardMedia, Typography, Zoom } from "@mui/material";
 import { Component } from "react";
 import { ExpandMore } from "@mui/icons-material";
-import { GitHub } from "../../../Typings";
+import { GitHub } from "../../../API";
 import { Stack } from "@mui/system";
 
 export class GitHubRepo extends Component<{ index: number; repo: GitHub.IRepo; }> {
