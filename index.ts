@@ -1,5 +1,5 @@
 import { Contact, GitHub, Instagram, Redirects } from "./API";
-import e, { Express } from "express";
+import e, { Express, Request, Response } from "express";
 import bodyParser from "body-parser";
 import fs from "fs";
 import http from "http";
@@ -31,11 +31,11 @@ app.get("/api/instagram", Instagram.requestHandler);
 app.post("/api/contact", Contact.requestHandler);
 
 // Handle redirects.
-for (const { route, handler } of Redirects.default)
-    app.get(route, handler);
+for (const { route, redirect } of Redirects.default)
+    app.get(route, (_req: Request, res: Response): void => void res.redirect(redirect));
 
 // Forward all other routes to the index.html file.
-app.get("*", (_req, res) => void res.sendFile(`${__dirname}/client/build/index.html`));
+app.get("*", (_req: Request, res: Response): void => void res.sendFile(`${__dirname}/client/build/index.html`));
 
 // Start server.
 try {
