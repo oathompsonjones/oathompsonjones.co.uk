@@ -5,6 +5,13 @@ import nodemailer from "nodemailer";
 export async function requestHandler(req: Request, res: Response): Promise<void> {
     const { content, email, name, subject } = req.body;
 
+    // Make sure each field exists.
+    if (
+        [content, email, name, subject].includes("") ||
+        [content, email, name, subject].includes(undefined) ||
+        [content, email, name, subject].includes(null)
+    ) res.sendStatus(500);
+
     // Set up the transporter.
     const transporter = nodemailer.createTransport(Config.email);
 

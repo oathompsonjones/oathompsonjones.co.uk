@@ -112,6 +112,8 @@ export class Contact extends Component<{}, { content: string; email: string; nam
     private async _handleSubmit(event: FormEvent): Promise<void> {
         event.preventDefault();
         try {
+            const { content, email, name, subject } = this.state;
+            if ([content, email, name, subject].includes("")) throw new Error();
             await axios.post("/api/contact", this.state);
             this.setState({
                 content: "",
