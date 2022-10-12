@@ -27,7 +27,7 @@ export async function requestHandler(req: Request, res: Response): Promise<void>
             transporter.sendMail({
                 from: Config.email.auth.user,
                 subject: `RE: ${subject}`,
-                text: "Thank you for your message, I will get back to you shortly.\n\nKind Regards,\nOliver Jones (oathompsonjones@gmail.com)",
+                text: "Thank you for your message, I will get back to you shortly.\n\nIf you did not attempt to contact me via https://oathompsonjones.co.uk/ then please ignore this email.\n\nKind Regards,\nOliver Jones (oathompsonjones@gmail.com)",
                 to: email
             }, (err) => {
                 if (err !== null) {
