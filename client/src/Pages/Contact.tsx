@@ -54,7 +54,6 @@ export class Contact extends Component<{}, { content: string; email: string; nam
                                     onChange={(event): void => void this.setState({ name: event.target.value })}
                                     fullWidth
                                     required
-                                    disabled
                                 />
                             </Grid>
                             <Grid item xs={12} md={6}>
@@ -67,7 +66,6 @@ export class Contact extends Component<{}, { content: string; email: string; nam
                                     onChange={(event): void => void this.setState({ email: event.target.value })}
                                     fullWidth
                                     required
-                                    disabled
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -80,7 +78,6 @@ export class Contact extends Component<{}, { content: string; email: string; nam
                                     onChange={(event): void => void this.setState({ subject: event.target.value })}
                                     fullWidth
                                     required
-                                    disabled
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -95,14 +92,13 @@ export class Contact extends Component<{}, { content: string; email: string; nam
                                     required
                                     multiline
                                     rows={15}
-                                    disabled
                                 />
                             </Grid>
                             <Grid item xs={6}>
                                 <FormHelperText>*required</FormHelperText>
                             </Grid>
                             <Grid item xs={6}>
-                                <Button variant="contained" type="submit" endIcon={<Send />} sx={{ float: "right" }} disabled>
+                                <Button variant="contained" type="submit" endIcon={<Send />} sx={{ float: "right" }}>
                                     Send
                                 </Button>
                             </Grid>
