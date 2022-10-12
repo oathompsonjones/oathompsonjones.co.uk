@@ -39,9 +39,6 @@ export class Contact extends Component<{}, { content: string; email: string; nam
                     <FormControl component="form" onSubmit={this._handleSubmit.bind(this)}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
-                                <Alert severity="info">This feature is not fully implemented yet.</Alert>
-                            </Grid>
-                            <Grid item xs={12}>
                                 <FormLabel>Fill out this form to contact me.</FormLabel>
                             </Grid>
                             <Grid item xs={12} md={6}>
