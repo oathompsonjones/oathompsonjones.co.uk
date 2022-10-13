@@ -4,7 +4,7 @@ import nodemailer from "nodemailer";
 
 export async function requestHandler(req: Request, res: Response): Promise<void> {
     // Check that the input is in the correct form.
-    if (req.headers["content-type"] !== "application/json") res.sendStatus(500);
+    if (req.get("content-type") !== "application/json") res.sendStatus(500);
 
     // Get each field from the body.
     const { content, email, name, subject } = req.body;
