@@ -5,11 +5,10 @@ import nodemailer from "nodemailer";
 export async function requestHandler(req: Request, res: Response): Promise<void> {
     const { content, email, name, subject } = req.body;
 
-    // Make sure each field exists.
+    // Make sure each field exists and is a string.
     if (
-        [content, email, name, subject].includes("") ||
-        [content, email, name, subject].includes(undefined) ||
-        [content, email, name, subject].includes(null)
+        ![typeof content, typeof email, typeof name, typeof subject].every((type) => type === "string") ||
+        [content, email, name, subject].includes("")
     ) res.sendStatus(500);
 
     // Set up the transporter.
