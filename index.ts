@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Redirect users to correct URLs.
 app.use((req, res, next) => {
-    console.log(req.hostname);
+    console.log(new Date().toUTCString(), req.hostname);
     // Move on if running on localhost.
     if (req.hostname === "localhost" || req.hostname === "127.0.0.1")
         return void next();
