@@ -32,10 +32,10 @@ app.post("/api/contact", Contact.requestHandler);
 
 // Handle redirects.
 for (const { route, redirect } of Redirects.default)
-    app.get(route, (_req: Request, res: Response): void => void res.redirect(redirect));
+    app.get(route, (_req: Request, res: Response): void => res.redirect(redirect));
 
 // Forward all other routes to the index.html file.
-app.get("*", (_req: Request, res: Response): void => void res.sendFile(`${__dirname}/client/build/index.html`));
+app.get("*", (_req: Request, res: Response): void => res.sendFile(`${__dirname}/client/build/index.html`));
 
 // Start server.
 try {

@@ -48,7 +48,7 @@ export class Contact extends Component<{}, { content: string; email: string; nam
                                     type="text"
                                     variant="filled"
                                     value={this.state.name}
-                                    onChange={(event): void => void this.setState({ name: event.target.value })}
+                                    onChange={(event): void => this.setState({ name: event.target.value })}
                                     fullWidth
                                     required
                                 />
@@ -60,7 +60,7 @@ export class Contact extends Component<{}, { content: string; email: string; nam
                                     type="email"
                                     variant="filled"
                                     value={this.state.email}
-                                    onChange={(event): void => void this.setState({ email: event.target.value })}
+                                    onChange={(event): void => this.setState({ email: event.target.value })}
                                     fullWidth
                                     required
                                 />
@@ -72,7 +72,7 @@ export class Contact extends Component<{}, { content: string; email: string; nam
                                     type="text"
                                     variant="filled"
                                     value={this.state.subject}
-                                    onChange={(event): void => void this.setState({ subject: event.target.value })}
+                                    onChange={(event): void => this.setState({ subject: event.target.value })}
                                     fullWidth
                                     required
                                 />
@@ -84,7 +84,7 @@ export class Contact extends Component<{}, { content: string; email: string; nam
                                     type="text"
                                     variant="filled"
                                     value={this.state.content}
-                                    onChange={(event): void => void this.setState({ content: event.target.value })}
+                                    onChange={(event): void => this.setState({ content: event.target.value })}
                                     fullWidth
                                     required
                                     multiline

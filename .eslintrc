@@ -182,6 +182,7 @@
         "@typescript-eslint/no-confusing-void-expression": [
             2,
             {
+                "ignoreArrowShorthand": true,
                 "ignoreVoidOperator": true
             }
         ],
