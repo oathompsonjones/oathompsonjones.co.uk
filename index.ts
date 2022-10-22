@@ -22,7 +22,7 @@ app.use((req, res, next) => {
     if (req.hostname === "localhost" || req.hostname === "127.0.0.1")
         return void next();
     // Check that the URL is correct.
-    if (req.hostname !== "oathompsonjones.co.uk") {
+    if (/(.*)oathompsonjones\.co\.uk/.exec(req.hostname) !== null) {
         let i = 5;
         function* pageText(): Generator<string> {
             yield `This page is pretending to be <a href="https://oathompsonjones.co.uk">https://oathompsonjones.co.uk</a>.<br>You will be redirected in ${i--} second${i === 0 ? "" : "s"}.`;
