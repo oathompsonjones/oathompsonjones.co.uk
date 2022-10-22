@@ -47,7 +47,9 @@ export class GitHubRepo extends Component<{ index: number; repo: GitHub.IRepo; }
                                     {
                                         repo.homepageUrl !== null && repo.homepageUrl.length > 0
                                             ? <Button size="small" href={repo.homepageUrl}>View Site</Button>
-                                            : <Button size="small" disabled>View Site</Button>
+                                            : repo.isPrivate
+                                                ? <Button size="small" disabled>View Site</Button>
+                                                : <Button size="small" href={`https://oathompsonjones.github.io/${repo.name}`}>View Site</Button>
                                     }
                                 </Stack>
                             </CardActions>
