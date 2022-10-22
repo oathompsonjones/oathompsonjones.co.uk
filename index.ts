@@ -15,11 +15,46 @@ const app: Express = e();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Redirect http to https.
+// Redirect users to correct URLs.
 app.use((req, res, next) => {
-    if (req.protocol === "http" && req.get("host") !== "localhost")
-        res.redirect(`https://${req.headers.host}${req.url}`);
-    else next();
+    // Move on if running on localhost.
+    if (req.get("host") === "localhost" || req.get("host") === "127.0.0.1")
+        return void next();
+    // Check that the URL is correct.
+    if (req.get("host") !== "oathompsonjones.co.uk") {
+        let i = 5;
+        function* pageText(): Generator<string> {
+            yield `This page is pretending to be <a href="https://oathompsonjones.co.uk">https://oathompsonjones.co.uk</a>.<br>You will be redirected in ${i--} second${i === 0 ? "" : "s"}.`;
+        }
+        return res.send(`
+            <html>
+                <body>
+                    <p id="text"></p>
+                    <script>
+                        document.getElementById("text").innerHTML = '${pageText().next().value}';
+                        setTimeout(() => {
+                            document.getElementById("text").innerHTML = '${pageText().next().value}';
+                            setTimeout(() => {
+                                document.getElementById("text").innerHTML = '${pageText().next().value}';
+                                setTimeout(() => {
+                                    document.getElementById("text").innerHTML = '${pageText().next().value}';
+                                    setTimeout(() => {
+                                        document.getElementById("text").innerHTML = '${pageText().next().value}';
+                                        setTimeout(() => window.location = "https://oathompsonjones.co.uk", 1000);
+                                    }, 1000);
+                                }, 1000);
+                            }, 1000);
+                        }, 1000);
+                    </script>
+                </body>
+            </html>
+        `);
+    }
+    // Redirect http requests to https.
+    if (req.protocol === "http")
+        return void res.redirect(`https://${req.headers.host}${req.url}`);
+    // Move on.
+    return void next();
 });
 
 // Serve static content.
