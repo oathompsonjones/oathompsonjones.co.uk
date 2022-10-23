@@ -1,5 +1,6 @@
 import { Contact, GitHub, Instagram, Redirects } from "./API";
 import e, { Express, Request, Response } from "express";
+import Config from "./Config";
 import bodyParser from "body-parser";
 import fs from "fs";
 import http from "http";
@@ -23,29 +24,24 @@ app.use((req, res, next) => {
         return void next();
     // Check that the URL is correct.
     if (/(.*)oathompsonjones\.co\.uk/.exec(req.hostname) === null) {
-        let i = 5;
+        /* _ let i = 5;
         function* pageText(): Generator<string> {
             yield `This page is pretending to be <a href="https://oathompsonjones.co.uk">https://oathompsonjones.co.uk</a>.<br>You will be redirected in ${i--} second${i === 0 ? "" : "s"}.`;
-        }
+        } */
         return res.send(`
             <html>
                 <body>
-                    <p id="text"></p>
+                    <div class="g-recaptcha" data-sitekey="${Config.reCAPTCHA.siteKey}"></div>
+                    <script src="https://www.google.com/recaptcha/api.js?render=${Config.reCAPTCHA.siteKey}"></script>
                     <script>
-                        document.getElementById("text").innerHTML = '${pageText().next().value}';
-                        setTimeout(() => {
-                            document.getElementById("text").innerHTML = '${pageText().next().value}';
-                            setTimeout(() => {
-                                document.getElementById("text").innerHTML = '${pageText().next().value}';
-                                setTimeout(() => {
-                                    document.getElementById("text").innerHTML = '${pageText().next().value}';
-                                    setTimeout(() => {
-                                        document.getElementById("text").innerHTML = '${pageText().next().value}';
-                                        setTimeout(() => window.location = "https://oathompsonjones.co.uk", 1000);
-                                    }, 1000);
-                                }, 1000);
-                            }, 1000);
-                        }, 1000);
+                        function onClick(e) {
+                            e.preventDefault();
+                            grecaptcha.ready(function() {
+                                grecaptcha.execute("${Config.reCAPTCHA.siteKey}", {action: 'submit'}).then(function(token) {
+                                    // Add your logic to submit to your backend server here.
+                                });
+                            });
+                        }
                     </script>
                 </body>
             </html>
