@@ -30,7 +30,7 @@ app.use((req, res, next) => {
             fs.writeFileSync("./domains.csv", "");
             fileContents = fs.readFileSync("./domains.csv");
         }
-        fs.writeFileSync("./domains.csv", [...new Set(fileContents.toString("utf8").split(",").concat(req.hostname))].join(","));
+        fs.writeFileSync("./domains.csv", [...new Set(fileContents.toString("utf8").split(",").filter((x) => x).concat(req.hostname))].join(","));
         // Send back a warning to the user.
         let i = 5;
         function* pageText(): Generator<string> {
