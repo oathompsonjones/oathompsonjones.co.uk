@@ -4,6 +4,7 @@ node_modules
 package-lock.json
 config.json
 *.js
+*.csv
 
 .DS_Store
 .env.local

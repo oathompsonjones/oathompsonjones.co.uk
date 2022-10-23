@@ -17,12 +17,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Redirect users to correct URLs.
 app.use((req, res, next) => {
-    console.log(new Date().toUTCString(), req.hostname);
     // Move on if running on localhost.
     if (req.hostname === "localhost" || req.hostname === "127.0.0.1")
         return void next();
     // Check that the URL is correct.
     if (/(.*)oathompsonjones\.co\.uk/.exec(req.hostname) === null) {
+        // Log the domain to the file.
+        let fileContents: Buffer;
+        try {
+            fileContents = fs.readFileSync("./domains.csv");
+        } catch (err) {
+            fs.writeFileSync("./domains.csv", "");
+            fileContents = fs.readFileSync("./domains.csv");
+        }
+        fs.writeFileSync("./domains.csv", [...new Set(fileContents.toString("utf8").split(",").concat(req.hostname))].join(","));
+        // Send back a warning to the user.
         let i = 5;
         function* pageText(): Generator<string> {
             yield `This page is pretending to be <a href="https://oathompsonjones.co.uk">https://oathompsonjones.co.uk</a>.<br>You will be redirected in ${i--} second${i === 0 ? "" : "s"}.`;
