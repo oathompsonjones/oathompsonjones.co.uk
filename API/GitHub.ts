@@ -19,7 +19,7 @@ export interface IRepo {
     openGraphImageUrl: string;
     primaryLanguage: {
         name: string;
-    };
+    } | null;
     url: string;
 }
 
