@@ -1,8 +1,7 @@
-import { AppBar, Box, Container, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Container, IconButton, Menu, MenuItem, Stack, Toolbar, Typography } from "@mui/material";
 import { DarkMode as DarkModeIcon, LightMode as LightModeIcon, Menu as MenuIcon } from "@mui/icons-material";
 import { MouseEvent, useState } from "react";
 import { AdaptiveTypography } from "./";
-import { Stack } from "@mui/system";
 
 export const Header = (props: { theme: "dark" | "light"; toggleTheme(): void; }): JSX.Element => {
     const pages: Array<{ label: string; link: string; }> = [
