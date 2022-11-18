@@ -3,39 +3,24 @@ import { About, Contact, Error, Gallery, Home, Portfolio } from "./Pages";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CSSVariableLoader, Footer, Header, PageContainer } from "./Components";
 import { CssBaseline, ThemeProvider, createTheme, darken, lighten, responsiveFontSizes, useMediaQuery } from "@mui/material";
-import { useCallback, useState } from "react";
+import { useLocalStorage } from "./Hooks";
 
 export default (): JSX.Element => {
     document.title = "Oliver Jones";
 
-    const [, updateState] = useState<unknown>();
-    const forceUpdate = useCallback(() => updateState({}), []);
-
-    const getTheme = (): "dark" | "light" => {
-        let storedTheme: string | null = localStorage.getItem("theme");
-        if (storedTheme === null) {
-            storedTheme = useMediaQuery("(prefers-color-scheme: dark)") ? "dark" : "light";
-            localStorage.setItem("theme", storedTheme);
-        }
-        return storedTheme as "dark" | "light";
-    };
-
-    const toggleTheme = (): void => {
-        localStorage.setItem("theme", getTheme() === "dark" ? "light" : "dark");
-        forceUpdate();
-    };
-
-    const mode = getTheme();
+    const systemTheme = useMediaQuery("(prefers-color-scheme: dark)") ? "dark" : "light";
+    const [themeMode, setThemeMode] = useLocalStorage<"dark" | "light">("theme", systemTheme);
+    const toggleTheme = (): void => setThemeMode(themeMode === "dark" ? "light" : "dark");
 
     const cssVars = {
-        backgroundColour: mode === "dark" ? "#121212" : "#ffffff",
+        backgroundColour: themeMode === "dark" ? "#121212" : "#ffffff",
         linkColour: "#1c7eea",
         mainColour: "#1c7eea"
     };
 
     const theme = responsiveFontSizes(createTheme({
         palette: {
-            mode,
+            mode: themeMode,
             primary: {
                 main: cssVars.mainColour
             }
@@ -51,7 +36,7 @@ export default (): JSX.Element => {
         <ThemeProvider theme={theme}>
             <CssBaseline enableColorScheme />
             <CSSVariableLoader cssVars={cssVars} />
-            <Header toggleTheme={toggleTheme} theme={getTheme()} />
+            <Header toggleTheme={toggleTheme} theme={themeMode} />
             <Routes>
                 <Route path="/" element={<PageContainer footerHeight={footerHeight} />}>
                     <Route index element={<Home />} />
@@ -63,7 +48,7 @@ export default (): JSX.Element => {
                 </Route>
             </Routes>
             <Footer
-                backgroundColour={mode === "dark" ? lighten(cssVars.backgroundColour, 0.1) : darken(cssVars.backgroundColour, 0.1)}
+                backgroundColour={themeMode === "dark" ? lighten(cssVars.backgroundColour, 0.1) : darken(cssVars.backgroundColour, 0.1)}
                 borderColour={cssVars.mainColour}
                 footerHeight={footerHeight}
             />
