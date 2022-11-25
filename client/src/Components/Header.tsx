@@ -3,14 +3,7 @@ import { DarkMode as DarkModeIcon, LightMode as LightModeIcon, Menu as MenuIcon 
 import { MouseEvent, useState } from "react";
 import { AdaptiveTypography } from "./";
 
-export const Header = ({ theme, toggleTheme }: { theme: "dark" | "light"; toggleTheme(): void; }): JSX.Element => {
-    const pages: Array<{ label: string; link: string; }> = [
-        { label: "About Me", link: "/about" },
-        { label: "Portfolio", link: "/portfolio" },
-        { label: "Gallery", link: "/gallery" },
-        { label: "Contact Me", link: "/contact" }
-    ];
-
+export const Header = ({ pages, theme, toggleTheme }: { pages: Array<{ element: JSX.Element; label: string; link: string; }>; theme: "dark" | "light"; toggleTheme(): void; }): JSX.Element => {
     const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
     const handleOpenNavMenu = (event: MouseEvent<HTMLElement>): void => setAnchorElNav(event.currentTarget);
     const handleCloseNavMenu = (): void => setAnchorElNav(null);

@@ -6,8 +6,6 @@ import { Masonry } from "@mui/lab";
 import axios from "axios";
 
 export const Portfolio = (): JSX.Element => {
-    document.title = "Oliver Jones | Portfolio";
-
     const [repos, setRepos] = useState<GitHub.IRepo[]>([]);
 
     useEffect(() => {

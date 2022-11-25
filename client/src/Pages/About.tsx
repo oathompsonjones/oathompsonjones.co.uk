@@ -4,8 +4,6 @@ import Pfp from "../Images/pfp.jpg";
 import { ReactElement } from "react";
 
 export const About = (): JSX.Element => {
-    document.title = "Oliver Jones | About Me";
-
     const experiences: Array<{ content: ReactElement; heading: string; }> = [{
         content: <>
             <a href="https://www.arm.com">ARM Holding</a> are one of the world's leading semiconductor and software design companies.

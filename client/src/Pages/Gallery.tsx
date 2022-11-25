@@ -6,8 +6,6 @@ import { InstagramPost } from "../Components";
 import { Masonry } from "@mui/lab";
 
 export const Gallery = (): JSX.Element => {
-    document.title = "Oliver Jones | Gallery";
-
     const [posts, setPosts] = useState<Instagram.IPost[]>([]);
 
     useEffect(() => {

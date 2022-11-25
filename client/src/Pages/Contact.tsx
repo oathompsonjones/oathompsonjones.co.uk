@@ -5,8 +5,6 @@ import { Discord } from "../Components";
 import axios from "axios";
 
 export const Contact = (): JSX.Element => {
-    document.title = "Oliver Jones | Contact Me";
-
     const [content, setContent] = useState("");
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
