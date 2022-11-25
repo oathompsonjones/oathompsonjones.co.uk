@@ -3,7 +3,7 @@ import { DarkMode as DarkModeIcon, LightMode as LightModeIcon, Menu as MenuIcon 
 import { MouseEvent, useState } from "react";
 import { AdaptiveTypography } from "./";
 
-export const Header = (props: { theme: "dark" | "light"; toggleTheme(): void; }): JSX.Element => {
+export const Header = ({ theme, toggleTheme }: { theme: "dark" | "light"; toggleTheme(): void; }): JSX.Element => {
     const pages: Array<{ label: string; link: string; }> = [
         { label: "About Me", link: "/about" },
         { label: "Portfolio", link: "/portfolio" },
@@ -74,8 +74,8 @@ export const Header = (props: { theme: "dark" | "light"; toggleTheme(): void; })
                     )}
                 </Box>
                 {/* Buttons to control dark/light theme. */}
-                <IconButton edge="end" style={{ float: "right" }} sx={{ mr: 2 }} color="inherit" onClick={(): void => void props.toggleTheme()}>
-                    {props.theme === "dark" ? <DarkModeIcon /> : <LightModeIcon />}
+                <IconButton edge="end" style={{ float: "right" }} sx={{ mr: 2 }} color="inherit" onClick={(): void => void toggleTheme()}>
+                    {theme === "dark" ? <DarkModeIcon /> : <LightModeIcon />}
                 </IconButton>
             </Toolbar>
         </Container>

@@ -4,7 +4,7 @@ import { Discord } from "./";
 import Pfp from "../Images/pfp.jpg";
 import { ReactElement } from "react";
 
-export const Footer = (props: { backgroundColour: string; borderColour: string; footerHeight: string; }): JSX.Element => {
+export const Footer = ({ backgroundColour, borderColour, footerHeight }: { backgroundColour: string; borderColour: string; footerHeight: string; }): JSX.Element => {
     const socials: Array<{ icon: ReactElement; link: string; }> = [
         { icon: <GitHub />, link: "/github" },
         { icon: <LinkedIn />, link: "/linkedin" },
@@ -16,10 +16,10 @@ export const Footer = (props: { backgroundColour: string; borderColour: string; 
     ];
 
     return <footer style={{
-        backgroundColor: props.backgroundColour,
-        borderTop: `5px solid ${props.borderColour}`,
+        backgroundColor: backgroundColour,
+        borderTop: `5px solid ${borderColour}`,
         bottom: 0,
-        maxHeight: props.footerHeight,
+        maxHeight: footerHeight,
         overflow: "hidden",
         padding: "1%",
         position: "absolute",

@@ -3,8 +3,7 @@ import { ExpandMore } from "@mui/icons-material";
 import { GitHub } from "../../../API";
 import { Stack } from "@mui/system";
 
-export const GitHubRepo = (props: { index: number; repo: GitHub.IRepo; }): JSX.Element => {
-    const { repo, index } = props;
+export const GitHubRepo = ({ index, repo }: { index: number; repo: GitHub.IRepo; }): JSX.Element => {
     const repoLanguages = repo.primaryLanguage === null ? "N/A" : `${repo.primaryLanguage.name} ${(
         (languages: string[]): string => languages.length > 0 ? `(${languages.join(", ")})` : ""
     )(repo.languages.nodes.map((lang) => lang.name).filter((name) => name !== repo.primaryLanguage?.name))}`;

@@ -3,8 +3,7 @@ import { Card, CardContent, CardMedia, Typography, Zoom } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
 import { Instagram } from "../../../API";
 
-export const InstagramPost = (props: { index: number; post: Instagram.IPost; }): JSX.Element => {
-    const { post, index } = props;
+export const InstagramPost = ({ index, post }: { index: number; post: Instagram.IPost; }): JSX.Element => {
     switch (post.media_type) {
         case "CAROUSEL_ALBUM":
             return <Zoom in style={{ transitionDelay: `${index * 100}ms` }}>

@@ -1,2 +1,2 @@
-export const CSSVariableLoader = (props: { cssVars: Record<string, string>; }): JSX.Element =>
-    <style>{`:root {${Object.entries(props.cssVars).map(([key, value]) => `--${key}: ${value};`).join("\n")}}`}</style>;
+export const CSSVariableLoader = ({ cssVars }: { cssVars: Record<string, string>; }): JSX.Element =>
+    <style>{`:root {${Object.entries(cssVars).map(([key, value]) => `--${key}: ${value};`).join("\n")}}`}</style>;
