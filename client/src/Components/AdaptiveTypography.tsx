@@ -1,8 +1,6 @@
 import { Typography, TypographyTypeMap } from "@mui/material";
 
-type Props = Omit<TypographyTypeMap<Partial<Record<"href" | "lg" | "md" | "sm" | "xl" | "xs", string>>>["props"], "display">;
-
-export const AdaptiveTypography = ({ href, lg, md, sm, xl, xs, ...props }: Props): JSX.Element => <>
+export const AdaptiveTypography = ({ href, lg, md, sm, xl, xs, ...props }: Omit<TypographyTypeMap<Partial<Record<"href" | "lg" | "md" | "sm" | "xl" | "xs", string>>>["props"], "display">): JSX.Element => <>
     <Typography {...props} {...(href !== undefined && { component: "a", href })} display={{
         lg: xs !== undefined && sm === undefined && md === undefined && lg === undefined ? "block" : "none",
         md: xs !== undefined && sm === undefined && md === undefined ? "block" : "none",
