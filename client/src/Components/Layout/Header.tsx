@@ -1,7 +1,7 @@
 import { AppBar, Box, Container, IconButton, Menu, MenuItem, Stack, Toolbar, Typography } from "@mui/material";
 import { DarkMode as DarkModeIcon, LightMode as LightModeIcon, Menu as MenuIcon } from "@mui/icons-material";
 import { MouseEvent, useState } from "react";
-import { AdaptiveTypography } from "./";
+import { AdaptiveTypography } from "../";
 
 export const Header = ({ pages, theme, toggleTheme }: { pages: Array<{ element: JSX.Element; label: string; link: string; }>; theme: "dark" | "light"; toggleTheme(): void; }): JSX.Element => {
     const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);

@@ -5,30 +5,28 @@ import { Root } from "./Components";
 
 export default (): JSX.Element => {
     const pages: Array<{ element: JSX.Element; label: string; link: string; }> = [
+        { element: <Home />, label: "", link: "/" },
         { element: <About />, label: "About Me", link: "/about" },
         { element: <Portfolio />, label: "Portfolio", link: "/portfolio" },
         { element: <Gallery />, label: "Gallery", link: "/gallery" },
-        { element: <Contact />, label: "Contact Me", link: "/contact" }
+        { element: <Contact />, label: "Contact Me", link: "/contact" },
+        { element: <Error />, label: "Error 404", link: "*" }
     ];
 
     const router = createBrowserRouter(
         createRoutesFromElements(
-            <Route path="/" element={<Root pages={pages} />}>
-                <Route
-                    index
-                    element={<Home />}
-                    loader={(): string => document.title = "Oliver Jones"}
-                />
-                {pages.map(({ element, label, link }) => <Route
-                    path={link}
-                    element={element}
-                    loader={(): string => document.title = `Oliver Jones | ${label}`}
-                />)}
-                <Route
-                    path="*"
-                    element={<Error />}
-                    loader={(): string => document.title = "Oliver Jones | Error 404"}
-                />
+            // Creates a base root, passing the Root component as an element.
+            // The root element takes an argument which lists the pages that need showing in the nav bar.
+            <Route path="/" element={<Root navBarLinks={pages.filter((page) => page.link.length > 1)} />}>
+                {
+                    // Maps each page object into a Route element.
+                    pages.map(({ element, label, link }) => <Route
+                        index={link === "/"}
+                        path={link === "/" ? undefined : link}
+                        element={element}
+                        loader={(): string => document.title = label.length > 0 ? `Oliver Jones | ${label}` : "Oliver Jones"}
+                    />)
+                }
             </Route>
         )
     );

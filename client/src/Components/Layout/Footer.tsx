@@ -1,6 +1,6 @@
 import { Avatar, Container, Divider, Link, Stack, Typography } from "@mui/material";
 import { Email, Facebook, GitHub, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
-import { Discord } from "./";
+import { Discord } from "../";
 import Pfp from "../Images/pfp.jpg";
 import { ReactElement } from "react";
 

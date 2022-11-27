@@ -1,10 +1,10 @@
-import { CSSVariableLoader, Footer, Header } from "./";
+import { CSSVariableLoader, Footer, Header } from "../";
 import { CssBaseline, ThemeProvider, createTheme, darken, lighten, responsiveFontSizes, useMediaQuery } from "@mui/material";
 import { Container } from "@mui/system";
 import { Outlet } from "react-router-dom";
-import { useLocalStorage } from "../Hooks";
+import { useLocalStorage } from "../../Hooks";
 
-export const Root = ({ pages }: { pages: Array<{ element: JSX.Element; label: string; link: string; }>; }): JSX.Element => {
+export const Root = ({ navBarLinks }: { navBarLinks: Array<{ element: JSX.Element; label: string; link: string; }>; }): JSX.Element => {
     const systemTheme = useMediaQuery("(prefers-color-scheme: dark)") ? "dark" : "light";
     const [themeMode, setThemeMode] = useLocalStorage<"dark" | "light">("theme", systemTheme);
     const toggleTheme = (): void => setThemeMode(themeMode === "dark" ? "light" : "dark");
@@ -32,7 +32,7 @@ export const Root = ({ pages }: { pages: Array<{ element: JSX.Element; label: st
     return <ThemeProvider theme={theme}>
         <CssBaseline enableColorScheme />
         <CSSVariableLoader cssVars={cssVars} />
-        <Header pages={pages} toggleTheme={toggleTheme} theme={themeMode} />
+        <Header pages={navBarLinks} toggleTheme={toggleTheme} theme={themeMode} />
         <Container style={{ paddingBottom: footerHeight, width: "100vw" }}>
             <Outlet />
         </Container>
