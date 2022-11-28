@@ -5,9 +5,16 @@ import { GitHubRepo } from "../Components";
 import { Masonry } from "@mui/lab";
 import axios from "axios";
 
+/**
+ * This page acts as an online portfolio.
+ *
+ * @returns {JSX.Element} My portfolio, accessed from my GitHub profile.
+ */
 export const Portfolio = (): JSX.Element => {
+    // Creates a state variable which contains the GitHub repositories.
     const [repos, setRepos] = useState<GitHub.IRepo[]>([]);
 
+    // Requests the repositories from the API once the page has mounted.
     useEffect(() => {
         void (async (): Promise<void> => {
             try {
@@ -19,6 +26,7 @@ export const Portfolio = (): JSX.Element => {
         })();
     }, []);
 
+    // Renders the portfolio page.
     return <Container>
         <Typography variant="h2">Portfolio</Typography>
         <Typography variant="subtitle1">These projects are pulled directly from my <a href="/github">GitHub</a> profile.</Typography>

@@ -3,7 +3,15 @@ import { Br } from "../Components";
 import Pfp from "../Images/pfp.jpg";
 import { ReactElement } from "react";
 
+/**
+ * This page acts as an online CV.
+ *
+ * @returns {JSX.Element} My CV.
+ */
 export const About = (): JSX.Element => {
+    // TODO: Maybe get this data from LinkedIn, so I don't need to update it here an there?
+
+    // Contains the data for the experience section of my CV.
     const experiences: Array<{ content: ReactElement; heading: string; }> = [{
         content: <>
             <a href="https://www.arm.com">ARM Holding</a> are one of the world's leading semiconductor and software design companies.
@@ -48,6 +56,7 @@ export const About = (): JSX.Element => {
         heading: "Paired Numeracy - 2021"
     }];
 
+    // Contains the data for the skills section of my CV.
     const skills: Array<{ content: ReactElement; heading: string; }> = [{
         content: <>
             I am highly proficient with usual IT skills such as word processing and use of spreadsheets,
@@ -87,11 +96,13 @@ export const About = (): JSX.Element => {
         heading: "Teamwork"
     }];
 
+    // Renders my CV page.
     return <Container>
         <Typography variant="h2">
             About Me
         </Typography>
         <Grid container spacing={2} sx={{ mb: "1rem" }}>
+            {/* Renders my bio. */}
             <Grid item xs={12}>
                 <Paper sx={{ padding: "1rem" }}>
                     <Typography variant="h4">
@@ -140,6 +151,7 @@ export const About = (): JSX.Element => {
                     </Typography>
                 </Paper>
             </Grid>
+            {/* Renders my GCSE grades. */}
             <Grid item xs={12} md={4}>
                 <Paper sx={{ display: "flex", flexDirection: "column", height: 1, padding: "0.5rem 1rem" }}>
                     <Typography variant="h4">
@@ -176,6 +188,7 @@ export const About = (): JSX.Element => {
                     </Typography>
                 </Paper>
             </Grid>
+            {/* Renders my A-Level grades. */}
             <Grid item xs={12} md={4}>
                 <Paper sx={{ display: "flex", flexDirection: "column", height: 1, padding: "0.5rem 1rem" }}>
                     <Typography variant="h4">
@@ -202,6 +215,7 @@ export const About = (): JSX.Element => {
                     </Typography>
                 </Paper>
             </Grid>
+            {/* Renders my University grades. */}
             <Grid item xs={12} md={4}>
                 <Paper sx={{ display: "flex", flexDirection: "column", height: 1, padding: "0.5rem 1rem" }}>
                     <Typography variant="h4">
@@ -231,6 +245,7 @@ export const About = (): JSX.Element => {
                     </Typography>
                 </Paper>
             </Grid>
+            {/* Renders my experience. */}
             <Grid item xs={12}>
                 <Paper sx={{ padding: "1rem" }}>
                     <Typography variant="h4">Experience</Typography>
@@ -245,6 +260,7 @@ export const About = (): JSX.Element => {
                     </>)}
                 </Paper>
             </Grid>
+            {/* Renders my skills. */}
             <Grid item xs={12}>
                 <Paper sx={{ padding: "1rem" }}>
                     <Typography variant="h4">

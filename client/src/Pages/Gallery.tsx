@@ -5,9 +5,16 @@ import { Instagram } from "../../../API";
 import { InstagramPost } from "../Components";
 import { Masonry } from "@mui/lab";
 
+/**
+ * This page shows my Instagram posts.
+ *
+ * @returns {JSX.Element} My Instagram posts.
+ */
 export const Gallery = (): JSX.Element => {
+    // Creates a state variable which contains the Instagram posts.
     const [posts, setPosts] = useState<Instagram.IPost[]>([]);
 
+    // Requests the posts from the API once the page has mounted.
     useEffect(() => {
         void (async (): Promise<void> => {
             try {
@@ -19,6 +26,7 @@ export const Gallery = (): JSX.Element => {
         })();
     }, []);
 
+    // Renders the gallery page.
     return <Container>
         <Typography variant="h2">Gallery</Typography>
         <Typography variant="subtitle1">These images are pulled directly from my <a href="/instagram">Instagram</a> profile.</Typography>
