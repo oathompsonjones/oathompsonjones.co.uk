@@ -45,7 +45,7 @@ export const Header = ({ pages, theme, toggleTheme }: { pages: Array<{ element: 
                         <MenuIcon />
                     </IconButton>
                     {/* Contains the dropdown nav menu. */}
-                    <Menu id="menu-appbar"
+                    <Menu
                         anchorEl={anchorElNav}
                         anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
                         keepMounted
@@ -54,12 +54,14 @@ export const Header = ({ pages, theme, toggleTheme }: { pages: Array<{ element: 
                         onClose={handleCloseNavMenu}
                         sx={{ display: { md: "none", xs: "block" } }}
                     >
-                        {/* Renders a link to each page. */}
-                        {pages.map((page, i) =>
-                            <MenuItem key={i} component="a" href={page.link} onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">{page.label}</Typography>
-                            </MenuItem>
-                        )}
+                        {
+                            // Renders a link to each page.
+                            pages.map((page, i) =>
+                                <MenuItem key={i} component="a" href={page.link} onClick={handleCloseNavMenu}>
+                                    <Typography textAlign="center">{page.label}</Typography>
+                                </MenuItem>
+                            )
+                        }
                     </Menu>
                 </Box>
                 {/* Displays the main page title for the nav bar. This renders on displays of any size. */}
@@ -74,12 +76,14 @@ export const Header = ({ pages, theme, toggleTheme }: { pages: Array<{ element: 
                 }} xs="OATHOMPSONJONES" />
                 {/* This Box contains the nav bar for larger displays. */}
                 <Box sx={{ display: { md: "flex", xs: "none" }, flexGrow: 1 }}>
-                    {/* Renders a link to each page. */}
-                    {pages.map((page, i) =>
-                        <MenuItem key={i} component="a" href={page.link} onClick={handleCloseNavMenu} sx={{ color: "white", display: "block", my: 2 }}>
-                            {page.label}
-                        </MenuItem>
-                    )}
+                    {
+                        // Renders a link to each page.
+                        pages.map((page, i) =>
+                            <MenuItem key={i} component="a" href={page.link} sx={{ color: "white", display: "block", my: 2 }}>
+                                {page.label}
+                            </MenuItem>
+                        )
+                    }
                 </Box>
                 {/* Renders a button to control dark/light theme. This renders on displays of any size. */}
                 <IconButton edge="end" style={{ float: "right" }} sx={{ mr: 2 }} color="inherit" onClick={toggleTheme}>
