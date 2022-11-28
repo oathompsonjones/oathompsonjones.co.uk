@@ -10,6 +10,7 @@ import { useCallback, useState } from "react";
 export const useLocalStorage = <T extends string | null = string | null>(key: string, initialState: T): [T, (newValue: T) => void] => {
     // Stores the value in the state, allowing this Hook to have the same behaviour as the useState Hook.
     const [value, setValue] = useState<T>(localStorage.getItem(key) as T | null ?? initialState);
+
     // Created a new function to return instead of the state setValue function.
     const updatedSetValue = useCallback((newValue: T) => {
         // Allows us to remove the cookie if the default value is assigned.
@@ -19,6 +20,7 @@ export const useLocalStorage = <T extends string | null = string | null>(key: st
         // Sets the state value, which triggers the rerendering behaviour of useState.
         setValue(newValue ?? initialState);
     }, [initialState, key]);
+
     // Returns the value and the updater function.
     return [value, updatedSetValue];
 };
