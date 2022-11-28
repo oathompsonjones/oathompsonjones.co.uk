@@ -1,9 +1,8 @@
 import { CircularProgress, Container, Stack, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
 import { GitHub } from "../../../API";
 import { GitHubRepo } from "../Components";
 import { Masonry } from "@mui/lab";
-import axios from "axios";
+import { useAxios } from "../Hooks";
 
 /**
  * This page acts as an online portfolio.
@@ -11,27 +10,15 @@ import axios from "axios";
  * @returns {JSX.Element} My portfolio, accessed from my GitHub profile.
  */
 export const Portfolio = (): JSX.Element => {
-    // Creates a state variable which contains the GitHub repositories.
-    const [repos, setRepos] = useState<GitHub.IRepo[]>([]);
-
-    // Requests the repositories from the API once the page has mounted.
-    useEffect(() => {
-        void (async (): Promise<void> => {
-            try {
-                const { data }: { data: GitHub.IRepo[]; } = await axios.get("/api/github");
-                setRepos(data);
-            } catch (err) {
-                console.error(err);
-            }
-        })();
-    }, []);
+    // Calls the backend API to access the repositories from GitHub.
+    const [repos] = useAxios<GitHub.IRepo[]>("/api/github");
 
     // Renders the portfolio page.
     return <Container>
         <Typography variant="h2">Portfolio</Typography>
         <Typography variant="subtitle1">These projects are pulled directly from my <a href="/github">GitHub</a> profile.</Typography>
         {
-            repos.length === 0
+            repos === null
                 ? <Stack justifyContent="center" alignItems="center">
                     <CircularProgress />
                 </Stack>

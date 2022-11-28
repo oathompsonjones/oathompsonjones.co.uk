@@ -1,9 +1,8 @@
 import { CircularProgress, Container, Stack, Typography } from "@mui/material";
-import axios, { AxiosResponse } from "axios";
-import { useEffect, useState } from "react";
 import { Instagram } from "../../../API";
 import { InstagramPost } from "../Components";
 import { Masonry } from "@mui/lab";
+import { useAxios } from "../Hooks";
 
 /**
  * This page shows my Instagram posts.
@@ -11,27 +10,15 @@ import { Masonry } from "@mui/lab";
  * @returns {JSX.Element} My Instagram posts.
  */
 export const Gallery = (): JSX.Element => {
-    // Creates a state variable which contains the Instagram posts.
-    const [posts, setPosts] = useState<Instagram.IPost[]>([]);
-
-    // Requests the posts from the API once the page has mounted.
-    useEffect(() => {
-        void (async (): Promise<void> => {
-            try {
-                const res: AxiosResponse<Instagram.IPost[]> = await axios.get("/api/instagram");
-                setPosts(res.data);
-            } catch (err) {
-                console.error(err);
-            }
-        })();
-    }, []);
+    // Calls the backend API to access the posts from Instagram.
+    const [posts] = useAxios<Instagram.IPost[]>("/api/instagram");
 
     // Renders the gallery page.
     return <Container>
         <Typography variant="h2">Gallery</Typography>
         <Typography variant="subtitle1">These images are pulled directly from my <a href="/instagram">Instagram</a> profile.</Typography>
         {
-            posts.length === 0
+            posts === null
                 ? <Stack justifyContent="center" alignItems="center">
                     <CircularProgress />
                 </Stack>
