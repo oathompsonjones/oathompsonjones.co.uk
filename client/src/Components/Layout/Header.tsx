@@ -1,25 +1,27 @@
-import { AppBar, Box, Container, IconButton, Menu, MenuItem, Stack, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Container, IconButton, Menu, MenuItem, Stack, Toolbar, Typography, useTheme } from "@mui/material";
 import { DarkMode as DarkModeIcon, LightMode as LightModeIcon, Menu as MenuIcon } from "@mui/icons-material";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useContext, useState } from "react";
 import { AdaptiveTypography } from "../";
+import { PagesContext } from "../../Contexts";
 
 /**
  * Creates the header element.
  *
- * @param {({ pages: Array<{ element: JSX.Element; label: string; link: string; }>; theme: "dark" | "light"; toggleTheme(): void; })} props An object containing the component props.
- * @param {Array<{ element: JSX.Element; label: string; link: string; }>} props.pages An array of pages.
- * @param {JSX.Element} props.pages[].element The JSX Element for the page.
- * @param {string} props.pages[].label The navbar name for the page.
- * @param {string} props.pages[].link The link to the page.
- * @param {("dark" | "light")} props.theme Indicates whether the website should render in dark or light theme.
+ * @param {({ toggleTheme(): void; })} props An object containing the component props.
  * @param {Function} props.toggleTheme Function to toggle the website theme.
  * @returns {JSX.Element} The page header.
  */
-export const Header = ({ pages, theme, toggleTheme }: { pages: Array<{ element: JSX.Element; label: string; link: string; }>; theme: "dark" | "light"; toggleTheme(): void; }): JSX.Element => {
+export const Header = ({ toggleTheme }: { toggleTheme(): void; }): JSX.Element => {
     // Handles behaviour for the dropdown menu on smaller displays.
     const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
     const handleOpenNavMenu = (event: MouseEvent<HTMLElement>): void => setAnchorElNav(event.currentTarget);
     const handleCloseNavMenu = (): void => setAnchorElNav(null);
+
+    // Access the pages whose links need rendering in the navbar.
+    const pages = useContext(PagesContext);
+
+    // Access the site theme.
+    const { palette: { mode: theme } } = useTheme();
 
     // Returns an AppBar element (which renders as an HTML header element).
     return <AppBar position="sticky" sx={{ backgroundImage: "none", mb: "1%" }} enableColorOnDark>

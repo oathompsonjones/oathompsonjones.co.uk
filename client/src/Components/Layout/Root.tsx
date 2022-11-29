@@ -1,5 +1,5 @@
 import { CSSVariableLoader, Footer, Header } from "../";
-import { CssBaseline, ThemeProvider, createTheme, darken, lighten, responsiveFontSizes, useMediaQuery } from "@mui/material";
+import { CssBaseline, PaletteMode, ThemeProvider, createTheme, darken, lighten, responsiveFontSizes, useMediaQuery } from "@mui/material";
 import { Container } from "@mui/system";
 import { Outlet } from "react-router-dom";
 import { useLocalStorage } from "../../Hooks";
@@ -7,17 +7,12 @@ import { useLocalStorage } from "../../Hooks";
 /**
  * A wrapper to build every page.
  *
- * @param {{ navBarLinks: Array<{ element: JSX.Element; label: string; link: string; }>; }} props An object containing the component props.
- * @param {Array<{ element: JSX.Element; label: string; link: string; }>} props.navBarLinks An array of pages to render in the navbar.
- * @param {JSX.Element} props.navBarLinks[].element The JSX Element for the page.
- * @param {string} props.navBarLinks[].label The navbar name for the page.
- * @param {string} props.navBarLinks[].link The link to the page.
  * @returns {JSX.Element} A page wrapper.
  */
-export const Root = ({ navBarLinks }: { navBarLinks: Array<{ element: JSX.Element; label: string; link: string; }>; }): JSX.Element => {
+export const Root = (): JSX.Element => {
     // Controls the behaviour for changing between dark and light theme.
-    const systemTheme = useMediaQuery("(prefers-color-scheme: dark)") ? "dark" : "light";
-    const [themeMode, setThemeMode] = useLocalStorage<"dark" | "light">("theme", systemTheme);
+    const systemTheme: PaletteMode = useMediaQuery("(prefers-color-scheme: dark)") ? "dark" : "light";
+    const [themeMode, setThemeMode] = useLocalStorage<PaletteMode>("theme", systemTheme);
     const toggleTheme = (): void => setThemeMode(themeMode === "dark" ? "light" : "dark");
 
     // These variables will be parsed into CSS.
@@ -51,7 +46,7 @@ export const Root = ({ navBarLinks }: { navBarLinks: Array<{ element: JSX.Elemen
         {/* CSSVariableLoader loads the cssVars into the site's CSS. */}
         <CSSVariableLoader cssVars={cssVars} />
         {/* Renders the page header. */}
-        <Header pages={navBarLinks} toggleTheme={toggleTheme} theme={themeMode} />
+        <Header toggleTheme={toggleTheme} />
         {/* This Container contains the main page content. */}
         <Container style={{ paddingBottom: footerHeight, width: "100vw" }}>
             {/* Renders the page itself. */}
