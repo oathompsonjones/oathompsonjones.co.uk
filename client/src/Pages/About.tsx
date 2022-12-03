@@ -146,7 +146,7 @@ export const About = (): JSX.Element => {
                         I take pride in completing all tasks on time and to the highest standard.
                         <Br lines={2} />
                         Currently, I'm reading for a degree in Computer Science at the University of Edinburgh.
-                        I'm familiar with several programming languages, including (but not limited to) TypeScript, Java and C#, and I'm able to pick up new languages quickly.
+                        I'm familiar with several programming languages, including (but not limited to) JavaScript/TypeScript, Python, C/C++, C# and Java, and I'm able to pick up new languages quickly.
                         A selection of my work can be found <a href="/portfolio">here</a>.
                     </Typography>
                 </Paper>
