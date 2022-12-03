@@ -12,7 +12,11 @@ import { useLocalStorage } from "../../Hooks";
 export const Root = (): JSX.Element => {
     // Controls the behaviour for changing between dark and light theme.
     const systemTheme: PaletteMode = useMediaQuery("(prefers-color-scheme: dark)") ? "dark" : "light";
-    const [themeMode, setThemeMode] = useLocalStorage<PaletteMode>("theme", systemTheme);
+    const themeModeHook = useLocalStorage<PaletteMode>("theme", systemTheme);
+    let [themeMode] = themeModeHook;
+    const [, setThemeMode] = themeModeHook;
+    // Ensures that the themeMode can't be tampered with by malicious users.
+    themeMode = themeMode === "light" ? "light" : "dark";
     const toggleTheme = (): void => setThemeMode(themeMode === "dark" ? "light" : "dark");
 
     // These variables will be parsed into CSS.
