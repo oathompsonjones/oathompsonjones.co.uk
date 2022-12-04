@@ -1,5 +1,5 @@
 import { Canvas, Image } from "canvas";
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import Config from "../Config";
 import axios from "axios";
 import { graphql } from "@octokit/graphql";
@@ -87,11 +87,14 @@ export async function requestHandler(_req: Request, res: Response): Promise<void
                 }
             }
         }`);
+        const combinedRepos = repos.concat(orgs.map((org) => org.repositories.repos).flat());
+        const pendingImageBinaries: Array<Promise<{ data: string; }>> = combinedRepos.map(async (repo) => axios.get(repo.openGraphImageUrl, { responseType: "arraybuffer" }));
+        const imageBinaries: Array<{ data: string; }> = await Promise.all(pendingImageBinaries);
         const formattedRepos: IRepo[] = [];
-        for (const repo of repos.concat(orgs.map((org) => org.repositories.repos).flat())) {
+        combinedRepos.forEach((repo, i) => {
             // Create the image.
             const image: Image = new Image();
-            image.src = Buffer.from((await axios.get(repo.openGraphImageUrl, { responseType: "arraybuffer" })).data, "binary");
+            image.src = Buffer.from(imageBinaries[i]!.data, "binary");
             // Create a canvas in order to resize the image.
             const canvas = new Canvas(1280, 640);
             const context = canvas.getContext("2d");
@@ -108,7 +111,7 @@ export async function requestHandler(_req: Request, res: Response): Promise<void
             context.drawImage(image, dx, 0, dw, dh);
             // Add the image to the repo object.
             formattedRepos.push({ ...repo, image: `data:image/png;base64,${canvas.toBuffer().toString("base64")}` });
-        }
+        });
         res.send(formattedRepos);
     } catch (err) {
         console.error(err);

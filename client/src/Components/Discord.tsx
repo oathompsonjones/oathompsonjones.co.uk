@@ -3,5 +3,4 @@
  *
  * @returns {JSX.Element} A span element which renders as a Discord logo.
  */
-export const Discord = (): JSX.Element =>
-    <span className="material-icons">discord</span>;
+export const Discord = (): JSX.Element => <span className="material-icons">discord</span>;

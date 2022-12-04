@@ -1,14 +1,13 @@
 import { Contact, GitHub, Instagram, Redirects } from "./API";
-import e, { Express, Request, Response } from "express";
+import type { Express, Request, Response } from "express";
 import bodyParser from "body-parser";
+import e from "express";
 import fs from "fs";
 import http from "http";
 import https from "https";
 
 // Runs every minute to check if any jobs need doing.
-setInterval(async (): Promise<void> => {
-    await Instagram.refreshToken();
-}, 60_000);
+setInterval(() => void Instagram.refreshToken, 60_000);
 
 // Create express app.
 const app: Express = e();
@@ -19,9 +18,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use((req, res, next) => {
     // Move on if running on localhost.
     if (req.hostname === "localhost" || req.hostname === "127.0.0.1")
-        return void next();
+        return next();
     // Check that the URL is correct.
-    if (/(.*)oathompsonjones\.co\.uk/.exec(req.hostname) === null) {
+    if ((/(.*)oathompsonjones\.co\.uk/u).exec(req.hostname) === null) {
         // Log the domain to the file.
         let fileContents: Buffer;
         try {
@@ -30,26 +29,27 @@ app.use((req, res, next) => {
             fs.writeFileSync("./domains.csv", "");
             fileContents = fs.readFileSync("./domains.csv");
         }
-        fs.writeFileSync("./domains.csv", [...new Set(fileContents.toString("utf8").split(",").filter((x) => x).concat(req.hostname.trim()))].join(","));
+        fs.writeFileSync("./domains.csv", [
+            ...new Set(fileContents.toString("utf8").split(",")
+                .filter((x) => x)
+                .concat(req.hostname.trim()))
+        ].join(","));
         // Send back a warning to the user.
-        let i = 5;
-        function* pageText(): Generator<string> {
-            yield `This page is pretending to be <a href="https://oathompsonjones.co.uk">https://oathompsonjones.co.uk</a>.<br>You will be redirected in ${i--} second${i === 0 ? "" : "s"}.`;
-        }
+        const warningMessage = (count: number): string => `This page is pretending to be <a href="https://oathompsonjones.co.uk">https://oathompsonjones.co.uk</a>.<br>You will be redirected in ${count} second${count === 0 ? "" : "s"}.`;
         return res.send(`
             <html>
                 <body>
                     <p id="text"></p>
                     <script>
-                        document.getElementById("text").innerHTML = '${pageText().next().value}';
+                        document.getElementById("text").innerHTML = '${warningMessage(5)}';
                         setTimeout(() => {
-                            document.getElementById("text").innerHTML = '${pageText().next().value}';
+                            document.getElementById("text").innerHTML = '${warningMessage(4)}';
                             setTimeout(() => {
-                                document.getElementById("text").innerHTML = '${pageText().next().value}';
+                                document.getElementById("text").innerHTML = '${warningMessage(3)}';
                                 setTimeout(() => {
-                                    document.getElementById("text").innerHTML = '${pageText().next().value}';
+                                    document.getElementById("text").innerHTML = '${warningMessage(2)}';
                                     setTimeout(() => {
-                                        document.getElementById("text").innerHTML = '${pageText().next().value}';
+                                        document.getElementById("text").innerHTML = '${warningMessage(1)}';
                                         setTimeout(() => window.location = "https://oathompsonjones.co.uk", 1000);
                                     }, 1000);
                                 }, 1000);
@@ -62,17 +62,17 @@ app.use((req, res, next) => {
     }
     // Redirect http requests to https.
     if (req.protocol === "http")
-        return void res.redirect(`https://${req.headers.host}${req.url}`);
+        return res.redirect(`https://oathompsonjones.co.uk"${req.url}`);
     // Move on.
-    return void next();
+    return next();
 });
 
 // Serve static content.
 app.use(e.static(`${__dirname}/client/build`));
 
 // Handle API calls.
-app.get("/api/github", GitHub.requestHandler);
-app.get("/api/instagram", Instagram.requestHandler);
+app.get("/api/github", (req, res) => void GitHub.requestHandler(req, res));
+app.get("/api/instagram", (req, res) => void Instagram.requestHandler(req, res));
 app.post("/api/contact", Contact.requestHandler);
 
 // Handle redirects.
@@ -96,8 +96,10 @@ try {
     httpServer.listen(80, "oathompsonjones.co.uk");
     console.log("Listening on ports 443 and 80.");
 } catch (err) {
-    // Should only happen when testing on local machines.
-    console.log(`HTTPS failed.\n${err}`);
-    app.listen(80);
-    console.log("Listening on port 80.");
+    if (err instanceof Error) {
+        // Should only happen when testing on local machines.
+        console.log(`HTTPS failed.\n${err.message}`);
+        app.listen(80);
+        console.log("Listening on port 80.");
+    }
 }

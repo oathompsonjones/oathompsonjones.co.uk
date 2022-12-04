@@ -1,7 +1,7 @@
 import { ArrowLeft, ArrowRight, Minimize } from "@mui/icons-material";
 import { Card, CardContent, CardMedia, Typography, Zoom } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
-import { Instagram } from "../../../API";
+import type { Instagram } from "../../../API";
 
 /**
  * Renders an Instagram post.

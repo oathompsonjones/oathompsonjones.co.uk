@@ -1,8 +1,15 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import Config from "../Config";
 import nodemailer from "nodemailer";
 
-export async function requestHandler(req: Request, res: Response): Promise<void> {
+interface IBody {
+    content: string;
+    email: string;
+    name: string;
+    subject: string;
+}
+
+export function requestHandler(req: Request<unknown, unknown, IBody>, res: Response): void {
     // Check that the input is in the correct form.
     if (req.get("content-type") !== "application/json")
         return void res.sendStatus(500);
@@ -14,10 +21,12 @@ export async function requestHandler(req: Request, res: Response): Promise<void>
     if (
         ![typeof content, typeof email, typeof name, typeof subject].every((type) => type === "string") ||
         [content, email, name, subject].includes("")
-    ) return void res.sendStatus(500);
+    )
+        return void res.sendStatus(500);
 
     // Check the user's email is valid
-    const validEmailRegex = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
+    // eslint-disable-next-line no-control-regex
+    const validEmailRegex = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/u;
     if (!validEmailRegex.test(email))
         return void res.sendStatus(500);
 
@@ -32,7 +41,7 @@ export async function requestHandler(req: Request, res: Response): Promise<void>
         from: Config.email.auth.user,
         subject,
         text,
-        to: Config.email.auth.user
+        to:   Config.email.auth.user
     }, (error) => {
         if (error !== null) {
             console.log(error);
@@ -40,11 +49,11 @@ export async function requestHandler(req: Request, res: Response): Promise<void>
             return void res.sendStatus(500);
         }
         // Send an email to the user.
-        return void transporter.sendMail({
-            from: Config.email.auth.user,
+        return transporter.sendMail({
+            from:    Config.email.auth.user,
             subject: `RE: ${subject}`,
-            text: "Thank you for your message, I will get back to you shortly.\n\nIf you did not attempt to contact me via https://oathompsonjones.co.uk/ then please ignore this email.\n\nKind Regards,\nOliver Jones (oathompsonjones@gmail.com)",
-            to: email
+            text:    "Thank you for your message, I will get back to you shortly.\n\nIf you did not attempt to contact me via https://oathompsonjones.co.uk/ then please ignore this email.\n\nKind Regards,\nOliver Jones (oathompsonjones@gmail.com)",
+            to:      email
         }, (err) => {
             if (err !== null) {
                 console.log(error);

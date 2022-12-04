@@ -1,5 +1,5 @@
 import { CircularProgress, Container, Stack, Typography } from "@mui/material";
-import { GitHub } from "../../../API";
+import type { GitHub } from "../../../API";
 import { GitHubRepo } from "../Components";
 import { Masonry } from "@mui/lab";
 import { useAxios } from "../Hooks";

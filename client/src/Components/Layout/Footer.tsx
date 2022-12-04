@@ -2,7 +2,7 @@ import { Avatar, Container, Divider, Link, Stack, Typography } from "@mui/materi
 import { Email, Facebook, GitHub, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
 import { Discord } from "../";
 import Pfp from "../../Images/pfp.jpg";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
 /**
  * Contains the footer element.
@@ -13,7 +13,7 @@ import { ReactElement } from "react";
  * @param {string} props.footerHeight A CSS height value which determines the footer's height.
  * @returns {JSX.Element} The page footer.
  */
-export const Footer = ({ backgroundColour, borderColour, footerHeight }: { backgroundColour: string; borderColour: string; footerHeight: string; }): JSX.Element => {
+export const Footer = ({ backgroundColour, borderColour, footerHeight }: { [key in "backgroundColour" | "borderColour" | "footerHeight"]: string; }): JSX.Element => {
     // Links a URL and an icon for each social media to display in the footer.
     const socials: Array<{ icon: ReactElement; link: string; }> = [
         { icon: <GitHub />, link: "/github" },
@@ -28,13 +28,13 @@ export const Footer = ({ backgroundColour, borderColour, footerHeight }: { backg
     // Returns an HTML footer element.
     return <footer style={{
         backgroundColor: backgroundColour,
-        borderTop: `5px solid ${borderColour}`,
-        bottom: 0,
-        maxHeight: footerHeight,
-        overflow: "hidden",
-        padding: "1%",
-        position: "absolute",
-        width: "100%"
+        borderTop:       `5px solid ${borderColour}`,
+        bottom:          0,
+        maxHeight:       footerHeight,
+        overflow:        "hidden",
+        padding:         "1%",
+        position:        "absolute",
+        width:           "100%"
     }}>
         {/* This Container will not be visible when printing a page. */}
         <Container sx={{ displayPrint: "none" }}>
@@ -49,11 +49,7 @@ export const Footer = ({ backgroundColour, borderColour, footerHeight }: { backg
                         <Typography variant="h6">Thompson Jones</Typography>
                     </Stack>
                     {/* The social media links are rendered on the right. */}
-                    {socials.map(({ icon, link }, i) =>
-                        <Link key={i} color="inherit" href={link}>
-                            {icon}
-                        </Link>
-                    )}
+                    {socials.map(({ icon, link }, i) => <Link key={i} color="inherit" href={link}>{icon}</Link>)}
                 </Stack>
                 {/* This stack renders all internal elements horizontally instead of vertically, and puts a Divider between each element. */}
                 <Stack direction="row" divider={<Divider orientation="vertical" sx={{ margin: "0% 1%" }} flexItem />}>

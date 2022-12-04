@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { Request, Response } from "express";
-import axios, { AxiosResponse } from "axios";
+import type { Request, Response } from "express";
+import type { AxiosResponse } from "axios";
 import Config from "../Config";
+import axios from "axios";
 
 interface IBasePost {
     caption?: string;
@@ -55,12 +56,12 @@ export async function refreshToken(): Promise<void> {
                 expires_in: number;
                 token_type: "bearer";
             }> = await axios.get(`https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${Config.instagram.accessToken}`);
-            const { access_token, expires_in } = response.data;
+            const { access_token: accessToken, expires_in: expiresIn } = response.data;
             Config.update({
                 instagram: {
                     ...Config.instagram,
-                    accessToken: access_token,
-                    accessTokenRefreshAt: Math.floor(Date.now() + 9 * expires_in / 10)
+                    accessToken,
+                    accessTokenRefreshAt: Math.floor(Date.now() + 9 * expiresIn / 10)
                 }
             });
         }

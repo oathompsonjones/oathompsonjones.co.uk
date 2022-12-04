@@ -1,5 +1,6 @@
-import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
+import type { AxiosResponse } from "axios";
+import axios from "axios";
 
 /**
  * Fetches data using Axios, then rerenders the page once that data has been fetched, using the behaviour provided by `useState`.

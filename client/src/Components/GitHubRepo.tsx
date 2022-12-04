@@ -1,6 +1,6 @@
 import { Accordion, AccordionDetails, AccordionSummary, Button, Card, CardActions, CardContent, CardMedia, Typography, Zoom } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
-import { GitHub } from "../../../API";
+import type { GitHub } from "../../../API";
 import { Stack } from "@mui/system";
 
 /**
@@ -14,7 +14,7 @@ import { Stack } from "@mui/system";
 export const GitHubRepo = ({ index, repo }: { index: number; repo: GitHub.IRepo; }): JSX.Element => {
     // Maps the repository languages into a more readable format.
     const repoLanguages = repo.primaryLanguage === null ? "N/A" : `${repo.primaryLanguage.name} ${(
-        (languages: string[]): string => languages.length > 0 ? `(${languages.join(", ")})` : ""
+        (languages: string[]): string => (languages.length > 0 ? `(${languages.join(", ")})` : "")
     )(repo.languages.nodes.map((lang) => lang.name).filter((name) => name !== repo.primaryLanguage?.name))}`;
 
     // Returns a Zoom element wrapping the repository to make it look nicer when loading in.
@@ -36,26 +36,27 @@ export const GitHubRepo = ({ index, repo }: { index: number; repo: GitHub.IRepo;
                 {/* Renders the extra information. */}
                 <AccordionDetails>
                     {/* Renders the repository team name, if there is one. */}
-                    {repo.nameWithOwner.split("/")[0] !== "oathompsonjones"
-                        ? <>
-                            <Typography variant="h6">Team</Typography>
-                            <Typography>{repo.nameWithOwner.split("/")[0]}</Typography>
-                        </>
-                        : ""}
+                    {repo.nameWithOwner.split("/")[0] === "oathompsonjones" ? "" : <>
+                        <Typography variant="h6">Team</Typography>
+                        <Typography>{repo.nameWithOwner.split("/")[0]}</Typography>
+                    </>}
                     {/* Renders the languages used in this repository. */}
                     <Typography variant="h6">Languages</Typography>
                     <Typography>{repoLanguages}</Typography>
                     {/* Renders buttons to goto the repository or its website. */}
                     <CardActions>
                         <Stack direction="row" justifyContent="space-evenly" alignItems="center" width="100%">
-                            {!repo.isPrivate
-                                ? <Button size="small" href={repo.url}>View Code</Button>
-                                : <Button size="small" disabled>View Code</Button>}
-                            {repo.homepageUrl !== null && repo.homepageUrl.length > 0
-                                ? <Button size="small" href={repo.homepageUrl}>View Site</Button>
-                                : repo.isPrivate
-                                    ? <Button size="small" disabled>View Site</Button>
-                                    : <Button size="small" href={`https://oathompsonjones.github.io/${repo.name}`}>View Site</Button>}
+                            {repo.isPrivate
+                                ? <Button size="small" disabled>View Code</Button>
+                                : <Button size="small" href={repo.url}>View Code</Button>
+                            }
+                            {repo.isPrivate
+                                ? <Button size="small" disabled>View Site</Button>
+                                : <Button size="small" href={repo.homepageUrl !== null && repo.homepageUrl.length > 0
+                                    ? repo.homepageUrl
+                                    : `https://oathompsonjones.github.io/${repo.name}`
+                                }>View Site</Button>
+                            }
                         </Stack>
                     </CardActions>
                     {/* Renders the repository description. */}

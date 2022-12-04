@@ -1,13 +1,15 @@
 import "./main.css";
 import { About, Contact, Error, Gallery, Home, Portfolio } from "./Pages";
-import { IPage, PagesContext } from "./Contexts";
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
+import type { IPage } from "./Contexts";
+import { PagesContext } from "./Contexts";
 import { Root } from "./Components";
 
 /**
  * Creates the website router, then renders each page when needed.
  *
- * @returns {JSX.Element} A RouterProvider element, which uses the router that is created, wrapped by a context provider which the Header access to render links.
+ * @returns {JSX.Element} A RouterProvider element, which uses the router that is created,
+ * wrapped by a context provider which the Header access to render links.
  */
 export default (): JSX.Element => {
     // Contains all pages for the site.
@@ -24,7 +26,6 @@ export default (): JSX.Element => {
     const router = createBrowserRouter(
         createRoutesFromElements(
             // Creates a base root, passing the Root component as an element.
-            // The root element takes an argument which lists the pages that need showing in the nav bar.
             <Route path="/" element={<Root />} errorElement={<Error code={500} />}>{
                 // Maps each page object into a Route element.
                 pages.map(({ element, label, link }) => <Route
@@ -32,7 +33,7 @@ export default (): JSX.Element => {
                     path={link === "/" ? undefined : link}
                     element={element}
                     errorElement={<Error code={500} />}
-                    loader={(): string => document.title = label.length > 0 ? `Oliver Jones | ${label}` : "Oliver Jones"}
+                    loader={(): string => (document.title = label.length > 0 ? `Oliver Jones | ${label}` : "Oliver Jones")}
                 />)
             }</Route>
         )

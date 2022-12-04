@@ -1,5 +1,5 @@
 import { CircularProgress, Container, Stack, Typography } from "@mui/material";
-import { Instagram } from "../../../API";
+import type { Instagram } from "../../../API";
 import { InstagramPost } from "../Components";
 import { Masonry } from "@mui/lab";
 import { useAxios } from "../Hooks";

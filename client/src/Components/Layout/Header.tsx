@@ -1,7 +1,8 @@
 import { AppBar, Box, Container, IconButton, Menu, MenuItem, Stack, Toolbar, Typography, useTheme } from "@mui/material";
 import { DarkMode as DarkModeIcon, LightMode as LightModeIcon, Menu as MenuIcon } from "@mui/icons-material";
-import { MouseEvent, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { AdaptiveTypography } from "../";
+import type { MouseEvent } from "react";
 import { PagesContext } from "../../Contexts";
 
 /**
@@ -11,7 +12,7 @@ import { PagesContext } from "../../Contexts";
  * @param {Function} props.toggleTheme Function to toggle the website theme.
  * @returns {JSX.Element} The page header.
  */
-export const Header = ({ toggleTheme }: { toggleTheme(): void; }): JSX.Element => {
+export const Header = ({ toggleTheme }: { toggleTheme: () => void; }): JSX.Element => {
     // Handles behaviour for the dropdown menu on smaller displays.
     const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
     const handleOpenNavMenu = (event: MouseEvent<HTMLElement>): void => setAnchorElNav(event.currentTarget);
@@ -58,33 +59,27 @@ export const Header = ({ toggleTheme }: { toggleTheme(): void; }): JSX.Element =
                     >
                         {
                             // Renders a link to each page.
-                            pages.map((page, i) =>
-                                <MenuItem key={i} component="a" href={page.link} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page.label}</Typography>
-                                </MenuItem>
-                            )
+                            pages.map((page, i) => <MenuItem key={i} component="a" href={page.link} onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">{page.label}</Typography>
+                            </MenuItem>)
                         }
                     </Menu>
                 </Box>
                 {/* Displays the main page title for the nav bar. This renders on displays of any size. */}
                 <AdaptiveTypography variant="h5" noWrap href="/" sx={{
-                    color: "inherit",
-                    flexGrow: { md: 0, xs: 1 },
-                    fontFamily: "monospace",
-                    fontWeight: 700,
-                    letterSpacing: ".3rem",
-                    mr: 2,
+                    color:          "inherit",
+                    flexGrow:       { md: 0, xs: 1 },
+                    fontFamily:     "monospace",
+                    fontWeight:     700,
+                    letterSpacing:  ".3rem",
+                    mr:             2,
                     textDecoration: "none"
                 }} xs="OATHOMPSONJONES" />
                 {/* This Box contains the nav bar for larger displays. */}
                 <Box sx={{ display: { md: "flex", xs: "none" }, flexGrow: 1 }}>
                     {
                         // Renders a link to each page.
-                        pages.map((page, i) =>
-                            <MenuItem key={i} component="a" href={page.link} sx={{ color: "white", display: "block", my: 2 }}>
-                                {page.label}
-                            </MenuItem>
-                        )
+                        pages.map((page, i) => <MenuItem key={i} component="a" href={page.link} sx={{ color: "white", display: "block", my: 2 }}>{page.label}</MenuItem>)
                     }
                 </Box>
                 {/* Renders a button to control dark/light theme. This renders on displays of any size. */}

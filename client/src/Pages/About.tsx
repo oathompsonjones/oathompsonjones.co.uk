@@ -1,18 +1,13 @@
 import { Avatar, Container, Divider, Grid, Paper, Stack, Typography } from "@mui/material";
 import { Br } from "../Components";
 import Pfp from "../Images/pfp.jpg";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
-/**
- * This page acts as an online CV.
- *
- * @returns {JSX.Element} My CV.
- */
-export const About = (): JSX.Element => {
-    // TODO: Maybe get this data from LinkedIn, so I don't need to update it here an there?
+// TODO: Maybe get this data from LinkedIn, so I don't need to update it here an there?
 
-    // Contains the data for the experience section of my CV.
-    const experiences: Array<{ content: ReactElement; heading: string; }> = [{
+// Contains the data for the experience section of my CV.
+const experiences: Array<{ content: ReactElement; heading: string; }> = [
+    {
         content: <>
             <a href="https://www.arm.com">ARM Holding</a> are one of the world's leading semiconductor and software design companies.
             <Br />
@@ -22,7 +17,8 @@ export const About = (): JSX.Element => {
     }, {
         content: <>
             <a href="https://bitsolutions.net">Bit Solutions</a> are an IT management company.
-            They have partnerships with several leading technology companies in order to provide their clients with industry leading cloud, hybrid and on premise IT solutions.
+            They have partnerships with several leading technology companies in order to provide their clients with industry leading cloud,
+            hybrid and on premise IT solutions.
             <Br />
             During my week at Bit Solutions, I experienced what it is like to work in the IT management sector, visiting clients' sites,
             and learning how to setup and manage various systems for those clients.
@@ -54,10 +50,12 @@ export const About = (): JSX.Element => {
             This involved weekly tutoring of year 7 and 8 students to help with their studies in mathematics at <a href="https://tbshs.org">The Bishop's Stortford High School</a>.
         </>,
         heading: "Paired Numeracy - 2021"
-    }];
+    }
+];
 
-    // Contains the data for the skills section of my CV.
-    const skills: Array<{ content: ReactElement; heading: string; }> = [{
+// Contains the data for the skills section of my CV.
+const skills: Array<{ content: ReactElement; heading: string; }> = [
+    {
         content: <>
             I am highly proficient with usual IT skills such as word processing and use of spreadsheets,
             and I am also an experienced programmer with knowledge of multiple languages.
@@ -67,12 +65,14 @@ export const About = (): JSX.Element => {
         heading: "IT & Programming"
     }, {
         content: <>
-            I'm able to identify a problems find efficient solutions for them. I'm also able to write computer programs to solve problems more quickly.
+            I'm able to identify a problems find efficient solutions for them.
+            I'm also able to write computer programs to solve problems more quickly.
         </>,
         heading: "Problem Solving"
     }, {
         content: <>
-            With A* grades in A-Level Maths and Further Maths, and with further study in Maths being essential to my chosen degree, I am highly skilled in Mathematics.
+            With A* grades in A-Level Maths and Further Maths, and with further study in Maths being essential to my chosen degree,
+            I am highly skilled in Mathematics.
         </>,
         heading: "Numeracy"
     }, {
@@ -90,193 +90,150 @@ export const About = (): JSX.Element => {
         heading: "Time Management"
     }, {
         content: <>
-            Being able to work well in a team is an essential skill to the workplace, one which I have demonstrated through work as a volunteer Library Helper for 5 years
+            Being able to work well in a team is an essential skill to the workplace,
+            one which I have demonstrated through work as a volunteer Library Helper for 5 years
             and through working as part of the Interact team for 7 years.
         </>,
         heading: "Teamwork"
-    }];
+    }
+];
 
-    // Renders my CV page.
-    return <Container>
-        <Typography variant="h2">
-            About Me
-        </Typography>
-        <Grid container spacing={2} sx={{ mb: "1rem" }}>
-            {/* Renders my bio. */}
-            <Grid item xs={12}>
-                <Paper sx={{ padding: "1rem" }}>
-                    <Typography variant="h4">
-                        Biography
-                    </Typography>
-                    <Divider sx={{ m: "1.25% 0%" }} />
-                    <Stack direction="row">
-                        <Avatar src={Pfp} sx={{ height: 0.25, m: "1rem", width: 0.25 }} />
-                        <Stack direction="column" justifyContent="center" flexGrow={1}>
-                            <Typography variant="h6">
-                                Name
-                            </Typography>
-                            <Typography>
-                                <b>O</b>liver <b>A</b>ndrew <b>Thompson Jones</b>
-                            </Typography>
-                            <Divider sx={{ margin: "1.25% 0%" }} flexItem />
-                            <Typography variant="h6">
-                                Nationality
-                            </Typography>
-                            <Typography>
-                                British
-                            </Typography>
-                            <Divider sx={{ margin: "1.25% 0%" }} flexItem />
-                            <Typography variant="h6">
-                                Age
-                            </Typography>
-                            <Typography>
-                                {((): number => {
-                                    const today: Date = new Date();
-                                    const birthDate: Date = new Date(2003, 0, 2);
-                                    return today.getMonth() - birthDate.getMonth() <= 0 && today.getDate() < birthDate.getDate()
-                                        ? today.getFullYear() - birthDate.getFullYear() - 1
-                                        : today.getFullYear() - birthDate.getFullYear();
-                                })()}
-                            </Typography>
-                        </Stack>
-                    </Stack>
-                    <Typography>
-                        I am an ambitious, hard-working person, able to work well under stressful conditions.
-                        I'm able to work effectively with a group of like-minded colleagues and have experience managing teams, yet I'm also able to work effectively alone.
-                        I take pride in completing all tasks on time and to the highest standard.
-                        <Br lines={2} />
-                        Currently, I'm reading for a degree in Computer Science at the University of Edinburgh.
-                        I'm familiar with several programming languages, including (but not limited to) JavaScript/TypeScript, Python, C/C++, C# and Java, and I'm able to pick up new languages quickly.
-                        A selection of my work can be found <a href="/portfolio">here</a>.
-                    </Typography>
-                </Paper>
-            </Grid>
-            {/* Renders my GCSE grades. */}
-            <Grid item xs={12} md={4}>
-                <Paper sx={{ display: "flex", flexDirection: "column", height: 1, padding: "0.5rem 1rem" }}>
-                    <Typography variant="h4">
-                        GCSEs
-                    </Typography>
-                    <Divider sx={{ margin: "1.25% 0%" }} />
-                    <Stack direction="row" flexGrow={1}>
-                        <Typography flexGrow={1}>
-                            Biology <Br />
-                            Chemistry <Br />
-                            Computer Science <Br />
-                            English Language <Br />
-                            English Literature <Br />
-                            French <Br />
-                            History <Br />
-                            Mathematics <Br />
-                            Physics <Br />
-                        </Typography>
-                        <Typography flexGrow={1}>
-                            8 <Br />
-                            7 <Br />
-                            8 <Br />
-                            8 <Br />
-                            7 <Br />
-                            7 <Br />
-                            8 <Br />
-                            8 <Br />
-                            8 <Br />
+/**
+ * This page acts as an online CV.
+ *
+ * @returns {JSX.Element} My CV.
+ */
+export const About = (): JSX.Element => <Container>
+    <Typography variant="h2">About Me</Typography>
+    <Grid container spacing={2} sx={{ mb: "1rem" }}>
+        {/* Renders my bio. */}
+        <Grid item xs={12}>
+            <Paper sx={{ padding: "1rem" }}>
+                <Typography variant="h4">Biography</Typography>
+                <Divider sx={{ m: "1.25% 0%" }} />
+                <Stack direction="row">
+                    <Avatar src={Pfp} sx={{ height: 0.25, m: "1rem", width: 0.25 }} />
+                    <Stack direction="column" justifyContent="center" flexGrow={1}>
+                        <Typography variant="h6">Name</Typography>
+                        <Typography><b>O</b>liver <b>A</b>ndrew <b>Thompson Jones</b></Typography>
+                        <Divider sx={{ margin: "1.25% 0%" }} flexItem />
+                        <Typography variant="h6">Nationality</Typography>
+                        <Typography>British</Typography>
+                        <Divider sx={{ margin: "1.25% 0%" }} flexItem />
+                        <Typography variant="h6">Age</Typography>
+                        <Typography>
+                            {((): number => {
+                                const today: Date = new Date();
+                                const birthDate: Date = new Date(2003, 0, 2);
+                                return today.getMonth() - birthDate.getMonth() <= 0 && today.getDate() < birthDate.getDate()
+                                    ? today.getFullYear() - birthDate.getFullYear() - 1
+                                    : today.getFullYear() - birthDate.getFullYear();
+                            })()}
                         </Typography>
                     </Stack>
-                    <Divider sx={{ margin: "1.25% 0%" }} />
-                    <Typography variant="caption" sx={{ bottom: 0 }}>
-                        Attained at <a href="https://tbshs.org">The Bishop's Stortford High School</a> in 2019.
-                    </Typography>
-                </Paper>
-            </Grid>
-            {/* Renders my A-Level grades. */}
-            <Grid item xs={12} md={4}>
-                <Paper sx={{ display: "flex", flexDirection: "column", height: 1, padding: "0.5rem 1rem" }}>
-                    <Typography variant="h4">
-                        A-Levels
-                    </Typography>
-                    <Divider sx={{ margin: "1.25% 0%" }} />
-                    <Stack direction="row" flexGrow={1}>
-                        <Typography flexGrow={1}>
-                            Computer Science <Br />
-                            Further Mathematics <Br />
-                            Mathematics <Br />
-                            Physics <Br />
-                        </Typography>
-                        <Typography flexGrow={1}>
-                            A* <Br />
-                            B  <Br />
-                            A* <Br />
-                            A* <Br />
-                        </Typography>
-                    </Stack>
-                    <Divider sx={{ margin: "1.25% 0%" }} />
-                    <Typography variant="caption" sx={{ bottom: 0 }}>
-                        Attained at <a href="https://tbshs.org">The Bishop's Stortford High School</a> in 2021.
-                    </Typography>
-                </Paper>
-            </Grid>
-            {/* Renders my University grades. */}
-            <Grid item xs={12} md={4}>
-                <Paper sx={{ display: "flex", flexDirection: "column", height: 1, padding: "0.5rem 1rem" }}>
-                    <Typography variant="h4">
-                        Further Education
-                    </Typography>
-                    <Divider sx={{ margin: "1.25% 0%" }} />
-                    <Typography flexGrow={1}>
-                        Currently studying Undergraduate Computer Science at the University of Edinburgh.
-                    </Typography>
-                    <Stack direction="row" flexGrow={1}>
-                        <Typography flexGrow={1}>
-                            1st Year <Br />
-                            2nd Year <Br />
-                            3rd Year <Br />
-                            4th Year <Br />
-                        </Typography>
-                        <Typography flexGrow={1}>
-                            I   <Br />
-                            TBD <Br />
-                            TBD <Br />
-                            TBD <Br />
-                        </Typography>
-                    </Stack>
-                    <Divider sx={{ margin: "1.25% 0%" }} />
-                    <Typography variant="caption" sx={{ bottom: 0 }}>
-                        Studying at <a href="https://ed.ac.uk">The University of Edinburgh</a> since 2021.
-                    </Typography>
-                </Paper>
-            </Grid>
-            {/* Renders my experience. */}
-            <Grid item xs={12}>
-                <Paper sx={{ padding: "1rem" }}>
-                    <Typography variant="h4">Experience</Typography>
-                    {experiences.map(({ content, heading }) => <>
-                        <Divider sx={{ margin: "1.25% 0%" }} />
-                        <Typography variant="subtitle1">
-                            {heading}
-                        </Typography>
-                        <Typography variant="body2">
-                            {content}
-                        </Typography>
-                    </>)}
-                </Paper>
-            </Grid>
-            {/* Renders my skills. */}
-            <Grid item xs={12}>
-                <Paper sx={{ padding: "1rem" }}>
-                    <Typography variant="h4">
-                        Skills
-                    </Typography>
-                    {skills.map(({ content, heading }) => <>
-                        <Divider sx={{ margin: "1.25% 0%" }} />
-                        <Typography variant="subtitle1">
-                            {heading}
-                        </Typography>
-                        <Typography variant="body2">
-                            {content}
-                        </Typography>
-                    </>)}
-                </Paper>
-            </Grid>
+                </Stack>
+                <Typography>
+                    I am an ambitious, hard-working person, able to work well under stressful conditions.
+                    I'm able to work effectively with a group of like-minded colleagues and have experience managing teams,
+                    yet I'm also able to work effectively alone.
+                    I take pride in completing all tasks on time and to the highest standard.
+                    <Br lines={2} />
+                    Currently, I'm reading for a degree in Computer Science at the University of Edinburgh.
+                    I'm familiar with several programming languages, including (but not limited to) JavaScript/TypeScript,
+                    Python, C/C++, C# and Java, and I'm able to pick up new languages quickly.
+                    A selection of my work can be found <a href="/portfolio">here</a>.
+                </Typography>
+            </Paper>
         </Grid>
-    </Container>;
-};
+        {/* Renders my GCSE grades. */}
+        <Grid item xs={12} md={4}>
+            <Paper sx={{ display: "flex", flexDirection: "column", height: 1, padding: "0.5rem 1rem" }}>
+                <Typography variant="h4">GCSEs</Typography>
+                <Divider sx={{ margin: "1.25% 0%" }} />
+                <Stack direction="row" flexGrow={1}>
+                    <Typography flexGrow={1}>
+                        Biology <Br />
+                        Chemistry <Br />
+                        Computer Science <Br />
+                        English Language <Br />
+                        English Literature <Br />
+                        French <Br />
+                        History <Br />
+                        Mathematics <Br />
+                        Physics <Br />
+                    </Typography>
+                    <Typography flexGrow={1}>
+                        8<Br />7<Br />8<Br />8<Br />7<Br />7<Br />8<Br />8<Br />8<Br />
+                    </Typography>
+                </Stack>
+                <Divider sx={{ margin: "1.25% 0%" }} />
+                <Typography variant="caption" sx={{ bottom: 0 }}>
+                    Attained at <a href="https://tbshs.org">The Bishop's Stortford High School</a> in 2019.
+                </Typography>
+            </Paper>
+        </Grid>
+        {/* Renders my A-Level grades. */}
+        <Grid item xs={12} md={4}>
+            <Paper sx={{ display: "flex", flexDirection: "column", height: 1, padding: "0.5rem 1rem" }}>
+                <Typography variant="h4">A-Levels</Typography>
+                <Divider sx={{ margin: "1.25% 0%" }} />
+                <Stack direction="row" flexGrow={1}>
+                    <Typography flexGrow={1}>
+                        Computer Science<Br />Further Mathematics<Br />Mathematics<Br />Physics<Br />
+                    </Typography>
+                    <Typography flexGrow={1}>
+                        A*<Br />B<Br />A*<Br />A*<Br />
+                    </Typography>
+                </Stack>
+                <Divider sx={{ margin: "1.25% 0%" }} />
+                <Typography variant="caption" sx={{ bottom: 0 }}>
+                    Attained at <a href="https://tbshs.org">The Bishop's Stortford High School</a> in 2021.
+                </Typography>
+            </Paper>
+        </Grid>
+        {/* Renders my University grades. */}
+        <Grid item xs={12} md={4}>
+            <Paper sx={{ display: "flex", flexDirection: "column", height: 1, padding: "0.5rem 1rem" }}>
+                <Typography variant="h4">Further Education</Typography>
+                <Divider sx={{ margin: "1.25% 0%" }} />
+                <Typography flexGrow={1}>
+                    Currently studying Undergraduate Computer Science at the University of Edinburgh.
+                </Typography>
+                <Stack direction="row" flexGrow={1}>
+                    <Typography flexGrow={1}>
+                        1st Year<Br />2nd Year<Br />3rd Year<Br />4th Year<Br />
+                    </Typography>
+                    <Typography flexGrow={1}>
+                        I<Br />TBD<Br />TBD<Br />TBD<Br />
+                    </Typography>
+                </Stack>
+                <Divider sx={{ margin: "1.25% 0%" }} />
+                <Typography variant="caption" sx={{ bottom: 0 }}>
+                    Studying at <a href="https://ed.ac.uk">The University of Edinburgh</a> since 2021.
+                </Typography>
+            </Paper>
+        </Grid>
+        {/* Renders my experience. */}
+        <Grid item xs={12}>
+            <Paper sx={{ padding: "1rem" }}>
+                <Typography variant="h4">Experience</Typography>
+                {experiences.map(({ content, heading }) => <>
+                    <Divider sx={{ margin: "1.25% 0%" }} />
+                    <Typography variant="subtitle1">{heading}</Typography>
+                    <Typography variant="body2">{content}</Typography>
+                </>)}
+            </Paper>
+        </Grid>
+        {/* Renders my skills. */}
+        <Grid item xs={12}>
+            <Paper sx={{ padding: "1rem" }}>
+                <Typography variant="h4">Skills</Typography>
+                {skills.map(({ content, heading }) => <>
+                    <Divider sx={{ margin: "1.25% 0%" }} />
+                    <Typography variant="subtitle1">{heading}</Typography>
+                    <Typography variant="body2">{content}</Typography>
+                </>)}
+            </Paper>
+        </Grid>
+    </Grid>
+</Container>;

@@ -1,7 +1,8 @@
 import { CSSVariableLoader, Footer, Header } from "../";
-import { CssBaseline, PaletteMode, ThemeProvider, createTheme, darken, lighten, responsiveFontSizes, useMediaQuery } from "@mui/material";
+import { CssBaseline, ThemeProvider, createTheme, darken, lighten, responsiveFontSizes, useMediaQuery } from "@mui/material";
 import { Container } from "@mui/system";
 import { Outlet } from "react-router-dom";
+import type { PaletteMode } from "@mui/material";
 import { useLocalStorage } from "../../Hooks";
 
 /**
@@ -22,17 +23,15 @@ export const Root = (): JSX.Element => {
     // These variables will be parsed into CSS.
     const cssVars = {
         backgroundColour: themeMode === "dark" ? "#121212" : "#ffffff",
-        linkColour: "#1c7eea",
-        mainColour: "#1c7eea"
+        linkColour:       "#1c7eea",
+        mainColour:       "#1c7eea"
     };
 
     // Constructs the colour theme for the site.
     const theme = responsiveFontSizes(createTheme({
         palette: {
-            mode: themeMode,
-            primary: {
-                main: cssVars.mainColour
-            }
+            mode:    themeMode,
+            primary: { main: cssVars.mainColour }
         },
         // Makes any h tags render with the main site colour.
         typography: ["h1", "h2", "h3", "h4", "h5", "h6"]

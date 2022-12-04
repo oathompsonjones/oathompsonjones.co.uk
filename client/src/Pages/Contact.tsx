@@ -1,8 +1,9 @@
 import { Alert, Button, Container, Divider, FormControl, FormHelperText, FormLabel, Grid, Link, Paper, Stack, TextField, Typography } from "@mui/material";
 import { Email, Facebook, GitHub, Instagram, LinkedIn, Send, Twitter } from "@mui/icons-material";
-import { FormEvent, ReactElement, useState } from "react";
+import type { FormEvent, ReactElement } from "react";
 import { Discord } from "../Components";
 import axios from "axios";
+import { useState } from "react";
 
 /**
  * This page provides contact links for me.
@@ -41,7 +42,8 @@ export const Contact = (): JSX.Element => {
         // Attempts to submit the form.
         try {
             // Checks that there is content in each of fields.
-            if ([content, email, name, subject].includes("")) throw new Error();
+            if ([content, email, name, subject].includes(""))
+                throw new Error();
             // Sends a request to the backend.
             await axios.post("/api/contact", { content, email, name, subject });
             // Clears the fields for each of the fields in the form.
@@ -68,7 +70,7 @@ export const Contact = (): JSX.Element => {
         {/* Renders the form. */}
         <Paper sx={{ display: "flex", justifyContent: "space-evenly", m: "1%", p: "1%" }}>
             {/* Form control calls handleSubmit when the form is submitted. */}
-            <FormControl component="form" onSubmit={handleSubmit}>
+            <FormControl component="form" onSubmit={(event: FormEvent): void => void handleSubmit(event)}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <FormLabel>Fill out this form to contact me.</FormLabel>
