@@ -7,10 +7,10 @@
     },
     "dependencies": {
         "@oathompsonjones/eslint-config": "^0.0.22",
-        "@oathompsonjones/ts-config": "^0.0.3",
+        "@oathompsonjones/ts-config": "^0.0.4",
         "@octokit/graphql": "^4.8.0",
         "@types/express": "^4.17.11",
-        "@types/node": "^17.0.6",
+        "@types/node": "^18.11.11",
         "@types/nodemailer": "^6.4.6",
         "axios": "^0.21.1",
         "body-parser": "^1.18.3",
