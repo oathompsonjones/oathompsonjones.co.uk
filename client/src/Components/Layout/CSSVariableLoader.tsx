@@ -6,8 +6,12 @@
  * @param {Record<string, string>} props.cssVars The collection of key-value pairs to embed.
  * @returns {JSX.Element} An HTML style tag containing a `:root` which holds the CSS variables.
  */
-export const CSSVariableLoader = ({ cssVars }: { cssVars: Record<string, string>; }): JSX.Element => <style>{
-    `:root {${Object.entries(cssVars)
-        .map(([key, value]) => `--${key}: ${value};`)
-        .join("\n")}}`
-}</style>;
+export const CSSVariableLoader = ({ cssVars }: { cssVars: Record<string, string>; }): JSX.Element => (
+    <style>
+        {
+            `:root {${Object.entries(cssVars)
+                .map(([key, value]) => `--${key}: ${value};`)
+                .join("\n")}}`
+        }
+    </style>
+);

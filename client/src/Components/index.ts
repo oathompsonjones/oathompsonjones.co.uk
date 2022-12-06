@@ -1,3 +1,4 @@
+export * from "./CV";
 export * from "./Layout";
 export * from "./AdaptiveTypography";
 export * from "./Br";

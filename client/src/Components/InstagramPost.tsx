@@ -17,33 +17,37 @@ export const InstagramPost = ({ index, post }: { index: number; post: Instagram.
         // Renders a carousel of images.
         case "CAROUSEL_ALBUM":
             // Returns a Zoom element wrapping the post to make it look nicer when loading in.
-            return <Zoom in style={{ transitionDelay: `${index * 100}ms` }}>
-                {/* This Card element contains the post. */}
-                <Card>
-                    {/* Renders the carousel. */}
-                    <Carousel NextIcon={<ArrowRight />} PrevIcon={<ArrowLeft />} IndicatorIcon={<Minimize />}>
-                        {post.children.data.map((image) => <CardMedia component="img" image={image.media_url} />)}
-                    </Carousel>
-                    {/* Renders a link to the post on Instagram. */}
-                    <CardContent>
-                        <Typography component="a" variant="caption" href={post.permalink}>View on Instagram</Typography>
-                    </CardContent>
-                </Card>
-            </Zoom>;
+            return (
+                <Zoom in style={{ transitionDelay: `${index * 100}ms` }}>
+                    {/* This Card element contains the post. */}
+                    <Card>
+                        {/* Renders the carousel. */}
+                        <Carousel IndicatorIcon={<Minimize />} NextIcon={<ArrowRight />} PrevIcon={<ArrowLeft />}>
+                            {post.children.data.map((image, i) => <CardMedia component="img" image={image.media_url} key={i} />)}
+                        </Carousel>
+                        {/* Renders a link to the post on Instagram. */}
+                        <CardContent>
+                            <Typography component="a" href={post.permalink} variant="caption">View on Instagram</Typography>
+                        </CardContent>
+                    </Card>
+                </Zoom>
+            );
         // Renders an image or video.
         case "IMAGE":
         default:
             // Returns a Zoom element wrapping the post to make it look nicer when loading in.
-            return <Zoom in style={{ transitionDelay: `${index * 100}ms` }}>
-                {/* This Card element contains the post. */}
-                <Card>
-                    {/* Renders the image. */}
-                    <CardMedia component="img" image={post.media_url} />
-                    {/* Renders a link to the post on Instagram. */}
-                    <CardContent>
-                        <Typography component="a" variant="caption" href={post.permalink}>View on Instagram</Typography>
-                    </CardContent>
-                </Card>
-            </Zoom>;
+            return (
+                <Zoom in style={{ transitionDelay: `${index * 100}ms` }}>
+                    {/* This Card element contains the post. */}
+                    <Card>
+                        {/* Renders the image. */}
+                        <CardMedia component="img" image={post.media_url} />
+                        {/* Renders a link to the post on Instagram. */}
+                        <CardContent>
+                            <Typography component="a" href={post.permalink} variant="caption">View on Instagram</Typography>
+                        </CardContent>
+                    </Card>
+                </Zoom>
+            );
     }
 };

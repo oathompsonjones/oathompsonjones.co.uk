@@ -6,7 +6,7 @@
         "check": "cd client && eslint \"**\" && cd ../ && eslint \"**\" && tsc"
     },
     "dependencies": {
-        "@oathompsonjones/eslint-config": "^0.0.19",
+        "@oathompsonjones/eslint-config": "^0.0.21",
         "@oathompsonjones/ts-config": "^0.0.3",
         "@octokit/graphql": "^4.8.0",
         "@types/express": "^4.17.11",

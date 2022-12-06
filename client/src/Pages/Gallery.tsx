@@ -14,17 +14,21 @@ export const Gallery = (): JSX.Element => {
     const [posts] = useAxios<Instagram.IPost[]>("/api/instagram");
 
     // Renders the gallery page.
-    return <Container>
-        <Typography variant="h2">Gallery</Typography>
-        <Typography variant="subtitle1">These images are pulled directly from my <a href="/instagram">Instagram</a> profile.</Typography>
-        {
-            posts === null
-                ? <Stack justifyContent="center" alignItems="center">
-                    <CircularProgress />
-                </Stack>
-                : <Masonry columns={{ lg: 4, md: 3, sm: 2, xs: 1 }}>
-                    {posts.map((post, i) => <InstagramPost key={i} post={post} index={i} />)}
-                </Masonry>
-        }
-    </Container>;
+    return (
+        <Container>
+            <Typography variant="h2">Gallery</Typography>
+            <Typography variant="subtitle1">These images are pulled directly from my <a href="/instagram">Instagram</a> profile.</Typography>
+            {
+                posts === null ? (
+                    <Stack alignItems="center" justifyContent="center">
+                        <CircularProgress />
+                    </Stack>
+                ) : (
+                    <Masonry columns={{ lg: 4, md: 3, sm: 2, xs: 1 }}>
+                        {posts.map((post, i) => <InstagramPost index={i} key={i} post={post} />)}
+                    </Masonry>
+                )
+            }
+        </Container>
+    );
 };

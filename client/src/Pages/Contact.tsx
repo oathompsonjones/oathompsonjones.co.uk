@@ -60,90 +60,92 @@ export const Contact = (): JSX.Element => {
     };
 
     // Renders the contact page.
-    return <Container>
-        {/* Renders an alert to state whether the form has been submitted. */}
-        {status !== undefined && (status
-            ? <Alert severity="success">Message sent!</Alert>
-            : <Alert severity="error">Message failed to send.</Alert>
-        )}
-        <Typography variant="h2">Contact Me</Typography>
-        {/* Renders the form. */}
-        <Paper sx={{ display: "flex", justifyContent: "space-evenly", m: "1%", p: "1%" }}>
-            {/* Form control calls handleSubmit when the form is submitted. */}
-            <FormControl component="form" onSubmit={(event: FormEvent): void => void handleSubmit(event)}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <FormLabel>Fill out this form to contact me.</FormLabel>
+    return (
+        <Container>
+            {/* Renders an alert to state whether the form has been submitted. */}
+            {status !== undefined && (status
+                ? <Alert severity="success">Message sent!</Alert>
+                : <Alert severity="error">Message failed to send.</Alert>
+            )}
+            <Typography variant="h2">Contact Me</Typography>
+            {/* Renders the form. */}
+            <Paper sx={{ display: "flex", justifyContent: "space-evenly", m: "1%", p: "1%" }}>
+                {/* Form control calls handleSubmit when the form is submitted. */}
+                <FormControl component="form" onSubmit={(event: FormEvent): void => void handleSubmit(event)}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <FormLabel>Fill out this form to contact me.</FormLabel>
+                        </Grid>
+                        {/* Renders the name field. */}
+                        <Grid item md={6} xs={12}>
+                            <TextField
+                                fullWidth
+                                label="Name"
+                                name="name"
+                                onChange={(event): void => setName(event.target.value)}
+                                required
+                                type="text"
+                                value={name}
+                                variant="filled"
+                            />
+                        </Grid>
+                        {/* Renders the email field. */}
+                        <Grid item md={6} xs={12}>
+                            <TextField
+                                fullWidth
+                                label="Email"
+                                name="email"
+                                onChange={(event): void => setEmail(event.target.value)}
+                                required
+                                type="email"
+                                value={email}
+                                variant="filled"
+                            />
+                        </Grid>
+                        {/* Renders the subject field. */}
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                label="Subject"
+                                name="subject"
+                                onChange={(event): void => setSubject(event.target.value)}
+                                required
+                                type="text"
+                                value={subject}
+                                variant="filled"
+                            />
+                        </Grid>
+                        {/* Renders the content field. */}
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                label="Content"
+                                multiline
+                                name="content"
+                                onChange={(event): void => setContent(event.target.value)}
+                                required
+                                rows={15}
+                                type="text"
+                                value={content}
+                                variant="filled"
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <FormHelperText>*required</FormHelperText>
+                        </Grid>
+                        {/* Renders teh send (submit) button. */}
+                        <Grid item xs={6}>
+                            <Button endIcon={<Send />} sx={{ float: "right" }} type="submit" variant="contained">
+                                Send
+                            </Button>
+                        </Grid>
                     </Grid>
-                    {/* Renders the name field. */}
-                    <Grid item xs={12} md={6}>
-                        <TextField
-                            name="name"
-                            label="Name"
-                            type="text"
-                            variant="filled"
-                            value={name}
-                            onChange={(event): void => setName(event.target.value)}
-                            fullWidth
-                            required
-                        />
-                    </Grid>
-                    {/* Renders the email field. */}
-                    <Grid item xs={12} md={6}>
-                        <TextField
-                            name="email"
-                            label="Email"
-                            type="email"
-                            variant="filled"
-                            value={email}
-                            onChange={(event): void => setEmail(event.target.value)}
-                            fullWidth
-                            required
-                        />
-                    </Grid>
-                    {/* Renders the subject field. */}
-                    <Grid item xs={12}>
-                        <TextField
-                            name="subject"
-                            label="Subject"
-                            type="text"
-                            variant="filled"
-                            value={subject}
-                            onChange={(event): void => setSubject(event.target.value)}
-                            fullWidth
-                            required
-                        />
-                    </Grid>
-                    {/* Renders the content field. */}
-                    <Grid item xs={12}>
-                        <TextField
-                            name="content"
-                            label="Content"
-                            type="text"
-                            variant="filled"
-                            value={content}
-                            onChange={(event): void => setContent(event.target.value)}
-                            fullWidth
-                            required
-                            multiline
-                            rows={15}
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <FormHelperText>*required</FormHelperText>
-                    </Grid>
-                    {/* Renders teh send (submit) button. */}
-                    <Grid item xs={6}>
-                        <Button variant="contained" type="submit" endIcon={<Send />} sx={{ float: "right" }}>
-                            Send
-                        </Button>
-                    </Grid>
-                </Grid>
-            </FormControl>
-        </Paper>
-        {/* Renders icons as links to each social media site. */}
-        <Stack direction="row" alignItems="center" justifyContent="space-evenly" divider={<Divider orientation="vertical" flexItem />}>
-            {socials.map(({ icon, link }, i) => <Link key={i} color="inherit" href={link} sx={{ textDecoration: "none" }}>{icon}</Link>)}
-        </Stack>
-    </Container>;
+                </FormControl>
+            </Paper>
+            {/* Renders icons as links to each social media site. */}
+            <Stack alignItems="center" direction="row" divider={<Divider flexItem orientation="vertical" />} justifyContent="space-evenly">
+                {socials.map(({ icon, link }, i) => <Link color="inherit" href={link} key={i} sx={{ textDecoration: "none" }}>{icon}</Link>)}
+            </Stack>
+        </Container>
+    );
 };

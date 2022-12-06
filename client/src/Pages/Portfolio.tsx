@@ -14,17 +14,21 @@ export const Portfolio = (): JSX.Element => {
     const [repos] = useAxios<GitHub.IRepo[]>("/api/github");
 
     // Renders the portfolio page.
-    return <Container>
-        <Typography variant="h2">Portfolio</Typography>
-        <Typography variant="subtitle1">These projects are pulled directly from my <a href="/github">GitHub</a> profile.</Typography>
-        {
-            repos === null
-                ? <Stack justifyContent="center" alignItems="center">
-                    <CircularProgress />
-                </Stack>
-                : <Masonry columns={{ lg: 4, md: 3, sm: 2, xs: 1 }}>
-                    {repos.map((repo, i) => <GitHubRepo key={i} repo={repo} index={i} />)}
-                </Masonry>
-        }
-    </Container>;
+    return (
+        <Container>
+            <Typography variant="h2">Portfolio</Typography>
+            <Typography variant="subtitle1">These projects are pulled directly from my <a href="/github">GitHub</a> profile.</Typography>
+            {
+                repos === null ? (
+                    <Stack alignItems="center" justifyContent="center">
+                        <CircularProgress />
+                    </Stack>
+                ) : (
+                    <Masonry columns={{ lg: 4, md: 3, sm: 2, xs: 1 }}>
+                        {repos.map((repo, i) => <GitHubRepo index={i} key={i} repo={repo} />)}
+                    </Masonry>
+                )
+            }
+        </Container>
+    );
 };

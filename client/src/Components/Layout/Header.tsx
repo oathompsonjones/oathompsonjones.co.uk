@@ -25,68 +25,78 @@ export const Header = ({ toggleTheme }: { toggleTheme: () => void; }): JSX.Eleme
     const { palette: { mode: theme } } = useTheme();
 
     // Returns an AppBar element (which renders as an HTML header element).
-    return <AppBar position="sticky" sx={{ backgroundImage: "none", mb: "1%" }} enableColorOnDark>
-        {/* This Container only renders when printing. */}
-        <Container maxWidth="xl" sx={{ display: "none", displayPrint: "block" }}>
-            <Stack direction="row">
-                <Typography variant="h3" flexGrow={1}>
-                    Oliver Jones
-                </Typography>
-                <Typography variant="h4" flexGrow={1}>
-                    oathompsonjones@gmail.com
-                </Typography>
-            </Stack>
-        </Container>
-        {/* This Container does not render when printing. */}
-        <Container maxWidth="xl" sx={{ displayPrint: "none" }}>
-            {/* Toolbar is essential for properly aligning elements within the AppBar. */}
-            <Toolbar variant="dense" disableGutters>
-                {/* This Box contains the nav bar for smaller displays. */}
-                <Box sx={{ display: { md: "none", xs: "flex" }, flexGrow: 1 }}>
-                    {/* Displays the menu icon to access the dropdown nav menu. */}
-                    <IconButton size="large" onClick={handleOpenNavMenu} color="inherit" >
-                        <MenuIcon />
-                    </IconButton>
-                    {/* Contains the dropdown nav menu. */}
-                    <Menu
-                        anchorEl={anchorElNav}
-                        anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
-                        keepMounted
-                        transformOrigin={{ horizontal: "left", vertical: "top" }}
-                        open={Boolean(anchorElNav)}
-                        onClose={handleCloseNavMenu}
-                        sx={{ display: { md: "none", xs: "block" } }}
-                    >
+    return (
+        <AppBar enableColorOnDark position="sticky" sx={{ backgroundImage: "none", mb: "1%" }}>
+            {/* This Container only renders when printing. */}
+            <Container maxWidth="xl" sx={{ display: "none", displayPrint: "block" }}>
+                <Stack direction="row">
+                    <Typography flexGrow={1} variant="h3">Oliver Jones</Typography>
+                    <Typography flexGrow={1} variant="h4">oathompsonjones@gmail.com</Typography>
+                </Stack>
+            </Container>
+            {/* This Container does not render when printing. */}
+            <Container maxWidth="xl" sx={{ displayPrint: "none" }}>
+                {/* Toolbar is essential for properly aligning elements within the AppBar. */}
+                <Toolbar disableGutters variant="dense">
+                    {/* This Box contains the nav bar for smaller displays. */}
+                    <Box sx={{ display: { md: "none", xs: "flex" }, flexGrow: 1 }}>
+                        {/* Displays the menu icon to access the dropdown nav menu. */}
+                        <IconButton color="inherit" onClick={handleOpenNavMenu} size="large">
+                            <MenuIcon />
+                        </IconButton>
+                        {/* Contains the dropdown nav menu. */}
+                        <Menu
+                            anchorEl={anchorElNav}
+                            anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+                            keepMounted
+                            onClose={handleCloseNavMenu}
+                            open={Boolean(anchorElNav)}
+                            sx={{ display: { md: "none", xs: "block" } }}
+                            transformOrigin={{ horizontal: "left", vertical: "top" }}
+                        >
+                            {
+                                // Renders a link to each page.
+                                pages.map((page, i) => (
+                                    <MenuItem component="a" href={page.link} key={i} onClick={handleCloseNavMenu}>
+                                        <Typography textAlign="center">{page.label}</Typography>
+                                    </MenuItem>
+                                ))
+                            }
+                        </Menu>
+                    </Box>
+                    {/* Displays the main page title for the nav bar. This renders on displays of any size. */}
+                    <AdaptiveTypography
+                        href="/"
+                        noWrap
+                        sx={{
+                            color:          "inherit",
+                            flexGrow:       { md: 0, xs: 1 },
+                            fontFamily:     "monospace",
+                            fontWeight:     700,
+                            letterSpacing:  ".3rem",
+                            mr:             2,
+                            textDecoration: "none"
+                        }}
+                        variant="h5"
+                        xs="OATHOMPSONJONES"
+                    />
+                    {/* This Box contains the nav bar for larger displays. */}
+                    <Box sx={{ display: { md: "flex", xs: "none" }, flexGrow: 1 }}>
                         {
                             // Renders a link to each page.
-                            pages.map((page, i) => <MenuItem key={i} component="a" href={page.link} onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">{page.label}</Typography>
-                            </MenuItem>)
+                            pages.map((page, i) => (
+                                <MenuItem component="a" href={page.link} key={i} sx={{ color: "white", display: "block", my: 2 }}>
+                                    {page.label}
+                                </MenuItem>
+                            ))
                         }
-                    </Menu>
-                </Box>
-                {/* Displays the main page title for the nav bar. This renders on displays of any size. */}
-                <AdaptiveTypography variant="h5" noWrap href="/" sx={{
-                    color:          "inherit",
-                    flexGrow:       { md: 0, xs: 1 },
-                    fontFamily:     "monospace",
-                    fontWeight:     700,
-                    letterSpacing:  ".3rem",
-                    mr:             2,
-                    textDecoration: "none"
-                }} xs="OATHOMPSONJONES" />
-                {/* This Box contains the nav bar for larger displays. */}
-                <Box sx={{ display: { md: "flex", xs: "none" }, flexGrow: 1 }}>
-                    {
-                        // Renders a link to each page.
-                        pages.map((page, i) => <MenuItem key={i} component="a" href={page.link} sx={{ color: "white", display: "block", my: 2 }}>{page.label}</MenuItem>)
-                    }
-                </Box>
-                {/* Renders a button to control dark/light theme. This renders on displays of any size. */}
-                <IconButton edge="end" style={{ float: "right" }} sx={{ mr: 2 }} color="inherit" onClick={toggleTheme}>
-                    {theme === "dark" ? <DarkModeIcon /> : <LightModeIcon />}
-                </IconButton>
-            </Toolbar>
-        </Container>
-    </AppBar>;
+                    </Box>
+                    {/* Renders a button to control dark/light theme. This renders on displays of any size. */}
+                    <IconButton color="inherit" edge="end" onClick={toggleTheme} style={{ float: "right" }} sx={{ mr: 2 }}>
+                        {theme === "dark" ? <DarkModeIcon /> : <LightModeIcon />}
+                    </IconButton>
+                </Toolbar>
+            </Container>
+        </AppBar>
+    );
 };

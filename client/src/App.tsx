@@ -26,21 +26,28 @@ export default (): JSX.Element => {
     const router = createBrowserRouter(
         createRoutesFromElements(
             // Creates a base root, passing the Root component as an element.
-            <Route path="/" element={<Root />} errorElement={<Error code={500} />}>{
-                // Maps each page object into a Route element.
-                pages.map(({ element, label, link }) => <Route
-                    index={link === "/"}
-                    path={link === "/" ? undefined : link}
-                    element={element}
-                    errorElement={<Error code={500} />}
-                    loader={(): string => (document.title = label.length > 0 ? `Oliver Jones | ${label}` : "Oliver Jones")}
-                />)
-            }</Route>
+            <Route element={<Root />} errorElement={<Error code={500} />} path="/">
+                {
+                    // Maps each page object into a Route element.
+                    pages.map(({ element, label, link }, i) => (
+                        <Route
+                            element={element}
+                            errorElement={<Error code={500} />}
+                            index={link === "/"}
+                            key={i}
+                            loader={(): string => (document.title = label.length > 0 ? `Oliver Jones | ${label}` : "Oliver Jones")}
+                            path={link === "/" ? undefined : link}
+                        />
+                    ))
+                }
+            </Route>
         )
     );
 
     // Returns the JSX Element which provides the router created above.
-    return <PagesContext.Provider value={pages.filter((page) => page.link.length > 1)}>
-        <RouterProvider router={router} />
-    </PagesContext.Provider>;
+    return (
+        <PagesContext.Provider value={pages.filter((page) => page.link.length > 1)}>
+            <RouterProvider router={router} />
+        </PagesContext.Provider>
+    );
 };

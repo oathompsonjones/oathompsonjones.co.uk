@@ -43,23 +43,25 @@ export const Root = (): JSX.Element => {
     const footerHeight = "15vh";
 
     // Returns a theme provider, which passes the site theme onto all child elements.
-    return <ThemeProvider theme={theme}>
-        {/* CssBaseLine ensures that the background colour responds to the site theme. */}
-        <CssBaseline enableColorScheme />
-        {/* CSSVariableLoader loads the cssVars into the site's CSS. */}
-        <CSSVariableLoader cssVars={cssVars} />
-        {/* Renders the page header. */}
-        <Header toggleTheme={toggleTheme} />
-        {/* This Container contains the main page content. */}
-        <Container style={{ paddingBottom: footerHeight, width: "100vw" }}>
-            {/* Renders the page itself. */}
-            <Outlet />
-        </Container>
-        {/* Renders the page footer. */}
-        <Footer
-            backgroundColour={themeMode === "dark" ? lighten(cssVars.backgroundColour, 0.1) : darken(cssVars.backgroundColour, 0.1)}
-            borderColour={cssVars.mainColour}
-            footerHeight={footerHeight}
-        />
-    </ThemeProvider>;
+    return (
+        <ThemeProvider theme={theme}>
+            {/* CssBaseLine ensures that the background colour responds to the site theme. */}
+            <CssBaseline enableColorScheme />
+            {/* CSSVariableLoader loads the cssVars into the site's CSS. */}
+            <CSSVariableLoader cssVars={cssVars} />
+            {/* Renders the page header. */}
+            <Header toggleTheme={toggleTheme} />
+            {/* This Container contains the main page content. */}
+            <Container style={{ paddingBottom: footerHeight, width: "100vw" }}>
+                {/* Renders the page itself. */}
+                <Outlet />
+            </Container>
+            {/* Renders the page footer. */}
+            <Footer
+                backgroundColour={themeMode === "dark" ? lighten(cssVars.backgroundColour, 0.1) : darken(cssVars.backgroundColour, 0.1)}
+                borderColour={cssVars.mainColour}
+                footerHeight={footerHeight}
+            />
+        </ThemeProvider>
+    );
 };

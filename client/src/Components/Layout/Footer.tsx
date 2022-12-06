@@ -26,38 +26,41 @@ export const Footer = ({ backgroundColour, borderColour, footerHeight }: { [key 
     ];
 
     // Returns an HTML footer element.
-    return <footer style={{
-        backgroundColor: backgroundColour,
-        borderTop:       `5px solid ${borderColour}`,
-        bottom:          0,
-        maxHeight:       footerHeight,
-        overflow:        "hidden",
-        padding:         "1%",
-        position:        "absolute",
-        width:           "100%"
-    }}>
-        {/* This Container will not be visible when printing a page. */}
-        <Container sx={{ displayPrint: "none" }}>
-            {/* This Stack holds two more Stacks, and puts a Divider between the two. */}
-            <Stack divider={<Divider sx={{ margin: "0.5%" }} />}>
-                {/* This stack renders all internal elements horizontally instead of vertically. */}
-                <Stack direction="row" alignItems="center">
-                    {/* My profile picture and name appear on the left. */}
-                    <Avatar src={Pfp} sx={{ margin: "1%" }} />
-                    <Stack flexGrow={1}>
-                        <Typography variant="h6">Oliver Andrew</Typography>
-                        <Typography variant="h6">Thompson Jones</Typography>
+    return (
+        <footer style={{
+            backgroundColor: backgroundColour,
+            borderTop:       `5px solid ${borderColour}`,
+            bottom:          0,
+            maxHeight:       footerHeight,
+            overflow:        "hidden",
+            padding:         "1%",
+            position:        "absolute",
+            width:           "100%"
+        }}
+        >
+            {/* This Container will not be visible when printing a page. */}
+            <Container sx={{ displayPrint: "none" }}>
+                {/* This Stack holds two more Stacks, and puts a Divider between the two. */}
+                <Stack divider={<Divider sx={{ margin: "0.5%" }} />}>
+                    {/* This stack renders all internal elements horizontally instead of vertically. */}
+                    <Stack alignItems="center" direction="row">
+                        {/* My profile picture and name appear on the left. */}
+                        <Avatar src={Pfp} sx={{ margin: "1%" }} />
+                        <Stack flexGrow={1}>
+                            <Typography variant="h6">Oliver Andrew</Typography>
+                            <Typography variant="h6">Thompson Jones</Typography>
+                        </Stack>
+                        {/* The social media links are rendered on the right. */}
+                        {socials.map(({ icon, link }, i) => <Link color="inherit" href={link} key={i}>{icon}</Link>)}
                     </Stack>
-                    {/* The social media links are rendered on the right. */}
-                    {socials.map(({ icon, link }, i) => <Link key={i} color="inherit" href={link}>{icon}</Link>)}
+                    {/* This stack renders all internal elements horizontally instead of vertically, and puts a Divider between each element. */}
+                    <Stack direction="row" divider={<Divider flexItem orientation="vertical" sx={{ margin: "0% 1%" }} />}>
+                        {/* My username, and a legend saying who made the site appear at the bottom of the footer. */}
+                        <Typography align="right" flexGrow={1} variant="caption">oathompsonjones</Typography>
+                        <Typography variant="caption">Website created by <a href="https://oathompsonjones.co.uk">Oliver Jones</a></Typography>
+                    </Stack>
                 </Stack>
-                {/* This stack renders all internal elements horizontally instead of vertically, and puts a Divider between each element. */}
-                <Stack direction="row" divider={<Divider orientation="vertical" sx={{ margin: "0% 1%" }} flexItem />}>
-                    {/* My username, and a legend saying who made the site appear at the bottom of the footer. */}
-                    <Typography variant="caption" align="right" flexGrow={1}>oathompsonjones</Typography>
-                    <Typography variant="caption">Website created by <a href="https://oathompsonjones.co.uk">Oliver Jones</a></Typography>
-                </Stack>
-            </Stack>
-        </Container>
-    </footer>;
+            </Container>
+        </footer>
+    );
 };
