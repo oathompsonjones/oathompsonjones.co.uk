@@ -1,6 +1,6 @@
 import { Avatar, Divider, Paper, Stack, Typography } from "@mui/material";
 import { Br } from "../";
-import Pfp from "../Images/pfp.jpg";
+import Pfp from "../../Images/pfp.jpg";
 
 /**
  * Contains the bio segment for my CV page.
