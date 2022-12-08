@@ -2,8 +2,9 @@
     "name": "oathompsonjones-website",
     "homepage": "https://oathompsonjones.co.uk/",
     "scripts": {
+        "install": "cd client && npm i && cd ../server && npm i && cd ..",
         "eslint": "cd client && npm run eslint && cd ../server && npm run eslint && cd ..",
-        "build": "cd client && npm i && npm run build && cd ../server && npm i && npm run build && cd ..",
+        "build": "npm run install && cd client && npm run build && cd ../server && npm run build && cd ..",
         "start": "npm run eslint && npm run build && cd server && npm run start",
         "startOnlyFront": "npm run eslint && cd client && npm run start"
     }
