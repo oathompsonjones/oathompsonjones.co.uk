@@ -1,34 +1,8 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import type { Request, Response } from "express";
 import type { AxiosResponse } from "axios";
 import Config from "../Config";
+import type { IPost } from "../../../typings";
 import axios from "axios";
-
-interface IBasePost {
-    caption?: string;
-    id: string;
-    media_url: string;
-    permalink: string;
-    timestamp: string;
-    username: "oathompsonjones";
-}
-
-interface ICarouselPost extends IBasePost {
-    children: {
-        data: Array<{
-            media_type: "IMAGE" | "VIDEO";
-            media_url: string;
-        }>;
-    };
-    media_type: "CAROUSEL_ALBUM";
-}
-
-interface ISinglePost extends IBasePost {
-    media_type: "IMAGE" | "VIDEO";
-}
-
-export type IPost = ICarouselPost | ISinglePost;
 
 export async function requestHandler(_req: Request, res: Response): Promise<void> {
     try {
@@ -51,11 +25,9 @@ export async function requestHandler(_req: Request, res: Response): Promise<void
 export async function refreshToken(): Promise<void> {
     try {
         if (Date.now() > Config.instagram.accessTokenRefreshAt) {
-            const response: AxiosResponse<{
-                access_token: string;
-                expires_in: number;
-                token_type: "bearer";
-            }> = await axios.get(`https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${Config.instagram.accessToken}`);
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            const response: AxiosResponse<{ access_token: string; expires_in: number; token_type: "bearer"; }> =
+                await axios.get(`https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${Config.instagram.accessToken}`);
             const { access_token: accessToken, expires_in: expiresIn } = response.data;
             Config.update({
                 instagram: {

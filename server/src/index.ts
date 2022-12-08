@@ -22,14 +22,15 @@ app.use((req, res, next) => {
     // Check that the URL is correct.
     if ((/(.*)oathompsonjones\.co\.uk/u).exec(req.hostname) === null) {
         // Log the domain to the file.
+        const logFilePath = "../../domains.csv";
         let fileContents: Buffer;
         try {
-            fileContents = fs.readFileSync("./domains.csv");
+            fileContents = fs.readFileSync(logFilePath);
         } catch (err) {
-            fs.writeFileSync("./domains.csv", "");
-            fileContents = fs.readFileSync("./domains.csv");
+            fs.writeFileSync(logFilePath, "");
+            fileContents = fs.readFileSync(logFilePath);
         }
-        fs.writeFileSync("./domains.csv", [
+        fs.writeFileSync(logFilePath, [
             ...new Set(fileContents.toString("utf8").split(",")
                 .filter((x) => x)
                 .concat(req.hostname.trim()))
@@ -53,7 +54,8 @@ app.use((req, res, next) => {
 });
 
 // Serve static content.
-app.use(e.static(`${__dirname}/client/build`));
+const filePath: string = __dirname.replace("server", "client");
+app.use(e.static(filePath));
 
 // Handle API calls.
 app.get("/api/github", (req, res) => void GitHub.requestHandler(req, res));
@@ -65,7 +67,7 @@ for (const { route, redirect } of Redirects.default)
     app.get(route, (_req: Request, res: Response): void => res.redirect(redirect));
 
 // Forward all other routes to the index.html file.
-app.get("*", (_req: Request, res: Response): void => res.sendFile(`${__dirname}/client/build/index.html`));
+app.get("*", (_req: Request, res: Response): void => res.sendFile(`${filePath}/index.html`));
 
 // Start server.
 try {

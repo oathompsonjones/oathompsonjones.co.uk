@@ -1,13 +1,7 @@
 import type { Request, Response } from "express";
 import Config from "../Config";
+import type { IBody } from "../../../typings";
 import nodemailer from "nodemailer";
-
-interface IBody {
-    content: string;
-    email: string;
-    name: string;
-    subject: string;
-}
 
 export function requestHandler(req: Request<unknown, unknown, IBody>, res: Response): void {
     // Check that the input is in the correct form.

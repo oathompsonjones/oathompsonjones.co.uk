@@ -1,17 +1,17 @@
 import { Accordion, AccordionDetails, AccordionSummary, Button, Card, CardActions, CardContent, CardMedia, Typography, Zoom } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
-import type { GitHub } from "../../../API";
+import type { IRepo } from "../../../typings";
 import { Stack } from "@mui/system";
 
 /**
  * Renders a GitHub repository.
  *
- * @param {{ index: number; repo: GitHub.IRepo; }} props An object containing the component props.
+ * @param {{ index: number; repo: IRepo; }} props An object containing the component props.
  * @param {number} props.index The index of the repository, required to allow proper rendering by React.
- * @param {GitHub.IRepo} props.repo The repository object.
+ * @param {IRepo} props.repo The repository object.
  * @returns {JSX.Element} An element which renders a GitHub repository.
  */
-export const GitHubRepo = ({ index, repo }: { index: number; repo: GitHub.IRepo; }): JSX.Element => {
+export const GitHubRepo = ({ index, repo }: { index: number; repo: IRepo; }): JSX.Element => {
     // Maps the repository languages into a more readable format.
     const repoLanguages = repo.primaryLanguage === null ? "N/A" : `${repo.primaryLanguage.name} ${(
         (languages: string[]): string => (languages.length > 0 ? `(${languages.join(", ")})` : "")

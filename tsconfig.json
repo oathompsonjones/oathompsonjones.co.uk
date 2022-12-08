@@ -1,8 +1,0 @@
-{
-    "extends": "@oathompsonjones/ts-config",
-    "include": [
-        "API",
-        "Config.ts",
-        "index.ts"
-    ]
-}

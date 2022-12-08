@@ -1,42 +1,9 @@
 import { Canvas, Image } from "canvas";
+import type { IAPIResponse, IRepo } from "../../../typings";
 import type { Request, Response } from "express";
 import Config from "../Config";
 import axios from "axios";
 import { graphql } from "@octokit/graphql";
-
-export interface IRepo {
-    description: string;
-    homepageUrl: string | null;
-    image: string;
-    isPrivate: boolean;
-    languages: {
-        nodes: Array<{
-            name: string;
-        }>;
-    };
-    name: string;
-    nameWithOwner: string;
-    openGraphImageUrl: string;
-    primaryLanguage: {
-        name: string;
-    } | null;
-    url: string;
-}
-
-export interface IAPIResponse {
-    user: {
-        organizations: {
-            orgs: Array<{
-                repositories: {
-                    repos: IRepo[];
-                };
-            }>;
-        };
-        repositories: {
-            repos: IRepo[];
-        };
-    };
-}
 
 export async function requestHandler(_req: Request, res: Response): Promise<void> {
     try {

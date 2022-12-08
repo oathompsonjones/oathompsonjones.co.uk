@@ -1,5 +1,5 @@
 import { CircularProgress, Container, Stack, Typography } from "@mui/material";
-import type { Instagram } from "../../../API";
+import type { IPost } from "../../../typings";
 import { InstagramPost } from "../Components";
 import { Masonry } from "@mui/lab";
 import { useAxios } from "../Hooks";
@@ -11,7 +11,7 @@ import { useAxios } from "../Hooks";
  */
 export const Gallery = (): JSX.Element => {
     // Calls the backend API to access the posts from Instagram.
-    const [posts] = useAxios<Instagram.IPost[]>("/api/instagram");
+    const [posts] = useAxios<IPost[]>("/api/instagram");
 
     // Renders the gallery page.
     return (

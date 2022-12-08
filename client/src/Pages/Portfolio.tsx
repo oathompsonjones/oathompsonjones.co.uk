@@ -1,6 +1,6 @@
 import { CircularProgress, Container, Stack, Typography } from "@mui/material";
-import type { GitHub } from "../../../API";
 import { GitHubRepo } from "../Components";
+import type { IRepo } from "../../../typings";
 import { Masonry } from "@mui/lab";
 import { useAxios } from "../Hooks";
 
@@ -11,7 +11,7 @@ import { useAxios } from "../Hooks";
  */
 export const Portfolio = (): JSX.Element => {
     // Calls the backend API to access the repositories from GitHub.
-    const [repos] = useAxios<GitHub.IRepo[]>("/api/github");
+    const [repos] = useAxios<IRepo[]>("/api/github");
 
     // Renders the portfolio page.
     return (

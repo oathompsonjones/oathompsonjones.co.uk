@@ -1,17 +1,17 @@
 import { ArrowLeft, ArrowRight, Minimize } from "@mui/icons-material";
 import { Card, CardContent, CardMedia, Typography, Zoom } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
-import type { Instagram } from "../../../API";
+import type { IPost } from "../../../typings";
 
 /**
  * Renders an Instagram post.
  *
- * @param {{ index: number; post: Instagram.IPost; }} props An object containing the component props.
+ * @param {{ index: number; post: IPost; }} props An object containing the component props.
  * @param {number} props.index The index of the repository, required to allow proper rendering by React.
- * @param {Instagram.IPost} props.post The post object.
+ * @param {IPost} props.post The post object.
  * @returns {JSX.Element} An element which renders an Instagram post.
  */
-export const InstagramPost = ({ index, post }: { index: number; post: Instagram.IPost; }): JSX.Element => {
+export const InstagramPost = ({ index, post }: { index: number; post: IPost; }): JSX.Element => {
     // Checks the media type.
     switch (post.media_type) {
         // Renders a carousel of images.
