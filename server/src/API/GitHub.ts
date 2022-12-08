@@ -62,9 +62,19 @@ export async function requestHandler(_req: Request, res: Response): Promise<void
             // Create the image.
             const image: Image = new Image();
             image.src = Buffer.from(imageBinaries[i]!.data, "binary");
+            // Get the colour of the bottom left pixel of the image.
+            let canvas = new Canvas(image.width, image.height);
+            let context = canvas.getContext("2d");
+            context.drawImage(image, 0, 0, image.width, image.height, 0, 0, image.width, image.height);
+            const [r, g, b] = context.getImageData(0, 0, 1, 1).data;
+            const colourToHex = (colour: number): string => colour.toString(16).padStart(2, "0");
+            const hexColour = `#${colourToHex(r!)}${colourToHex(g!)}${colourToHex(b!)}`;
             // Create a canvas in order to resize the image.
-            const canvas = new Canvas(1280, 640);
-            const context = canvas.getContext("2d");
+            canvas = new Canvas(1280, 640);
+            context = canvas.getContext("2d");
+            // Fill the canvas background with the colour.
+            context.fillStyle = hexColour;
+            context.fillRect(0, 0, canvas.width, canvas.height);
             // Draw the image with the correct dimensions.
             let [dw, dh, dx] = [image.width, image.height, 0];
             if (image.height >= image.width) {
