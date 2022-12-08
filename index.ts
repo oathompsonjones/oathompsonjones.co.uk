@@ -35,30 +35,15 @@ app.use((req, res, next) => {
                 .concat(req.hostname.trim()))
         ].join(","));
         // Send back a warning to the user.
-        const warningMessage = (count: number): string => `This page is pretending to be <a href="https://oathompsonjones.co.uk">https://oathompsonjones.co.uk</a>.<br>You will be redirected in ${count} second${count === 0 ? "" : "s"}.`;
-        return res.send(`
-            <html>
-                <body>
-                    <p id="text"></p>
-                    <script>
-                        document.getElementById("text").innerHTML = '${warningMessage(5)}';
-                        setTimeout(() => {
-                            document.getElementById("text").innerHTML = '${warningMessage(4)}';
-                            setTimeout(() => {
-                                document.getElementById("text").innerHTML = '${warningMessage(3)}';
-                                setTimeout(() => {
-                                    document.getElementById("text").innerHTML = '${warningMessage(2)}';
-                                    setTimeout(() => {
-                                        document.getElementById("text").innerHTML = '${warningMessage(1)}';
-                                        setTimeout(() => window.location = "https://oathompsonjones.co.uk", 1000);
-                                    }, 1000);
-                                }, 1000);
-                            }, 1000);
-                        }, 1000);
-                    </script>
-                </body>
-            </html>
-        `);
+        const showWarningMessage = (): void => {
+            const callback = (n: number): void => {
+                document.getElementById("text")!.innerHTML = `This page is pretending to be <a href="https://oathompsonjones.co.uk">https://oathompsonjones.co.uk</a>.
+                    <br>You will be redirected in ${n} second${n > 0 ? "s" : ""}.`;
+                setTimeout(() => (n > 1 ? callback(n - 1) : window.location.assign("https://oathompsonjones.co.uk")), 1000);
+            };
+            callback(5);
+        };
+        return res.send(`<html><body><p id="text"></p><script>(${showWarningMessage.toString()})()</script></body></html>`);
     }
     // Redirect http requests to https.
     if (req.protocol === "http")
