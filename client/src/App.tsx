@@ -1,5 +1,5 @@
 import "./main.css";
-import { About, Contact, Error, Gallery, Home, Portfolio } from "./Pages";
+import { About, Arcade, Contact, Error, Gallery, Home, Portfolio } from "./Pages";
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 import type { IPage } from "./Contexts";
 import { PagesContext } from "./Contexts";
@@ -18,6 +18,7 @@ export default (): JSX.Element => {
         { element: <About />, label: "About Me", link: "/about" },
         { element: <Portfolio />, label: "Portfolio", link: "/portfolio" },
         { element: <Gallery />, label: "Gallery", link: "/gallery" },
+        { element: <Arcade />, label: "Arcade", link: "/arcade" },
         { element: <Contact />, label: "Contact Me", link: "/contact" },
         { element: <Error code={404} />, label: "Error 404", link: "*" }
     ];
