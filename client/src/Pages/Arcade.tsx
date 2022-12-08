@@ -8,8 +8,8 @@ import { Typography } from "@mui/material";
  */
 export const Arcade = (): JSX.Element => (
     <>
-        <Typography variant="h1">Would you like to play a game?</Typography>
-        <Typography variant="subtitle1">Upcoming Games</Typography>
+        <Typography variant="h2">Would you like to play a game?</Typography>
+        <Typography variant="h6">Upcoming Games</Typography>
         <Typography variant="body1">
             - Noughts and Crosses   <Br />
             - Connect 4             <Br />
@@ -19,7 +19,7 @@ export const Arcade = (): JSX.Element => (
             - PacMan                <Br />
             - Tetris                <Br />
         </Typography>
-        <Typography variant="subtitle1">Upcoming Game Modes</Typography>
+        <Typography variant="h6">Upcoming Game Modes</Typography>
         <Typography variant="body1">
             - 2 players (user vs user)  <Br />
             - 1 player (user vs CPU)    <Br />
