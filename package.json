@@ -4,8 +4,8 @@
     "scripts": {
         "install": "cd client && npm i && cd ../server && npm i && cd ..",
         "eslint": "cd client && npm run eslint && cd ../server && npm run eslint && cd ..",
-        "build": "npm run install && cd client && npm run build && cd ../server && npm run build && cd ..",
-        "start": "npm run eslint && npm run build && cd server && npm run start",
+        "build": "cd client && npm run build && cd ../server && npm run build && cd ..",
+        "start": "npm run install && npm run eslint && npm run build && cd server && npm run start",
         "startOnlyFront": "npm run eslint && cd client && npm run start"
     }
 }
