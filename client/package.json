@@ -1,7 +1,13 @@
 {
-    "name": "client",
-    "version": "0.1.0",
-    "private": true,
+    "name": "oathompsonjones-website-client",
+    "homepage": "https://oathompsonjones.co.uk/",
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "eslint": "eslint . --quiet"
+    },
     "dependencies": {
         "@emotion/react": "^11.10.0",
         "@emotion/styled": "^11.10.0",
@@ -9,7 +15,7 @@
         "@mui/lab": "^5.0.0-alpha.100",
         "@mui/material": "^5.10.5",
         "@oathompsonjones/eslint-config": "^0.0.22",
-        "@oathompsonjones/ts-config": "^0.0.4",
+        "@oathompsonjones/ts-config": "^0.0.5",
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.3.0",
         "@testing-library/user-event": "^13.5.0",
@@ -27,19 +33,6 @@
         "typescript": "^4.7.4",
         "web-vitals": "^2.1.4"
     },
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject",
-        "eslint": "eslint \"**\""
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
-    },
     "browserslist": {
         "production": [
             ">0.2%",
@@ -51,9 +44,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "devDependencies": {
-        "gh-pages": "^3.1.0"
-    },
-    "homepage": "https://oathompsonjones.co.uk/"
+    }
 }
