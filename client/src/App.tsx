@@ -36,7 +36,7 @@ export default (): JSX.Element => {
                             index={link === "/"}
                             key={i}
                             loader={(): string => (document.title = label.length > 0 ? `Oliver Jones | ${label}` : "Oliver Jones")}
-                            path={link === "/" ? undefined : link}
+                            path={link === "/" ? "" : link}
                         />
                     ))
                 }
