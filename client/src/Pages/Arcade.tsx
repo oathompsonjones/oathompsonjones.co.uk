@@ -1,5 +1,5 @@
+import { Container, Typography } from "@mui/material";
 import { Br } from "../Components";
-import { Typography } from "@mui/material";
 
 /**
  * This page contains some mini arcade games.
@@ -7,7 +7,7 @@ import { Typography } from "@mui/material";
  * @returns {JSX.Element} An arcade page.
  */
 export const Arcade = (): JSX.Element => (
-    <>
+    <Container>
         <Typography variant="h2">Would you like to play a game?</Typography>
         <Typography variant="h6">Upcoming Games</Typography>
         <Typography variant="body1">
@@ -25,5 +25,5 @@ export const Arcade = (): JSX.Element => (
             - 1 player (user vs CPU)    <Br />
             - 0 players (CPU vs CPU)    <Br />
         </Typography>
-    </>
+    </Container>
 );
