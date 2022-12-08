@@ -6,6 +6,6 @@
         "eslint": "cd client && npm run eslint && cd ../server && npm run eslint && cd ..",
         "build": "cd client && npm run build && cd ../server && npm run build && cd ..",
         "start": "npm run install && npm run eslint && npm run build && cd server && npm run start",
-        "startOnlyFront": "npm run eslint && cd client && npm run start"
+        "startClient": "npm run eslint && cd client && npm run start"
     }
 }
