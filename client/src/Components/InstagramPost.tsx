@@ -1,5 +1,5 @@
-import { ArrowLeft, ArrowRight, Minimize } from "@mui/icons-material";
-import { Card, CardContent, CardMedia, Typography, Zoom } from "@mui/material";
+import { ArrowLeft, ArrowRight, Instagram, Minimize } from "@mui/icons-material";
+import { Card, CardContent, CardMedia, Link, Stack, Zoom } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
 import type { IPost } from "../../../typings";
 
@@ -12,42 +12,38 @@ import type { IPost } from "../../../typings";
  * @returns {JSX.Element} An element which renders an Instagram post.
  */
 export const InstagramPost = ({ index, post }: { index: number; post: IPost; }): JSX.Element => {
+    let media: JSX.Element;
     // Checks the media type.
     switch (post.media_type) {
-        // Renders a carousel of images.
         case "CAROUSEL_ALBUM":
-            // Returns a Zoom element wrapping the post to make it look nicer when loading in.
-            return (
-                <Zoom in style={{ transitionDelay: `${index * 100}ms` }}>
-                    {/* This Card element contains the post. */}
-                    <Card>
-                        {/* Renders the carousel. */}
-                        <Carousel IndicatorIcon={<Minimize />} NextIcon={<ArrowRight />} PrevIcon={<ArrowLeft />}>
-                            {post.children.data.map((image, i) => <CardMedia component="img" image={image.media_url} key={i} />)}
-                        </Carousel>
-                        {/* Renders a link to the post on Instagram. */}
-                        <CardContent>
-                            <Typography component="a" href={post.permalink} variant="caption">View on Instagram</Typography>
-                        </CardContent>
-                    </Card>
-                </Zoom>
+            media = (
+                <Carousel IndicatorIcon={<Minimize />} NextIcon={<ArrowRight />} PrevIcon={<ArrowLeft />}>
+                    {post.children.data.map((image, i) => <CardMedia component="img" image={image.media_url} key={i} />)}
+                </Carousel>
             );
+            break;
         // Renders an image or video.
         case "IMAGE":
         default:
-            // Returns a Zoom element wrapping the post to make it look nicer when loading in.
-            return (
-                <Zoom in style={{ transitionDelay: `${index * 100}ms` }}>
-                    {/* This Card element contains the post. */}
-                    <Card>
-                        {/* Renders the image. */}
-                        <CardMedia component="img" image={post.media_url} />
-                        {/* Renders a link to the post on Instagram. */}
-                        <CardContent>
-                            <Typography component="a" href={post.permalink} variant="caption">View on Instagram</Typography>
-                        </CardContent>
-                    </Card>
-                </Zoom>
-            );
+            media = <CardMedia component="img" image={post.media_url} />;
+            break;
     }
+    // Returns a Zoom element wrapping the post to make it look nicer when loading in.
+    return (
+        <Zoom in style={{ transitionDelay: `${index * 100}ms` }}>
+            {/* This Card element contains the post. */}
+            <Card>
+                {/* Renders the post's media. */}
+                {media}
+                {/* Renders a link to the post on Instagram. */}
+                <CardContent>
+                    <Link href={post.permalink} sx={{ textDecoration: "none" }}>
+                        <Stack alignItems="center" direction="row">
+                            <Instagram /> View on Instagram
+                        </Stack>
+                    </Link>
+                </CardContent>
+            </Card>
+        </Zoom>
+    );
 };
