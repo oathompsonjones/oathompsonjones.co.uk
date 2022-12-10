@@ -16,7 +16,6 @@ export const Arcade = (): JSX.Element => (
             - Battleships           <Br />
             - Checkers              <Br />
             - Chess                 <Br />
-            - Battleships           <Br />
             - Pong                  <Br />
             - Breakout              <Br />
             - Snake                 <Br />
