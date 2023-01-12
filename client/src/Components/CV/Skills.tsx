@@ -23,7 +23,7 @@ export const Skills = (): JSX.Element => {
         }, {
             content: (
                 <>
-                    I'm able to identify a problems find efficient solutions for them.
+                    I'm able to identify problems and find efficient solutions for them.
                     I'm also able to write computer programs to solve problems more quickly.
                 </>
             ),
@@ -31,8 +31,8 @@ export const Skills = (): JSX.Element => {
         }, {
             content: (
                 <>
-                    With A* grades in A-Level Maths and Further Maths, and with further study in Maths being essential to my chosen degree,
-                    I am highly skilled in Mathematics.
+                    With an A* grade in A-Level Maths, a B grade in A-Level Further Maths,
+                    and with further study in Maths being essential to my chosen degree, I am highly skilled in Mathematics.
                 </>
             ),
             heading: "Numeracy"
@@ -57,8 +57,8 @@ export const Skills = (): JSX.Element => {
             content: (
                 <>
                     Being able to work well in a team is an essential skill to the workplace,
-                    one which I have demonstrated through work as a volunteer Library Helper for 5 years
-                    and through working as part of the Interact team for 7 years.
+                    one which I have demonstrated through work as a volunteer in my school library for 5 years
+                    and through working as part of the Interact team for 7 years. (See the experiences section above for more details).
                 </>
             ),
             heading: "Teamwork"
