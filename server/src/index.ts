@@ -14,38 +14,17 @@ const app: Express = e();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// An array of all valid URLs. Any URLs which do not appear in this list will not work.
+const validURLs: RegExp[] = [/(.*)oathompsonjones\.co\.uk/u];
+
 // Redirect users to correct URLs.
 app.use((req, res, next) => {
     // Move on if running on localhost.
     if (req.hostname === "localhost" || req.hostname === "127.0.0.1")
         return next();
     // Check that the URL is correct.
-    if ((/(.*)oathompsonjones\.co\.uk/u).exec(req.hostname) === null) {
-        // Log the domain to the file.
-        const logFilePath = "../../domains.csv";
-        let fileContents: Buffer;
-        try {
-            fileContents = fs.readFileSync(logFilePath);
-        } catch (err) {
-            fs.writeFileSync(logFilePath, "");
-            fileContents = fs.readFileSync(logFilePath);
-        }
-        fs.writeFileSync(logFilePath, [
-            ...new Set(fileContents.toString("utf8").split(",")
-                .filter((x) => x)
-                .concat(req.hostname.trim()))
-        ].join(","));
-        // Send back a warning to the user.
-        const showWarningMessage = (): void => {
-            const callback = (n: number): void => {
-                document.getElementById("text")!.innerHTML = `This page is pretending to be <a href="https://oathompsonjones.co.uk">https://oathompsonjones.co.uk</a>.
-                    <br>You will be redirected in ${n} second${n > 0 ? "s" : ""}.`;
-                setTimeout(() => (n > 1 ? callback(n - 1) : window.location.assign("https://oathompsonjones.co.uk")), 1000);
-            };
-            callback(5);
-        };
-        return res.send(`<html><body><p id="text"></p><script>(${showWarningMessage.toString()})()</script></body></html>`);
-    }
+    if (validURLs.map((url) => url.exec(req.hostname)).every((result) => result === null))
+        return;
     // Redirect http requests to https.
     if (req.protocol === "http")
         return res.redirect(`https://oathompsonjones.co.uk"${req.url}`);
