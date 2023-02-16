@@ -24,10 +24,9 @@ export async function requestHandler(_req: Request, res: Response): Promise<void
 
 export async function refreshToken(): Promise<void> {
     try {
-        if (Date.now() > Config.instagram.accessTokenRefreshAt) {
+        if (Date.now() >= Config.instagram.accessTokenRefreshAt) {
             // eslint-disable-next-line @typescript-eslint/naming-convention
-            const response: AxiosResponse<{ access_token: string; expires_in: number; token_type: "bearer"; }> =
-                await axios.get(`https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${Config.instagram.accessToken}`);
+            const response: AxiosResponse<{ access_token: string; expires_in: number; token_type: "bearer"; }> = await axios.get(`https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${Config.instagram.accessToken}`);
             const { access_token: accessToken, expires_in: expiresIn } = response.data;
             Config.update({
                 instagram: {
