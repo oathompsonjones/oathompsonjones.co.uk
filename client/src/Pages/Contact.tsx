@@ -1,4 +1,16 @@
-import { Alert, Button, Container, Divider, FormControl, FormHelperText, FormLabel, Grid, Link, Paper, Stack, TextField, Typography } from "@mui/material";
+import {
+    Alert,
+    Button,
+    Container,
+    Divider,
+    FormControl, FormHelperText, FormLabel,
+    Grid,
+    Link,
+    Paper,
+    Stack,
+    TextField,
+    Typography
+} from "@mui/material";
 import { Email, Facebook, GitHub, Instagram, LinkedIn, Send, Twitter } from "@mui/icons-material";
 import type { FormEvent, ReactElement } from "react";
 import { Discord } from "../Components";
@@ -16,7 +28,8 @@ export const Contact = (): JSX.Element => {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [subject, setSubject] = useState("");
-    // Creates a state variable to say whether or not the form has been used (undefined if unused), and if so, if it's been successful (true/false).
+    /* Creates a state variable to say whether or not the form has been used (undefined if unused), and if so, if it's been successful
+       (true/false). */
     const [status, setStatus] = useState<boolean | undefined>(undefined);
 
     // Links a URL and an icon for each social media to display.
@@ -143,8 +156,17 @@ export const Contact = (): JSX.Element => {
                 </FormControl>
             </Paper>
             {/* Renders icons as links to each social media site. */}
-            <Stack alignItems="center" direction="row" divider={<Divider flexItem orientation="vertical" />} justifyContent="space-evenly">
-                {socials.map(({ icon, link }, i) => <Link color="inherit" href={link} key={i} sx={{ textDecoration: "none" }}>{icon}</Link>)}
+            <Stack
+                alignItems="center"
+                direction="row"
+                divider={<Divider flexItem orientation="vertical" />}
+                justifyContent="space-evenly"
+            >
+                {socials.map(({ icon, link }, i) => (
+                    <Link color="inherit" href={link} key={i} sx={{ textDecoration: "none" }}>
+                        {icon}
+                    </Link>
+                ))}
             </Stack>
         </Container>
     );

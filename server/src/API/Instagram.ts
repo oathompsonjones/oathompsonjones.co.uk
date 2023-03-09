@@ -14,7 +14,17 @@ export async function requestHandler(_req: Request, res: Response): Promise<void
                     before: string;
                 };
             };
-        }> = await axios.get(`https://graph.instagram.com/me/media?fields=caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username,children{media_type,media_url}&access_token=${Config.instagram.accessToken}`);
+        }> = await axios.get(`https://graph.instagram.com/me/media?fields=${[
+            "caption",
+            "id",
+            "media_type",
+            "media_url",
+            "permalink",
+            "thumbnail_url",
+            "timestamp",
+            "username",
+            "children{media_type, media_url}"
+        ].join(",")}&access_token=${Config.instagram.accessToken}`);
         res.send(response.data.data);
     } catch (err) {
         console.error(err);
@@ -25,8 +35,12 @@ export async function requestHandler(_req: Request, res: Response): Promise<void
 export async function refreshToken(): Promise<void> {
     try {
         if (Date.now() >= Config.instagram.accessTokenRefreshAt) {
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            const response: AxiosResponse<{ access_token: string; expires_in: number; token_type: "bearer"; }> = await axios.get(`https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${Config.instagram.accessToken}`);
+            const response: AxiosResponse<{
+                // eslint-disable-next-line @typescript-eslint/naming-convention
+                access_token: string; expires_in: number; token_type: "bearer";
+            }> = await axios.get(`https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${
+                Config.instagram.accessToken
+            }`);
             const { access_token: accessToken, expires_in: expiresIn } = response.data;
             Config.update({
                 instagram: {

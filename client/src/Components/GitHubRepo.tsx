@@ -1,4 +1,10 @@
-import { Accordion, AccordionDetails, AccordionSummary, Button, Card, CardActions, CardContent, CardMedia, Typography, Zoom } from "@mui/material";
+import {
+    Accordion, AccordionDetails, AccordionSummary,
+    Button,
+    Card, CardActions, CardContent, CardMedia,
+    Typography,
+    Zoom
+} from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
 import type { IRepo } from "../../../typings";
 import { Stack } from "@mui/system";

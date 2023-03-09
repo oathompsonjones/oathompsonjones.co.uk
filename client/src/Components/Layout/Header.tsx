@@ -19,7 +19,7 @@ export const Header = ({ toggleTheme }: { toggleTheme: () => void; }): JSX.Eleme
     const handleCloseNavMenu = (): void => setAnchorElNav(null);
 
     // Access the pages whose links need rendering in the navbar.
-    const pages = useContext(PagesContext);
+    const [...pages] = useContext(PagesContext);
 
     // Access the site theme.
     const { palette: { mode: theme } } = useTheme();
@@ -69,12 +69,12 @@ export const Header = ({ toggleTheme }: { toggleTheme: () => void; }): JSX.Eleme
                         href="/"
                         noWrap
                         sx={{
-                            color:          "inherit",
-                            flexGrow:       { md: 0, xs: 1 },
-                            fontFamily:     "monospace",
-                            fontWeight:     700,
-                            letterSpacing:  ".3rem",
-                            mr:             2,
+                            color: "inherit",
+                            flexGrow: { md: 0, xs: 1 },
+                            fontFamily: "monospace",
+                            fontWeight: 700,
+                            letterSpacing: ".3rem",
+                            mr: 2,
                             textDecoration: "none"
                         }}
                         variant="h5"

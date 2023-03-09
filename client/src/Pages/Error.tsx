@@ -13,7 +13,9 @@ export const Error = ({ code }: { code: 404 | 500; }): JSX.Element => {
     return (
         <Container>
             <Typography gutterBottom variant="h2">Error {code} - {errorMessages[code]}</Typography>
-            <Typography variant="subtitle1">These aren't the droids you're looking for. Click <a href="/">here</a> to go to the homepage.</Typography>
+            <Typography variant="subtitle1">
+                These aren't the droids you're looking for. Click <a href="/">here</a> to go to the homepage.
+            </Typography>
         </Container>
     );
 };

@@ -9,7 +9,8 @@ import axios from "axios";
  * @returns {([T | null])} The data returned by Axios, or null if the fetch fails.
  */
 export const useAxios = <T = unknown>(url: string): [T | null] => {
-    // Creates a state variable which will later store the fetched data, allowing this Hook to have the same behaviour as the useState Hook.
+    /* Creates a state variable which will later store the fetched data, allowing this Hook to have
+        the same behaviour as the useState Hook. */
     const [data, setData] = useState<T | null>(null);
 
     // Makes a request to Axios to fetch data from the URL.

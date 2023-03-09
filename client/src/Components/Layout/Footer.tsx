@@ -13,7 +13,9 @@ import type { ReactElement } from "react";
  * @param {string} props.footerHeight A CSS height value which determines the footer's height.
  * @returns {JSX.Element} The page footer.
  */
-export const Footer = ({ backgroundColour, borderColour, footerHeight }: { [key in "backgroundColour" | "borderColour" | "footerHeight"]: string; }): JSX.Element => {
+export const Footer = ({ backgroundColour, borderColour, footerHeight }: {
+    backgroundColour: string; borderColour: string; footerHeight: string;
+}): JSX.Element => {
     // Links a URL and an icon for each social media to display in the footer.
     const socials: Array<{ icon: ReactElement; link: string; }> = [
         { icon: <GitHub />, link: "/github" },
@@ -29,13 +31,13 @@ export const Footer = ({ backgroundColour, borderColour, footerHeight }: { [key 
     return (
         <footer style={{
             backgroundColor: backgroundColour,
-            borderTop:       `5px solid ${borderColour}`,
-            bottom:          0,
-            maxHeight:       footerHeight,
-            overflow:        "hidden",
-            padding:         "1%",
-            position:        "absolute",
-            width:           "100%"
+            borderTop: `5px solid ${borderColour}`,
+            bottom: 0,
+            maxHeight: footerHeight,
+            overflow: "hidden",
+            padding: "1%",
+            position: "absolute",
+            width: "100%"
         }}
         >
             {/* This Container will not be visible when printing a page. */}
@@ -53,11 +55,14 @@ export const Footer = ({ backgroundColour, borderColour, footerHeight }: { [key 
                         {/* The social media links are rendered on the right. */}
                         {socials.map(({ icon, link }, i) => <Link color="inherit" href={link} key={i}>{icon}</Link>)}
                     </Stack>
-                    {/* This stack renders all internal elements horizontally instead of vertically, and puts a Divider between each element. */}
+                    {/* This stack renders all internal elements horizontally instead of vertically,
+                    and puts a Divider between each element. */}
                     <Stack direction="row" divider={<Divider flexItem orientation="vertical" sx={{ margin: "0% 1%" }} />}>
                         {/* My username, and a legend saying who made the site appear at the bottom of the footer. */}
                         <Typography align="right" flexGrow={1} variant="caption">oathompsonjones</Typography>
-                        <Typography variant="caption">Website created by <a href="https://oathompsonjones.co.uk">Oliver Jones</a></Typography>
+                        <Typography variant="caption">
+                            Website created by <a href="https://oathompsonjones.co.uk">Oliver Jones</a>
+                        </Typography>
                     </Stack>
                 </Stack>
             </Container>

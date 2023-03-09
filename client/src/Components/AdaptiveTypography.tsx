@@ -16,26 +16,47 @@ import type { TypographyTypeMap } from "@mui/material";
  * @returns {JSX.Element} Five `<Typography>` elements, rendering only 1 at a time.
  */
 // ? Is there a neater way of doing this?
-export const AdaptiveTypography = ({ href, lg, md, sm, xl, xs, ...props }: Omit<TypographyTypeMap<Partial<Record<"href" | "lg" | "md" | "sm" | "xl" | "xs", string>>>["props"], "display">): JSX.Element => (
+export const AdaptiveTypography = ({
+    href, lg, md, sm, xl, xs,
+    ...props
+}: Omit<TypographyTypeMap<Partial<Record<"href" | "lg" | "md" | "sm" | "xl" | "xs", string>>>["props"], "display">): JSX.Element => (
     <>
         {/* Typography element for extra small displays. */}
         <Typography
             {...props} {...(href !== undefined && { component: "a", href })} display={{
-                lg: xs !== undefined && sm === undefined && md === undefined && lg === undefined ? "block" : "none",
-                md: xs !== undefined && sm === undefined && md === undefined ? "block" : "none",
-                sm: xs !== undefined && sm === undefined ? "block" : "none",
-                xl: xs !== undefined && sm === undefined && md === undefined && lg === undefined && xl === undefined ? "block" : "none",
-                xs: xs === undefined ? "none" : "block"
+                lg: xs !== undefined && sm === undefined && md === undefined && lg === undefined
+                    ? "block"
+                    : "none",
+                md: xs !== undefined && sm === undefined && md === undefined
+                    ? "block"
+                    : "none",
+                sm: xs !== undefined && sm === undefined
+                    ? "block"
+                    : "none",
+                xl: xs !== undefined && sm === undefined && md === undefined && lg === undefined && xl === undefined
+                    ? "block"
+                    : "none",
+                xs: xs === undefined
+                    ? "none"
+                    : "block"
             }}
         >{xs}
         </Typography>
         {/* Typography element for small displays. */}
         <Typography
             {...props} {...(href !== undefined && { component: "a", href })} display={{
-                lg: sm !== undefined && md === undefined && lg === undefined ? "block" : "none",
-                md: sm !== undefined && md === undefined ? "block" : "none",
-                sm: sm === undefined ? "none" : "block",
-                xl: sm !== undefined && md === undefined && lg === undefined && xl === undefined ? "block" : "none",
+                lg: sm !== undefined && md === undefined && lg === undefined
+                    ? "block"
+                    : "none",
+                md: sm !== undefined && md === undefined
+                    ? "block"
+                    : "none",
+                sm: sm === undefined
+                    ? "none"
+                    : "block",
+                xl: sm !== undefined && md === undefined && lg === undefined && xl === undefined
+                    ? "block"
+                    : "none",
                 xs: "none"
             }}
         >{sm}
@@ -43,10 +64,16 @@ export const AdaptiveTypography = ({ href, lg, md, sm, xl, xs, ...props }: Omit<
         {/* Typography element for medium displays. */}
         <Typography
             {...props} {...(href !== undefined && { component: "a", href })} display={{
-                lg: md !== undefined && lg === undefined ? "block" : "none",
-                md: md === undefined ? "none" : "block",
+                lg: md !== undefined && lg === undefined
+                    ? "block"
+                    : "none",
+                md: md === undefined
+                    ? "none"
+                    : "block",
                 sm: "none",
-                xl: md !== undefined && lg === undefined && xl === undefined ? "block" : "none",
+                xl: md !== undefined && lg === undefined && xl === undefined
+                    ? "block"
+                    : "none",
                 xs: "none"
             }}
         >{md}
@@ -54,10 +81,14 @@ export const AdaptiveTypography = ({ href, lg, md, sm, xl, xs, ...props }: Omit<
         {/* Typography element for large displays. */}
         <Typography
             {...props} {...(href !== undefined && { component: "a", href })} display={{
-                lg: lg === undefined ? "none" : "block",
+                lg: lg === undefined
+                    ? "none"
+                    : "block",
                 md: "none",
                 sm: "none",
-                xl: lg !== undefined && xl === undefined ? "block" : "none",
+                xl: lg !== undefined && xl === undefined
+                    ? "block"
+                    : "none",
                 xs: "none"
             }}
         >{lg}
@@ -68,7 +99,9 @@ export const AdaptiveTypography = ({ href, lg, md, sm, xl, xs, ...props }: Omit<
                 lg: "none",
                 md: "none",
                 sm: "none",
-                xl: xl === undefined ? "none" : "block",
+                xl: xl === undefined
+                    ? "none"
+                    : "block",
                 xs: "none"
             }}
         >{xl}

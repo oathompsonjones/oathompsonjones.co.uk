@@ -17,7 +17,9 @@ export const Portfolio = (): JSX.Element => {
     return (
         <Container>
             <Typography variant="h2">Portfolio</Typography>
-            <Typography variant="subtitle1">These projects are pulled directly from my <a href="/github">GitHub</a> profile.</Typography>
+            <Typography variant="subtitle1">
+                These projects are pulled directly from my <a href="/github">GitHub</a> profile.
+            </Typography>
             {
                 repos === null ? (
                     <Stack alignItems="center" justifyContent="center">

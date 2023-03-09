@@ -55,7 +55,9 @@ export async function requestHandler(_req: Request, res: Response): Promise<void
             }
         }`);
         const combinedRepos = repos.concat(orgs.map((org) => org.repositories.repos).flat());
-        const pendingImageBinaries: Array<Promise<{ data: string; }>> = combinedRepos.map(async (repo) => axios.get(repo.openGraphImageUrl, { responseType: "arraybuffer" }));
+        const pendingImageBinaries: Array<Promise<{
+            data: string;
+        }>> = combinedRepos.map(async (repo) => axios.get(repo.openGraphImageUrl, { responseType: "arraybuffer" }));
         const imageBinaries: Array<{ data: string; }> = await Promise.all(pendingImageBinaries);
         const formattedRepos: IRepo[] = [];
         combinedRepos.forEach((repo, i) => {

@@ -23,14 +23,14 @@ export const Root = (): JSX.Element => {
     // These variables will be parsed into CSS.
     const cssVars = {
         backgroundColour: themeMode === "dark" ? "#121212" : "#ffffff",
-        linkColour:       "#1c7eea",
-        mainColour:       "#1c7eea"
+        linkColour: "#1c7eea",
+        mainColour: "#1c7eea"
     };
 
     // Constructs the colour theme for the site.
     const theme = responsiveFontSizes(createTheme({
         palette: {
-            mode:    themeMode,
+            mode: themeMode,
             primary: { main: cssVars.mainColour }
         },
         // Makes any h tags render with the main site colour.
@@ -58,7 +58,11 @@ export const Root = (): JSX.Element => {
             </Container>
             {/* Renders the page footer. */}
             <Footer
-                backgroundColour={themeMode === "dark" ? lighten(cssVars.backgroundColour, 0.1) : darken(cssVars.backgroundColour, 0.1)}
+                backgroundColour={
+                    themeMode === "dark"
+                        ? lighten(cssVars.backgroundColour, 0.1)
+                        : darken(cssVars.backgroundColour, 0.1)
+                }
                 borderColour={cssVars.mainColour}
                 footerHeight={footerHeight}
             />

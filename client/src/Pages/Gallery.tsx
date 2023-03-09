@@ -17,7 +17,9 @@ export const Gallery = (): JSX.Element => {
     return (
         <Container>
             <Typography variant="h2">Gallery</Typography>
-            <Typography variant="subtitle1">These images are pulled directly from my <a href="/instagram">Instagram</a> profile.</Typography>
+            <Typography variant="subtitle1">
+                These images are pulled directly from my <a href="/instagram">Instagram</a> profile.
+            </Typography>
             {
                 posts === null ? (
                     <Stack alignItems="center" justifyContent="center">
