@@ -25,7 +25,7 @@ export async function requestHandler(_req: Request, res: Response): Promise<void
             "username",
             "children{media_type, media_url}"
         ].join(",")}&access_token=${Config.instagram.accessToken}`);
-        res.send(response.data.data);
+        res.send(response.data.data.filter((post) => !post.permalink.startsWith("https://www.instagram.com/reel/")));
     } catch (err) {
         console.error(err);
         res.sendStatus(500);
