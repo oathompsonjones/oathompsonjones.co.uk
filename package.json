@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "homepage": "https://oathompsonjones.co.uk/",
     "scripts": {
-        "dev": "next dev -p 80",
+        "dev": "sudo next dev -p 80",
         "build": "next build",
         "start": "sudo next start -p 80",
         "lint": "next lint"
