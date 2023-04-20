@@ -1,9 +1,0 @@
-{
-    "extends": "@oathompsonjones/ts-config",
-    "compilerOptions": {
-        "noEmit": true
-    },
-    "include": [
-        "src"
-    ]
-}

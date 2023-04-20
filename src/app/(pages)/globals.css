@@ -1,0 +1,27 @@
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+
+body {
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header,
+body,
+footer {
+    transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+}
+
+a {
+    color: #1c7eea;
+    margin: 0;
+    padding: 0;
+}
+
+a:hover,
+a {
+    text-decoration: none;
+    cursor: pointer;
+}

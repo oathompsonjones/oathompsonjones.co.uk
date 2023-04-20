@@ -1,12 +1,37 @@
 {
     "name": "oathompsonjones-website",
+    "version": "0.1.0",
     "homepage": "https://oathompsonjones.co.uk/",
     "scripts": {
-        "install": "cd client && npm i && cd ../server && npm i && cd ..",
-        "eslint": "cd client && npm run eslint && cd ../server && npm run eslint && cd ..",
-        "build": "cd client && npm run build && cd ../server && npm run build && cd ..",
-        "start": "npm run install && npm run eslint && npm run build && cd server && npm run start",
-        "startClient": "npm run eslint && cd client && npm run start",
-        "updateConfigs": "cd client && npm i @oathompsonjones/eslint-config@latest && npm i @oathompsonjones/ts-config@latest && cd ../server && npm i @oathompsonjones/eslint-config@latest && npm i @oathompsonjones/ts-config@latest && cd .."
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "devDependencies": {
+        "@oathompsonjones/eslint-config": "^0.0.47",
+        "@oathompsonjones/ts-config": "^0.0.13",
+        "@types/cron": "^2.0.1",
+        "@types/node": "18.15.12",
+        "@types/nodemailer": "^6.4.7",
+        "@types/react": "18.0.37",
+        "@types/react-dom": "18.0.11"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.10.6",
+        "@emotion/styled": "^11.10.6",
+        "@mui/icons-material": "^5.11.16",
+        "@mui/lab": "^5.0.0-alpha.127",
+        "@mui/material": "^5.12.1",
+        "@octokit/graphql": "^5.0.5",
+        "axios": "^1.3.6",
+        "canvas": "^2.11.2",
+        "cron": "^2.3.0",
+        "encoding": "^0.1.13",
+        "next": "13.3",
+        "nodemailer": "^6.9.1",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "react-material-ui-carousel": "^3.4.2"
     }
 }

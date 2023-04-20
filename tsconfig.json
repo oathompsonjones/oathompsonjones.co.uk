@@ -1,0 +1,29 @@
+{
+    "extends": "@oathompsonjones/ts-config",
+    "compilerOptions": {
+        "target": "es5",
+        "skipLibCheck": true,
+        "noEmit": true,
+        "incremental": true,
+        "plugins": [
+            {
+                "name": "next"
+            }
+        ],
+        "paths": {
+            "@/*": [
+                "./src/app/*"
+            ]
+        }
+    },
+    "include": [
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        ".next/types/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "legacy code"
+    ]
+}

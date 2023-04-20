@@ -1,0 +1,6 @@
+{
+    "extends": "@oathompsonjones/eslint-config/TypeScript/React",
+    "parserOptions": {
+        "project": "./tsconfig.json"
+    }
+}
