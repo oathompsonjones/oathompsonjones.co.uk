@@ -1,5 +1,6 @@
 "use client";
 import { Avatar, Button, Container, Divider, Stack, Typography } from "@mui/material";
+import { AVATAR_URL } from "@/constants";
 import Link from "next/link";
 
 /**
@@ -12,7 +13,7 @@ export default function Home(): JSX.Element {
         <Container disableGutters>
             {/* Renders my profile picture and my name. */}
             <Stack alignItems="center" direction="column" justifyContent="space-evenly">
-                <Avatar src="/images/pfp.jpg" sx={{ height: "50%", width: "50%" }} />
+                <Avatar src={AVATAR_URL} sx={{ height: "50%", width: "50%" }} />
                 <Typography gutterBottom variant="h2">Oliver Jones</Typography>
             </Stack>
             {/* Renders buttons which link to my CV and my contact page, wrapped above and below by dividers. */}

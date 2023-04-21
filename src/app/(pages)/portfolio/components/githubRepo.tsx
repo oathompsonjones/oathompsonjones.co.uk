@@ -3,7 +3,7 @@ import {
     Card, CardActions, CardContent, CardMedia, Typography, Zoom
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
-import type { IRepo } from "@/api/github";
+import type { IRepo } from "@/app/api/github";
 import { Stack } from "@mui/system";
 
 /**

@@ -1,4 +1,5 @@
 import { Avatar, Divider, Paper, Stack, Typography } from "@mui/material";
+import { AVATAR_URL } from "@/constants";
 import { Br } from "@/components/br";
 
 /**
@@ -12,7 +13,7 @@ export function Bio(): JSX.Element {
             <Typography variant="h4">Biography</Typography>
             <Divider sx={{ m: "1.25% 0%" }} />
             <Stack direction="row">
-                <Avatar src="/images/pfp.jpg" sx={{ height: 0.25, m: "1rem", width: 0.25 }} />
+                <Avatar src={AVATAR_URL} sx={{ height: 0.25, m: "1rem", width: 0.25 }} />
                 <Stack direction="column" flexGrow={1} justifyContent="center">
                     <Typography variant="h6">Name</Typography>
                     <Typography><b>O</b>liver <b>A</b>ndrew <b>Thompson Jones</b></Typography>

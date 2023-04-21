@@ -1,6 +1,6 @@
 "use client";
 import { CircularProgress, Container, Stack, Typography } from "@mui/material";
-import type { IPost } from "@/api/instagram";
+import type { IPost } from "@/app/api/instagram";
 import { InstagramPost } from "./components/instagramPost";
 import { Masonry } from "@mui/lab";
 import { useAxios } from "@/hooks/useAxios";

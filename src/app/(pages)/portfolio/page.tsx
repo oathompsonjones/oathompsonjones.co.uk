@@ -1,7 +1,7 @@
 "use client";
 import { CircularProgress, Container, Stack, Typography } from "@mui/material";
 import { GitHubRepo } from "./components/githubRepo";
-import type { IRepo } from "@/api/github";
+import type { IRepo } from "@/app/api/github";
 import { Masonry } from "@mui/lab";
 import { useAxios } from "@/hooks/useAxios";
 
