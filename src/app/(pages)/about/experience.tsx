@@ -45,10 +45,10 @@ export function Experience(): JSX.Element {
         }, {
             content: (
                 <>
-                    <Link href="https://tbshs-interact.github.io">Interact</Link> is a long-running fundraising organisation at
-                    <Link href="https://tbshs.org">The Bishop's Stortford High School</Link>, working closely with the
-                    <Link href="http://bsrotary.org">Rotary Club of Bishop's Stortford</Link> to organise events and campaigns, raising
-                    money for local, national and global charities.
+                    <Link href="https://tbshs-interact.github.io">Interact</Link> is a long-running fundraising organisation
+                    at <Link href="https://tbshs.org">The Bishop's Stortford High School</Link>, working closely with
+                    the <Link href="http://bsrotary.org">Rotary Club of Bishop's Stortford</Link> to organise events and campaigns,
+                    raising money for local, national and global charities.
                     <Br />
                     My role as president entailed chairing our weekly meetings, and overseeing the organisation and running of events.
                 </>
