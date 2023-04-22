@@ -21,7 +21,7 @@ export default function Gallery(): JSX.Element {
             <Typography variant="subtitle1">
                 These images are pulled directly from my <Link href="/instagram" prefetch={false}>Instagram</Link> profile.
             </Typography>
-            <Masonry columns={{ lg: 4, md: 3, sm: 2, xs: 1 }}>
+            <Masonry columns={{ md: 3, sm: 2, xs: 1 }}>
                 {(posts ?? []).map((post, i) => <InstagramPost index={i} key={i} post={post} />)}
             </Masonry>
         </>
