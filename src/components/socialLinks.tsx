@@ -1,5 +1,6 @@
-import { Divider, Link, Stack } from "@mui/material";
+import { Divider, Stack } from "@mui/material";
 import { Email, Facebook, GitHub, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
+import Link from "next/link";
 import type { ReactElement } from "react";
 
 export function SocialLinks({ dividers = false }: { dividers?: boolean; }): JSX.Element {
@@ -22,8 +23,8 @@ export function SocialLinks({ dividers = false }: { dividers?: boolean; }): JSX.
             justifyContent="space-evenly"
         >
             {socials.map(({ icon, link }, i) => (
-                <Link color="inherit" href={link} key={i} sx={{ textDecoration: "none" }}>
-                    {icon}
+                <Link href={link} key={i} legacyBehavior>
+                    <a style={{ color: "inherit" }}>{icon}</a>
                 </Link>
             ))}
         </Stack>

@@ -1,6 +1,7 @@
 "use client";
 import { Avatar, Container, Divider, Stack, Typography } from "@mui/material";
 import { AVATAR_URL } from "@/constants";
+import Link from "next/link";
 import { SocialLinks } from "./socialLinks";
 import { useThemeContext } from "@/contexts/themeContext";
 
@@ -40,7 +41,7 @@ export function Footer(): JSX.Element {
                     </Stack>
                     {/* Website author legend */}
                     <Typography align="right" flexGrow={1} variant="caption">
-                        Website created by <a href="https://oathompsonjones.co.uk">Oliver Jones</a>
+                        Website created by <Link href="/">Oliver Jones</Link>
                     </Typography>
                 </Stack>
             </Container>

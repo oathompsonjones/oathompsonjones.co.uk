@@ -1,5 +1,6 @@
 import { Divider, Paper, Stack, Typography } from "@mui/material";
 import { Br } from "@/components/br";
+import Link from "next/link";
 
 /**
  * Contains the A-Levels segment for my CV page.
@@ -27,7 +28,7 @@ export function ALevels(): JSX.Element {
             </Stack>
             <Divider sx={{ margin: "1.25% 0%" }} />
             <Typography sx={{ bottom: 0 }} variant="caption">
-                Attained at <a href="https://tbshs.org">The Bishop's Stortford High School</a> in 2021.
+                Attained at <Link href="https://tbshs.org">The Bishop's Stortford High School</Link> in 2021.
             </Typography>
         </Paper>
     );

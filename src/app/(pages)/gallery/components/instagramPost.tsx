@@ -1,7 +1,8 @@
 import { ArrowLeft, ArrowRight, Instagram, Minimize } from "@mui/icons-material";
-import { Card, CardContent, CardMedia, Link, Stack, Zoom } from "@mui/material";
+import { Card, CardContent, CardMedia, Stack, Zoom } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
 import type { IPost } from "@/app/api/instagram";
+import Link from "next/link";
 
 /**
  * Renders an Instagram post.
@@ -37,7 +38,7 @@ export function InstagramPost({ index, post }: { index: number; post: IPost; }):
                 {media}
                 {/* Renders a link to the post on Instagram. */}
                 <CardContent>
-                    <Link href={post.permalink} sx={{ textDecoration: "none" }}>
+                    <Link href={post.permalink} style={{ textDecoration: "none" }}>
                         <Stack alignItems="center" direction="row">
                             <Instagram /> View on Instagram
                         </Stack>

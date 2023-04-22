@@ -2,6 +2,7 @@
 import { CircularProgress, Container, Stack, Typography } from "@mui/material";
 import type { IPost } from "@/app/api/instagram";
 import { InstagramPost } from "./components/instagramPost";
+import Link from "next/link";
 import { Masonry } from "@mui/lab";
 import { useAxios } from "@/hooks/useAxios";
 
@@ -19,7 +20,7 @@ export default function Gallery(): JSX.Element {
         <Container>
             <Typography variant="h2">Gallery</Typography>
             <Typography variant="subtitle1">
-                These images are pulled directly from my <a href="/instagram">Instagram</a> profile.
+                These images are pulled directly from my <Link href="/instagram">Instagram</Link> profile.
             </Typography>
             {
                 posts === null ? (

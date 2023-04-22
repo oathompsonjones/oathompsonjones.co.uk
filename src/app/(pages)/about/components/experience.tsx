@@ -1,5 +1,6 @@
 import { Divider, Paper, Typography } from "@mui/material";
 import { Br } from "@/components/br";
+import Link from "next/link";
 import type { ReactElement } from "react";
 
 /**
@@ -13,8 +14,8 @@ export function Experience(): JSX.Element {
         {
             content: (
                 <>
-                    <a href="https://www.arm.com">ARM Holding</a> are one of the world's leading semiconductor and software design
-                    companies.
+                    <Link href="https://www.arm.com">ARM Holding</Link> are one of the world's leading semiconductor and software
+                    design companies.
                     <Br />
                     During my day at ARM, I was shown how ARM operates on a day-to-day basis, giving me a good sense of how leading
                     companies work.
@@ -24,9 +25,9 @@ export function Experience(): JSX.Element {
         }, {
             content: (
                 <>
-                    <a href="https://bitsolutions.net">Bit Solutions</a> are an IT management company. They have partnerships with
-                    several leading technology companies in order to provide their clients with industry leading cloud, hybrid and on
-                    premise IT solutions.
+                    <Link href="https://bitsolutions.net">Bit Solutions</Link> are an IT management company. They have partnerships
+                    with several leading technology companies in order to provide their clients with industry leading cloud, hybrid
+                    and on premise IT solutions.
                     <Br />
                     During my week at Bit Solutions, I experienced what it is like to work in the IT management sector, visiting
                     clients' sites, and learning how to setup and manage various systems for those clients.
@@ -44,9 +45,9 @@ export function Experience(): JSX.Element {
         }, {
             content: (
                 <>
-                    <a href="https://tbshs-interact.github.io">Interact</a> is a long-running fundraising organisation at
-                    <a href="https://tbshs.org">The Bishop's Stortford High School</a>, working closely with the
-                    <a href="http://bsrotary.org">Rotary Club of Bishop's Stortford</a> to organise events and campaigns, raising
+                    <Link href="https://tbshs-interact.github.io">Interact</Link> is a long-running fundraising organisation at
+                    <Link href="https://tbshs.org">The Bishop's Stortford High School</Link>, working closely with the
+                    <Link href="http://bsrotary.org">Rotary Club of Bishop's Stortford</Link> to organise events and campaigns, raising
                     money for local, national and global charities.
                     <Br />
                     My role as president entailed chairing our weekly meetings, and overseeing the organisation and running of events.
@@ -64,8 +65,8 @@ export function Experience(): JSX.Element {
         }, {
             content: (
                 <>
-                    This involved weekly tutoring of year 7 and 8 students to help with their studies in mathematics at
-                    <a href="https://tbshs.org">The Bishop's Stortford High School</a>.
+                    This involved weekly tutoring of year 7 and 8 students to help with their studies in mathematics
+                    at <Link href="https://tbshs.org">The Bishop's Stortford High School</Link>.
                 </>
             ),
             heading: "Paired Numeracy - 2021"

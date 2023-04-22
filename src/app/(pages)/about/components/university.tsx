@@ -1,5 +1,6 @@
 import { Divider, Paper, Stack, Typography } from "@mui/material";
 import { Br } from "@/components/br";
+import Link from "next/link";
 
 /**
  * Contains the University segment for my CV page.
@@ -30,7 +31,7 @@ export function University(): JSX.Element {
             </Stack>
             <Divider sx={{ margin: "1.25% 0%" }} />
             <Typography sx={{ bottom: 0 }} variant="caption">
-                Studying at <a href="https://ed.ac.uk">The University of Edinburgh</a> since 2021.
+                Studying at <Link href="https://ed.ac.uk">The University of Edinburgh</Link> since 2021.
             </Typography>
         </Paper>
     );

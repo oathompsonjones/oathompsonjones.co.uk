@@ -2,6 +2,7 @@
 import { CircularProgress, Container, Stack, Typography } from "@mui/material";
 import { GitHubRepo } from "./components/githubRepo";
 import type { IRepo } from "@/app/api/github";
+import Link from "next/link";
 import { Masonry } from "@mui/lab";
 import { useAxios } from "@/hooks/useAxios";
 
@@ -19,7 +20,7 @@ export default function Portfolio(): JSX.Element {
         <Container>
             <Typography variant="h2">Portfolio</Typography>
             <Typography variant="subtitle1">
-                These projects are pulled directly from my <a href="/github">GitHub</a> profile.
+                These projects are pulled directly from my <Link href="/github">GitHub</Link> profile.
             </Typography>
             {
                 repos === null ? (

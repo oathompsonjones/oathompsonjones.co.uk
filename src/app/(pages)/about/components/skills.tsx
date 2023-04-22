@@ -1,5 +1,6 @@
 import { Divider, Paper, Typography } from "@mui/material";
 import { Br } from "@/components/br";
+import Link from "next/link";
 import type { ReactElement } from "react";
 
 /**
@@ -42,7 +43,7 @@ export function Skills(): JSX.Element {
                     While public speaking is not something I'd rush towards, I am more than capable when the occasion arises. I was
                     chosen to speak in my school's Christmas and Easter church services every year from year 7 to year 13, and was
                     asked to represent the school (and my family) during the memorial service for a former
-                    headmaster, <a href="https://tbshs.org/ian-shaw-tbshs-1980-1998/">Ian Shaw</a>.
+                    headmaster, <Link href="https://tbshs.org/ian-shaw-tbshs-1980-1998/">Ian Shaw</Link>.
                 </>
             ),
             heading: "Public Speaking"
