@@ -23,7 +23,7 @@ export function SocialLinks({ dividers = false }: { dividers?: boolean; }): JSX.
             justifyContent="space-evenly"
         >
             {socials.map(({ icon, link }, i) => (
-                <Link href={link} key={i} legacyBehavior>
+                <Link href={link} key={i} legacyBehavior prefetch={false}>
                     <a style={{ color: "inherit" }}>{icon}</a>
                 </Link>
             ))}
