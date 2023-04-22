@@ -20,7 +20,7 @@ export default function Gallery(): JSX.Element {
         <Container>
             <Typography variant="h2">Gallery</Typography>
             <Typography variant="subtitle1">
-                These images are pulled directly from my <Link href="/instagram">Instagram</Link> profile.
+                These images are pulled directly from my <Link href="/instagram" prefetch={false}>Instagram</Link> profile.
             </Typography>
             {
                 posts === null ? (

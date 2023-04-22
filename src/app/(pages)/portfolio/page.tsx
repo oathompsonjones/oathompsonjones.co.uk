@@ -20,7 +20,7 @@ export default function Portfolio(): JSX.Element {
         <Container>
             <Typography variant="h2">Portfolio</Typography>
             <Typography variant="subtitle1">
-                These projects are pulled directly from my <Link href="/github">GitHub</Link> profile.
+                These projects are pulled directly from my <Link href="/github" prefetch={false}>GitHub</Link> profile.
             </Typography>
             {
                 repos === null ? (
