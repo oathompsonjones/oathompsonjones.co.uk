@@ -14,7 +14,7 @@ export function Experience(): JSX.Element {
         {
             content: (
                 <>
-                    <Link href="https://www.arm.com">ARM Holding</Link> are one of the world's leading semiconductor and software
+                    <Link href="https://www.arm.com">ARM Holdings</Link> are one of the world's leading semiconductor and software
                     design companies.
                     <Br />
                     During my day at ARM, I was shown how ARM operates on a day-to-day basis, giving me a good sense of how leading
