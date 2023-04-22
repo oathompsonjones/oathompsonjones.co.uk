@@ -1,6 +1,6 @@
 "use client";
 import { CircularProgress, Container, Stack, Typography } from "@mui/material";
-import { GitHubRepo } from "./components/githubRepo";
+import { GitHubRepo } from "./githubRepo";
 import type { IRepo } from "@/app/api/github";
 import Link from "next/link";
 import { Masonry } from "@mui/lab";

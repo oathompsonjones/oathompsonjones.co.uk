@@ -1,6 +1,6 @@
 "use client";
 import { Container, Typography } from "@mui/material";
-import { ContactForm } from "./components/contactForm";
+import { ContactForm } from "./contactForm";
 import { SocialLinks } from "@/components/socialLinks";
 
 /**

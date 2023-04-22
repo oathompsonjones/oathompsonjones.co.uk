@@ -1,11 +1,11 @@
 "use client";
 import { Container, Grid, Typography } from "@mui/material";
-import { ALevels } from "./components/alevels";
-import { Bio } from "./components/bio";
-import { Experience } from "./components/experience";
-import { GCSEs } from "./components/gcses";
-import { Skills } from "./components/skills";
-import { University } from "./components/university";
+import { ALevels } from "./alevels";
+import { Bio } from "./bio";
+import { Experience } from "./experience";
+import { GCSEs } from "./gcses";
+import { Skills } from "./skills";
+import { University } from "./university";
 
 // TODO: Maybe get this data from LinkedIn, so I don't need to update it here and there?
 
