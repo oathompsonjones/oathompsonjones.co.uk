@@ -1,9 +1,9 @@
 "use client";
-import { CircularProgress, Container, Stack, Typography } from "@mui/material";
 import { GitHubRepo } from "./githubRepo";
 import type { IRepo } from "@/app/api/github";
 import Link from "next/link";
 import { Masonry } from "@mui/lab";
+import { Typography } from "@mui/material";
 import { useAxios } from "@/hooks/useAxios";
 
 /**
@@ -17,22 +17,13 @@ export default function Portfolio(): JSX.Element {
 
     // Renders the portfolio page.
     return (
-        <Container>
-            <Typography variant="h2">Portfolio</Typography>
+        <>
             <Typography variant="subtitle1">
                 These projects are pulled directly from my <Link href="/github" prefetch={false}>GitHub</Link> profile.
             </Typography>
-            {
-                repos === null ? (
-                    <Stack alignItems="center" justifyContent="center">
-                        <CircularProgress />
-                    </Stack>
-                ) : (
-                    <Masonry columns={{ lg: 4, md: 3, sm: 2, xs: 1 }}>
-                        {repos.map((repo, i) => <GitHubRepo index={i} key={i} repo={repo} />)}
-                    </Masonry>
-                )
-            }
-        </Container>
+            <Masonry columns={{ lg: 4, md: 3, sm: 2, xs: 1 }}>
+                {(repos ?? []).map((repo, i) => <GitHubRepo index={i} key={i} repo={repo} />)}
+            </Masonry>
+        </>
     );
 }

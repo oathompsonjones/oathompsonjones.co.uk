@@ -29,9 +29,7 @@ export function useLocalStorage<T>(key: string, initialState: T): [T, (newValue:
     }, []);
 
     // Updates the local storage when the state updates.
-    useEffect(() => {
-        localStorage.setItem(key, JSON.stringify(value));
-    }, [value]);
+    useEffect(() => localStorage.setItem(key, JSON.stringify(value)), [value]);
 
     // Returns the value and the updater function.
     return [value, setValue];

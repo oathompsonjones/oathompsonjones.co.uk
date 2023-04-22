@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * A wrapper to build every page.
+ * A wrapper to build every page including 404.
  *
  * @returns {JSX.Element} A page wrapper.
  */
