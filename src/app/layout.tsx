@@ -26,6 +26,12 @@ export const metadata: Metadata = {
 export default function Layout({ children }: { children: React.ReactNode; }): JSX.Element {
     return (
         <html lang="en">
+            <head>
+                <script
+                    async crossOrigin="anonymous"
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4179343737367118"
+                />
+            </head>
             <body>
                 <noscript>You need to enable JavaScript to run this app.</noscript>
                 <ThemeProvider>
