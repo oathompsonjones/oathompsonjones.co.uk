@@ -20,11 +20,11 @@
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
-        ".next/types/**/*.ts",
-        "proxy.mjs"
+        ".next/types/**/*.ts"
     ],
     "exclude": [
         "node_modules",
-        "legacy code"
+        "legacy code",
+        "proxy.mjs"
     ]
 }
