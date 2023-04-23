@@ -4,7 +4,6 @@ import httpProxy from "http-proxy";
 import https from "https";
 
 const proxy = httpProxy.createProxy();
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const options = { 
     "oathompsonjones.co.uk": "http://localhost:3000",
     "localhost": "http://localhost:3000",
