@@ -1,4 +1,5 @@
 import "./globals.css";
+import { AVATAR_URL_ } from "@/constants";
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/contexts/themeContext";
 
@@ -6,9 +7,9 @@ import { ThemeProvider } from "@/contexts/themeContext";
 export const metadata: Metadata = {
     description: "Portfolio site for Oliver Jones (oathompsonjones).",
     icons: {
-        apple: "icons/apple-touch-icon.png",
-        icon: ["icons/favicon-32x32.png", "icons/favicon-16x16.png"],
-        shortcut: "icons/favicon.ico"
+        apple: AVATAR_URL_(180),
+        icon: [AVATAR_URL_(32), AVATAR_URL_(16)],
+        shortcut: AVATAR_URL_(16)
     },
     themeColor: "#1c7eea",
     title: "Oliver Jones",
