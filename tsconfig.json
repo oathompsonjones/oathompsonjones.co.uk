@@ -21,7 +21,7 @@
         "**/*.ts",
         "**/*.tsx",
         ".next/types/**/*.ts",
-        "proxy.js"
+        "proxy.mjs"
     ],
     "exclude": [
         "node_modules",
