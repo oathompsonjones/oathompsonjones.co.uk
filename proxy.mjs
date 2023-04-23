@@ -2,39 +2,41 @@ import fs from "fs";
 import http from "http";
 import httpProxy from "http-proxy";
 import https from "https";
-import url from "url";
+
+const proxy = httpProxy.createProxy();
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const options = { 
+    "oathompsonjones.co.uk": "http://localhost:3000",
+    "localhost": "http://localhost:3000",
+ };
+
+function httpsHandler(req, res) {
+    for (const [host, target] of Object.entries(options)) {
+        console.log(req.headers.host, host, target)
+        if (req.headers.host === host)
+            proxy.web(req, res, { target });
+    }
+}
+
+function httpHandler(req, res) {
+    res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
+    res.end();
+}
 
 try {
-    const proxy = httpProxy.createProxy();
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    const options = { "/": "http://localhost:3000" };
-
-    http.createServer((req, res) => {
-        if (typeof req.url === "string") {
-            const { pathname } = url.parse(req.url);
-            for (const [pattern, target] of Object.entries(options)) {
-                if (pathname !== null && (pathname === pattern || pathname.startsWith(`${pattern}/`)))
-                    proxy.web(req, res, { target });
-            }
-        }
-    }).listen(80);
-
+    // Route port 443 traffic to port 3000.
     const cert = fs.readFileSync("/etc/letsencrypt/live/oathompsonjones.co.uk/fullchain.pem");
     const key = fs.readFileSync("/etc/letsencrypt/live/oathompsonjones.co.uk/privkey.pem");
-    https.createServer({ cert, key }, (req, res) => {
-        if (typeof req.url === "string") {
-            const { pathname } = url.parse(req.url);
-            for (const [pattern, target] of Object.entries(options)) {
-                if (pathname !== null && (pathname === pattern || pathname.startsWith(`${pattern}/`)))
-                    proxy.web(req, res, { target });
-            }
-        }
-    }).listen(443);
+    https.createServer({ cert, key }, httpsHandler).listen(443);
+
+    // Redirect port 80 to port 443.
+    http.createServer(httpHandler).listen(80);
 
     console.log("Listening on ports 443 and 80.");
 } catch (err) {
     if (err instanceof Error) {
         console.log(`HTTPS failed.\n${err.message}`);
+        http.createServer(httpsHandler).listen(80);
         console.log("Listening on port 80.");
     }
 }
