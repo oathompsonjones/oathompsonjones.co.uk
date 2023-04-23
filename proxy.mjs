@@ -11,7 +11,6 @@ const options = {
 
 function httpsHandler(req, res) {
     for (const [host, target] of Object.entries(options)) {
-        console.log(req.headers.host, host, target)
         if (req.headers.host === host)
             proxy.web(req, res, { target });
     }
