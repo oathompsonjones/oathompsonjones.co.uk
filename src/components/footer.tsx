@@ -1,6 +1,6 @@
 "use client";
 import { Avatar, Container, Divider, Stack, Typography } from "@mui/material";
-import { AVATAR_URL } from "@/constants";
+import { GRAVATAR_URL } from "@/constants";
 import Link from "next/link";
 import { SocialLinks } from "./socialLinks";
 import { useThemeContext } from "@/contexts/themeContext";
@@ -31,7 +31,7 @@ export function Footer(): JSX.Element {
                 <Stack divider={<Divider sx={{ margin: "0.5%" }} />}>
                     <Stack alignItems="center" direction="row">
                         {/* Picture and name */}
-                        <Avatar src={AVATAR_URL} sx={{ margin: "1%" }} />
+                        <Avatar src={GRAVATAR_URL} style={{ margin: "1%" }} variant="square" />
                         <Stack flexGrow={1}>
                             <Typography variant="h6">Oliver Andrew</Typography>
                             <Typography variant="h6">Thompson Jones</Typography>
