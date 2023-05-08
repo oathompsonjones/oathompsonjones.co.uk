@@ -33,62 +33,29 @@ export function Header(): JSX.Element {
     // Returns an AppBar element (which renders as an HTML header element).
     return (
         <AppBar enableColorOnDark position="sticky" sx={{ backgroundImage: "none", mb: "1%" }}>
-            <Container disableGutters>
-                {/* Toolbar is essential for properly aligning elements within the AppBar. */}
-                <Toolbar>
-                    {/* This Box contains the nav bar for smaller displays. */}
-                    <Box sx={{ display: { md: "none", xs: "flex" } }}>
-                        {/* Displays the menu icon to access the dropdown nav menu. */}
-                        <IconButton color="inherit" onClick={handleOpenNavMenu} size="large">
-                            <MenuIcon />
-                        </IconButton>
-                        {/* Contains the dropdown nav menu. */}
-                        <Menu
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
-                            keepMounted
-                            onClose={handleCloseNavMenu}
-                            open={Boolean(anchorElNav)}
-                            sx={{ display: { md: "none", xs: "block" } }}
-                            transformOrigin={{ horizontal: "left", vertical: "top" }}
-                        >
-                            {
-                            // Renders a link to each page.
-                                pages.map((page, i) => (
-                                    <Link href={page.link} key={i}>
-                                        <MenuItem onClick={handleCloseNavMenu}>
-                                            <Typography sx={{ color: "#ffffff" }} textAlign="center">
-                                                {page.label}
-                                            </Typography>
-                                        </MenuItem>
-                                    </Link>
-                                ))
-                            }
-                        </Menu>
-                    </Box>
-                    {/* Displays the main page title for the nav bar. This renders on displays of any size. */}
-                    <Typography
-                        align="center"
-                        noWrap
-                        sx={{
-                            color: "#ffffff",
-                            flexGrow: { md: 0, xs: 1 },
-                            fontFamily: "monospace",
-                            fontWeight: 700,
-                            letterSpacing: ".3rem",
-                            mr: 2
-                        }}
-                        variant="h5"
+            {/* Toolbar is essential for properly aligning elements within the AppBar. */}
+            <Toolbar component={Container} disableGutters sx={{ flexGrow: 1, width: "100%" }}>
+                {/* This Box contains the nav bar for smaller displays. */}
+                <Box sx={{ display: { md: "none", xs: "flex" } }}>
+                    {/* Displays the menu icon to access the dropdown nav menu. */}
+                    <IconButton color="inherit" onClick={handleOpenNavMenu} size="large">
+                        <MenuIcon />
+                    </IconButton>
+                    {/* Contains the dropdown nav menu. */}
+                    <Menu
+                        anchorEl={anchorElNav}
+                        anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+                        keepMounted
+                        onClose={handleCloseNavMenu}
+                        open={Boolean(anchorElNav)}
+                        sx={{ display: { md: "none", xs: "block" } }}
+                        transformOrigin={{ horizontal: "left", vertical: "top" }}
                     >
-                        <Link href="/" style={{ color: "inherit" }}>OATHOMPSONJONES</Link>
-                    </Typography>
-                    {/* This Box contains the nav bar for larger displays. */}
-                    <Box sx={{ display: { md: "flex", xs: "none" }, flexGrow: 1 }}>
                         {
-                        // Renders a link to each page.
+                            // Renders a link to each page.
                             pages.map((page, i) => (
                                 <Link href={page.link} key={i}>
-                                    <MenuItem>
+                                    <MenuItem onClick={handleCloseNavMenu}>
                                         <Typography sx={{ color: "#ffffff" }} textAlign="center">
                                             {page.label}
                                         </Typography>
@@ -96,13 +63,46 @@ export function Header(): JSX.Element {
                                 </Link>
                             ))
                         }
-                    </Box>
-                    {/* Renders a button to control dark/light theme. This renders on displays of any size. */}
-                    <IconButton color="inherit" edge="end" onClick={toggleTheme} style={{ float: "right" }} sx={{ mr: 2 }}>
-                        {theme === "dark" ? <DarkModeIcon /> : <LightModeIcon />}
-                    </IconButton>
-                </Toolbar>
-            </Container>
+                    </Menu>
+                </Box>
+                {/* Displays the main page title for the nav bar. This renders on displays of any size. */}
+                <Typography
+                    align="center"
+                    component={Link}
+                    href="/"
+                    noWrap
+                    sx={{
+                        color: "#ffffff",
+                        flexGrow: { md: 0, xs: 1 },
+                        fontFamily: "monospace",
+                        fontWeight: 700,
+                        letterSpacing: ".3rem",
+                        mr: 2
+                    }}
+                    variant="h5"
+                >
+                    OATHOMPSONJONES
+                </Typography>
+                {/* This Box contains the nav bar for larger displays. */}
+                <Box sx={{ display: { md: "flex", xs: "none" }, flexGrow: 1 }}>
+                    {
+                        // Renders a link to each page.
+                        pages.map((page, i) => (
+                            <Link href={page.link} key={i}>
+                                <MenuItem>
+                                    <Typography sx={{ color: "#ffffff" }} textAlign="center">
+                                        {page.label}
+                                    </Typography>
+                                </MenuItem>
+                            </Link>
+                        ))
+                    }
+                </Box>
+                {/* Renders a button to control dark/light theme. This renders on displays of any size. */}
+                <IconButton color="inherit" edge="end" onClick={toggleTheme} style={{ float: "right" }} sx={{ mr: 2 }}>
+                    {theme === "dark" ? <DarkModeIcon /> : <LightModeIcon />}
+                </IconButton>
+            </Toolbar>
         </AppBar>
     );
 }
