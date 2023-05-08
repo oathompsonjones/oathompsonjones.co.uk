@@ -31,7 +31,7 @@ export function Footer(): JSX.Element {
                 <Stack divider={<Divider sx={{ margin: "0.5%" }} />}>
                     <Stack alignItems="center" direction="row">
                         {/* Picture and name */}
-                        <Avatar src={GRAVATAR_URL} style={{ margin: "1%" }} variant="square" />
+                        <Avatar src={GRAVATAR_URL} style={{ margin: "1%" }} />
                         <Stack flexGrow={1}>
                             <Typography variant="h6">Oliver Andrew</Typography>
                             <Typography variant="h6">Thompson Jones</Typography>

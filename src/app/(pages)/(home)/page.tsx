@@ -13,7 +13,7 @@ export default function Home(): JSX.Element {
         <Container disableGutters>
             {/* Renders my profile picture and my name. */}
             <Stack alignItems="center" direction="column" justifyContent="space-evenly">
-                <Avatar src={GRAVATAR_URL} style={{ height: "50%", width: "50%" }} variant="square" />
+                <Avatar src={GRAVATAR_URL} style={{ height: "50%", width: "50%" }} />
                 <Typography gutterBottom variant="h2">Oliver Jones</Typography>
             </Stack>
             {/* Renders buttons which link to my CV and my contact page, wrapped above and below by dividers. */}
