@@ -7,7 +7,7 @@ import nodemailer from "nodemailer";
 export async function POST(req: NextRequest): Promise<NextResponse> {
     // Check that the input is in the correct form.
     if (req.headers.get("content-type") !== "application/json")
-        throw new Error("Invalid form body. Header 'content-type' must be of type 'application/json'.");
+        return new NextResponse("Invalid form body. Header 'content-type' must be of type 'application/json'.", { status: 400 });
 
     // Get each field from the body.
     const body: unknown = await req.json();
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         validEmailRegex.test((body as IBody).email);
 
     if (!validBody)
-        throw new Error("Invalid form body. All fields must contain valid strings.");
+        return new NextResponse("Invalid form body. All fields must contain valid strings.", { status: 400 });
 
     const { content, email, name, subject } = body as IBody;
 
