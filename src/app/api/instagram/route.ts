@@ -45,11 +45,12 @@ export async function GET(): Promise<NextResponse> {
         "media_type",
         "media_url",
         "permalink",
-        "thumbnail_url",
         "timestamp",
         "username",
         "children{media_type, media_url}"
     ].join(",")}&access_token=${Config.instagram.accessToken}`);
-    const filteredData = response.data.data.filter((post) => !post.permalink.startsWith("https://www.instagram.com/reel/"));
-    return NextResponse.json(filteredData);
+    const data = response.data.data.filter((post) => !post.permalink.startsWith("https://www.instagram.com/reel/"));
+    const head = data.find((post) => post.caption?.includes("#pin"));
+    const tail = data.filter((post) => post.id !== head?.id);
+    return NextResponse.json([head, ...tail]);
 }
