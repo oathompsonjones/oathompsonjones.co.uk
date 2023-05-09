@@ -1,8 +1,15 @@
-import { ArrowLeft, ArrowRight, Instagram, Minimize } from "@mui/icons-material";
-import { Card, CardContent, CardMedia, Stack, Zoom } from "@mui/material";
-import Carousel from "react-material-ui-carousel";
+import ArrowLeft from "@mui/icons-material/ArrowLeft";
+import ArrowRight from "@mui/icons-material/ArrowRight";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Carousel from "@/components/carousel";
 import type { IPost } from "@/app/api/instagram";
+import Instagram from "@mui/icons-material/Instagram";
 import Link from "next/link";
+import Minimize from "@mui/icons-material/Minimize";
+import Stack from "@mui/material/Stack";
+import Zoom from "@mui/material/Zoom";
 
 /**
  * Renders an Instagram post.
@@ -12,7 +19,7 @@ import Link from "next/link";
  * @param {IPost} props.post The post object.
  * @returns {JSX.Element} An element which renders an Instagram post.
  */
-export function InstagramPost({ index, post }: { index: number; post: IPost; }): JSX.Element {
+export default function InstagramPost({ index, post }: { index: number; post: IPost; }): JSX.Element {
     let media: JSX.Element;
     // Checks the media type.
     switch (post.media_type) {

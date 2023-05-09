@@ -1,10 +1,18 @@
-import { Alert, Button, FormControl, FormHelperText, FormLabel, Grid, Paper, TextField } from "@mui/material";
+"use client";
+import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
+import FormControl from "@mui/material/FormControl";
 import type { FormEvent } from "react";
-import { Send } from "@mui/icons-material";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormLabel from "@mui/material/FormLabel";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Send from "@mui/icons-material/Send";
+import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { useState } from "react";
 
-export function ContactForm(): JSX.Element {
+export default function ContactForm(): JSX.Element {
     // State variables for the content of the contact form.
     const [content, setContent] = useState("");
     const [email, setEmail] = useState("");

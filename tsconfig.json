@@ -13,6 +13,9 @@
         "paths": {
             "@/*": [
                 "./src/*"
+            ],
+            "@mui/*": [
+                "./src/components/mui/*"
             ]
         }
     },

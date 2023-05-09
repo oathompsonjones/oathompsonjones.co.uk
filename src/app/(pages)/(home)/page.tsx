@@ -1,7 +1,10 @@
-"use client";
-import { Avatar, Button, Container, Divider, Stack, Typography } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
 import { GRAVATAR_URL } from "@/constants";
 import Link from "next/link";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 
 /**
  * This is the home page.
@@ -10,7 +13,7 @@ import Link from "next/link";
  */
 export default function Home(): JSX.Element {
     return (
-        <Container disableGutters>
+        <>
             {/* Renders my profile picture and my name. */}
             <Stack alignItems="center" direction="column" justifyContent="space-evenly">
                 <Avatar src={GRAVATAR_URL} style={{ height: "50%", width: "50%" }} />
@@ -27,6 +30,6 @@ export default function Home(): JSX.Element {
                 </Link>
             </Stack>
             <Divider sx={{ bgcolor: "primary.main", margin: "1%" }} />
-        </Container>
+        </>
     );
 }

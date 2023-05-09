@@ -1,9 +1,14 @@
 "use client";
-import { CssBaseline, ThemeProvider as MuiThemeProvider, createTheme, darken, lighten, responsiveFontSizes } from "@mui/material";
 import { createContext, useContext, useMemo } from "react";
+import CssBaseline from "@mui/material/CssBaseline";
+import MuiThemeProvider from "@mui/material/styles/ThemeProvider";
 import type { ReactNode } from "react";
 import type { Theme } from "@mui/material";
-import { useDarkMode } from "@/hooks/useDarkMode";
+import createTheme from "@mui/material/styles/createTheme";
+import darken from "@mui/material/darken";
+import lighten from "@mui/material/lighten";
+import responsiveFontSizes from "@mui/material/styles/responsiveFontSizes";
+import useDarkMode from "@/hooks/useDarkMode";
 
 interface ThemeContextType {
     theme: Theme;

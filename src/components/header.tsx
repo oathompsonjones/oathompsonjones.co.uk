@@ -1,9 +1,19 @@
 "use client";
-import { AppBar, Box, Container, IconButton, Menu, MenuItem, Toolbar, Typography, useTheme } from "@mui/material";
-import { DarkMode as DarkModeIcon, LightMode as LightModeIcon, Menu as MenuIcon } from "@mui/icons-material";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import IconButton from "@mui/material/IconButton";
+import LightModeIcon from "@mui/icons-material/LightMode";
 import Link from "next/link";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import type { MouseEvent } from "react";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
 import { useState } from "react";
+import useTheme from "@mui/material/styles/useTheme";
 import { useThemeContext } from "@/contexts/themeContext";
 
 /**
@@ -11,7 +21,7 @@ import { useThemeContext } from "@/contexts/themeContext";
  *
  * @returns {JSX.Element} The page header.
  */
-export function Header(): JSX.Element {
+export default function Header(): JSX.Element {
     // Handles behaviour for the dropdown menu on smaller displays.
     const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
     const handleOpenNavMenu = (event: MouseEvent<HTMLElement>): void => setAnchorElNav(event.currentTarget);

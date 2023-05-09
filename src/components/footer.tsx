@@ -1,8 +1,12 @@
 "use client";
-import { Avatar, Container, Divider, Stack, Typography } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import Container from "@mui/material/Container";
+import Divider from "@mui/material/Divider";
 import { GRAVATAR_URL } from "@/constants";
 import Link from "next/link";
-import { SocialLinks } from "./socialLinks";
+import SocialLinks from "./socialLinks";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import { useThemeContext } from "@/contexts/themeContext";
 
 /**
@@ -10,7 +14,7 @@ import { useThemeContext } from "@/contexts/themeContext";
  *
  * @returns {JSX.Element} The page footer.
  */
-export function Footer(): JSX.Element {
+export default function Footer(): JSX.Element {
     const {
         theme: {
             palette: {

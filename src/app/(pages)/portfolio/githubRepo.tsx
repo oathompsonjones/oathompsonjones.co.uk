@@ -1,10 +1,16 @@
-import {
-    Accordion, AccordionDetails, AccordionSummary, Button,
-    Card, CardActions, CardContent, CardMedia, Typography, Zoom
-} from "@mui/material";
-import { ExpandMore } from "@mui/icons-material";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 import type { IRepo } from "@/app/api/github";
-import { Stack } from "@mui/system";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import Zoom from "@mui/material/Zoom";
 
 /**
  * Renders a GitHub repository.
@@ -14,7 +20,7 @@ import { Stack } from "@mui/system";
  * @param {IRepo} props.repo The repository object.
  * @returns {JSX.Element} An element which renders a GitHub repository.
  */
-export function GitHubRepo({ index, repo }: { index: number; repo: IRepo; }): JSX.Element {
+export default function GitHubRepo({ index, repo }: { index: number; repo: IRepo; }): JSX.Element {
     // Maps the repository languages into a more readable format.
     const repoLanguages = repo.primaryLanguage === null ? "N/A" : `${repo.primaryLanguage.name} ${(
         (languages: string[]): string => (languages.length > 0 ? `(${languages.join(", ")})` : "")

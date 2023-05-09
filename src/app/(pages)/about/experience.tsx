@@ -1,22 +1,22 @@
-import { Divider, Paper, Typography } from "@mui/material";
-import { Br } from "@/components/br";
+import Divider from "@mui/material/Divider";
 import Link from "next/link";
-import type { ReactElement } from "react";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 
 /**
  * Contains the experience segment for my CV page.
  *
  * @returns {JSX.Element} The Experience element.
  */
-export function Experience(): JSX.Element {
+export default function Experience(): JSX.Element {
     // Contains the data for the experience section of my CV.
-    const experiences: Array<{ content: ReactElement; heading: string; }> = [
+    const experiences: Array<{ content: JSX.Element; heading: string; }> = [
         {
             content: (
                 <>
                     <Link href="https://www.arm.com">ARM Holdings</Link> are one of the world's leading semiconductor and software
                     design companies.
-                    <Br />
+                    <br />
                     During my day at ARM, I was shown how ARM operates on a day-to-day basis, giving me a good sense of how leading
                     companies work.
                 </>
@@ -28,7 +28,7 @@ export function Experience(): JSX.Element {
                     <Link href="https://bitsolutions.net">Bit Solutions</Link> are an IT management company. They have partnerships
                     with several leading technology companies in order to provide their clients with industry leading cloud, hybrid
                     and on premise IT solutions.
-                    <Br />
+                    <br />
                     During my week at Bit Solutions, I experienced what it is like to work in the IT management sector, visiting
                     clients' sites, and learning how to setup and manage various systems for those clients.
                 </>
@@ -49,7 +49,7 @@ export function Experience(): JSX.Element {
                     at <Link href="https://tbshs.org">The Bishop's Stortford High School</Link>, working closely with
                     the <Link href="http://bsrotary.org">Rotary Club of Bishop's Stortford</Link> to organise events and campaigns,
                     raising money for local, national and global charities.
-                    <Br />
+                    <br />
                     My role as president entailed chairing our weekly meetings, and overseeing the organisation and running of events.
                 </>
             ),

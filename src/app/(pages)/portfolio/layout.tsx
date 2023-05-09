@@ -1,5 +1,5 @@
-"use client";
-import { Container, Typography } from "@mui/material";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 
 /**
  * A wrapper to build the page and error.

@@ -1,22 +1,22 @@
-import { Divider, Paper, Typography } from "@mui/material";
-import { Br } from "@/components/br";
+import Divider from "@mui/material/Divider";
 import Link from "next/link";
-import type { ReactElement } from "react";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 
 /**
  * Contains the skills segment for my CV page.
  *
  * @returns {JSX.Element} The Skills element.
  */
-export function Skills(): JSX.Element {
+export default function Skills(): JSX.Element {
     // Contains the data for the skills section of my CV.
-    const skills: Array<{ content: ReactElement; heading: string; }> = [
+    const skills: Array<{ content: JSX.Element; heading: string; }> = [
         {
             content: (
                 <>
                     I am highly proficient with usual IT skills such as word processing and use of spreadsheets, and I am also an
                     experienced programmer with knowledge of multiple languages.
-                    <Br />
+                    <br />
                     Some of the programming languages I am familiar with are TypeScript, Java, C#, Haskell, PHP, C++, Python and more.
                 </>
             ),

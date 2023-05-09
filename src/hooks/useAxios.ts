@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -38,7 +39,7 @@ function promiseWrapper<T = unknown>(promise: Promise<T>): () => T {
  * @param {string} url The URL for Axios to fetch from.
  * @returns {([T | null])} The data returned by Axios, or null if the fetch fails.
  */
-export function useAxios<T = unknown>(url: string): [T | null] {
+export default function useAxios<T = unknown>(url: string): [T | null] {
     /* Creates a state variable which will later store the fetched data,
     allowing this Hook to have the same behaviour as the useState Hook. */
     const [resource, setResource] = useState<T | null>(null);

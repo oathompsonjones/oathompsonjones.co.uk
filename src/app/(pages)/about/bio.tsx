@@ -1,14 +1,17 @@
-import { Avatar, Divider, Paper, Stack, Typography } from "@mui/material";
-import { Br } from "@/components/br";
+import Avatar from "@mui/material/Avatar";
+import Divider from "@mui/material/Divider";
 import { GRAVATAR_URL } from "@/constants";
 import Link from "next/link";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 
 /**
  * Contains the bio segment for my CV page.
  *
  * @returns {JSX.Element} The Bio element.
  */
-export function Bio(): JSX.Element {
+export default function Bio(): JSX.Element {
     return (
         <Paper sx={{ padding: "1rem" }}>
             <Typography variant="h4">Biography</Typography>
@@ -39,7 +42,7 @@ export function Bio(): JSX.Element {
                 I'm able to work effectively with a group of like-minded colleagues and have experience managing teams,
                 yet I'm also able to work effectively alone.
                 I take pride in completing all tasks on time and to the highest standard.
-                <Br lines={2} />
+                <br /><br />
                 Currently, I'm reading for a degree in Computer Science at the University of Edinburgh.
                 I'm familiar with several programming languages, including (but not limited to) JavaScript/TypeScript,
                 Python, C/C++, C# and Java, and I'm able to pick up new languages quickly.

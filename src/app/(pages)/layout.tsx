@@ -1,6 +1,7 @@
 import "../globals.css";
-import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
+import Container from "@mui/material/Container";
+import Footer from "@/components/footer";
+import Header from "@/components/header";
 
 /**
  * A wrapper to build every page.
@@ -11,9 +12,9 @@ export default function Layout({ children }: { children: React.ReactNode; }): JS
     return (
         <>
             <Header />
-            <div style={{ flex: 1 }}>
+            <Container disableGutters style={{ flex: 1, height: "100%", width: "100%" }}>
                 {children}
-            </div>
+            </Container>
             <Footer />
         </>
     );

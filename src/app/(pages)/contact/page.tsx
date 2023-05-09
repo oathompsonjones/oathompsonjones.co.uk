@@ -1,7 +1,6 @@
-"use client";
-import { Container, Typography } from "@mui/material";
-import { ContactForm } from "./contactForm";
-import { SocialLinks } from "@/components/socialLinks";
+import ContactForm from "./contactForm";
+import SocialLinks from "@/components/socialLinks";
+import Typography from "@mui/material/Typography";
 
 /**
  * This page provides contact links for me.
@@ -11,10 +10,10 @@ import { SocialLinks } from "@/components/socialLinks";
 export default function Contact(): JSX.Element {
     // Renders the contact page.
     return (
-        <Container>
+        <>
             <Typography variant="h2">Contact Me</Typography>
             <ContactForm />
             <SocialLinks dividers />
-        </Container>
+        </>
     );
 }

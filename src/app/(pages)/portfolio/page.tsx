@@ -1,10 +1,10 @@
 "use client";
-import { GitHubRepo } from "./githubRepo";
+import GitHubRepo from "./githubRepo";
 import type { IRepo } from "@/app/api/github";
 import Link from "next/link";
-import { Masonry } from "@mui/lab";
-import { Typography } from "@mui/material";
-import { useAxios } from "@/hooks/useAxios";
+import Masonry from "@mui/lab/Masonry";
+import Typography from "@mui/material/Typography";
+import useAxios from "@/hooks/useAxios";
 
 /**
  * This page acts as an online portfolio.

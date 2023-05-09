@@ -1,5 +1,6 @@
 "use client";
-import { Button, Typography } from "@mui/material";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import { useEffect } from "react";
 
 /**
