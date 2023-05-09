@@ -21,8 +21,8 @@ export default function Portfolio(): JSX.Element {
             <Typography variant="subtitle1">
                 These projects are pulled directly from my <Link href="/github" prefetch={false}>GitHub</Link> profile.
             </Typography>
-            <Masonry columns={{ lg: 4, md: 3, sm: 2, xs: 1 }}>
-                {(repos ?? []).map((repo, i) => <GitHubRepo index={i} key={i} repo={repo} />)}
+            <Masonry columns={{ lg: 4, md: 3, sm: 2, xl: 5, xs: 1 }}>
+                {(repos ?? []).map((repo, i) => <GitHubRepo key={i} repo={repo} />)}
             </Masonry>
         </>
     );

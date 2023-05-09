@@ -15,12 +15,11 @@ import Zoom from "@mui/material/Zoom";
 /**
  * Renders a GitHub repository.
  *
- * @param {{ index: number; repo: IRepo; }} props An object containing the component props.
- * @param {number} props.index The index of the repository, required to allow proper rendering by React.
+ * @param {{ repo: IRepo; }} props An object containing the component props.
  * @param {IRepo} props.repo The repository object.
  * @returns {JSX.Element} An element which renders a GitHub repository.
  */
-export default function GitHubRepo({ index, repo }: { index: number; repo: IRepo; }): JSX.Element {
+export default function GitHubRepo({ repo }: { repo: IRepo; }): JSX.Element {
     // Maps the repository languages into a more readable format.
     const repoLanguages = repo.primaryLanguage === null ? "N/A" : `${repo.primaryLanguage.name} ${(
         (languages: string[]): string => (languages.length > 0 ? `(${languages.join(", ")})` : "")
@@ -28,7 +27,7 @@ export default function GitHubRepo({ index, repo }: { index: number; repo: IRepo
 
     // Returns a Zoom element wrapping the repository to make it look nicer when loading in.
     return (
-        <Zoom in style={{ transitionDelay: `${index * 100}ms` }}>
+        <Zoom in>
             {/* This Card element contains the repository. */}
             <Card>
                 {/* Renders the repository image. */}
