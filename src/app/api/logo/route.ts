@@ -1,3 +1,4 @@
+import type { CanvasFileType, Parameters, ResponseFileType, ValidFileType } from ".";
 import { Canvas } from "canvas";
 import type { CanvasRenderingContext2D } from "canvas";
 import type { NextRequest } from "next/server";
@@ -16,22 +17,6 @@ import { NextResponse } from "next/server";
 &middleTextColour=bababa
 &fileType=pdf
 */
-
-type ValidFileType = "dataUrl" | "jpeg" | "jpg" | "pdf" | "png" | "svg";
-type ResponseFileType = "application/pdf" | "image/jpeg" | "image/png" | "image/svg";
-type CanvasFileType = "image" | "pdf" | "svg";
-export interface Parameters {
-    backgroundColour: string | null;
-    outerLineColour: string;
-    innerLineColour: string;
-    pinColour: string;
-    innerColour: string;
-    outerColour: string;
-    topTextColour: string;
-    middleTextColour: string;
-    bottomTextColour: string;
-    fileType: ValidFileType;
-}
 
 const SIZE = 2048;
 const MARGIN = 150;
@@ -137,9 +122,9 @@ function getCanvasFileType(type: ValidFileType): CanvasFileType {
     }[type] as CanvasFileType;
 }
 
-function getParameters(url: string): Parameters {
-    const { searchParams } = new URL(url);
-    return {
+export function GET(req: NextRequest): NextResponse {
+    const { searchParams } = new URL(req.url);
+    const parameters = {
         backgroundColour: validateHex(searchParams.get("backgroundColour"), null),
         bottomTextColour: validateHex(searchParams.get("bottomTextColour"), "#121212"),
         fileType: validateFileType(searchParams.get("fileType"), "svg"),
@@ -151,15 +136,9 @@ function getParameters(url: string): Parameters {
         pinColour: validateHex(searchParams.get("pinColour"), "#1c7eea"),
         topTextColour: validateHex(searchParams.get("topTextColour"), "#121212")
     };
-}
-
-export function GET(req: NextRequest): NextResponse {
-    const parameters = getParameters(req.url);
-    const responseFileType = getResponseFileType(parameters.fileType);
-    const canvasFileType = getCanvasFileType(parameters.fileType);
-    const canvas = new Canvas(SIZE, SIZE, canvasFileType);
+    const canvas = new Canvas(SIZE, SIZE, getCanvasFileType(parameters.fileType));
     generateImage(canvas.getContext("2d"), parameters);
     return parameters.fileType === "dataUrl"
         ? new NextResponse(canvas.toDataURL())
-        : new NextResponse(canvas.toBuffer(), { headers: { contentType: responseFileType } });
+        : new NextResponse(canvas.toBuffer(), { headers: { contentType: getResponseFileType(parameters.fileType) } });
 }

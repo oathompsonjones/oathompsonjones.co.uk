@@ -1,4 +1,4 @@
-import type { Parameters } from "./app/api/logo/route";
+import type { Parameters } from "./app/api/logo";
 import md5 from "md5";
 
 export const GRAVATAR_URL_ = (size: number): string => `https://www.gravatar.com/avatar/${md5("oathompsonjones@gmail.com")}?s=${size}`;
