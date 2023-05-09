@@ -1,7 +1,6 @@
 "use client";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import IconButton from "@mui/material/IconButton";
 import LightModeIcon from "@mui/icons-material/LightMode";
@@ -42,9 +41,9 @@ export default function Header(): JSX.Element {
 
     // Returns an AppBar element (which renders as an HTML header element).
     return (
-        <AppBar enableColorOnDark position="sticky" sx={{ backgroundImage: "none", mb: "1%" }}>
+        <AppBar enableColorOnDark position="sticky" sx={{ backgroundImage: "none" }}>
             {/* Toolbar is essential for properly aligning elements within the AppBar. */}
-            <Toolbar component={Container} disableGutters sx={{ flexGrow: 1, width: "100%" }}>
+            <Toolbar sx={{ flexGrow: 1, width: "100%" }}>
                 {/* This Box contains the nav bar for smaller displays. */}
                 <Box sx={{ display: { md: "none", xs: "flex" } }}>
                     {/* Displays the menu icon to access the dropdown nav menu. */}

@@ -18,7 +18,7 @@ export default function About(): JSX.Element {
     return (
         <>
             <Typography variant="h2">About Me</Typography>
-            <Grid container spacing={2} sx={{ mb: "1rem" }}>
+            <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Bio />
                 </Grid>
