@@ -15,6 +15,9 @@ import { useState } from "react";
 import useTheme from "@mui/material/styles/useTheme";
 import { useThemeContext } from "@/contexts/themeContext";
 
+const SMALL_NAV = "xs";
+const LARGE_NAV = "md";
+
 /**
  * Creates the header element.
  *
@@ -43,9 +46,9 @@ export default function Header(): JSX.Element {
     return (
         <AppBar enableColorOnDark position="sticky" sx={{ backgroundImage: "none" }}>
             {/* Toolbar is essential for properly aligning elements within the AppBar. */}
-            <Toolbar sx={{ flexGrow: 1, width: "100%" }}>
+            <Toolbar>
                 {/* This Box contains the nav bar for smaller displays. */}
-                <Box sx={{ display: { md: "none", xs: "flex" } }}>
+                <Box sx={{ display: { [LARGE_NAV]: "none", [SMALL_NAV]: "flex" } }}>
                     {/* Displays the menu icon to access the dropdown nav menu. */}
                     <IconButton color="inherit" onClick={handleOpenNavMenu} size="large">
                         <MenuIcon />
@@ -54,24 +57,16 @@ export default function Header(): JSX.Element {
                     <Menu
                         anchorEl={anchorElNav}
                         anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
-                        keepMounted
                         onClose={handleCloseNavMenu}
                         open={Boolean(anchorElNav)}
-                        sx={{ display: { md: "none", xs: "block" } }}
+                        sx={{ display: { [LARGE_NAV]: "none", [SMALL_NAV]: "block" } }}
                         transformOrigin={{ horizontal: "left", vertical: "top" }}
                     >
-                        {
-                            // Renders a link to each page.
-                            pages.map((page, i) => (
-                                <Link href={page.link} key={i}>
-                                    <MenuItem onClick={handleCloseNavMenu}>
-                                        <Typography sx={{ color: "#ffffff" }} textAlign="center">
-                                            {page.label}
-                                        </Typography>
-                                    </MenuItem>
-                                </Link>
-                            ))
-                        }
+                        {pages.map((page, i) => (
+                            <MenuItem component={Link} href={page.link} key={i} onClick={handleCloseNavMenu}>
+                                <Typography>{page.label}</Typography>
+                            </MenuItem>
+                        ))}
                     </Menu>
                 </Box>
                 {/* Displays the main page title for the nav bar. This renders on displays of any size. */}
@@ -81,34 +76,26 @@ export default function Header(): JSX.Element {
                     href="/"
                     noWrap
                     sx={{
-                        color: "#ffffff",
-                        flexGrow: { md: 0, xs: 1 },
+                        color: "white",
+                        flexGrow: { [LARGE_NAV]: 0, [SMALL_NAV]: 1 },
                         fontFamily: "monospace",
                         fontWeight: 700,
-                        letterSpacing: ".3rem",
-                        mr: 2
+                        letterSpacing: ".3rem"
                     }}
                     variant="h5"
                 >
                     OATHOMPSONJONES
                 </Typography>
                 {/* This Box contains the nav bar for larger displays. */}
-                <Box sx={{ display: { md: "flex", xs: "none" }, flexGrow: 1 }}>
-                    {
-                        // Renders a link to each page.
-                        pages.map((page, i) => (
-                            <Link href={page.link} key={i}>
-                                <MenuItem>
-                                    <Typography sx={{ color: "#ffffff" }} textAlign="center">
-                                        {page.label}
-                                    </Typography>
-                                </MenuItem>
-                            </Link>
-                        ))
-                    }
+                <Box sx={{ display: { [LARGE_NAV]: "flex", [SMALL_NAV]: "none" }, flexGrow: 1 }}>
+                    {pages.map((page, i) => (
+                        <MenuItem component={Link} href={page.link} key={i}>
+                            <Typography>{page.label}</Typography>
+                        </MenuItem>
+                    ))}
                 </Box>
                 {/* Renders a button to control dark/light theme. This renders on displays of any size. */}
-                <IconButton color="inherit" edge="end" onClick={toggleTheme} style={{ float: "right" }} sx={{ mr: 2 }}>
+                <IconButton color="inherit" onClick={toggleTheme}>
                     {theme === "dark" ? <DarkModeIcon /> : <LightModeIcon />}
                 </IconButton>
             </Toolbar>
