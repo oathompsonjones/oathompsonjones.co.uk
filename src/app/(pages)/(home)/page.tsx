@@ -16,7 +16,7 @@ export default function Home(): JSX.Element {
         <>
             {/* Renders my profile picture and my name. */}
             <Stack alignItems="center" direction="column" justifyContent="space-evenly">
-                <Avatar src={GRAVATAR_URL} style={{ height: "50%", width: "50%" }} />
+                <Avatar src={GRAVATAR_URL} style={{ height: "25%", width: "25%" }} />
                 <Typography gutterBottom variant="h2">Oliver Jones</Typography>
             </Stack>
             {/* Renders buttons which link to my CV and my contact page, wrapped above and below by dividers. */}

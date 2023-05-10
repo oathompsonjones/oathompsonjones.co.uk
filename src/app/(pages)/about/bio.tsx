@@ -17,7 +17,7 @@ export default function Bio(): JSX.Element {
             <Typography variant="h4">Biography</Typography>
             <Divider sx={{ m: "1.25% 0%" }} />
             <Stack direction="row">
-                <Avatar src={GRAVATAR_URL} sx={{ height: 0.25, m: "1rem", width: 0.25 }} />
+                <Avatar src={GRAVATAR_URL} sx={{ height: "10%", m: "1rem", width: "10%" }} />
                 <Stack direction="column" flexGrow={1} justifyContent="center">
                     <Typography variant="h6">Name</Typography>
                     <Typography><b>O</b>liver <b>A</b>ndrew <b>Thompson Jones</b></Typography>
