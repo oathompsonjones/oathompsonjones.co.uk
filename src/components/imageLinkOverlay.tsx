@@ -1,13 +1,17 @@
 "use client";
-import type { CSSProperties } from "react";
+import type { CSSProperties, FunctionComponent } from "react";
+import { createElement, useState } from "react";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Link from "next/link";
-import { useState } from "react";
+import type { TransitionProps } from "@mui/material/transitions";
 
 interface IProps {
     children?: JSX.Element;
-    effect?: (children: JSX.Element) => JSX.Element;
+    effect?: {
+        element: FunctionComponent<TransitionProps>;
+        props: TransitionProps;
+    };
     href: string;
     image: string;
 }
@@ -41,5 +45,5 @@ export default function ImageLinkOverlay({ children, effect, href, image }: IPro
         </Card>
     );
     // If an effect is given, wrap the component in that effect.
-    return effect === undefined ? component : effect(component);
+    return effect === undefined ? component : createElement(effect.element, effect.props, component);
 }
