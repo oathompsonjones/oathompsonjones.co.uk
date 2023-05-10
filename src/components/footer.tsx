@@ -24,12 +24,7 @@ export default function Footer(): JSX.Element {
     } = useThemeContext();
 
     return (
-        <footer style={{
-            backgroundColor,
-            borderTop: `1px solid ${main}`,
-            padding: "1%"
-        }}
-        >
+        <footer style={{ backgroundColor, borderTop: `1px solid ${main}`, padding: "1%" }}>
             <Stack divider={<Divider sx={{ margin: "0.5%" }} />}>
                 <Stack alignItems="center" direction="row">
                     {/* Picture and name */}
