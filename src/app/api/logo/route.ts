@@ -4,20 +4,6 @@ import type { CanvasRenderingContext2D } from "canvas";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-/*
-* Colour Version
-/api/logo
-?pinColour=808080
-&outerLineColour=d4af37
-&innerLineColour=bababa
-&outerColour=094D1C
-&innerColour=000000
-&topTextColour=6ACF65
-&bottomTextColour=6ACF65
-&middleTextColour=bababa
-&fileType=pdf
-*/
-
 const SIZE = 2048;
 const MARGIN = 150;
 const OUTER_WIDTH = SIZE - 2 * MARGIN;
@@ -126,15 +112,15 @@ export function GET(req: NextRequest): NextResponse {
     const { searchParams } = new URL(req.url);
     const parameters = {
         backgroundColour: validateHex(searchParams.get("backgroundColour"), null),
-        bottomTextColour: validateHex(searchParams.get("bottomTextColour"), "#121212"),
+        bottomTextColour: validateHex(searchParams.get("bottomTextColour"), "#6ACF65"),
         fileType: validateFileType(searchParams.get("fileType"), "svg"),
-        innerColour: validateHex(searchParams.get("innerColour"), "#121212"),
-        innerLineColour: validateHex(searchParams.get("innerLineColour"), "#1c7eea"),
-        middleTextColour: validateHex(searchParams.get("middleTextColour"), "#1c7eea"),
-        outerColour: validateHex(searchParams.get("outerColour"), "#1c7eea"),
-        outerLineColour: validateHex(searchParams.get("outerLineColour"), "#1c7eea"),
-        pinColour: validateHex(searchParams.get("pinColour"), "#1c7eea"),
-        topTextColour: validateHex(searchParams.get("topTextColour"), "#121212")
+        innerColour: validateHex(searchParams.get("innerColour"), "#000000"),
+        innerLineColour: validateHex(searchParams.get("innerLineColour"), "#BABABA"),
+        middleTextColour: validateHex(searchParams.get("middleTextColour"), "#BABABA"),
+        outerColour: validateHex(searchParams.get("outerColour"), "#094D1C"),
+        outerLineColour: validateHex(searchParams.get("outerLineColour"), "#D4AF37"),
+        pinColour: validateHex(searchParams.get("pinColour"), "#808080"),
+        topTextColour: validateHex(searchParams.get("topTextColour"), "#6ACF65")
     };
     const canvas = new Canvas(SIZE, SIZE, getCanvasFileType(parameters.fileType));
     generateImage(canvas.getContext("2d"), parameters);
