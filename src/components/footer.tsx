@@ -3,8 +3,7 @@ import { Avatar, Divider, Stack, Typography } from "@mui/material";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
 import SocialLinks from "./socialLinks";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
+import Spacer from "./spacer";
 import { useThemeContext } from "contexts/themeContext";
 
 /**
@@ -23,23 +22,33 @@ export default function Footer(): JSX.Element {
     } = useThemeContext();
 
     return (
-        <footer style={{ backgroundColor, borderTop: `1px solid ${main}`, padding: "1%" }}>
-            <Stack divider={<Divider sx={{ margin: "0.5%" }} />}>
-                <Stack alignItems="center" direction="row">
-                    {/* Picture and name */}
-                    <Avatar src={GRAVATAR_URL} style={{ margin: "1%" }} />
-                    <Stack flexGrow={1}>
-                        <Typography variant="h6">Oliver Andrew</Typography>
-                        <Typography variant="h6">Thompson Jones</Typography>
-                    </Stack>
-                    {/* Social media links */}
-                    <SocialLinks />
-                </Stack>
-                {/* Website author legend */}
-                <Typography align="right" flexGrow={1} variant="caption">
-                    Website created by <Link href="/">Oliver Jones</Link>
+        <Stack
+            component="footer"
+            divider={<Divider sx={{ mb: "0.5%" }} />}
+            sx={{ backgroundColor, borderTop: `1px solid ${main}`, p: "1%" }}
+        >
+            <Stack alignItems="center" direction="row">
+                <Avatar src={GRAVATAR_URL} sx={{ m: "1%" }} />
+                <Typography variant="h4">Oliver Jones</Typography>
+                <Spacer />
+                <SocialLinks />
+            </Stack>
+            <Stack
+                alignItems="center"
+                direction="row"
+                divider={<Typography color="gray" sx={{ m: "0 0.5%" }}>•</Typography>}
+                justifyContent="center"
+            >
+                <Typography align="center" component={Link} href="/contact" variant="caption">
+                    Contact
+                </Typography>
+                <Typography align="center" component={Link} href="/privacy" variant="caption">
+                    Privacy Policy
+                </Typography>
+                <Typography align="center" variant="caption">
+                    © {new Date().getUTCFullYear()} Oliver Jones
                 </Typography>
             </Stack>
-        </footer>
+        </Stack>
     );
 }
