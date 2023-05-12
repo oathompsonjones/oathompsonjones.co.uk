@@ -16,17 +16,22 @@ function ThemeProvider({ children }: { children: ReactNode; }): JSX.Element {
     const [isDarkMode, toggleTheme] = useDarkMode();
 
     // Create the full theme.
+    const colours = {
+        dark: "#121212",
+        light: "#ffffff",
+        main: "#1c7eea"
+    };
     const theme: Theme = responsiveFontSizes(createTheme({
         palette: {
             background: {
-                default: isDarkMode ? "#121212" : "#ffffff",
-                paper: isDarkMode ? lighten("#121212", 0.05) : darken("#ffffff", 0.05)
+                default: isDarkMode ? colours.dark : colours.light,
+                paper: isDarkMode ? lighten(colours.dark, 0.05) : darken(colours.light, 0.05)
             },
             mode: isDarkMode ? "dark" : "light",
-            primary: { main: "#1c7eea" }
+            primary: colours
         },
         // Makes any h tags render with the main site colour.
-        typography: Object.fromEntries(["h1", "h2", "h3", "h4", "h5", "h6"].map((h) => [h, { color: "#1c7eea" }]))
+        typography: Object.fromEntries(["h1", "h2", "h3", "h4", "h5", "h6"].map((h) => [h, { color: colours.main }]))
     }));
 
     return (

@@ -1,5 +1,5 @@
 "use client";
-import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography, useTheme } from "@mui/material";
+import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography, useScrollTrigger, useTheme } from "@mui/material";
 import { DarkMode as DarkModeIcon, LightMode as LightModeIcon, Menu as MenuIcon } from "@mui/icons-material";
 import Link from "next/link";
 import type { MouseEvent } from "react";
@@ -21,8 +21,12 @@ export default function Header(): JSX.Element {
     const handleCloseNavMenu = (): void => setAnchorElNav(null);
 
     // Access the site theme.
-    const { palette: { mode: theme } } = useTheme();
+    const { palette: { mode: theme, primary: { dark, light } } } = useTheme();
     const { toggleTheme } = useThemeContext();
+
+    // Handles behaviour for chaning the nav bar colour when scrolling.
+    const scrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 50 });
+    const textColour = { dark: light, light: dark }[theme];
 
     // Associate a label and link with each page.
     const pages: Array<{ label: string; link: string; }> = [
@@ -35,7 +39,17 @@ export default function Header(): JSX.Element {
 
     // Returns an AppBar element (which renders as an HTML header element).
     return (
-        <AppBar component="header" enableColorOnDark position="sticky" sx={{ backgroundImage: "none" }}>
+        <AppBar
+            component="header"
+            enableColorOnDark
+            position="sticky"
+            sx={{
+                background: scrolling ? null : "none",
+                backgroundImage: "none",
+                boxShadow: scrolling ? null : "none",
+                color: scrolling ? null : textColour
+            }}
+        >
             {/* Toolbar is essential for properly aligning elements within the AppBar. */}
             <Toolbar>
                 {/* This Box contains the nav bar for smaller displays. */}
@@ -63,11 +77,11 @@ export default function Header(): JSX.Element {
                 {/* Displays the main page title for the nav bar. This renders on displays of any size. */}
                 <Typography
                     align="center"
+                    color={scrolling ? light : textColour}
                     component={Link}
                     href="/"
                     noWrap
                     sx={{
-                        color: "white",
                         flexGrow: { [LARGE_NAV]: 0, [SMALL_NAV]: 1 },
                         fontFamily: "monospace",
                         fontWeight: 700,
@@ -78,7 +92,7 @@ export default function Header(): JSX.Element {
                     OATHOMPSONJONES
                 </Typography>
                 {/* This Box contains the nav bar for larger displays. */}
-                <Box sx={{ display: { [LARGE_NAV]: "flex", [SMALL_NAV]: "none" }, flexGrow: 1 }}>
+                <Box sx={{ display: { [LARGE_NAV]: "flex", [SMALL_NAV]: "none" }, flex: 1 }}>
                     {pages.map((page, i) => (
                         <MenuItem component={Link} href={page.link} key={i}>
                             <Typography>{page.label}</Typography>
