@@ -1,3 +1,3 @@
 "use client";
-import Stack from "@/../node_modules/@mui/material/Stack";
+import Stack from "node_modules/@mui/material/Stack";
 export default Stack;

@@ -1,11 +1,11 @@
-import type { Parameters } from "./app/api/logo";
+import type { Parameters } from "api/logo";
 import md5 from "md5";
 
 export const GRAVATAR_URL_ = (size: number): string => `https://www.gravatar.com/avatar/${md5("oathompsonjones@gmail.com")}?s=${size}`;
 export const GRAVATAR_URL = GRAVATAR_URL_(2048);
 
 export const LOGO_URL_ = (parameters: Partial<Parameters>): string => `/api/logo?${
-    Object.entries(parameters).map(([key, value]) => `${key}=${encodeURIComponent(value!)}`)
+    Object.entries(parameters).map(([key, value]) => (value === null ? "" : `${key}=${encodeURIComponent(value)}`))
         .join("&")}`;
 export const LOGO_URL = LOGO_URL_({
     bottomTextColour: "6ACF65",

@@ -1,5 +1,5 @@
 "use client";
-import DiscordLogo from "@/images/discord.svg";
+import DiscordLogo from "images/discord.svg";
 import SvgIcon from "@mui/material/SvgIcon";
 
 export default function Discord(): JSX.Element {

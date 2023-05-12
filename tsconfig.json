@@ -11,11 +11,38 @@
             }
         ],
         "paths": {
-            "@/*": [
-                "./src/*"
-            ],
             "@mui/*": [
                 "./src/components/mui/*"
+            ],
+            "node_modules/*": [
+                "./node_modules/*"
+            ],
+            "components/*": [
+                "./src/components/*"
+            ],
+            "contexts/*": [
+                "./src/contexts/*"
+            ],
+            "hooks/*": [
+                "./src/hooks/*"
+            ],
+            "api/*": [
+                "./src/app/api/*"
+            ],
+            "pages/*": [
+                "./src/app/(pages)/*"
+            ],
+            "redirects/*": [
+                "./src/app/(redirects)/*"
+            ],
+            "app/*": [
+                "./src/app/*"
+            ],
+            "images/*": [
+                "./src/images/*"
+            ],
+            "/*": [
+                "./src/*"
             ]
         }
     },

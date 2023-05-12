@@ -3,5 +3,5 @@ The not-found.tsx file is not rendered when clicking links which go nowhere, unl
 This catches that issue.
 */
 
-import Error from "@/app/not-found";
+import Error from "app/not-found";
 export default Error;

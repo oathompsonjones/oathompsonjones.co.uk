@@ -1,10 +1,10 @@
 "use client";
-import type { IPost } from "@/app/api/instagram";
+import type { IPost } from "api/instagram";
 import InstagramPost from "./instagramPost";
 import Link from "next/link";
 import Masonry from "@mui/lab/Masonry";
 import Typography from "@mui/material/Typography";
-import useAxios from "@/hooks/useAxios";
+import useAxios from "hooks/useAxios";
 
 /**
  * This page shows my Instagram posts.

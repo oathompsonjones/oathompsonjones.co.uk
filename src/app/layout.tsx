@@ -1,9 +1,9 @@
 import "./globals.css";
-import Footer from "@/components/footer";
-import { GRAVATAR_URL_ } from "@/constants";
-import Header from "@/components/header";
+import Footer from "components/footer";
+import { GRAVATAR_URL_ } from "/constants";
+import Header from "components/header";
 import type { Metadata } from "next";
-import { ThemeProvider } from "@/contexts/themeContext";
+import { ThemeProvider } from "contexts/themeContext";
 
 // https://realfavicongenerator.net (remove the mask icon and msapplication stuff)
 export const metadata: Metadata = {

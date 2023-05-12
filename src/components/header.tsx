@@ -13,7 +13,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import useTheme from "@mui/material/styles/useTheme";
-import { useThemeContext } from "@/contexts/themeContext";
+import { useThemeContext } from "contexts/themeContext";
 
 const SMALL_NAV = "xs";
 const LARGE_NAV = "md";

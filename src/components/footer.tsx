@@ -1,12 +1,12 @@
 "use client";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
-import { GRAVATAR_URL } from "@/constants";
+import { GRAVATAR_URL } from "/constants";
 import Link from "next/link";
 import SocialLinks from "./socialLinks";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { useThemeContext } from "@/contexts/themeContext";
+import { useThemeContext } from "contexts/themeContext";
 
 /**
  * Contains the footer element.

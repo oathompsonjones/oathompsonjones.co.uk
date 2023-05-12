@@ -8,7 +8,7 @@ import createTheme from "@mui/material/styles/createTheme";
 import darken from "@mui/material/darken";
 import lighten from "@mui/material/lighten";
 import responsiveFontSizes from "@mui/material/styles/responsiveFontSizes";
-import useDarkMode from "@/hooks/useDarkMode";
+import useDarkMode from "hooks/useDarkMode";
 
 interface ThemeContextType {
     theme: Theme;

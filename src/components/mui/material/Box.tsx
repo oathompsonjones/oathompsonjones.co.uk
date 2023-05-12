@@ -1,3 +1,3 @@
 "use client";
-import Box from "@/../node_modules/@mui/material/Box";
+import Box from "node_modules/@mui/material/Box";
 export default Box;
