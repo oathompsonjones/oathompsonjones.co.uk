@@ -1,5 +1,7 @@
 import "./globals.css";
+import Footer from "@/components/footer";
 import { GRAVATAR_URL_ } from "@/constants";
+import Header from "@/components/header";
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/contexts/themeContext";
 
@@ -36,7 +38,11 @@ export default function Layout({ children }: { children: React.ReactNode; }): JS
             <body>
                 <noscript>You need to enable JavaScript to run this app.</noscript>
                 <ThemeProvider>
-                    {children}
+                    <Header />
+                    <div style={{ flex: 1, padding: "1%" }}>
+                        {children}
+                    </div>
+                    <Footer />
                 </ThemeProvider>
             </body>
         </html>
