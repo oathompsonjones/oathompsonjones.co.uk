@@ -44,19 +44,26 @@ export default function ContactForm(): JSX.Element {
     }
 
     return (
-        <Paper sx={{ display: "flex", justifyContent: "space-evenly", m: "1%", p: "1%" }}>
+        <Paper sx={{ display: "flex", m: "1%", p: "1%" }}>
             {/* Form control calls handleSubmit when the form is submitted. */}
             <FormControl component="form" onSubmit={(event: FormEvent): void => void handleSubmit(event)} sx={{ flex: 1 }}>
                 <Grid container spacing={2}>
                     {/* Renders an alert to state whether the form has been submitted. */}
-                    <Grid item xs={12}>
-                        {status !== null && (status
-                            ? <Alert severity="success">Message sent!</Alert>
-                            : <Alert severity="error">Message failed to send.</Alert>
-                        )}
-                    </Grid>
+                    {status !== null && (status
+                        ? (
+                            <Grid item xs={12}>
+                                <Alert severity="success">Message sent!</Alert>
+                            </Grid>
+                        )
+                        : (
+                            <Grid item xs={12}>
+                                <Alert severity="error">Message failed to send.</Alert>
+                            </Grid>
+                        )
+                    )}
                     <Grid item xs={12}>
                         <FormLabel>Fill out this form to contact me.</FormLabel>
+                        <FormHelperText>Fields marked * are required.</FormHelperText>
                     </Grid>
                     {/* Renders the name field. */}
                     <Grid item md={6} xs={12}>
@@ -106,17 +113,14 @@ export default function ContactForm(): JSX.Element {
                             name="content"
                             onChange={(event): void => setContent(event.target.value)}
                             required
-                            rows={15}
+                            rows={18}
                             type="text"
                             value={content}
                             variant="filled"
                         />
                     </Grid>
-                    <Grid item xs={6}>
-                        <FormHelperText>*required</FormHelperText>
-                    </Grid>
                     {/* Renders the send (submit) button. */}
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                         <Button endIcon={<Send />} sx={{ float: "right" }} type="submit" variant="contained">
                             Send
                         </Button>
