@@ -47,7 +47,7 @@ function drawRects(ctx: CanvasRenderingContext2D, parameters: Parameters): void 
 }
 
 function drawText(ctx: CanvasRenderingContext2D, parameters: Parameters): void {
-    registerFont("../../../assets/Fira_Code_v6.2/ttf/FiraCode-Regular.tff", { family: "Fira Code" });
+    registerFont("src/assets/FiraCode.ttf", { family: "Fira Code", weight: "regular" });
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.font = "150px Fira Code";
