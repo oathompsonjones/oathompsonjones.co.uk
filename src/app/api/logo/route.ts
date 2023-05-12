@@ -1,5 +1,5 @@
+import { Canvas, registerFont } from "canvas";
 import type { CanvasFileType, Parameters, ResponseFileType, ValidFileType } from ".";
-import { Canvas } from "canvas";
 import type { CanvasRenderingContext2D } from "canvas";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
@@ -47,6 +47,7 @@ function drawRects(ctx: CanvasRenderingContext2D, parameters: Parameters): void 
 }
 
 function drawText(ctx: CanvasRenderingContext2D, parameters: Parameters): void {
+    registerFont("../../../assets/Fira_Code_v6.2/ttf/FiraCode-Regular.tff", { family: "Fira Code" });
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.font = "150px Fira Code";
