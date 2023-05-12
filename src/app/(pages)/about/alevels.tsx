@@ -1,4 +1,5 @@
-import { Divider, Paper, Stack, Typography } from "@mui/material";
+import { Divider, Paper, Typography } from "@mui/material";
+import Grade from "./Grade";
 import Link from "next/link";
 
 /**
@@ -11,20 +12,10 @@ export default function ALevels(): JSX.Element {
         <Paper sx={{ display: "flex", flexDirection: "column", height: 1, padding: "0.5rem 1rem" }}>
             <Typography variant="h4">A-Levels</Typography>
             <Divider sx={{ margin: "1.25% 0%" }} />
-            <Stack direction="row" flexGrow={1}>
-                <Stack direction="column" flexGrow={1}>
-                    <Typography>Computer Science</Typography>
-                    <Typography>Further Mathematics</Typography>
-                    <Typography>Mathematics</Typography>
-                    <Typography>Physics</Typography>
-                </Stack>
-                <Stack direction="column" flexGrow={1}>
-                    <Typography>A*</Typography>
-                    <Typography>B</Typography>
-                    <Typography>A*</Typography>
-                    <Typography>A*</Typography>
-                </Stack>
-            </Stack>
+            <Grade grade="A*" subject="Computer Science" />
+            <Grade grade="B" subject="Further Mathematics" />
+            <Grade grade="A*" subject="Mathematics" />
+            <Grade grade="A*" subject="Physics" />
             <Divider sx={{ margin: "1.25% 0%" }} />
             <Typography sx={{ bottom: 0 }} variant="caption">
                 Attained at <Link href="https://tbshs.org">The Bishop's Stortford High School</Link> in 2021.

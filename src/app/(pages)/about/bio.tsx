@@ -14,7 +14,7 @@ export default function Bio(): JSX.Element {
             <Divider sx={{ m: "1.25% 0%" }} />
             <Stack direction="row">
                 <Avatar src={GRAVATAR_URL} sx={{ height: "10%", m: "1rem", width: "10%" }} />
-                <Stack direction="column" flexGrow={1} justifyContent="center">
+                <Stack direction="column" flex={1} justifyContent="center">
                     <Typography variant="h6">Name</Typography>
                     <Typography><b>O</b>liver <b>A</b>ndrew <b>Thompson Jones</b></Typography>
                     <Divider flexItem sx={{ margin: "1.25% 0%" }} />
@@ -33,13 +33,14 @@ export default function Bio(): JSX.Element {
                     </Typography>
                 </Stack>
             </Stack>
+            <br />
             <Typography>
-                I am an ambitious, hard-working person, able to work well under stressful conditions.
+                I am an ambitious, hard-working person, able to work well even under stressful conditions.
                 I'm able to work effectively with a group of like-minded colleagues and have experience managing teams,
                 yet I'm also able to work effectively alone.
                 I take pride in completing all tasks on time and to the highest standard.
                 <br /><br />
-                Currently, I'm reading for a degree in Computer Science at the University of Edinburgh.
+                I'm currently reading for a degree in Computer Science at the University of Edinburgh.
                 I'm familiar with several programming languages, including (but not limited to) JavaScript/TypeScript,
                 Python, C/C++, C# and Java, and I'm able to pick up new languages quickly.
                 A selection of my work can be found <Link href="/portfolio">here</Link>.
