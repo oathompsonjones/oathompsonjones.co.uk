@@ -41,8 +41,11 @@
             "images/*": [
                 "./src/images/*"
             ],
-            "/*": [
-                "./src/*"
+            "config": [
+                "./src/config"
+            ],
+            "utils": [
+                "./src/utils"
             ]
         }
     },

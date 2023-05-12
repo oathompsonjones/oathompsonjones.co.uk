@@ -1,6 +1,6 @@
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
-import { GRAVATAR_URL } from "/constants";
+import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";

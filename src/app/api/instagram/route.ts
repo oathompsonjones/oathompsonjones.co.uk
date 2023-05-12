@@ -1,5 +1,5 @@
 import type { AxiosResponse } from "axios";
-import Config from "/config";
+import Config from "config";
 import type { IPost } from "./";
 import { NextResponse } from "next/server";
 import axios from "axios";

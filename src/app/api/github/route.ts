@@ -1,6 +1,6 @@
 import { Canvas, Image } from "canvas";
 import type { IAPIResponse, IRepo } from "./";
-import Config from "/config";
+import Config from "config";
 import { NextResponse } from "next/server";
 import axios from "axios";
 import { graphql } from "@octokit/graphql";

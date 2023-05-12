@@ -1,4 +1,4 @@
-import Config from "/config";
+import Config from "config";
 import type { IBody } from "./";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
