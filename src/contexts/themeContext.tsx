@@ -26,9 +26,7 @@ function ThemeProvider({ children }: { children: ReactNode; }): JSX.Element {
             primary: { main: "#1c7eea" }
         },
         // Makes any h tags render with the main site colour.
-        typography: ["h1", "h2", "h3", "h4", "h5", "h6"]
-            .map((tag) => ({ [tag]: { color: "#1c7eea" } }))
-            .reduce((a, b) => ({ ...a, ...b }))
+        typography: Object.fromEntries(["h1", "h2", "h3", "h4", "h5", "h6"].map((h) => [h, { color: "#1c7eea" }]))
     }));
 
     return (
