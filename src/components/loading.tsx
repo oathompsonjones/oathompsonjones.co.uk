@@ -1,4 +1,4 @@
-import CircularProgress from "@mui/material/CircularProgress";
+import { CircularProgress } from "@mui/material";
 
 export default function Loading(): JSX.Element {
     return (

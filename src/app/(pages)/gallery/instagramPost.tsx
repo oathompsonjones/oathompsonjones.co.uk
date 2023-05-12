@@ -1,7 +1,7 @@
 import type { IPost } from "api/instagram";
 import ImageLinkOverlay from "components/imageLinkOverlay";
-import Instagram from "@mui/icons-material/Instagram";
-import Zoom from "@mui/material/Zoom";
+import { Instagram } from "@mui/icons-material";
+import { Zoom } from "@mui/material";
 
 /**
  * Renders an Instagram post.

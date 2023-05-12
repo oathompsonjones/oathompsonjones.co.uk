@@ -1,16 +1,13 @@
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import ExpandMore from "@mui/icons-material/ExpandMore";
+import {
+    Accordion, AccordionDetails, AccordionSummary,
+    Button,
+    Card, CardActions, CardContent, CardMedia,
+    Stack,
+    Typography,
+    Zoom
+} from "@mui/material";
+import { ExpandMore } from "@mui/icons-material";
 import type { IRepo } from "api/github";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import Zoom from "@mui/material/Zoom";
 
 /**
  * Renders a GitHub repository.

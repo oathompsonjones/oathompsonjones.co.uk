@@ -2,8 +2,8 @@
 import GitHubRepo from "./githubRepo";
 import type { IRepo } from "api/github";
 import Link from "next/link";
-import Masonry from "@mui/lab/Masonry";
-import Typography from "@mui/material/Typography";
+import { Masonry } from "@mui/lab";
+import { Typography } from "@mui/material";
 import useAxios from "hooks/useAxios";
 
 /**

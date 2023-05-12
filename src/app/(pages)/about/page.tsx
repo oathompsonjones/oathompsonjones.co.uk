@@ -1,10 +1,9 @@
+import { Grid, Typography } from "@mui/material";
 import ALevels from "./alevels";
 import Bio from "./bio";
 import Experience from "./experience";
 import GCSEs from "./gcses";
-import Grid from "@mui/material/Grid";
 import Skills from "./skills";
-import Typography from "@mui/material/Typography";
 import University from "./university";
 
 // TODO: Maybe get this data from LinkedIn, so I don't need to update it here and there?

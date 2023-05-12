@@ -1,5 +1,5 @@
 "use client";
-import Typography from "@mui/material/Typography";
+import { Typography } from "@mui/material";
 import { useEffect } from "react";
 
 /**

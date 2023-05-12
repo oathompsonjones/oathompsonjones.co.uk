@@ -1,10 +1,6 @@
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
+import { Avatar, Button, Divider, Stack, Typography } from "@mui/material";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
 
 /**
  * This is the home page.

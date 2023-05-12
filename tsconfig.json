@@ -14,8 +14,8 @@
             "@mui/*": [
                 "./src/components/mui/*"
             ],
-            "node_modules/*": [
-                "./node_modules/*"
+            "@node_mui/*": [
+                "./node_modules/@mui/*"
             ],
             "components/*": [
                 "./src/components/*"

@@ -1,7 +1,5 @@
-import Divider from "@mui/material/Divider";
+import { Divider, Paper, Typography } from "@mui/material";
 import Link from "next/link";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
 
 /**
  * Contains the experience segment for my CV page.

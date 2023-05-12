@@ -1,15 +1,7 @@
-import Discord from "@mui/icons-material/Discord";
-import Divider from "@mui/material/Divider";
-import Email from "@mui/icons-material/Email";
-import Facebook from "@mui/icons-material/Facebook";
-import GitHub from "@mui/icons-material/GitHub";
-import Instagram from "@mui/icons-material/Instagram";
+import { Discord, Email, Facebook, GitHub, Instagram, LinkedIn, StackOverflow, Twitter } from "@mui/icons-material";
+import { Divider, Stack } from "@mui/material";
 import Link from "next/link";
-import LinkedIn from "@mui/icons-material/LinkedIn";
 import type { ReactElement } from "react";
-import Stack from "@mui/material/Stack";
-import StackOverflow from "@mui/icons-material/StackOverflow";
-import Twitter from "@mui/icons-material/Twitter";
 
 export default function SocialLinks({ dividers = false }: { dividers?: boolean; }): JSX.Element {
     // Links a URL and an icon for each social media to display.

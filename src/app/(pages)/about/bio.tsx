@@ -1,10 +1,6 @@
-import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
+import { Avatar, Divider, Paper, Stack, Typography } from "@mui/material";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
-import Paper from "@mui/material/Paper";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
 
 /**
  * Contains the bio segment for my CV page.

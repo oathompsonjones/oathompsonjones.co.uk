@@ -1,6 +1,5 @@
 "use client";
-import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
+import { Avatar, Divider, Stack, Typography } from "@mui/material";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
 import SocialLinks from "./socialLinks";

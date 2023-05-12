@@ -1,6 +1,6 @@
 import ContactForm from "./contactForm";
 import SocialLinks from "components/socialLinks";
-import Typography from "@mui/material/Typography";
+import { Typography } from "@mui/material";
 
 /**
  * This page provides contact links for me.

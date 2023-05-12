@@ -1,8 +1,7 @@
 "use client";
 import type { CSSProperties, FunctionComponent } from "react";
+import { Card, CardMedia } from "@mui/material";
 import { createElement, useState } from "react";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
 import Link from "next/link";
 import type { TransitionProps } from "@mui/material/transitions";
 

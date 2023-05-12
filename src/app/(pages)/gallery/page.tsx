@@ -2,8 +2,8 @@
 import type { IPost } from "api/instagram";
 import InstagramPost from "./instagramPost";
 import Link from "next/link";
-import Masonry from "@mui/lab/Masonry";
-import Typography from "@mui/material/Typography";
+import { Masonry } from "@mui/lab";
+import { Typography } from "@mui/material";
 import useAxios from "hooks/useAxios";
 
 /**

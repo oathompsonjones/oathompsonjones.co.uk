@@ -1,14 +1,7 @@
 "use client";
-import Alert from "@mui/material/Alert";
-import Button from "@mui/material/Button";
-import FormControl from "@mui/material/FormControl";
+import { Alert, Button, FormControl, FormHelperText, FormLabel, Grid, Paper, TextField } from "@mui/material";
 import type { FormEvent } from "react";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormLabel from "@mui/material/FormLabel";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import Send from "@mui/icons-material/Send";
-import TextField from "@mui/material/TextField";
+import { Send } from "@mui/icons-material";
 import axios from "axios";
 import { useState } from "react";
 
