@@ -44,7 +44,7 @@ export default function Header(): JSX.Element {
 
     // Returns an AppBar element (which renders as an HTML header element).
     return (
-        <AppBar enableColorOnDark position="sticky" sx={{ backgroundImage: "none" }}>
+        <AppBar component="header" enableColorOnDark position="sticky" sx={{ backgroundImage: "none" }}>
             {/* Toolbar is essential for properly aligning elements within the AppBar. */}
             <Toolbar>
                 {/* This Box contains the nav bar for smaller displays. */}
