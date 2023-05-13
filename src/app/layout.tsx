@@ -13,6 +13,15 @@ export const metadata: Metadata = {
         icon: [GRAVATAR_URL_(32), GRAVATAR_URL_(16)],
         shortcut: GRAVATAR_URL_(16)
     },
+    keywords: [
+        ["oathompsonjones", "Oliver Jones", "Oliver Andrew Thompson Jones", "Ollie Jones", "Ollie Andrew Thompson Jones"],
+        ["Bishop's Stortford", "Edinburgh", "Edinburgh University"],
+        ["Programmer", "Programming", "Program"],
+        ["Coder", "Coding", "Code"],
+        ["Software", "Software Engineer", "Software Engineering", "Software Developer", "Software Development"],
+        ["Computer Science"],
+        ["Portfolio", "CV", "Contact"]
+    ].flat(),
     themeColor: "#1c7eea",
     title: "Oliver Jones",
     viewport: {
