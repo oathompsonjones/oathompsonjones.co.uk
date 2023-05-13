@@ -1,6 +1,8 @@
 import { Avatar, Button, Divider, Stack, Typography } from "@mui/material";
 import { GRAVATAR_URL } from "utils";
+import Image from "next/image";
 import Link from "next/link";
+import desk from "images/desk.jpg";
 
 /**
  * This is the home page.
@@ -10,6 +12,18 @@ import Link from "next/link";
 export default function Home(): JSX.Element {
     return (
         <>
+            <Image
+                alt="Picture of a computer desk."
+                src={desk}
+                style={{
+                    filter: "brightness(50%)",
+                    left: 0,
+                    position: "absolute",
+                    top: 0,
+                    width: "100%",
+                    zIndex: -1
+                }}
+            />
             {/* Renders my profile picture and my name. */}
             <Stack alignItems="center" direction="column" justifyContent="space-evenly">
                 <Avatar src={GRAVATAR_URL} style={{ height: "25%", width: "25%" }} />

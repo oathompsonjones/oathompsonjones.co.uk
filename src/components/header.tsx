@@ -3,6 +3,7 @@ import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography, useScroll
 import { DarkMode as DarkModeIcon, LightMode as LightModeIcon, Menu as MenuIcon } from "@mui/icons-material";
 import Link from "next/link";
 import type { MouseEvent } from "react";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useThemeContext } from "contexts/themeContext";
 
@@ -26,7 +27,8 @@ export default function Header(): JSX.Element {
 
     // Handles behaviour for chaning the nav bar colour when scrolling.
     const scrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
-    const textColour = { dark: light, light: dark }[theme];
+    const pathname = usePathname();
+    const textColour = { dark: light, light: dark }[pathname === "/" ? "dark" : theme];
 
     // Associate a label and link with each page.
     const pages: Array<{ label: string; link: string; }> = [
