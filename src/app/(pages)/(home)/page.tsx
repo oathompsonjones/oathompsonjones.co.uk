@@ -19,6 +19,7 @@ export default function Home(): JSX.Element {
                     filter: "brightness(50%)",
                     height: "auto",
                     left: "50%",
+                    maxHeight: "100%",
                     minHeight: "50%",
                     minWidth: "100%",
                     position: "absolute",
