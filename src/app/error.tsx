@@ -17,7 +17,6 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
             <Typography variant="subtitle1">
                 I've got a bad feeling about this. Click <a onClick={reset}>here</a> to try again.
             </Typography>
-            {/* <Button onClick={reset} size="large" variant="contained">Try Again</Button> */}
         </>
     );
 }
