@@ -42,13 +42,12 @@ export default function Header(): JSX.Element {
         <AppBar
             component="header"
             enableColorOnDark
-            position="sticky"
+            position="fixed"
             sx={{
                 background: solidBackground ? null : "none",
                 backgroundImage: "none",
                 boxShadow: solidBackground ? null : "none",
-                color: solidBackground ? null : textColour,
-                position: "absolute"
+                color: solidBackground ? null : textColour
             }}
         >
             {/* Toolbar is essential for properly aligning elements within the AppBar. */}
