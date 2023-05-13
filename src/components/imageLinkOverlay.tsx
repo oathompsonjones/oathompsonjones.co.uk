@@ -3,6 +3,7 @@ import type { CSSProperties, FunctionComponent } from "react";
 import { Card, CardMedia } from "@mui/material";
 import { createElement, useState } from "react";
 import Link from "next/link";
+import type { SxProps } from "@mui/material";
 import type { TransitionProps } from "@mui/material/transitions";
 
 interface IProps {
@@ -36,11 +37,11 @@ export default function ImageLinkOverlay({ children, effect, href, image }: IPro
     };
     // Component
     const component = (
-        <Card onMouseEnter={handleHover} onMouseLeave={handleHover} square style={container}>
+        <Card onMouseEnter={handleHover} onMouseLeave={handleHover} square sx={container as SxProps}>
             <Link href={href} style={{ ...box, ...overlay }}>
                 {children}
             </Link>
-            <CardMedia component="img" image={image} style={box} />
+            <CardMedia component="img" image={image} sx={box as SxProps} />
         </Card>
     );
     // If an effect is given, wrap the component in that effect.

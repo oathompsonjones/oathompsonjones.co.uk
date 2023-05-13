@@ -9,9 +9,9 @@ import Link from "next/link";
  */
 export default function GCSEs(): JSX.Element {
     return (
-        <Paper sx={{ display: "flex", flexDirection: "column", height: 1, padding: "0.5rem 1rem" }}>
+        <Paper sx={{ display: "flex", flexDirection: "column", height: 1, p: "0.5rem 1rem" }}>
             <Typography variant="h4">GCSEs</Typography>
-            <Divider sx={{ margin: "1.25% 0%" }} />
+            <Divider sx={{ m: "1.25% 0%" }} />
             <Grade grade="8" subject="Biology" />
             <Grade grade="7" subject="Chemistry" />
             <Grade grade="8" subject="Computer Science" />
@@ -21,7 +21,7 @@ export default function GCSEs(): JSX.Element {
             <Grade grade="8" subject="History" />
             <Grade grade="8" subject="Mathematics" />
             <Grade grade="8" subject="Physics" />
-            <Divider sx={{ margin: "1.25% 0%" }} />
+            <Divider sx={{ m: "1.25% 0%" }} />
             <Typography sx={{ bottom: 0 }} variant="caption">
                 Attained at <Link href="https://tbshs.org">The Bishop's Stortford High School</Link> in 2019.
             </Typography>

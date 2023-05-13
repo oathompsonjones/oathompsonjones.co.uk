@@ -31,7 +31,7 @@ export default function Home(): JSX.Element {
             <Stack alignItems="center" divider={<Divider flexItem sx={{ bgcolor: "primary.main", m: "1%" }} />}>
                 {/* Renders my profile picture and my name. */}
                 <Stack alignItems="center" direction="column" justifyContent="space-evenly">
-                    <Avatar src={GRAVATAR_URL} style={{ height: "25%", width: "25%" }} />
+                    <Avatar src={GRAVATAR_URL} sx={{ height: "25%", width: "25%" }} />
                     <Typography gutterBottom variant="h2">Oliver Jones</Typography>
                 </Stack>
                 {/* Renders buttons which link to my CV and my contact page. */}

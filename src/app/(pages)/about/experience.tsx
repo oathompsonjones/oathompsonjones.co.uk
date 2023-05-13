@@ -72,12 +72,12 @@ export default function Experience(): JSX.Element {
     ];
 
     return (
-        <Paper sx={{ padding: "1rem" }}>
+        <Paper sx={{ p: "1rem" }}>
             <Typography variant="h4">Experience</Typography>
             {
                 experiences.map(({ content, heading }) => (
                     <>
-                        <Divider sx={{ margin: "1.25% 0%" }} />
+                        <Divider sx={{ m: "1.25% 0%" }} />
                         <Typography variant="subtitle1">{heading}</Typography>
                         <Typography variant="body2">{content}</Typography>
                     </>

@@ -23,7 +23,7 @@ export default function InstagramPost({ post }: { post: IPost; }): JSX.Element {
     return (
         // @ts-expect-error TypeScript configuration enforces that undefined properties and optional properties are different.
         <ImageLinkOverlay effect={{ element: Zoom, props: { in: true } }} href={post.permalink} image={post.media_url}>
-            <Instagram style={{
+            <Instagram sx={{
                 color: "white",
                 cursor: "pointer",
                 height: "50%",
