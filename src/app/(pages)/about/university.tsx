@@ -9,7 +9,7 @@ import Link from "next/link";
  */
 export default function University(): JSX.Element {
     return (
-        <Paper sx={{ display: "flex", flexDirection: "column", height: 1, p: "0.5rem 1rem" }}>
+        <Paper sx={{ display: "flex", flexDirection: "column", height: "100%", p: "2%" }}>
             <Typography variant="h4">Further Education</Typography>
             <Divider sx={{ m: "1.25% 0%" }} />
             <Typography>

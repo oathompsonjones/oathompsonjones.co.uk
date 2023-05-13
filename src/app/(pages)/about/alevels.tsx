@@ -9,7 +9,7 @@ import Link from "next/link";
  */
 export default function ALevels(): JSX.Element {
     return (
-        <Paper sx={{ display: "flex", flexDirection: "column", height: 1, p: "0.5rem 1rem" }}>
+        <Paper sx={{ display: "flex", flexDirection: "column", height: "100%", p: "2%" }}>
             <Typography variant="h4">A-Levels</Typography>
             <Divider sx={{ m: "1.25% 0%" }} />
             <Grade grade="A*" subject="Computer Science" />

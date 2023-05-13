@@ -66,7 +66,7 @@ export default function Skills(): JSX.Element {
     ];
 
     return (
-        <Paper sx={{ p: "1rem" }}>
+        <Paper sx={{ p: "1%" }}>
             <Typography variant="h4">Skills</Typography>
             {
                 skills.map(({ content, heading }) => (
