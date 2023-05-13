@@ -25,7 +25,7 @@ export default function Header(): JSX.Element {
     const { toggleTheme } = useThemeContext();
 
     // Handles behaviour for chaning the nav bar colour when scrolling.
-    const scrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 50 });
+    const scrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
     const textColour = { dark: light, light: dark }[theme];
 
     // Associate a label and link with each page.
