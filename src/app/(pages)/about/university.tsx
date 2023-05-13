@@ -1,5 +1,5 @@
 import { Divider, Paper, Typography } from "@mui/material";
-import Grade from "./Grade";
+import Grade from "./grade";
 import Link from "next/link";
 
 /**
