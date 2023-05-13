@@ -17,15 +17,14 @@ export default function Home(): JSX.Element {
                 src={desk}
                 style={{
                     filter: "brightness(50%)",
-                    height: "auto",
                     left: "50%",
-                    minHeight: "50%",
+                    minHeight: "100%",
                     minWidth: "100%",
+                    objectFit: "cover",
                     overflow: "hidden",
-                    position: "fixed",
+                    position: "absolute",
                     top: 0,
                     transform: "translateX(-50%)",
-                    width: "auto",
                     zIndex: -1
                 }}
             />
