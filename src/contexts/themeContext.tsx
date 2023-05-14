@@ -6,6 +6,11 @@ import type { Theme } from "@mui/material";
 import useDarkMode from "hooks/useDarkMode";
 
 interface ThemeContextType {
+    colours: {
+        dark: string;
+        light: string;
+        main: string;
+    };
     theme: Theme;
     toggleTheme: () => void;
 }
@@ -28,14 +33,14 @@ function ThemeProvider({ children }: { children: ReactNode; }): JSX.Element {
                 paper: isDarkMode ? lighten(colours.dark, 0.05) : darken(colours.light, 0.05)
             },
             mode: isDarkMode ? "dark" : "light",
-            primary: colours
+            primary: { main: colours.main }
         },
         // Makes any h tags render with the main site colour.
         typography: Object.fromEntries(["h1", "h2", "h3", "h4", "h5", "h6"].map((h) => [h, { color: colours.main }]))
     }));
 
     return (
-        <ThemeContext.Provider value={useMemo(() => ({ theme, toggleTheme }), [isDarkMode])}>
+        <ThemeContext.Provider value={useMemo(() => ({ colours, theme, toggleTheme }), [isDarkMode])}>
             <MuiThemeProvider theme={theme}>
                 <CssBaseline enableColorScheme />
                 {children}

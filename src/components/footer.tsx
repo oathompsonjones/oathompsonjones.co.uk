@@ -12,14 +12,7 @@ import { useThemeContext } from "contexts/themeContext";
  * @returns {JSX.Element} The page footer.
  */
 export default function Footer(): JSX.Element {
-    const {
-        theme: {
-            palette: {
-                primary: { main },
-                background: { paper: backgroundColor }
-            }
-        }
-    } = useThemeContext();
+    const { theme: { palette: { primary: { main }, background: { paper: backgroundColor } } } } = useThemeContext();
 
     return (
         <Stack

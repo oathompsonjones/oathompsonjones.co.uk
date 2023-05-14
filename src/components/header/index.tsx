@@ -1,5 +1,5 @@
 "use client";
-import { AppBar, IconButton, Toolbar, useScrollTrigger, useTheme } from "@mui/material";
+import { AppBar, IconButton, Toolbar, useScrollTrigger } from "@mui/material";
 import { DarkMode, LightMode, Menu } from "@mui/icons-material";
 import LargeHeader from "./large";
 import SmallNav from "./small";
@@ -15,8 +15,7 @@ import { useThemeContext } from "contexts/themeContext";
  */
 export default function Header(): JSX.Element {
     // Access the site theme.
-    const { palette: { mode: theme, primary: { dark, light, main } } } = useTheme();
-    const { toggleTheme } = useThemeContext();
+    const { colours: { dark, light, main }, theme: { palette: { mode: theme } }, toggleTheme } = useThemeContext();
 
     // Handles behaviour for the dropdown menu on smaller displays.
     const [navOpen, setNavOpen] = useState(false);
