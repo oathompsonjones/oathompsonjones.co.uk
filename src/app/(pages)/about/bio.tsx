@@ -12,13 +12,13 @@ export default function Bio(): JSX.Element {
         <Paper sx={{ p: "1%" }}>
             <Typography variant="h4">Biography</Typography>
             <Divider sx={{ m: "1.25% 0%" }} />
-            <Stack alignItems="center" direction={{ sm: "row" }}>
+            <Stack alignItems="center" direction={{ md: "row" }}>
                 <Avatar
                     src={GRAVATAR_URL}
                     sx={{
-                        height: { lg: "20%", md: "30%", sm: "50%", xs: "100%" },
+                        height: { lg: "30%", md: "50%", sm: "70%", xl: "20%", xs: "90%" },
                         m: "1%",
-                        width: { lg: "20%", md: "30%", sm: "50%", xs: "100%" }
+                        width: { lg: "30%", md: "50%", sm: "70%", xl: "20%", xs: "90%" }
                     }}
                 />
                 <Stack direction="column" flex={1} justifyContent="center" sx={{ width: "100%" }}>
