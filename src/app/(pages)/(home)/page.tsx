@@ -17,14 +17,14 @@ export default function Home(): JSX.Element {
                 src={desk}
                 style={{
                     filter: "brightness(50%)",
+                    height: "100%",
                     left: "50%",
-                    minHeight: "100%",
-                    minWidth: "100%",
                     objectFit: "cover",
                     overflow: "hidden",
                     position: "absolute",
                     top: 0,
                     transform: "translateX(-50%)",
+                    width: "100%",
                     zIndex: -1
                 }}
             />
@@ -34,11 +34,11 @@ export default function Home(): JSX.Element {
                     <Avatar
                         src={GRAVATAR_URL}
                         sx={{
-                            height: { lg: "30%", md: "50%", sm: "70%", xl: "20%", xs: "90%" },
-                            width: { lg: "30%", md: "50%", sm: "70%", xl: "20%", xs: "90%" }
+                            height: { lg: "30%", md: "50%", sm: "70%", xs: "90%" },
+                            width: { lg: "30%", md: "50%", sm: "70%", xs: "90%" }
                         }}
                     />
-                    <Typography gutterBottom variant="h2">Oliver Jones</Typography>
+                    <Typography variant="h1">Oliver Jones</Typography>
                 </Stack>
                 {/* Renders buttons which link to my CV and my contact page. */}
                 <Stack
