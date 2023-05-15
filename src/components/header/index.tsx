@@ -54,7 +54,7 @@ export default function Header(): JSX.Element {
                 <IconButton color="inherit" onClick={handleNavMenu} size="large" sx={{ display: { md: "none", xs: "block" } }}>
                     <Menu />
                 </IconButton>
-                <Title textColour={scrolling ? light : textColour} />
+                <Title textColour={solidBackground ? light : textColour} />
                 <LargeHeader pages={pages} />
                 {/* Renders a button to control dark/light theme. This renders on displays of any size. */}
                 <IconButton color="inherit" onClick={toggleTheme}>
