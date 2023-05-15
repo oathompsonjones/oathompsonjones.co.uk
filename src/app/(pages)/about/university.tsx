@@ -19,9 +19,10 @@ export default function University(): JSX.Element {
             <Grade grade="TBD" subject="2nd Year" />
             <Grade grade="TBD" subject="3rd Year" />
             <Grade grade="TBD" subject="4th Year" />
+            <Grade grade="TBD" subject="Final Grade" />
             <Divider sx={{ m: "1.25% 0%" }} />
             <Typography sx={{ bottom: 0 }} variant="caption">
-                Studying at <Link href="https://ed.ac.uk">The University of Edinburgh</Link> since 2021.
+                Studying at <Link href="https://ed.ac.uk">The University of Edinburgh</Link> since 2021. Set to graduate in 2025.
             </Typography>
         </Paper>
     );
