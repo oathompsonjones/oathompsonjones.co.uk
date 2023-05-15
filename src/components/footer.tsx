@@ -39,7 +39,7 @@ export default function Footer(): JSX.Element {
                     Privacy Policy
                 </Typography>
                 <Typography align="center" variant="caption">
-                    © {new Date().getUTCFullYear()} Oliver Jones
+                    © 2020-{new Date().getUTCFullYear()} Oliver Jones
                 </Typography>
             </Stack>
         </Stack>
