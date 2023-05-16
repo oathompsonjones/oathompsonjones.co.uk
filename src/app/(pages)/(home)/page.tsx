@@ -38,7 +38,7 @@ export default function Home(): JSX.Element {
                             width: { lg: "30%", md: "50%", sm: "70%", xs: "90%" }
                         }}
                     />
-                    <Typography variant="h1">Oliver Jones</Typography>
+                    <Typography variant="h2">Oliver Jones</Typography>
                 </Stack>
                 {/* Renders buttons which link to my CV and my contact page. */}
                 <Stack
