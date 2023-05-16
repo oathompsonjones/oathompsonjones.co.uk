@@ -1,7 +1,7 @@
 "use client";
 import Footer from "components/footer";
 import Header from "components/header";
-import ScrollToTop from "components/header/scrollToTop";
+import ScrollToTop from "components/scrollToTop";
 import { ThemeProvider } from "contexts/themeContext";
 import { useScrollTrigger } from "@mui/material";
 
