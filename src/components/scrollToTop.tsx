@@ -15,7 +15,8 @@ export default function ScrollToTop({ scrolling }: { scrolling: boolean; }): JSX
                 size="small"
                 sx={{
                     bottom: "2rem",
-                    position: "fixed",
+                    left: "100%",
+                    position: "sticky",
                     right: "2rem",
                     zIndex: 1
                 }}

@@ -15,9 +15,9 @@ export default function Layout({ children }: { children: React.ReactNode; }): JS
     return (
         <ThemeProvider>
             <Header scrolling={scrolling} />
-            <ScrollToTop scrolling={scrolling} />
             <div style={{ flex: 1, padding: "4rem 1% 1%" }}>
                 {children}
+                <ScrollToTop scrolling={scrolling} />
             </div>
             <Footer />
         </ThemeProvider>
