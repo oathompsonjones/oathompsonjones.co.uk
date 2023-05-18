@@ -4,8 +4,6 @@ import {
     ThemeProvider as MuiThemeProvider,
     StyledEngineProvider,
     createTheme,
-    darken,
-    lighten,
     responsiveFontSizes
 } from "@mui/material";
 import type { Palette, Theme } from "@mui/material";
@@ -25,12 +23,12 @@ function ThemeProvider({ children }: { children: ReactNode; }): JSX.Element {
 
     // Create the full theme.
     const theme: Theme = responsiveFontSizes(createTheme({
+        components: { MuiPaper: { defaultProps: { elevation: 5 } } },
         palette: {
             background: {
                 dark: "#121212",
-                default: isDarkMode ? "#121212" : "#ffffff",
-                light: "#ffffff",
-                paper: isDarkMode ? lighten("#121212", 0.05) : darken("#ffffff", 0.05)
+                default: isDarkMode ? "#121212" : "#efefef",
+                light: "#efefef"
             },
             mode: isDarkMode ? "dark" : "light",
             primary: { main: "#1c7eea" },

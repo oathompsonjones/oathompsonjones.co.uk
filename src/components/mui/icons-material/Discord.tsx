@@ -1,8 +1,8 @@
 "use client";
 import DiscordLogo from "images/discord.svg";
-import { SvgIcon } from "@mui/material";
+import SvgIcon from "@mui/material/SvgIcon";
 
-export function Discord(): JSX.Element {
+export default function Discord(): JSX.Element {
     return (
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         <SvgIcon component={DiscordLogo} inheritViewBox />

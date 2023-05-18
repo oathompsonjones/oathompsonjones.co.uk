@@ -1,8 +1,8 @@
 "use client";
 import StackOverflowLogo from "images/stackOverflow.svg";
-import { SvgIcon } from "@mui/material";
+import SvgIcon from "@mui/material/SvgIcon";
 
-export function StackOverflow(): JSX.Element {
+export default function StackOverflow(): JSX.Element {
     return (
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         <SvgIcon component={StackOverflowLogo} inheritViewBox />

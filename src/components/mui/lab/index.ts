@@ -1,2 +1,3 @@
 "use client";
-export * from "@node_mui/lab";
+import Masonry from "@node_mui/lab/Masonry";
+export { Masonry };
