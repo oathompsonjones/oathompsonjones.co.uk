@@ -5,10 +5,10 @@ body {
     scroll-behavior: smooth;
 }
 
-header,
 body,
-footer {
-    transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+footer,
+.MuiPaper-rounded {
+    transition: background-color 0.5s linear;
 }
 
 a {
