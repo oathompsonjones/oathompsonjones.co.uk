@@ -63,7 +63,6 @@ export default function ContactForm(): JSX.Element {
                     )}
                     <Grid item xs={12}>
                         <FormLabel>Fill out this form to contact me.</FormLabel>
-                        <FormHelperText>Fields marked * are required.</FormHelperText>
                     </Grid>
                     {/* Renders the name field. */}
                     <Grid item md={6} xs={12}>
@@ -120,7 +119,10 @@ export default function ContactForm(): JSX.Element {
                         />
                     </Grid>
                     {/* Renders the send (submit) button. */}
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
+                        <FormHelperText>Fields marked * are required.</FormHelperText>
+                    </Grid>
+                    <Grid item xs={6}>
                         <Button endIcon={<Send />} sx={{ float: "right" }} type="submit" variant="contained">
                             Send
                         </Button>
