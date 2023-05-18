@@ -15,7 +15,7 @@ export default function Footer(): JSX.Element {
     const { theme: { palette: { primary: { main } } } } = useThemeContext();
 
     return (
-        <Paper component="footer" sx={{ borderTop: `1px solid ${main}`, p: "1%" }}>
+        <Paper component="footer" square sx={{ borderTop: `1px solid ${main}`, p: "1%" }}>
             <Stack divider={<Divider sx={{ mb: "0.5%" }} />}>
                 <Stack alignItems="center" direction="row">
                     <Avatar src={GRAVATAR_URL} sx={{ m: "1%" }} />
