@@ -1,6 +1,10 @@
 import "./globals.css";
+import Footer from "components/footer";
 import { GRAVATAR_URL_ } from "utils";
+import Header from "components/header";
 import type { Metadata } from "next";
+import ScrollToTop from "components/scrollToTop";
+import { ThemeProvider } from "contexts/themeContext";
 
 // https://realfavicongenerator.net (remove the mask icon and msapplication stuff)
 export const metadata: Metadata = {
@@ -43,7 +47,14 @@ export default function Layout({ children }: { children: React.ReactNode; }): JS
             </head>
             <body>
                 <noscript>You need to enable JavaScript to run this app.</noscript>
-                {children}
+                <ThemeProvider>
+                    <Header />
+                    <div style={{ flex: 1, padding: "4rem 1% 1%" }}>
+                        {children}
+                        <ScrollToTop />
+                    </div>
+                    <Footer />
+                </ThemeProvider>
             </body>
         </html>
     );
