@@ -32,10 +32,10 @@ export default function Footer(): JSX.Element {
                 divider={<Typography color="gray" sx={{ m: "0 0.5%" }}>•</Typography>}
                 justifyContent="center"
             >
-                <Typography align="center" component={Link} href="/contact" variant="caption">
+                <Typography align="center" color="primary.main" component={Link} href="/contact" variant="caption">
                     Contact
                 </Typography>
-                <Typography align="center" component={Link} href="/privacy" variant="caption">
+                <Typography align="center" color="primary.main" component={Link} href="/privacy" variant="caption">
                     Privacy Policy
                 </Typography>
                 <Typography align="center" variant="caption">

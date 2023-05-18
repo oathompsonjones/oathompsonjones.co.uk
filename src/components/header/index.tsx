@@ -1,5 +1,5 @@
 "use client";
-import { AppBar, IconButton, Toolbar } from "@mui/material";
+import { AppBar, IconButton, Toolbar, useScrollTrigger } from "@mui/material";
 import { DarkMode, LightMode, Menu } from "@mui/icons-material";
 import LargeHeader from "./large";
 import SmallNav from "./small";
@@ -13,15 +13,25 @@ import { useThemeContext } from "contexts/themeContext";
  *
  * @returns {JSX.Element} The page header.
  */
-export default function Header({ scrolling }: { scrolling: boolean; }): JSX.Element {
+export default function Header(): JSX.Element {
     // Access the site theme.
-    const { colours: { dark, light, main }, theme: { palette: { mode: theme } }, toggleTheme } = useThemeContext();
+    const {
+        theme: {
+            palette: {
+                background: { dark, light },
+                mode: theme,
+                primary: { main }
+            }
+        },
+        toggleTheme
+    } = useThemeContext();
 
     // Handles behaviour for the dropdown menu on smaller displays.
     const [navOpen, setNavOpen] = useState(false);
     const handleNavMenu = (): void => setNavOpen(() => !navOpen);
 
     // Handles behaviour for chaning the nav bar colour when scrolling.
+    const scrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
     const pathname = usePathname();
     const textColour = { dark: light, light: dark }[pathname === "/" ? "dark" : theme];
     const solidBackground = scrolling || navOpen;

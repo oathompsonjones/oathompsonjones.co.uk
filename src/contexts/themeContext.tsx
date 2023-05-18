@@ -1,16 +1,19 @@
 "use client";
-import { CssBaseline, ThemeProvider as MuiThemeProvider, createTheme, darken, lighten } from "@mui/material";
+import {
+    CssBaseline,
+    ThemeProvider as MuiThemeProvider,
+    StyledEngineProvider,
+    createTheme,
+    darken,
+    lighten,
+    responsiveFontSizes
+} from "@mui/material";
+import type { Palette, Theme } from "@mui/material";
 import { createContext, useContext, useMemo } from "react";
 import type { ReactNode } from "react";
-import type { Theme } from "@mui/material";
 import useDarkMode from "hooks/useDarkMode";
 
 interface ThemeContextType {
-    colours: {
-        dark: string;
-        light: string;
-        main: string;
-    };
     theme: Theme;
     toggleTheme: () => void;
 }
@@ -21,31 +24,44 @@ function ThemeProvider({ children }: { children: ReactNode; }): JSX.Element {
     const [isDarkMode, toggleTheme] = useDarkMode();
 
     // Create the full theme.
-    const colours = {
-        dark: "#121212",
-        light: "#ffffff",
-        main: "#1c7eea"
-    };
-    const theme: Theme = createTheme({
+    const theme: Theme = responsiveFontSizes(createTheme({
         palette: {
             background: {
-                default: isDarkMode ? colours.dark : colours.light,
-                paper: isDarkMode ? lighten(colours.dark, 0.05) : darken(colours.light, 0.05)
+                dark: "#121212",
+                default: isDarkMode ? "#121212" : "#ffffff",
+                light: "#ffffff",
+                paper: isDarkMode ? lighten("#121212", 0.05) : darken("#ffffff", 0.05)
             },
             mode: isDarkMode ? "dark" : "light",
-            primary: { main: colours.main }
+            primary: { main: "#1c7eea" },
+            secondary: { main: "#ea881c" }
         },
-        // Makes any h tags render with the main site colour.
-        typography: Object.fromEntries(["h1", "h2", "h3", "h4", "h5", "h6"].map((h) => [h, { color: colours.main }]))
-    });
+        typography: (palette: Palette) => ({
+            caption: { color: palette.secondary.main },
+            h1: { color: palette.primary.main },
+            h2: { color: palette.primary.main },
+            h3: { color: palette.primary.main },
+            h4: { color: palette.primary.main },
+            h5: { color: palette.primary.main },
+            h6: { color: palette.primary.main },
+            subtitle1: { color: palette.secondary.main },
+            subtitle2: { color: palette.secondary.main }
+        }),
+        zIndex: {
+            appBar: 1,
+            fab: 1
+        }
+    }), { breakpoints: ["xs", "sm", "md", "lg", "xl"] });
 
     return (
-        <ThemeContext.Provider value={useMemo(() => ({ colours, theme, toggleTheme }), [isDarkMode])}>
-            <MuiThemeProvider theme={theme}>
-                <CssBaseline enableColorScheme />
-                {children}
-            </MuiThemeProvider>
-        </ThemeContext.Provider>
+        <StyledEngineProvider injectFirst>
+            <ThemeContext.Provider value={useMemo(() => ({ theme, toggleTheme }), [isDarkMode])}>
+                <MuiThemeProvider theme={theme}>
+                    <CssBaseline enableColorScheme />
+                    {children}
+                </MuiThemeProvider>
+            </ThemeContext.Provider>
+        </StyledEngineProvider>
     );
 }
 
