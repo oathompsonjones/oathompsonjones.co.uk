@@ -1,6 +1,7 @@
 import { Avatar, Divider, Paper, Stack, Typography } from "@mui/material";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
+import Name from "./name";
 
 /**
  * Contains the bio segment for my CV page.
@@ -23,7 +24,7 @@ export default function Bio(): JSX.Element {
                 />
                 <Stack direction="column" flex={1} justifyContent="center" sx={{ width: "100%" }}>
                     <Typography variant="h6">Name</Typography>
-                    <Typography><b>O</b>liver <b>A</b>ndrew <b>Thompson Jones</b></Typography>
+                    <Name />
                     <Divider flexItem sx={{ m: "1.25% 0%" }} />
                     <Typography variant="h6">Nationality</Typography>
                     <Typography>British</Typography>
