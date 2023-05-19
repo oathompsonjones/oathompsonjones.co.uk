@@ -46,8 +46,8 @@ function ThemeProvider({ children }: { children: ReactNode; }): JSX.Element {
             subtitle2: { color: palette.secondary.main }
         }),
         zIndex: {
-            appBar: 1,
-            fab: 1
+            appBar: 10,
+            fab: 10
         }
     }), { breakpoints: ["xs", "sm", "md", "lg", "xl"] });
 
