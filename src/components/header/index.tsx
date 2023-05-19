@@ -1,11 +1,11 @@
 "use client";
-import { AppBar, IconButton, Toolbar, useScrollTrigger } from "@mui/material";
+import { AppBar, IconButton, Toolbar, useMediaQuery, useScrollTrigger } from "@mui/material";
 import { DarkMode, LightMode, Menu } from "@mui/icons-material";
+import { useEffect, useState } from "react";
 import LargeHeader from "./large";
 import SmallNav from "./small";
 import Title from "./title";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 import { useThemeContext } from "contexts/themeContext";
 
 /**
@@ -18,15 +18,15 @@ export default function Header(): JSX.Element {
     const { theme, toggleTheme } = useThemeContext();
     const { palette: { background: { dark, light }, mode, primary: { main } } } = theme;
 
-    // Handles behaviour for the dropdown menu on smaller displays.
-    const [navOpen, setNavOpen] = useState(false);
-    const handleNavMenu = (): void => setNavOpen(() => !navOpen);
-
-    // Handles behaviour for changing the nav bar colour when scrolling.
+    // Handles behaviour for changing nav bar colour and opening/closing dropdown menu.
     const scrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
+    const smallNav: boolean = useMediaQuery(theme.breakpoints.down("md"));
+    const [navOpen, setNavOpen] = useState(false);
+    const toggleNavOpen = (): void => setNavOpen(() => smallNav && !navOpen);
+    useEffect(() => setNavOpen(false), [smallNav]);
     const pathname = usePathname();
     const textColour = { dark: light, light: dark }[pathname === "/" ? "dark" : mode];
-    const solidBackground = scrolling || navOpen;
+    const solidBackground = scrolling || smallNav && navOpen;
 
     // Associate a label and link with each page.
     const pages: Array<{ label: string; link: string; }> = [
@@ -62,7 +62,7 @@ export default function Header(): JSX.Element {
                     {mode === "dark" ? <DarkMode /> : <LightMode />}
                 </IconButton>
             </Toolbar>
-            {navOpen ? <SmallNav backgroundColor={main} handleNavMenu={handleNavMenu} pages={pages} /> : null}
+            {navOpen ? <SmallNav backgroundColor={main} pages={pages} toggleNavOpen={toggleNavOpen} /> : null}
         </AppBar>
     );
 }

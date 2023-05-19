@@ -39,6 +39,7 @@ import Typography from "@node_mui/material/Typography";
 import Zoom from "@node_mui/material/Zoom";
 import createTheme from "@node_mui/material/styles/createTheme";
 import responsiveFontSizes from "@node_mui/material/styles/responsiveFontSizes";
+import useMediaQuery from "@node_mui/material/useMediaQuery";
 import useScrollTrigger from "@node_mui/material/useScrollTrigger";
 
 export {
@@ -74,6 +75,7 @@ export {
     Zoom,
     createTheme,
     responsiveFontSizes,
+    useMediaQuery,
     useScrollTrigger
 };
 
