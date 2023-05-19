@@ -60,7 +60,7 @@ export default function Header(): JSX.Element {
         >
             {/* Toolbar is essential for properly aligning elements within the AppBar. */}
             <Toolbar>
-                <IconButton color="inherit" onClick={handleNavMenu} size="large" sx={{ display: { md: "none", xs: "block" } }}>
+                <IconButton color="inherit" onClick={toggleNavOpen} sx={{ display: { md: "none", xs: "block" }, height: "40px" }}>
                     <Menu />
                 </IconButton>
                 <Title textColour={solidBackground ? light : textColour} />
