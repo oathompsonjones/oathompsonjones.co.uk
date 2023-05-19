@@ -2,7 +2,13 @@
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 
-export default function Name(): JSX.Element {
+interface IProps {
+    beginningText: Array<JSX.Element | string>;
+    collapsibleText: Array<JSX.Element | string>;
+    endingText: Array<JSX.Element | string>;
+}
+
+export default function Name({ beginningText, collapsibleText, endingText }: IProps): JSX.Element {
     const [expandName, setExpandName] = useState(false);
 
     useEffect(() => {
@@ -42,14 +48,9 @@ export default function Name(): JSX.Element {
                 /* eslint-enable @typescript-eslint/naming-convention */
             }}
         >
-            <span className="section">
-                <span className="colour">O</span>liver
-            </span>
-            <span className="section collapsible">
-                <span className="colour">A</span>ndrew
-            </span>
-            <span className="section collapsible colour">Thompson</span>
-            <span className="section colour">Jones</span>
+            {beginningText.map((text, i) => (<span className="section" key={i}>{text}</span>))}
+            {collapsibleText.map((text, i) => (<span className="section collapsible" key={i}>{text}</span>))}
+            {endingText.map((text, i) => (<span className="section" key={i}>{text}</span>))}
         </Typography>
     );
 }
