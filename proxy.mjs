@@ -4,15 +4,12 @@ import httpProxy from "http-proxy";
 import https from "https";
 
 const proxy = httpProxy.createProxy();
-const options = { 
-    "oathompsonjones.co.uk": "http://localhost:3000",
-    "localhost": "http://localhost:3000",
- };
+const options = { 3000: /(www\.)?(.+\.)?oathompsonjones\.co\.uk/u };
 
 function httpsHandler(req, res) {
-    for (const [host, target] of Object.entries(options)) {
-        if (req.headers.host === host)
-            proxy.web(req, res, { target });
+    for (const [port, host] of Object.entries(options)) {
+        if (host.test(req.headers.host))
+            proxy.web(req, res, { target: `http://localhost:${port}` });
     }
 }
 
