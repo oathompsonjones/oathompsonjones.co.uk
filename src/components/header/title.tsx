@@ -13,12 +13,7 @@ export default function Title({ textColour }: { textColour: string; }): JSX.Elem
             color={textColour}
             component={Link}
             href="/"
-            sx={{
-                flexGrow: { md: 0, xs: 1 },
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem"
-            }}
+            sx={{ flexGrow: { md: 0, xs: 1 }, fontFamily: "monospace", fontWeight: 700, letterSpacing: ".3rem" }}
             variant="h5"
         >
             OATHOMPSONJONES
