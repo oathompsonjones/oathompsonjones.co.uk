@@ -119,10 +119,10 @@ export default function ContactForm(): JSX.Element {
                         />
                     </Grid>
                     {/* Renders the send (submit) button. */}
-                    <Grid item xs={6}>
+                    <Grid item xs={9}>
                         <FormHelperText>Fields marked * are required.</FormHelperText>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={3}>
                         <Button endIcon={<Send />} sx={{ float: "right" }} type="submit" variant="contained">
                             Send
                         </Button>
