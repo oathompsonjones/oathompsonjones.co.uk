@@ -9,8 +9,8 @@
         "lint": "next lint"
     },
     "devDependencies": {
-        "@oathompsonjones/eslint-config": "^0.0.52",
-        "@oathompsonjones/ts-config": "^0.0.19",
+        "@oathompsonjones/eslint-config": "0.0.53",
+        "@oathompsonjones/ts-config": "0.0.19",
         "@types/cron": "^2.0.1",
         "@types/http-proxy": "^1.17.11",
         "@types/md5": "^2.3.2",
@@ -33,7 +33,7 @@
         "encoding": "^0.1.13",
         "http-proxy": "^1.18.1",
         "md5": "^2.3.0",
-        "next": "13.4.2",
+        "next": "13.4.3",
         "nodemailer": "^6.9.2",
         "react": "18.2.0",
         "react-dom": "18.2.0",
