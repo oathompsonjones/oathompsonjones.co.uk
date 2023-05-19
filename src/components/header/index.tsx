@@ -22,7 +22,7 @@ export default function Header(): JSX.Element {
     const [navOpen, setNavOpen] = useState(false);
     const handleNavMenu = (): void => setNavOpen(() => !navOpen);
 
-    // Handles behaviour for chaning the nav bar colour when scrolling.
+    // Handles behaviour for changing the nav bar colour when scrolling.
     const scrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
     const pathname = usePathname();
     const textColour = { dark: light, light: dark }[pathname === "/" ? "dark" : mode];
