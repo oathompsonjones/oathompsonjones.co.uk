@@ -37,9 +37,9 @@ function promiseWrapper<T = unknown>(promise: Promise<T>): () => T {
  * Fetches data using Axios, then rerenders the page once that data has been fetched, using the behaviour provided by `useState`.
  *
  * @param {string} url The URL for Axios to fetch from.
- * @returns {([T | null])} The data returned by Axios, or null if the fetch fails.
+ * @returns {(T | null)} The data returned by Axios, or null if the fetch fails.
  */
-export default function useAxios<T = unknown>(url: string): [T | null] {
+export default function useAxios<T = unknown>(url: string): T | null {
     /* Creates a state variable which will later store the fetched data,
     allowing this Hook to have the same behaviour as the useState Hook. */
     const [resource, setResource] = useState<T | null>(null);
@@ -54,5 +54,5 @@ export default function useAxios<T = unknown>(url: string): [T | null] {
     }, [url]);
 
     // Returns the data.
-    return [resource];
+    return resource;
 }

@@ -13,7 +13,7 @@ import useAxios from "hooks/useAxios";
  */
 export default function Portfolio(): JSX.Element {
     // Calls the backend API to access the repositories from GitHub.
-    const [repos] = useAxios<IRepo[]>("/api/github");
+    const repos = useAxios<IRepo[]>("/api/github");
 
     // Renders the portfolio page.
     return (

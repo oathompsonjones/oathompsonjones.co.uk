@@ -13,7 +13,7 @@ import useAxios from "hooks/useAxios";
  */
 export default function Gallery(): JSX.Element {
     // Calls the backend API to access the posts from Instagram.
-    const [posts] = useAxios<IPost[]>("/api/instagram");
+    const posts = useAxios<IPost[]>("/api/instagram");
 
     // Renders the gallery page.
     return (
