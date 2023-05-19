@@ -15,16 +15,8 @@ import { useThemeContext } from "contexts/themeContext";
  */
 export default function Header(): JSX.Element {
     // Access the site theme.
-    const {
-        theme: {
-            palette: {
-                background: { dark, light },
-                mode: theme,
-                primary: { main }
-            }
-        },
-        toggleTheme
-    } = useThemeContext();
+    const { theme, toggleTheme } = useThemeContext();
+    const { palette: { background: { dark, light }, mode, primary: { main } } } = theme;
 
     // Handles behaviour for the dropdown menu on smaller displays.
     const [navOpen, setNavOpen] = useState(false);
@@ -33,7 +25,7 @@ export default function Header(): JSX.Element {
     // Handles behaviour for chaning the nav bar colour when scrolling.
     const scrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
     const pathname = usePathname();
-    const textColour = { dark: light, light: dark }[pathname === "/" ? "dark" : theme];
+    const textColour = { dark: light, light: dark }[pathname === "/" ? "dark" : mode];
     const solidBackground = scrolling || navOpen;
 
     // Associate a label and link with each page.
@@ -67,7 +59,7 @@ export default function Header(): JSX.Element {
                 <LargeHeader pages={pages} />
                 {/* Renders a button to control dark/light theme. This renders on displays of any size. */}
                 <IconButton color="inherit" onClick={toggleTheme}>
-                    {theme === "dark" ? <DarkMode /> : <LightMode />}
+                    {mode === "dark" ? <DarkMode /> : <LightMode />}
                 </IconButton>
             </Toolbar>
             {navOpen ? <SmallNav backgroundColor={main} handleNavMenu={handleNavMenu} pages={pages} /> : null}
