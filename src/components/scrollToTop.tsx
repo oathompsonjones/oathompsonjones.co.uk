@@ -4,7 +4,7 @@ import { KeyboardArrowUp } from "@mui/icons-material";
 import { useCallback } from "react";
 
 export default function ScrollToTop(): JSX.Element {
-    const scrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
+    const scrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 75 });
     const scrollToTop = useCallback(() => {
         window.scrollTo({ behavior: "smooth", top: 0 });
     }, []);
