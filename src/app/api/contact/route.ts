@@ -15,10 +15,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const validBody = typeof body === "object" &&
         body !== null &&
         Object.keys(body).length === 4 &&
-        Object.keys(body).includes("content") &&
-        Object.keys(body).includes("email") &&
-        Object.keys(body).includes("name") &&
-        Object.keys(body).includes("subject") &&
+        "content" in body &&
+        "email" in body &&
+        "name" in body &&
+        "subject" in body &&
         Object.values(body).every((field) => typeof field === "string" && field !== "") &&
         validEmailRegex.test((body as IBody).email);
 
