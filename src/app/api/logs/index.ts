@@ -6,7 +6,8 @@ export enum LogLevel {
 }
 
 export interface ILog {
-    timestamp: number;
     content: string;
     level: LogLevel;
+    production: boolean;
+    timestamp: number;
 }

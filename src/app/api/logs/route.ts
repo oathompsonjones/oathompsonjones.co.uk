@@ -39,7 +39,12 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const { content, level } = body as { content: string; level: LogLevel; };
 
     const [logsCollection, close] = await init();
-    await logsCollection.insertOne({ content, level, timestamp: Date.now() });
+    await logsCollection.insertOne({
+        content,
+        level,
+        production: process.platform === "linux",
+        timestamp: Date.now()
+    });
     close();
     return new NextResponse("Log successful", { status: 200 });
 }
