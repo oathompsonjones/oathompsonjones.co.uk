@@ -22,11 +22,11 @@ async function refreshToken(): Promise<void> {
                     accessTokenRefreshAt: Math.floor(Date.now() + 9 / 10 * expiresIn)
                 }
             });
+            await axios.post("/api/logs", {
+                content: "Instagram token refreshed",
+                level: LogLevel.INFO
+            });
         }
-        await axios.post("/api/logs", {
-            content: "Instagram token refreshed",
-            level: LogLevel.INFO
-        });
     } catch (err) {
         await axios.post("/api/logs", {
             content: err instanceof Error ? `${err.name}: ${err.message}\n${err.stack ?? ""}` : err,
