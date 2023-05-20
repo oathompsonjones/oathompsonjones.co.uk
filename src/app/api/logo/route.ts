@@ -1,5 +1,5 @@
 import { Canvas, registerFont } from "canvas";
-import type { CanvasFileType, Parameters, ResponseFileType, ValidFileType } from ".";
+import type { CanvasFileType, IParameters, ResponseFileType, ValidFileType } from ".";
 import type { CanvasRenderingContext2D } from "canvas";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
@@ -9,7 +9,7 @@ const MARGIN = 150;
 const OUTER_WIDTH = SIZE - 2 * MARGIN;
 const INNER_WIDTH = SIZE - 6 * MARGIN;
 
-function drawPins(ctx: CanvasRenderingContext2D, parameters: Parameters): void {
+function drawPins(ctx: CanvasRenderingContext2D, parameters: IParameters): void {
     const PINS = 9;
     const PIN_SPACING = (SIZE - 4 * MARGIN) / (PINS - 1);
     const PIN_LENGTH = 100;
@@ -29,7 +29,7 @@ function drawPins(ctx: CanvasRenderingContext2D, parameters: Parameters): void {
     ctx.closePath();
 }
 
-function drawRects(ctx: CanvasRenderingContext2D, parameters: Parameters): void {
+function drawRects(ctx: CanvasRenderingContext2D, parameters: IParameters): void {
     ctx.beginPath();
     ctx.strokeStyle = parameters.outerLineColour;
     ctx.fillStyle = parameters.outerColour;
@@ -46,7 +46,7 @@ function drawRects(ctx: CanvasRenderingContext2D, parameters: Parameters): void 
     ctx.closePath();
 }
 
-function drawText(ctx: CanvasRenderingContext2D, parameters: Parameters): void {
+function drawText(ctx: CanvasRenderingContext2D, parameters: IParameters): void {
     registerFont("src/assets/FiraCode.ttf", { family: "Fira Code", weight: "regular" });
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
@@ -66,7 +66,7 @@ function drawText(ctx: CanvasRenderingContext2D, parameters: Parameters): void {
     ctx.closePath();
 }
 
-function generateImage(ctx: CanvasRenderingContext2D, parameters: Parameters): void {
+function generateImage(ctx: CanvasRenderingContext2D, parameters: IParameters): void {
     ctx.lineWidth = 20;
     if (parameters.backgroundColour !== null) {
         ctx.beginPath();
