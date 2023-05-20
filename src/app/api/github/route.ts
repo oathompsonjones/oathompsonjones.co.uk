@@ -5,7 +5,40 @@ import { NextResponse } from "next/server";
 import axios from "axios";
 import { graphql } from "@octokit/graphql";
 
-// eslint-disable-next-line max-lines-per-function
+function generateImage(imageBinaries: Array<{ data: string; }>, i: number): string {
+    const image: Image = new Image();
+    image.src = Buffer.from(imageBinaries[i]!.data, "binary");
+
+    // Get the colour of the bottom left pixel of the image.
+    let canvas = new Canvas(image.width, image.height);
+    let context = canvas.getContext("2d");
+    context.drawImage(image, 0, 0, image.width, image.height, 0, 0, image.width, image.height);
+    const [r, g, b] = context.getImageData(0, 0, 1, 1).data;
+    const colourToHex = (colour: number): string => colour.toString(16).padStart(2, "0");
+    const hexColour = `#${colourToHex(r!)}${colourToHex(g!)}${colourToHex(b!)}`;
+
+    // Create a canvas in order to resize the image.
+    canvas = new Canvas(1280, 640);
+    context = canvas.getContext("2d");
+
+    // Fill the canvas background with the colour.
+    context.fillStyle = hexColour;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw the image with the correct dimensions.
+    let [dw, dh, dx] = [image.width, image.height, 0];
+    if (image.height >= image.width) {
+        dh = canvas.height;
+        dw = dh / image.height * image.width;
+        dx = (canvas.width - dw) / 2;
+    } else if (image.height < image.width) {
+        dw = canvas.width;
+        dh = image.height / image.width * canvas.width;
+    }
+    context.drawImage(image, dx, 0, dw, dh);
+    return `data:image/png;base64,${canvas.toBuffer().toString("base64")}`;
+}
+
 export async function GET(): Promise<NextResponse> {
     const graphqlWithAuth = graphql.defaults(Config.github);
     const { user: { repositories: { repos }, organizations: { orgs } } } = await graphqlWithAuth<IAPIResponse>(`{
@@ -64,40 +97,8 @@ export async function GET(): Promise<NextResponse> {
 
     const formattedRepos: IRepo[] = [];
     combinedRepos.forEach((repo, i) => {
-        // Create the image.
-        const image: Image = new Image();
-        image.src = Buffer.from(imageBinaries[i]!.data, "binary");
-
-        // Get the colour of the bottom left pixel of the image.
-        let canvas = new Canvas(image.width, image.height);
-        let context = canvas.getContext("2d");
-        context.drawImage(image, 0, 0, image.width, image.height, 0, 0, image.width, image.height);
-        const [r, g, b] = context.getImageData(0, 0, 1, 1).data;
-        const colourToHex = (colour: number): string => colour.toString(16).padStart(2, "0");
-        const hexColour = `#${colourToHex(r!)}${colourToHex(g!)}${colourToHex(b!)}`;
-
-        // Create a canvas in order to resize the image.
-        canvas = new Canvas(1280, 640);
-        context = canvas.getContext("2d");
-
-        // Fill the canvas background with the colour.
-        context.fillStyle = hexColour;
-        context.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Draw the image with the correct dimensions.
-        let [dw, dh, dx] = [image.width, image.height, 0];
-        if (image.height >= image.width) {
-            dh = canvas.height;
-            dw = dh / image.height * image.width;
-            dx = (canvas.width - dw) / 2;
-        } else if (image.height < image.width) {
-            dw = canvas.width;
-            dh = image.height / image.width * canvas.width;
-        }
-        context.drawImage(image, dx, 0, dw, dh);
-
-        // Add the image to the repo object.
-        formattedRepos.push({ ...repo, image: `data:image/png;base64,${canvas.toBuffer().toString("base64")}` });
+        const image = generateImage(imageBinaries, i);
+        formattedRepos.push({ ...repo, image });
     });
     return NextResponse.json(formattedRepos);
 }
