@@ -1,6 +1,7 @@
 import type { AxiosResponse } from "axios";
 import Config from "config";
 import type { IPost } from "./";
+import { LogLevel } from "api/logs";
 import { NextResponse } from "next/server";
 import axios from "axios";
 import { job } from "cron";
@@ -22,8 +23,15 @@ async function refreshToken(): Promise<void> {
                 }
             });
         }
+        await axios.post("/api/logs", {
+            content: "Instagram token refreshed",
+            level: LogLevel.INFO
+        });
     } catch (err) {
-        console.error(err);
+        await axios.post("/api/logs", {
+            content: err instanceof Error ? `${err.name}: ${err.message}\n${err.stack ?? ""}` : err,
+            level: LogLevel.ERROR
+        });
     }
 }
 

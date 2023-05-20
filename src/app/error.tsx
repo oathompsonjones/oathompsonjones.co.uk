@@ -1,5 +1,7 @@
 "use client";
+import { LogLevel } from "api/logs";
 import { Typography } from "@mui/material";
+import axios from "axios";
 import { useEffect } from "react";
 
 /**
@@ -9,7 +11,10 @@ import { useEffect } from "react";
  */
 export default function Error({ error, reset }: { error: Error; reset: () => void; }): JSX.Element {
     // Log the error.
-    useEffect(() => console.error(error), [error]);
+    useEffect(() => void axios.post("/api/logs", {
+        content: `${error.name}: ${error.message}\n${error.stack ?? ""}`,
+        level: LogLevel.ERROR
+    }), [error]);
 
     return (
         <>
