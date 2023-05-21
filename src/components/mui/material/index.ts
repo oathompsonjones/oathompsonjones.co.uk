@@ -36,6 +36,7 @@ import TextField from "@node_mui/material/TextField";
 import ThemeProvider from "@node_mui/material/styles/ThemeProvider";
 import Toolbar from "@node_mui/material/Toolbar";
 import Typography from "@node_mui/material/Typography";
+import type { Variant } from "@node_mui/material/styles/createTypography";
 import Zoom from "@node_mui/material/Zoom";
 import createTheme from "@node_mui/material/styles/createTheme";
 import responsiveFontSizes from "@node_mui/material/styles/responsiveFontSizes";
@@ -79,4 +80,4 @@ export {
     useScrollTrigger
 };
 
-export type { Palette, SxProps, Theme };
+export type { Palette, SxProps, Theme, Variant };

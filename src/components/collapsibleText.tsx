@@ -1,14 +1,16 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
+import type { Variant } from "@mui/material";
 
 interface IProps {
     beginningText: Array<JSX.Element | string>;
     collapsibleText: Array<JSX.Element | string>;
     endingText: Array<JSX.Element | string>;
+    variant?: Variant;
 }
 
-export default function Name({ beginningText, collapsibleText, endingText }: IProps): JSX.Element {
+export default function CollapsibleText({ beginningText, collapsibleText, endingText, variant }: IProps): JSX.Element {
     const [expandName, setExpandName] = useState(false);
 
     useEffect(() => {
@@ -47,6 +49,7 @@ export default function Name({ beginningText, collapsibleText, endingText }: IPr
                 "span": { display: "inline-flex" }
                 /* eslint-enable @typescript-eslint/naming-convention */
             }}
+            variant={variant ?? "body1"}
         >
             {beginningText.map((text, i) => (<span className="section" key={i}>{text}</span>))}
             {collapsibleText.map((text, i) => (<span className="section collapsible" key={i}>{text}</span>))}

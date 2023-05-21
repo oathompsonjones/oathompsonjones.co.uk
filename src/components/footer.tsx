@@ -2,6 +2,7 @@
 import { Avatar, Divider, Paper, Stack, Typography } from "@mui/material";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
+import Name from "./name";
 import SocialLinks from "./socialLinks";
 import Spacer from "./spacer";
 import { useThemeContext } from "contexts/themeContext";
@@ -19,7 +20,7 @@ export default function Footer(): JSX.Element {
             <Stack divider={<Divider sx={{ mb: "0.5%" }} />}>
                 <Stack alignItems="center" direction="row">
                     <Avatar src={GRAVATAR_URL} sx={{ m: "1%" }} />
-                    <Typography variant="h4">Oliver Jones</Typography>
+                    <Name variant="h4" />
                     <Spacer />
                     <SocialLinks />
                 </Stack>
