@@ -3,11 +3,12 @@ import CollapsibleText from "./collapsibleText";
 
 interface IProps {
     colour?: boolean;
+    id: string;
     minScreenSize?: Breakpoint;
     variant?: Variant;
 }
 
-export default function Name({ colour, minScreenSize, variant }: IProps): JSX.Element {
+export default function Name({ colour, id, minScreenSize, variant }: IProps): JSX.Element {
     return (
         <CollapsibleText
             beginningText={colour ?? true ? [<><span className="colour">O</span>liver</>] : [<>Oliver</>]}
@@ -16,6 +17,7 @@ export default function Name({ colour, minScreenSize, variant }: IProps): JSX.El
                 <span className="colour" key={0}>Thompson</span>
             ] : [<>Andrew</>, <>Thompson</>]}
             endingText={colour ?? true ? [<span className="colour" key={0}>Jones</span>] : [<>Jones</>]}
+            id={`name-${id}`}
             minScreenSize={minScreenSize ?? "xs"}
             variant={variant ?? "body1"}
         />

@@ -8,36 +8,51 @@ interface IProps {
     beginningText: Array<JSX.Element | string>;
     collapsibleText: Array<JSX.Element | string>;
     endingText: Array<JSX.Element | string>;
+    id: string;
     minScreenSize?: Breakpoint;
     variant?: Variant;
 }
 
-export default function CollapsibleText({ beginningText, collapsibleText, endingText, minScreenSize, variant }: IProps): JSX.Element {
+export default function CollapsibleText({
+    beginningText,
+    collapsibleText,
+    endingText,
+    id,
+    minScreenSize,
+    variant
+}: IProps): JSX.Element {
     const [expandName, setExpandName] = useState(false);
     const showAnimation = useMediaQuery((theme: Theme) => theme.breakpoints.up(minScreenSize ?? "xs"));
     const { theme: { palette: { secondary: { main } } } } = useThemeContext();
 
+    const spanCount = beginningText.length + collapsibleText.length + endingText.length;
+
     useEffect(() => {
         if (expandName) {
-            document.querySelectorAll<HTMLElement>(".collapsible")
+            document.querySelectorAll<HTMLElement>(`#${id} .collapsible`)
                 .forEach((element: HTMLElement) => (element.style.width = `${element.scrollWidth}px`));
-            document.querySelectorAll<HTMLElement>(".colour")
+            document.querySelectorAll<HTMLElement>(`#${id} .colour`)
                 .forEach((element: HTMLElement) => (element.style.color = `${main}`));
+            document.querySelectorAll<HTMLElement>(`#${id}`)
+                .forEach((element: HTMLElement) => (element.style.gap = `${0.25}em`));
         } else {
-            document.querySelectorAll<HTMLElement>(".collapsible")
+            document.querySelectorAll<HTMLElement>(`#${id} .collapsible`)
                 .forEach((element: HTMLElement) => {
                     requestAnimationFrame(() => {
                         element.style.width = `${element.scrollWidth}px`;
                         requestAnimationFrame(() => (element.style.width = "0px"));
                     });
                 });
-            document.querySelectorAll<HTMLElement>(".colour")
+            document.querySelectorAll<HTMLElement>(`#${id} .colour`)
                 .forEach((element: HTMLElement) => (element.style.color = ""));
+            document.querySelectorAll<HTMLElement>(`#${id}`)
+                .forEach((element: HTMLElement) => (element.style.gap = `${0.25 / spanCount}em`));
         }
     }, [showAnimation && expandName]);
 
     return (
         <Typography
+            id={id}
             onMouseEnter={(): void => setExpandName(true)}
             onMouseLeave={(): void => setExpandName(false)}
             sx={{
@@ -47,8 +62,8 @@ export default function CollapsibleText({ beginningText, collapsibleText, ending
                 ".section": { overflow: "hidden", transition: "width 0.25s linear" },
                 /* eslint-enable @typescript-eslint/naming-convention */
                 "display": "inline-flex",
-                "gap": `${0.25 / 3}em`,
-                "span": { display: "inline-flex" }
+                "gap": `${0.25 / spanCount}em`,
+                "transition": "gap 0.25s linear"
             }}
             variant={variant ?? "body1"}
         >

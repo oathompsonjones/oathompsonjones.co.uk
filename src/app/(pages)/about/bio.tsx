@@ -24,7 +24,7 @@ export default function Bio(): JSX.Element {
                 />
                 <Stack direction="column" flex={1} justifyContent="center" sx={{ width: "100%" }}>
                     <Typography variant="h6">Name</Typography>
-                    <Name />
+                    <Name id="bio" />
                     <Divider flexItem sx={{ m: "1.25% 0%" }} />
                     <Typography variant="h6">Nationality</Typography>
                     <Typography>British</Typography>
