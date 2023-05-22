@@ -20,7 +20,7 @@ export default function Footer(): JSX.Element {
             <Stack divider={<Divider sx={{ mb: "0.5%" }} />}>
                 <Stack alignItems="center" direction="row">
                     <Avatar src={GRAVATAR_URL} sx={{ m: "1%" }} />
-                    <Name variant="h4" />
+                    <Name minScreenSize="md" variant="h4" />
                     <Spacer />
                     <SocialLinks />
                 </Stack>

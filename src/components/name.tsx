@@ -1,7 +1,13 @@
+import type { Breakpoint, Variant } from "@mui/material";
 import CollapsibleText from "./collapsibleText";
-import type { Variant } from "@mui/material";
 
-export default function Name({ colour, variant }: { colour?: boolean; variant?: Variant; }): JSX.Element {
+interface IProps {
+    colour?: boolean;
+    minScreenSize?: Breakpoint;
+    variant?: Variant;
+}
+
+export default function Name({ colour, minScreenSize, variant }: IProps): JSX.Element {
     return (
         <CollapsibleText
             beginningText={colour ?? true ? [<><span className="colour">O</span>liver</>] : [<>Oliver</>]}
@@ -10,6 +16,7 @@ export default function Name({ colour, variant }: { colour?: boolean; variant?: 
                 <span className="colour" key={0}>Thompson</span>
             ] : [<>Andrew</>, <>Thompson</>]}
             endingText={colour ?? true ? [<span className="colour" key={0}>Jones</span>] : [<>Jones</>]}
+            minScreenSize={minScreenSize ?? "xs"}
             variant={variant ?? "body1"}
         />
     );

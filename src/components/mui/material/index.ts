@@ -6,7 +6,7 @@ declare module "@mui/material/styles" {
     }
 }
 
-import type { Palette, SxProps, Theme } from "@node_mui/material";
+import type { Breakpoint, Palette, SxProps, Theme } from "@node_mui/material";
 import Accordion from "@node_mui/material/Accordion";
 import AccordionDetails from "@node_mui/material/AccordionDetails";
 import AccordionSummary from "@node_mui/material/AccordionSummary";
@@ -80,4 +80,4 @@ export {
     useScrollTrigger
 };
 
-export type { Palette, SxProps, Theme, Variant };
+export type { Breakpoint, Palette, SxProps, Theme, Variant };
