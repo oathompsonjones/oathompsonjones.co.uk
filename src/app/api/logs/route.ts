@@ -37,14 +37,16 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         return new NextResponse("Invalid form body.", { status: 400 });
 
     const { content, level } = body as { content: string; level: LogLevel; };
+    const timestamp = Date.now();
 
     const [logsCollection, close] = await init();
     await logsCollection.insertOne({
         content,
         level,
         production: process.platform === "linux",
-        timestamp: Date.now()
+        timestamp
     });
     close();
+    console[level.toLowerCase() as "debug" | "error" | "info" | "warn"](timestamp, content);
     return new NextResponse("Log successful", { status: 200 });
 }
