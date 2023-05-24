@@ -41,8 +41,8 @@
             "images/*": [
                 "./src/images/*"
             ],
-            "assetts/*": [
-                "./src/assetts/*"
+            "assets/*": [
+                "./src/assets/*"
             ],
             "config": [
                 "./src/config"

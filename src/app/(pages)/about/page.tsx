@@ -1,12 +1,12 @@
-import { Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import ALevels from "./alevels";
 import Bio from "./bio";
 import Experience from "./experience";
 import GCSEs from "./gcses";
+import Link from "next/link";
 import Skills from "./skills";
+import Spacer from "components/spacer";
 import University from "./university";
-
-// TODO: Maybe get this data from LinkedIn, so I don't need to update it here and there?
 
 /**
  * This page acts as an online CV.
@@ -16,7 +16,19 @@ import University from "./university";
 export default function About(): JSX.Element {
     return (
         <>
-            <Typography variant="h2">About Me</Typography>
+            <div style={{ display: "flex" }}>
+                <Typography variant="h2">About Me</Typography>
+                <Spacer />
+                <Button
+                    LinkComponent={Link}
+                    href="/api/cv"
+                    size="large"
+                    sx={{ float: "right", m: "1%" }}
+                    variant="contained"
+                >
+                    Download CV
+                </Button>
+            </div>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Bio />
