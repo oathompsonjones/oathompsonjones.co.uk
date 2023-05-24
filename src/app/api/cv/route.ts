@@ -115,6 +115,11 @@ function mapSubSectionContent(section: string, subSection: string): string {
 
 export async function GET(): Promise<NextResponse> {
     const tex = generateTex(Object.keys(data).map(mapSection).join("\n"));
-    const pdf = await pdflatex(tex);
+    let pdf: Buffer | null = null;
+    try {
+        pdf = await pdflatex(tex);
+    } catch (e: unknown) {
+        void e;
+    }
     return new NextResponse(pdf, { headers: { contentType: "application/pdf" } });
 }
