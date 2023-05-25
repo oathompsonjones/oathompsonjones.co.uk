@@ -38,16 +38,14 @@ function generateTex(content: string): string {
         "\n" +
         "% Styles the title.\n" +
         "\\usepackage{titling}\n" +
-        "\\pretitle{\\vspace{-1.75cm}\\huge}\n" +
-        "\\posttitle{}\n" +
-        "\\preauthor{\\begin{center}\\vspace{-0.3cm}}\n" +
-        "\\postauthor{\\end{center}}\n" +
-        "\\predate{}\n" +
-        "\\postdate{\\vspace{-0.5cm}}\n" +
-        "\\renewcommand\\maketitlehooka{\\hr}\n" +
-        "\\renewcommand\\maketitlehookb{\\hr}\n" +
-        "\\renewcommand\\maketitlehookc{}\n" +
-        "\\renewcommand\\maketitlehookd{}\n" +
+        "\t\\pretitle{\\centering\\vskip-2cm\\huge}\n" +
+        "\t\\posttitle{\\par}\n" +
+        "\t\\preauthor{\\centering}\n" +
+        "\t\\postauthor{\\par}\n" +
+        "\t\\predate{}\n" +
+        "\t\\postdate{}\n" +
+        "\t\\renewcommand\\maketitlehooka{\\par\\noindent\\hrulefill\\par}\n" +
+        "\t\\renewcommand\\maketitlehookb{\\par\\noindent\\hrulefill\\par}\n" +
         "\n" +
         "% Style section sections.\n" +
         "\\usepackage[compact]{titlesec}\n" +
