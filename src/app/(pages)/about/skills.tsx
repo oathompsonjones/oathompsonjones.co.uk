@@ -1,5 +1,9 @@
 import { Divider, Paper, Typography } from "@mui/material";
+import type { ICV } from "api/cv";
 import Link from "next/link";
+import cv from "assets/cv.json";
+
+const data = cv as ICV;
 
 /**
  * Contains the skills segment for my CV page.
@@ -8,62 +12,30 @@ import Link from "next/link";
  */
 export default function Skills(): JSX.Element {
     // Contains the data for the skills section of my CV.
-    const skills: Array<{ content: JSX.Element; heading: string; }> = [
-        {
-            content: (
-                <>
-                    I am highly proficient with usual IT skills such as word processing and use of spreadsheets, and I am also an
-                    experienced programmer with knowledge of multiple languages.
-                    <br />
-                    Some of the programming languages I am familiar with are TypeScript, Java, C#, Haskell, PHP, C++, Python and more.
-                </>
-            ),
-            heading: "IT & Programming"
-        }, {
-            content: (
-                <>
-                    I'm able to identify problems and find efficient solutions for them. I'm also able to write computer programs to
-                    solve problems more quickly.
-                </>
-            ),
-            heading: "Problem Solving"
-        }, {
-            content: (
-                <>
-                    With an A* grade in A-Level Maths, a B grade in A-Level Further Maths, and with further study in Maths being
-                    essential to my chosen degree, I am highly skilled in Mathematics.
-                </>
-            ),
-            heading: "Numeracy"
-        }, {
-            content: (
-                <>
-                    While public speaking is not something I'd rush towards, I am more than capable when the occasion arises. I was
-                    chosen to speak in my school's Christmas and Easter church services every year from year 7 to year 13, and was
-                    asked to represent the school (and my family) during the memorial service for a former
-                    headmaster, <Link href="https://tbshs.org/ian-shaw-tbshs-1980-1998/">Ian Shaw</Link>.
-                </>
-            ),
-            heading: "Public Speaking"
-        }, {
-            content: (
-                <>
-                    My excellent time management skills allow me to complete tasks to high standards while meeting all deadlines, as
-                    well as being able to juggle multiple tasks at once.
-                </>
-            ),
-            heading: "Time Management"
-        }, {
-            content: (
-                <>
-                    Being able to work well in a team is an essential skill to the workplace, one which I have demonstrated through
-                    work as a volunteer in my school library for 5 years and through working as part of the Interact team for 7 years.
-                    (See the experiences section above for more details).
-                </>
-            ),
-            heading: "Teamwork"
+    const skills: Array<{ content: JSX.Element; heading: string; }> = Object.keys(data.Skills).map((skill) => ({
+        content: mapData(data.Skills[skill]!),
+        heading: skill
+    }));
+
+    function mapData(content: string): JSX.Element {
+        const matchingRegExp = /\[([^\]]+)\]\(([^\s)]+)\)/ug;
+        const nonMatchingRegExp = /\[[^\]]+\]\([^\s)]+\)/ug;
+        const links: string[] = content.match(matchingRegExp) ?? [];
+        const splitAtLinks: string[] = content.split(nonMatchingRegExp);
+        const output: Array<JSX.Element | string> = [];
+        for (let i = 0, j = 0, k = 0; i < splitAtLinks.length || j < links.length; k++) {
+            if (k % 2 === 0) {
+                const str = splitAtLinks[i++]!;
+                output.push(...str.includes("\n") ? str.split("\n").map((line) => <>{line}<br /></>) : [str]);
+            } else {
+                const link = links[j++];
+                const href = link!.replace(matchingRegExp, "$2");
+                const label = link!.replace(matchingRegExp, "$1");
+                output.push(<Link href={href}>{label}</Link>);
+            }
         }
-    ];
+        return <>{output.flat()}</>;
+    }
 
     return (
         <Paper sx={{ p: "1%" }}>

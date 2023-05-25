@@ -1,1 +1,5 @@
-export type CV = Record<string, Record<string, string[][] | string>>;
+export interface ICV {
+    Qualifications: Record<string, string[][] | string>;
+    Experience: Record<string, string>;
+    Skills: Record<string, string>;
+}

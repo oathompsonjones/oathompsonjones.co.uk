@@ -1,5 +1,9 @@
 import { Divider, Paper, Typography } from "@mui/material";
+import type { ICV } from "api/cv";
 import Link from "next/link";
+import cv from "assets/cv.json";
+
+const data = cv as ICV;
 
 /**
  * Contains the experience segment for my CV page.
@@ -8,68 +12,30 @@ import Link from "next/link";
  */
 export default function Experience(): JSX.Element {
     // Contains the data for the experience section of my CV.
-    const experiences: Array<{ content: JSX.Element; heading: string; }> = [
-        {
-            content: (
-                <>
-                    <Link href="https://www.arm.com">ARM Holdings</Link> are one of the world's leading semiconductor and software
-                    design companies.
-                    <br />
-                    During my day at ARM, I was shown how ARM operates on a day-to-day basis, giving me a good sense of how leading
-                    companies work.
-                </>
-            ),
-            heading: "ARM Holdings Work Experience Day - 02/12/2019"
-        }, {
-            content: (
-                <>
-                    <Link href="https://bitsolutions.net">Bit Solutions</Link> are an IT management company. They have partnerships
-                    with several leading technology companies in order to provide their clients with industry leading cloud, hybrid
-                    and on premise IT solutions.
-                    <br />
-                    During my week at Bit Solutions, I experienced what it is like to work in the IT management sector, visiting
-                    clients' sites, and learning how to setup and manage various systems for those clients.
-                </>
-            ),
-            heading: "Bit Solutions Work Experience - June 2018"
-        }, {
-            content: (
-                <>
-                    As a senior prefect, I was responsible for assisting the school's Sixth Form Management Team throughout the year,
-                    and representing the school in various events such as open evenings.
-                </>
-            ),
-            heading: "TBSHS Senior Prefect - 2020-2021"
-        }, {
-            content: (
-                <>
-                    <Link href="https://tbshs-interact.github.io">Interact</Link> is a long-running fundraising organisation
-                    at <Link href="https://tbshs.org">The Bishop's Stortford High School</Link>, working closely with
-                    the <Link href="http://bsrotary.org">Rotary Club of Bishop's Stortford</Link> to organise events and campaigns,
-                    raising money for local, national and global charities.
-                    <br />
-                    My role as president entailed chairing our weekly meetings, and overseeing the organisation and running of events.
-                </>
-            ),
-            heading: "TBSHS Interact President - Member 2014-2021 - President 2020-2021"
-        }, {
-            content: (
-                <>
-                    My role involved the management of other Library Helpers to ensure the smooth running of the system, as well as
-                    weekly meetings to discuss how things went that week, and any plans for the next week.
-                </>
-            ),
-            heading: "TBSHS Volunteer Library Helper & Committee Member - 2014-2019"
-        }, {
-            content: (
-                <>
-                    This involved weekly tutoring of year 7 and 8 students to help with their studies in mathematics
-                    at <Link href="https://tbshs.org">The Bishop's Stortford High School</Link>.
-                </>
-            ),
-            heading: "Paired Numeracy - 2021"
+    const experiences: Array<{ content: JSX.Element; heading: string; }> = Object.keys(data.Experience).map((experience) => ({
+        content: mapData(data.Experience[experience]!),
+        heading: experience
+    }));
+
+    function mapData(content: string): JSX.Element {
+        const matchingRegExp = /\[([^\]]+)\]\(([^\s)]+)\)/ug;
+        const nonMatchingRegExp = /\[[^\]]+\]\([^\s)]+\)/ug;
+        const links: string[] = content.match(matchingRegExp) ?? [];
+        const splitAtLinks: string[] = content.split(nonMatchingRegExp);
+        const output: Array<JSX.Element | string> = [];
+        for (let i = 0, j = 0, k = 0; i < splitAtLinks.length || j < links.length; k++) {
+            if (k % 2 === 0) {
+                const str = splitAtLinks[i++]!;
+                output.push(...str.includes("\n") ? str.split("\n").map((line) => <>{line}<br /></>) : [str]);
+            } else {
+                const link = links[j++];
+                const href = link!.replace(matchingRegExp, "$2");
+                const label = link!.replace(matchingRegExp, "$1");
+                output.push(<Link href={href}>{label}</Link>);
+            }
         }
-    ];
+        return <>{output.flat()}</>;
+    }
 
     return (
         <Paper sx={{ p: "1%" }}>

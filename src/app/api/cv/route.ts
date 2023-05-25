@@ -1,9 +1,9 @@
-import type { CV } from ".";
+import type { ICV } from ".";
 import { NextResponse } from "next/server";
 import cv from "assets/cv.json";
 import pdflatex from "node-pdflatex";
 
-const data = cv as CV;
+const data = cv as ICV;
 
 function generateTex(content: string): string {
     return "% Define the type of document.\n" +
@@ -75,46 +75,50 @@ function generateTex(content: string): string {
         `\\maketitle\n${content}\n\\end{document}`;
 }
 
-function formatChars(content: string): string {
-    return content.replace(/([#&])/ug, "\\$1").replace(/\s-\s/ug, " --- ");
+function format(content: string): string {
+    return content
+        .replace(/\[([^\]]+)\]\(([^\s)]+)\)/ug, "\\href{$2}{$1}")
+        .replace(/\n/ug, " \\\\\n")
+        .replace(/([#&])/ug, "\\$1")
+        .replace(/\s-\s/ug, " --- ");
 }
 
 function mapTable([headings, ...rows]: string[][]): string {
-    const arr = [headings!.map((heading) => (heading.length > 0 ? `\\bfseries{${formatChars(heading)}}` : "")), ...rows];
-    const lengths = arr[0]!.map((_, i) => Math.max(...arr.map((row) => formatChars(row[i]!).length)));
-    const mappedRows = arr.map((row) => `\t${row.map((column, i) => formatChars(column).padEnd(lengths[i]!)).join(" & ")} \\\\`);
+    const arr = [headings!.map((heading) => (heading.length > 0 ? `\\bfseries{${format(heading)}}` : "")), ...rows];
+    const lengths = arr[0]!.map((_, i) => Math.max(...arr.map((row) => format(row[i]!).length)));
+    const mappedRows = arr.map((row) => `\t${row.map((column, i) => format(column).padEnd(lengths[i]!)).join(" & ")} \\\\`);
     return `\\begin{tabular}{llll}\n${mappedRows.join("\n")}\n\\end{tabular}`;
 }
 
-function mapSection(section: string): string {
+function mapSection(section: keyof ICV): string {
     return `${mapSectionHeading(section)}\n${mapSectionContent(section)
         .split("\n").map((line) => `\t${line}`).join("\n")}`;
 }
 
-function mapSubSection(section: string, subSection: string): string {
+function mapSubSection(section: keyof ICV, subSection: string): string {
     return `${mapSubSectionHeading(subSection)}\n${mapSubSectionContent(section, subSection)
         .split("\n").map((line) => `\t${line}`).join("\n")}`;
 }
 
-function mapSectionHeading(heading: string): string {
-    return `\\section*{${formatChars(heading)}}`;
+function mapSectionHeading(heading: keyof ICV): string {
+    return `\\section*{${format(heading)}}`;
 }
 
 function mapSubSectionHeading(heading: string): string {
-    return `\\subsection*{${formatChars(heading)}}`;
+    return `\\subsection*{${format(heading)}}`;
 }
 
-function mapSectionContent(section: string): string {
-    return Object.keys(data[section]!).map((subSection) => mapSubSection(section, subSection)).join("\n");
+function mapSectionContent(section: keyof ICV): string {
+    return Object.keys(data[section]).map((subSection) => mapSubSection(section, subSection)).join("\n");
 }
 
-function mapSubSectionContent(section: string, subSection: string): string {
-    const subSectionData = data[section]![subSection]!;
-    return subSectionData instanceof Array ? mapTable(subSectionData) : formatChars(subSectionData);
+function mapSubSectionContent(section: keyof ICV, subSection: string): string {
+    const subSectionData = data[section][subSection]!;
+    return subSectionData instanceof Array ? mapTable(subSectionData) : format(subSectionData);
 }
 
 export async function GET(): Promise<NextResponse> {
-    const tex = generateTex(Object.keys(data).map(mapSection).join("\n"));
+    const tex = generateTex(Object.keys(data).map((section) => mapSection(section as keyof ICV)).join("\n"));
     let pdf: Buffer | null = null;
     try {
         pdf = await pdflatex(tex);
