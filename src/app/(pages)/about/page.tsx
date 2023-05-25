@@ -3,7 +3,6 @@ import ALevels from "./alevels";
 import Bio from "./bio";
 import Experience from "./experience";
 import GCSEs from "./gcses";
-import Link from "next/link";
 import Skills from "./skills";
 import Spacer from "components/spacer";
 import University from "./university";
@@ -20,7 +19,7 @@ export default function About(): JSX.Element {
                 <Typography variant="h2">About Me</Typography>
                 <Spacer />
                 <Button
-                    LinkComponent={Link}
+                    LinkComponent="a"
                     href="/api/cv"
                     size="large"
                     sx={{ float: "right", m: "1%" }}
