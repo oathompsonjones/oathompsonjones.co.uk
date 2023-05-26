@@ -9,14 +9,14 @@
         "lint": "next lint"
     },
     "devDependencies": {
-        "@oathompsonjones/eslint-config": "0.0.53",
+        "@oathompsonjones/eslint-config": "0.0.54",
         "@oathompsonjones/ts-config": "0.0.20",
         "@types/cron": "^2.0.1",
         "@types/http-proxy": "^1.17.11",
         "@types/md5": "^2.3.2",
-        "@types/node": "20.2.3",
+        "@types/node": "20.2.4",
         "@types/nodemailer": "^6.4.8",
-        "@types/react": "18.2.6",
+        "@types/react": "18.2.7",
         "@types/react-dom": "18.2.4"
     },
     "dependencies": {
@@ -29,12 +29,12 @@
         "@svgr/webpack": "^8.0.1",
         "axios": "^1.4.0",
         "canvas": "^2.11.2",
-        "cron": "^2.3.0",
+        "cron": "^2.3.1",
         "encoding": "^0.1.13",
         "http-proxy": "^1.18.1",
         "md5": "^2.3.0",
         "mongodb": "^5.5.0",
-        "next": "13.4.3",
+        "next": "13.4.4",
         "node-pdflatex": "^0.3.0",
         "nodemailer": "^6.9.2",
         "react": "18.2.0",
