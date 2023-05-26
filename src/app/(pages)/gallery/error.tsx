@@ -19,7 +19,7 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
     return (
         <>
             <Typography variant="h4">An error occurred, please try again later.</Typography>
-            <Button onClick={reset} size="large" variant="contained">Try Again</Button>
+            <Button onClick={reset} size="large">Try Again</Button>
         </>
     );
 }

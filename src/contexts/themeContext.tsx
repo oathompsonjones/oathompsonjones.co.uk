@@ -23,7 +23,11 @@ function ThemeProvider({ children }: { children: ReactNode; }): JSX.Element {
 
     // Create the full theme.
     const theme: Theme = responsiveFontSizes(createTheme({
-        components: { MuiPaper: { defaultProps: { elevation: 5 } } },
+        components: {
+            MuiButton: { defaultProps: { variant: "contained" } },
+            MuiFab: { defaultProps: { color: "secondary" } },
+            MuiPaper: { defaultProps: { elevation: 5 } }
+        },
         palette: {
             background: {
                 dark: "#121212",

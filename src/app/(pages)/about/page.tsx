@@ -23,7 +23,6 @@ export default function About(): JSX.Element {
                     href="/api/cv"
                     size="large"
                     sx={{ float: "right", m: "1%" }}
-                    variant="contained"
                 >
                     Download CV
                 </Button>

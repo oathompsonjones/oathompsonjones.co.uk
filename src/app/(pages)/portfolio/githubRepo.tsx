@@ -56,18 +56,19 @@ export default function GitHubRepo({ repo }: { repo: IRepo; }): JSX.Element {
                             <Stack alignItems="center" direction="row" justifyContent="space-evenly" width="100%">
                                 {
                                     repo.isPrivate
-                                        ? <Button disabled size="small">View Code</Button>
-                                        : <Button href={repo.url} size="small">View Code</Button>
+                                        ? <Button disabled size="small" variant="text">View Code</Button>
+                                        : <Button href={repo.url} size="small" variant="text">View Code</Button>
                                 }
                                 {
                                     repo.isPrivate
-                                        ? <Button disabled size="small">View Site</Button>
+                                        ? <Button disabled size="small" variant="text">View Site</Button>
                                         : (
                                             <Button
                                                 href={repo.homepageUrl !== null && repo.homepageUrl.length > 0
                                                     ? repo.homepageUrl
                                                     : `https://oathompsonjones.github.io/${repo.name}`}
                                                 size="small"
+                                                variant="text"
                                             >
                                                 View Site
                                             </Button>

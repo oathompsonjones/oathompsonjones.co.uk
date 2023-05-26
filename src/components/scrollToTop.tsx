@@ -11,7 +11,6 @@ export default function ScrollToTop(): JSX.Element {
     return (
         <Zoom in={scrolling}>
             <Fab
-                color="secondary"
                 onClick={scrollToTop}
                 size="small"
                 sx={{
