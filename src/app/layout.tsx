@@ -1,4 +1,3 @@
-import "./globals.css";
 import Footer from "components/footer";
 import { GRAVATAR_URL_ } from "utils";
 import Header from "components/header";
