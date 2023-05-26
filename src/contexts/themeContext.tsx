@@ -1,4 +1,5 @@
 "use client";
+import type { CSSProperties, ReactNode } from "react";
 import {
     CssBaseline,
     ThemeProvider as MuiThemeProvider,
@@ -8,7 +9,6 @@ import {
 } from "@mui/material";
 import type { Palette, Theme } from "@mui/material";
 import { createContext, useContext, useMemo } from "react";
-import type { ReactNode } from "react";
 import useDarkMode from "hooks/useDarkMode";
 
 interface ThemeContextType {
@@ -26,7 +26,10 @@ function ThemeProvider({ children }: { children: ReactNode; }): JSX.Element {
         components: {
             MuiButton: { defaultProps: { variant: "contained" } },
             MuiFab: { defaultProps: { color: "secondary" } },
-            MuiPaper: { defaultProps: { elevation: 5 } }
+            MuiPaper: {
+                defaultProps: { elevation: 5 },
+                styleOverrides: { rounded: { transition: "background-color 0.5s linear" } }
+            }
         },
         palette: {
             background: {
