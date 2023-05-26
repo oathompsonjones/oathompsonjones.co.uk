@@ -59,8 +59,6 @@
         ".next/types/**/*.ts"
     ],
     "exclude": [
-        "node_modules",
-        "legacy code",
-        "proxy.mjs"
+        "node_modules"
     ]
 }
