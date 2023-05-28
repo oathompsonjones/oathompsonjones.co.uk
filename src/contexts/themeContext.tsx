@@ -28,7 +28,7 @@ function ThemeProvider({ children }: { children: ReactNode; }): JSX.Element {
             MuiFab: { defaultProps: { color: "secondary" } },
             MuiPaper: {
                 defaultProps: { elevation: 5 },
-                styleOverrides: { rounded: { transition: "background-color 0.25s linear" } }
+                styleOverrides: { root: { transition: "background-color 0.25s linear" } }
             }
         },
         palette: {
@@ -65,10 +65,24 @@ function ThemeProvider({ children }: { children: ReactNode; }): JSX.Element {
                     <CssBaseline enableColorScheme />
                     <style>
                         {/* CSS */`
-                            body { height: 100vh; display: flex; flex-direction: column; scroll-behavior: smooth; }
-                            body, footer { transition: background-color 0.25s linear; }
-                            p, span { transition: color 0.25s linear; }
-                            a { color: #1c7eea; text-decoration: none; cursor: pointer; }
+                            html, body {
+                                height: 100vh;
+                                display: flex;
+                                flex-direction: column;
+                                scroll-behavior: smooth;
+                                scroll-snap-type: y mandatory;
+                            }
+                            body, footer {
+                                transition: background-color 0.25s linear;
+                            }
+                            p, span {
+                                transition: color 0.25s linear;
+                            }
+                            a {
+                                color: #1c7eea;
+                                text-decoration: none;
+                                cursor: pointer;
+                            }
                         `}
                     </style>
                     {children}
