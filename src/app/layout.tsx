@@ -48,7 +48,7 @@ export default function Layout({ children }: { children: React.ReactNode; }): JS
                 <noscript>You need to enable JavaScript to run this app.</noscript>
                 <ThemeProvider>
                     <Header />
-                    <main style={{ flex: 1, padding: "4rem 1% 1%" }}>
+                    <main style={{ flex: 1, padding: "4rem 1rem 1rem" }}>
                         {children}
                     </main>
                     <ScrollToTop />
