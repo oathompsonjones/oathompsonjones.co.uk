@@ -1,17 +1,18 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useThemeContext } from "contexts/themeContext";
 
 export default function BackgroundCursor(): JSX.Element {
     const { theme: { palette: { primary: { main: colour } } } } = useThemeContext();
-    const [mouseX, setMouseX] = useState(0);
-    const [mouseY, setMouseY] = useState(0);
 
     useEffect(() => {
-        const size = document.getElementById("cursor")!.scrollHeight;
+        const effect = document.getElementById("cursor")!;
+        const size = effect.scrollHeight;
         document.addEventListener("mousemove", (e) => {
-            setMouseX(e.clientX);
-            setMouseY(e.clientY - size / 2);
+            effect.style.opacity = "1";
+            effect.style.left = `${e.clientX}px`;
+            effect.style.top = `${e.clientY - size / 2}px`;
+            setTimeout(() => (effect.style.opacity = "0"), 1000);
         });
     }, []);
 
@@ -23,10 +24,12 @@ export default function BackgroundCursor(): JSX.Element {
                 background: `radial-gradient(${colour} -25%, transparent 50%)`,
                 borderRadius: "100%",
                 height: "100%",
-                left: mouseX,
+                left: "50%",
+                opacity: 0,
                 position: "absolute",
-                top: mouseY,
-                transform: "translateX(-50%)"
+                top: "50%",
+                transform: "translateX(-50%)",
+                transition: "background 0.5s linear"
             }}
         />
     );
