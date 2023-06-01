@@ -5,6 +5,7 @@ import Link from "next/link";
 import Name from "./name";
 import SocialLinks from "./socialLinks";
 import Spacer from "./spacer";
+import { usePathname } from "next/navigation";
 import { useThemeContext } from "contexts/themeContext";
 
 /**
@@ -14,9 +15,18 @@ import { useThemeContext } from "contexts/themeContext";
  */
 export default function Footer(): JSX.Element {
     const { theme: { palette: { primary: { main } } } } = useThemeContext();
+    const pathname = usePathname();
 
     return (
-        <Paper component="footer" square sx={{ borderTop: `1px solid ${main}`, p: "1%" }}>
+        <Paper
+            component="footer"
+            square
+            sx={{
+                borderTop: `1px solid ${main}`,
+                p: "1%",
+                scrollSnapAlign: pathname === "/" ? "start" : "none"
+            }}
+        >
             <Stack divider={<Divider sx={{ mb: "0.5%" }} />}>
                 <Stack alignItems="center" direction="row">
                     <Avatar src={GRAVATAR_URL} sx={{ m: "1%" }} />

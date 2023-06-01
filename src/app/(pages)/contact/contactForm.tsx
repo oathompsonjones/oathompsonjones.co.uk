@@ -44,7 +44,7 @@ export default function ContactForm(): JSX.Element {
     }
 
     return (
-        <Paper sx={{ display: "flex", m: "1%", p: "1%" }}>
+        <Paper sx={{ display: "flex", mb: "1%", p: "1%" }}>
             {/* Form control calls handleSubmit when the form is submitted. */}
             <FormControl component="form" onSubmit={(event: FormEvent): void => void handleSubmit(event)} sx={{ flex: 1 }}>
                 <Grid container spacing={2}>

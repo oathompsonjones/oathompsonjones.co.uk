@@ -18,3 +18,11 @@ export const LOGO_URL = LOGO_URL_({
     pinColour: "808080",
     topTextColour: "6ACF65"
 });
+
+export const AGE = (): number => {
+    const today: Date = new Date();
+    const birthDate: Date = new Date(2003, 0, 2);
+    return today.getMonth() - birthDate.getMonth() <= 0 && today.getDate() < birthDate.getDate()
+        ? today.getFullYear() - birthDate.getFullYear() - 1
+        : today.getFullYear() - birthDate.getFullYear();
+};

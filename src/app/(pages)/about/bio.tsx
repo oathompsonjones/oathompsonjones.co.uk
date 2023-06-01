@@ -1,5 +1,5 @@
+import { AGE, GRAVATAR_URL } from "utils";
 import { Avatar, Divider, Paper, Stack, Typography } from "@mui/material";
-import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
 import Name from "components/name";
 
@@ -17,8 +17,8 @@ export default function Bio(): JSX.Element {
                 <Avatar
                     src={GRAVATAR_URL}
                     sx={{
-                        height: { lg: "30%", md: "50%", sm: "70%", xl: "20%", xs: "90%" },
-                        m: "1%",
+                        height: "auto",
+                        m: "1rem",
                         width: { lg: "30%", md: "50%", sm: "70%", xl: "20%", xs: "90%" }
                     }}
                 />
@@ -30,15 +30,7 @@ export default function Bio(): JSX.Element {
                     <Typography>British</Typography>
                     <Divider flexItem sx={{ m: "1.25% 0%" }} />
                     <Typography variant="h6">Age</Typography>
-                    <Typography>
-                        {((): number => {
-                            const today: Date = new Date();
-                            const birthDate: Date = new Date(2003, 0, 2);
-                            return today.getMonth() - birthDate.getMonth() <= 0 && today.getDate() < birthDate.getDate()
-                                ? today.getFullYear() - birthDate.getFullYear() - 1
-                                : today.getFullYear() - birthDate.getFullYear();
-                        })()}
-                    </Typography>
+                    <Typography>{AGE()}</Typography>
                 </Stack>
             </Stack>
             <br />
