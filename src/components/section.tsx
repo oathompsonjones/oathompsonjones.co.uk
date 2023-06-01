@@ -1,5 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
-import { KeyboardArrowDown } from "@mui/icons-material";
+import { Box } from "@mui/material";
 
 export default function Section({ background, children }: {
     background?: JSX.Element;
@@ -22,11 +21,6 @@ export default function Section({ background, children }: {
         >
             <Box zIndex={-1}>{background}</Box>
             <Box sx={{ width: "100%" }}>{children}</Box>
-            <Stack alignItems="center" direction="row" sx={{ bottom: "1rem", margin: "1rem", position: "absolute" }}>
-                <KeyboardArrowDown color="secondary" />
-                <Typography variant="caption">Scroll Down</Typography>
-                <KeyboardArrowDown color="secondary" />
-            </Stack>
         </section>
     );
 }

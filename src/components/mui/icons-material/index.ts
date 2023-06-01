@@ -6,7 +6,6 @@ import ExpandMore from "@node_mui/icons-material/ExpandMore";
 import Facebook from "@node_mui/icons-material/Facebook";
 import GitHub from "@node_mui/icons-material/GitHub";
 import Instagram from "@node_mui/icons-material/Instagram";
-import KeyboardArrowDown from "@node_mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUp from "@node_mui/icons-material/KeyboardArrowUp";
 import LightMode from "@node_mui/icons-material/LightMode";
 import LinkedIn from "@node_mui/icons-material/LinkedIn";
@@ -23,7 +22,6 @@ export {
     Facebook,
     GitHub,
     Instagram,
-    KeyboardArrowDown,
     KeyboardArrowUp,
     LightMode,
     LinkedIn,
