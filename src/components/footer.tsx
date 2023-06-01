@@ -23,7 +23,7 @@ export default function Footer(): JSX.Element {
             square
             sx={{
                 borderTop: `1px solid ${main}`,
-                p: "1%",
+                p: "1rem",
                 scrollSnapAlign: pathname === "/" ? "start" : "none"
             }}
         >

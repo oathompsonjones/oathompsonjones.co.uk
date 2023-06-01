@@ -72,6 +72,9 @@ function ThemeProvider({ children }: { children: ReactNode; }): JSX.Element {
                                 scroll-behavior: smooth;
                                 scroll-snap-type: y mandatory;
                             }
+                            body {
+                                overflow-x: hidden;
+                            }
                             body, footer {
                                 transition: background-color 0.25s linear;
                             }

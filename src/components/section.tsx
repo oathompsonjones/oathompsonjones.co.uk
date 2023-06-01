@@ -10,13 +10,12 @@ export default function Section({ background, children }: {
                 alignItems: "center",
                 display: "flex",
                 flexDirection: "column",
-                height: "100dvh",
                 justifyContent: "center",
                 margin: "-4rem -1rem 4rem",
-                overflow: "hidden",
+                minHeight: "100dvh",
                 padding: "5rem 1rem 1rem",
                 position: "relative",
-                scrollSnapAlign: "start"
+                scrollSnapAlign: "center"
             }}
         >
             <Box zIndex={-1}>{background}</Box>
