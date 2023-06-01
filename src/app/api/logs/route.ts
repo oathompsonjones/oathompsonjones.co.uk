@@ -19,6 +19,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     const logs = await logsCollection.find().toArray();
     close();
     const mappedLogs = logs
+        .reverse()
         .filter((log) => new URL(req.url).searchParams.get("production") === null || log.production)
         .map((log) => {
             const dateTime = new Date(log.timestamp).toUTCString();
