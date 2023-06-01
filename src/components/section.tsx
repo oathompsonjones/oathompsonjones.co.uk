@@ -10,7 +10,7 @@ export default function Section({ background, children }: {
                 alignItems: "center",
                 display: "flex",
                 flexDirection: "column",
-                height: "100vh",
+                height: "100dvh",
                 justifyContent: "center",
                 margin: "-4rem -1rem 4rem",
                 overflow: "hidden",
