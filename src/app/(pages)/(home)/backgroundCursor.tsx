@@ -29,7 +29,7 @@ export default function BackgroundCursor(): JSX.Element {
                 position: "absolute",
                 top: "50%",
                 transform: "translateX(-50%)",
-                transition: "background 0.5s linear"
+                transition: "opacity 0.5s linear"
             }}
         />
     );
