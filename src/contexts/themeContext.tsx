@@ -75,8 +75,12 @@ function ThemeProvider({ children }: { children: ReactNode; }): JSX.Element {
                             body {
                                 overflow-x: hidden;
                             }
-                            body, footer {
+                            body, main, footer {
                                 transition: background-color 0.25s linear;
+                            }
+                            main {
+                                flex: 1;
+                                padding: 4rem 1rem 1rem;
                             }
                             p, span {
                                 transition: color 0.25s linear;

@@ -24,7 +24,7 @@ export default function Footer(): JSX.Element {
             sx={{
                 borderTop: `1px solid ${main}`,
                 p: "1rem",
-                scrollSnapAlign: pathname === "/" ? "start" : "none"
+                scrollSnapAlign: pathname === "/" ? "end" : "none"
             }}
         >
             <Stack divider={<Divider sx={{ mb: "0.5%" }} />}>

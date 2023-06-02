@@ -3,7 +3,7 @@ import Section from "components/section";
 
 export default function Contact(): JSX.Element {
     return (
-        <Section>
+        <Section fill={false}>
             <ContactPage />
         </Section>
     );

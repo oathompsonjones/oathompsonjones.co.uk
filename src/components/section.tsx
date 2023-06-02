@@ -1,8 +1,9 @@
 import { Box } from "@mui/material";
 
-export default function Section({ background, children }: {
+export default function Section({ background, children, fill }: {
     background?: JSX.Element;
     children?: JSX.Element | JSX.Element[] | string;
+    fill?: boolean;
 }): JSX.Element {
     return (
         <section
@@ -11,8 +12,8 @@ export default function Section({ background, children }: {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
-                margin: "-4rem -1rem 4rem",
-                minHeight: "100dvh",
+                margin: fill ?? true ? "-4rem -1rem 4rem" : "-4rem -1rem -1rem",
+                minHeight: fill ?? true ? "100dvh" : "auto",
                 overflow: "hidden",
                 padding: "5rem 1rem 1rem",
                 position: "relative",
