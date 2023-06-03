@@ -1,12 +1,12 @@
 import { AGE, GRAVATAR_URL } from "utils";
 import { Avatar, Stack, Typography } from "@mui/material";
-import BackgroundCursor from "./backgroundCursor";
+import BackgroundTrail from "./backgrounds/trail";
 import Link from "next/link";
 import Section from "components/section";
 
 export default function About(): JSX.Element {
     return (
-        <Section background={<BackgroundCursor />}>
+        <Section background={<BackgroundTrail />}>
             <Stack alignItems="center" direction={{ md: "row-reverse" }} spacing="2rem">
                 <Avatar src={GRAVATAR_URL} sx={{ height: "auto", width: { md: "50%", sm: "70%", xs: "90%" } }} />
                 <Stack>

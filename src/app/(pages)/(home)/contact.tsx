@@ -1,4 +1,4 @@
-import BackgroundCursor from "./backgroundCursor";
+import BackgroundCursor from "./backgrounds/cursor";
 import ContactPage from "pages/contact/page";
 import Section from "components/section";
 

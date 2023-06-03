@@ -1,5 +1,5 @@
 import { Avatar, Button, Divider, Stack, Typography } from "@mui/material";
-import BackgroundImage from "./backgroundImage";
+import BackgroundImage from "./backgrounds/image";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
 import Section from "components/section";
