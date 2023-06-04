@@ -1,4 +1,5 @@
 import type P5 from "p5";
+import type { SketchProps } from "react-p5/@types";
 import { useThemeContext } from "contexts/themeContext";
 
 function hexToHSL(hex: string): { h: number; s: number; l: number; } {
@@ -33,11 +34,7 @@ function hexToHSL(hex: string): { h: number; s: number; l: number; } {
     return { h, l, s };
 }
 
-export default function sketch(): {
-    setup: (p5: P5, canvasParentRef: Element) => void;
-    draw: (p5: P5) => void;
-    mouseMoved: (p5: P5) => void;
-} {
+export default function sketch(): SketchProps {
     const { theme: { palette: { background: { default: _default }, primary: { main } } } } = useThemeContext();
     const background = hexToHSL(_default);
     const colour = hexToHSL(main);
@@ -89,7 +86,7 @@ export default function sketch(): {
     }
 
     function setup(p5: P5, canvasParentRef: Element): void {
-        p5.createCanvas(window.innerWidth, window.innerHeight).parent(canvasParentRef);
+        p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef);
         p5.colorMode("hsl");
         p5.noStroke();
         for (let i = 0; i < 500; i++)

@@ -1,14 +1,22 @@
+"use client";
 import { AGE, GRAVATAR_URL } from "utils";
 import { Avatar, Stack, Typography } from "@mui/material";
-import BackgroundTrail from "./backgrounds/trail";
 import Link from "next/link";
 import Section from "components/section";
+import Sketch from "./backgrounds/sketch";
+import trail from "./backgrounds/sketches/trails/particleField";
 
 export default function About(): JSX.Element {
     return (
-        <Section background={<BackgroundTrail />}>
+        <Section background={<Sketch sketchProps={trail()} />}>
             <Stack alignItems="center" direction={{ md: "row-reverse" }} spacing="2rem">
-                <Avatar src={GRAVATAR_URL} sx={{ height: "auto", width: { md: "50%", sm: "70%", xs: "90%" } }} />
+                <Avatar
+                    src={GRAVATAR_URL} sx={{
+                        height: "auto",
+                        maxWidth: "90vh",
+                        width: { md: "50%", sm: "70%", xs: "90%" }
+                    }}
+                />
                 <Stack>
                     <Typography variant="h1">Hi, I'm Ollie</Typography>
                     <Typography color="secondary" variant="h4">
