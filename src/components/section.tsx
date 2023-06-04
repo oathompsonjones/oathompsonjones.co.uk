@@ -9,10 +9,7 @@ export default function Section({ background, children }: {
 }): JSX.Element {
     const { innerHeight } = useWindowSize();
     const [height, setHeight] = useState(0);
-    useEffect(() => {
-        const footerHeight = document.querySelector("footer")!.clientHeight;
-        setHeight(innerHeight - footerHeight);
-    }, [innerHeight]);
+    useEffect(() => setHeight(innerHeight - document.querySelector("footer")!.scrollHeight), [innerHeight]);
 
     return (
         <Box
