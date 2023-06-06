@@ -1,5 +1,6 @@
 import Footer from "components/footer";
 import { GRAVATAR_URL_ } from "utils";
+import Head from "next/head";
 import Header from "components/header";
 import type { Metadata } from "next";
 import ScrollToTop from "components/scrollToTop";
@@ -38,12 +39,12 @@ export const metadata: Metadata = {
 export default function Layout({ children }: { children: React.ReactNode; }): JSX.Element {
     return (
         <html lang="en">
-            <head>
+            <Head>
                 <script
                     async crossOrigin="anonymous"
                     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4179343737367118"
                 />
-            </head>
+            </Head>
             <body>
                 <noscript>You need to enable JavaScript to run this app.</noscript>
                 <ThemeProvider>
