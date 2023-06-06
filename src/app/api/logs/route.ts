@@ -53,6 +53,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const [logsCollection, close] = await init();
     await logsCollection.insertOne({ content, level, production: process.platform === "linux", timestamp });
     close();
+    // eslint-disable-next-line no-console
     console[level.toLowerCase() as "debug" | "error" | "info" | "warn"](timestamp, content);
     return new NextResponse("Log successful", { status: 200 });
 }
