@@ -2,13 +2,18 @@
 import { AGE, GRAVATAR_URL } from "utils";
 import { Avatar, Stack, Typography } from "@mui/material";
 import Link from "next/link";
+import type P5Sketch from "./backgrounds/sketches/sketch";
+import ParticlesTrail from "./backgrounds/sketches/trails/particles";
+import RaysTrail from "./backgrounds/sketches/trails/rays";
 import Section from "components/section";
 import Sketch from "./backgrounds/sketch";
-import trail from "./backgrounds/sketches/trails/particleField";
 
 export default function About(): JSX.Element {
+    const possibleTrails: Array<new() => P5Sketch> = [ParticlesTrail, RaysTrail];
+    const trail: new () => P5Sketch = possibleTrails[Math.floor(Math.random() * possibleTrails.length)]!;
+
     return (
-        <Section background={<Sketch sketchProps={trail()} />}>
+        <Section background={<Sketch sketch={trail} />}>
             <Stack alignItems="center" direction={{ md: "row-reverse" }} spacing="2rem">
                 <Avatar
                     src={GRAVATAR_URL} sx={{
