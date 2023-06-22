@@ -4,7 +4,6 @@ export default {
         emotion: true,
         styledComponents: true
     },
-    experimental: { appDir: true },
     webpack(config) {
         config.module.rules.push({
             test: /\.svg$/u,
