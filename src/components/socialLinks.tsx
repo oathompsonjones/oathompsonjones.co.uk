@@ -1,3 +1,4 @@
+"use client";
 import { Discord, Email, Facebook, GitHub, Instagram, LinkedIn, StackOverflow, Twitter } from "@mui/icons-material";
 import { Divider, Stack } from "@mui/material";
 import Link from "next/link";
