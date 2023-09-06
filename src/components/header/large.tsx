@@ -6,7 +6,7 @@ import Link from "next/link";
  *
  * @returns {JSX.Element} The large nav.
  */
-export default function LargeNav({ pages }: { pages: Array<{ label: string; link: string; }>; }): JSX.Element {
+export default function LargeNav({ pages }: { readonly pages: Array<{ label: string; link: string; }>; }): JSX.Element {
     return (
         <Box sx={{ display: { md: "flex", xs: "none" }, flex: 1 }}>
             {pages.map((page, i) => (

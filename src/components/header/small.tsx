@@ -3,9 +3,9 @@ import Link from "next/link";
 import useOutsideClick from "hooks/useOutsideClick";
 
 interface IProps {
-    backgroundColor: string;
-    toggleNavOpen: () => void;
-    pages: Array<{ label: string; link: string; }>;
+    readonly backgroundColor: string;
+    readonly toggleNavOpen: () => void;
+    readonly pages: Array<{ label: string; link: string; }>;
 }
 
 /**

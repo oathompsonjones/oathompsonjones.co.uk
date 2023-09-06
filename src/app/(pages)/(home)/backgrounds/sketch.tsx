@@ -6,7 +6,7 @@ import useWindowSize from "hooks/useWindowSize";
 
 const SketchWrapper = dynamic(async () => import("react-p5").then((mod) => mod.default), { ssr: false });
 
-export default function Sketch({ sketch: SketchConstuctor }: { sketch: new() => P5Sketch; }): JSX.Element {
+export default function Sketch({ sketch: SketchConstuctor }: { readonly sketch: new() => P5Sketch; }): JSX.Element {
     const { outerWidth, outerHeight } = useWindowSize();
     const sketch = new SketchConstuctor();
 

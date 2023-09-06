@@ -2,10 +2,10 @@ import type { Breakpoint, Variant } from "@mui/material";
 import CollapsibleText from "./collapsibleText";
 
 interface IProps {
-    colour?: boolean;
-    id: string;
-    minScreenSize?: Breakpoint;
-    variant?: Variant;
+    readonly colour?: boolean;
+    readonly id: string;
+    readonly minScreenSize?: Breakpoint;
+    readonly variant?: Variant;
 }
 
 export default function Name({ colour, id, minScreenSize, variant }: IProps): JSX.Element {

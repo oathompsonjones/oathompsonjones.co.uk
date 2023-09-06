@@ -6,14 +6,14 @@ import Link from "next/link";
 import type { TransitionProps } from "@mui/material/transitions";
 
 interface IProps {
-    children?: JSX.Element;
-    effect?: {
+    readonly children?: JSX.Element;
+    readonly effect?: {
         element: FunctionComponent<TransitionProps>;
         props: TransitionProps;
     };
-    glow?: boolean;
-    href: string;
-    image: string;
+    readonly glow?: boolean;
+    readonly href: string;
+    readonly image: string;
 }
 
 export default function ImageLinkOverlay({ children, effect, glow, href, image }: IProps): JSX.Element {

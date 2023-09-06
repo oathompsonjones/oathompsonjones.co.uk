@@ -4,7 +4,7 @@ import { Divider, Stack } from "@mui/material";
 import Link from "next/link";
 import type { ReactElement } from "react";
 
-export default function SocialLinks({ dividers = false }: { dividers?: boolean; }): JSX.Element {
+export default function SocialLinks({ dividers = false }: { readonly dividers?: boolean; }): JSX.Element {
     // Links a URL and an icon for each social media to display.
     const socials: Array<{ icon: ReactElement; link: string; }> = [
         { icon: <Email />, link: "/email" },

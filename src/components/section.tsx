@@ -4,8 +4,8 @@ import { Box } from "@mui/material";
 import useWindowSize from "hooks/useWindowSize";
 
 export default function Section({ background, children }: {
-    background?: JSX.Element;
-    children?: JSX.Element | JSX.Element[] | string;
+    readonly background?: JSX.Element;
+    readonly children?: JSX.Element | JSX.Element[] | string;
 }): JSX.Element {
     const { innerHeight } = useWindowSize();
     const [height, setHeight] = useState(0);

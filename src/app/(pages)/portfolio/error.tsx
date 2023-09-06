@@ -9,7 +9,7 @@ import { useEffect } from "react";
  *
  * @returns {JSX.Element} An error element.
  */
-export default function Error({ error, reset }: { error: Error; reset: () => void; }): JSX.Element {
+export default function Error({ error, reset }: { readonly error: Error; readonly reset: () => void; }): JSX.Element {
     // Log the error.
     useEffect(() => void axios.post("/api/logs", {
         content: `Portfolio ${error.name}: ${error.message}\n${error.stack ?? ""}`,

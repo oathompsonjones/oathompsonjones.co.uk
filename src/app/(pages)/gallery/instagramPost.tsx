@@ -10,7 +10,7 @@ import { Zoom } from "@mui/material";
  * @param {IPost} props.post The post object.
  * @returns {JSX.Element} An element which renders an Instagram post.
  */
-export default function InstagramPost({ post }: { post: IPost; }): JSX.Element {
+export default function InstagramPost({ post }: { readonly post: IPost; }): JSX.Element {
     // Posts with multiple images recursively call this element.
     if (post.media_type === "CAROUSEL_ALBUM") {
         return (

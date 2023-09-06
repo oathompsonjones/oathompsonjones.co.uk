@@ -18,7 +18,7 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType>({} as ThemeContextType);
 const useThemeContext = (): ThemeContextType => useContext(ThemeContext);
 
-function ThemeProvider({ children }: { children: ReactNode; }): JSX.Element {
+function ThemeProvider({ children }: { readonly children: ReactNode; }): JSX.Element {
     const [isDarkMode, toggleTheme] = useDarkMode();
 
     // Create the full theme.

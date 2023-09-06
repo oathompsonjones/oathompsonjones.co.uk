@@ -5,7 +5,7 @@ import { Typography } from "@mui/material";
  *
  * @returns {JSX.Element} A page wrapper.
  */
-export default function Layout({ children }: { children: React.ReactNode; }): JSX.Element {
+export default function Layout({ children }: { readonly children: React.ReactNode; }): JSX.Element {
     return (
         <>
             <Typography variant="h2">Gallery</Typography>

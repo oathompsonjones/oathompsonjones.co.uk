@@ -5,12 +5,12 @@ import { useEffect, useState } from "react";
 import { useThemeContext } from "contexts/themeContext";
 
 interface IProps {
-    beginningText: Array<JSX.Element | string>;
-    collapsibleText: Array<JSX.Element | string>;
-    endingText: Array<JSX.Element | string>;
-    id: string;
-    minScreenSize?: Breakpoint;
-    variant?: Variant;
+    readonly beginningText: Array<JSX.Element | string>;
+    readonly collapsibleText: Array<JSX.Element | string>;
+    readonly endingText: Array<JSX.Element | string>;
+    readonly id: string;
+    readonly minScreenSize?: Breakpoint;
+    readonly variant?: Variant;
 }
 
 export default function CollapsibleText({

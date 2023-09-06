@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
  *
  * @returns {JSX.Element} The page header.
  */
-export default function Title({ textColour }: { textColour: string; }): JSX.Element {
+export default function Title({ textColour }: { readonly textColour: string; }): JSX.Element {
     return (
         <Typography
             align="center"
