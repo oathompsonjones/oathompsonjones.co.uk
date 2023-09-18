@@ -42,51 +42,53 @@ function generateImage(imageBinaries: Array<{ data: string; }>, i: number): stri
 export async function GET(): Promise<NextResponse> {
     const graphqlWithAuth = graphql.defaults(Config.github);
     const { user: { repositories: { repos }, organizations: { orgs } } } = await graphqlWithAuth<IAPIResponse>(`{
-           user(login: "oathompsonjones") {
-               repositories(first: 100, isFork: false, ownerAffiliations: OWNER) {
-                   repos: nodes {
-                       description
-                       homepageUrl
-                       isPrivate
-                       languages(first: 10) {
-                           nodes {
-                               name
-                           }
-                       }
-                       name
-                       nameWithOwner
-                       openGraphImageUrl
-                       primaryLanguage {
-                           name
-                       }
-                       url
-                   }
-               }
-               organizations(first: 10) {
-                   orgs: nodes {
-                       repositories(first: 100, isFork: false) {
-                           repos: nodes {
-                               description
-                               homepageUrl
-                               isPrivate
-                               languages(first: 10) {
-                                   nodes {
-                                       name
-                                   }
-                               }
-                               name
-                               nameWithOwner
-                               openGraphImageUrl
-                               primaryLanguage {
-                                   name
-                               }
-                               url
-                           }
-                       }
-                   }
-               }
-           }
-       }`);
+        user(login: "oathompsonjones") {
+            repositories(first: 100, isFork: false, ownerAffiliations: OWNER) {
+                repos: nodes {
+                    description
+                    homepageUrl
+                    isPrivate
+                    languages(first: 10) {
+                        nodes {
+                            name
+                        }
+                    }
+                    name
+                    nameWithOwner
+                    openGraphImageUrl
+                    primaryLanguage {
+                        name
+                    }
+                    url
+                }
+            }
+        }
+    }`);
+    /* To include organisations:
+    organizations(first: 10) {
+        orgs: nodes {
+            repositories(first: 100, isFork: false) {
+                repos: nodes {
+                    description
+                    homepageUrl
+                    isPrivate
+                    languages(first: 10) {
+                        nodes {
+                            name
+                        }
+                    }
+                    name
+                    nameWithOwner
+                    openGraphImageUrl
+                    primaryLanguage {
+                        name
+                    }
+                    url
+                }
+            }
+        }
+    }
+    */
     const combinedRepos = repos.concat(orgs.map((org) => org.repositories.repos).flat());
 
     const pendingImageBinaries: Array<Promise<{ data: string; }>> = combinedRepos.map(async (repo) => axios.get(
