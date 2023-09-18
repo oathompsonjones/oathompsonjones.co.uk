@@ -9,7 +9,7 @@ function generateImage(imageBinaries: Array<{ data: string; }>, i: number): stri
     const image: Image = new Image();
     image.src = Buffer.from(imageBinaries[i]!.data, "binary");
 
-    // Get the colour of the bottom left pixel of the image.
+    // Get the colour of the top left pixel of the image.
     let canvas = new Canvas(image.width, image.height);
     let context = canvas.getContext("2d");
     context.drawImage(image, 0, 0, image.width, image.height, 0, 0, image.width, image.height);
@@ -65,16 +65,13 @@ export async function GET(): Promise<NextResponse> {
         }
     }`);
 
-    const pendingImageBinaries: Array<Promise<{ data: string; }>> = repos.map(async (repo) => axios.get(
+    const imageBinaries: Array<{ data: string; }> = await Promise.all(repos.map(async (repo) => axios.get(
         repo.openGraphImageUrl,
         { responseType: "arraybuffer" }
-    ));
-    const imageBinaries: Array<{ data: string; }> = await Promise.all(pendingImageBinaries);
-
-    const formattedRepos: IRepo[] = [];
-    repos.forEach((repo, i) => {
-        const image = generateImage(imageBinaries, i);
-        formattedRepos.push({ ...repo, image });
-    });
+    )));
+    const formattedRepos: IRepo[] = repos.map((repo, i) => ({
+        ...repo,
+        image: generateImage(imageBinaries, i)
+    }));
     return NextResponse.json(formattedRepos);
 }
