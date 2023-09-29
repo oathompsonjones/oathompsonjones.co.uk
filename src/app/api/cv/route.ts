@@ -33,10 +33,8 @@ function generateTex(content: string): string {
         "% Remove page numbers.\n" +
         "\\pagenumbering{gobble}\n" +
         "\n" +
-        "% Equivalent of <hr /> tag.\n" +
-        "\\newcommand\\hr{\\par\\noindent\\hrulefill\\par}\n" +
-        "\n" +
         "% Styles the title.\n" +
+        "\\usepackage{xcolor}" +
         "\\usepackage{titling}\n" +
         "\t\\pretitle{\\centering\\vskip-2cm\\huge}\n" +
         "\t\\posttitle{\\par}\n" +
@@ -44,15 +42,15 @@ function generateTex(content: string): string {
         "\t\\postauthor{\\par}\n" +
         "\t\\predate{}\n" +
         "\t\\postdate{}\n" +
-        "\t\\renewcommand\\maketitlehooka{\\par\\noindent\\hrulefill\\par}\n" +
-        "\t\\renewcommand\\maketitlehookb{\\par\\noindent\\hrulefill\\par}\n" +
+        "\t\\renewcommand\\maketitlehooka{\\par\\noindent{\\color{lightgray}\\hrulefill}\\par}\n" +
+        "\t\\renewcommand\\maketitlehookb{\\par\\noindent{\\color{lightgray}\\hrulefill}\\par}\n" +
         "\n" +
         "% Style section sections.\n" +
         "\\usepackage[compact]{titlesec}\n" +
         "\\titleformat{\\section}\n" +
-        "\t{\\normalfont\\large\\bfseries}{\\thesection}{0em}{}[\\titlerule\\titlerule]\n" +
+        "\t{\\normalfont\\large\\bfseries}{\\thesection}{0em}{}[{\\color{lightgray}\\titlerule\\titlerule}]\n" +
         "\\titleformat{\\subsection}\n" +
-        "\t{\\normalfont}{\\thesubsection}{0em}{}[\\titlerule]\n" +
+        "\t{\\normalfont}{\\thesubsection}{0em}{}[{\\color{lightgray}\\titlerule}]\n" +
         "\n" +
         "% Reduce line height in tables.\n" +
         "\\renewcommand{\\arraystretch}{1}\n" +
