@@ -27,7 +27,8 @@ export default function About(): JSX.Element {
                     <Typography color="secondary" variant="h4">
                         I'm {AGE()} years old, studying undergraduate Computer Science at the University of Edinburgh.
                         I have a passion for programming, which stems from a love of solving problems.
-                        I direct that passion towards writing high quality code, creating efficient and robust solutions.
+                        I direct that passion towards writing high quality code, creating efficient and robust solutions
+                        to the problems presented to me.
                         Take a look at my CV <Link href="/about">here</Link>.
                     </Typography>
                 </Stack>
