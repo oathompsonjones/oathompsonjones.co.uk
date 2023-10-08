@@ -5,6 +5,17 @@ import pdflatex from "node-pdflatex";
 
 const data = cv as ICV;
 
+export async function GET(): Promise<NextResponse> {
+    const tex = generateTex(Object.keys(data).map((section) => mapSection(section as keyof ICV)).join("\n"));
+    let pdf: Buffer | null = null;
+    try {
+        pdf = await pdflatex(tex);
+    } catch (e: unknown) {
+        void e;
+    }
+    return new NextResponse(pdf, { headers: { contentType: "application/pdf" } });
+}
+
 function generateTex(content: string): string {
     return "% Define the type of document.\n" +
         "\\documentclass[10pt, a4paper]{article}\n" +
@@ -48,9 +59,9 @@ function generateTex(content: string): string {
         "% Style section sections.\n" +
         "\\usepackage[compact]{titlesec}\n" +
         "\\titleformat{\\section}\n" +
-        "\t{\\normalfont\\large\\bfseries}{\\thesection}{0em}{}[{\\color{lightgray}\\titlerule\\titlerule}]\n" +
+        "\t{\\color{black}\\normalfont\\large\\bfseries}{\\thesection}{0em}{}[{\\color{lightgray}\\titlerule\\titlerule}]\n" +
         "\\titleformat{\\subsection}\n" +
-        "\t{\\normalfont}{\\thesubsection}{0em}{}[{\\color{lightgray}\\titlerule}]\n" +
+        "\t{\\color{black}\\normalfont}{\\thesubsection}{0em}{}[{\\color{lightgray}\\titlerule}]\n" +
         "\n" +
         "% Reduce line height in tables.\n" +
         "\\renewcommand{\\arraystretch}{1}\n" +
@@ -68,7 +79,10 @@ function generateTex(content: string): string {
         "\n" +
         "% Begin the document.\n" +
         "\\begin{document}\n" +
-        `\\maketitle\n${content}\n\\end{document}`;
+        "\\maketitle\n" +
+        "\\color{darkgray}" +
+        `${content}\n` +
+        "\\end{document}";
 }
 
 function format(content: string): string {
@@ -111,15 +125,4 @@ function mapSectionContent(section: keyof ICV): string {
 function mapSubSectionContent(section: keyof ICV, subSection: string): string {
     const subSectionData = data[section][subSection]!;
     return subSectionData instanceof Array ? mapTable(subSectionData) : format(subSectionData);
-}
-
-export async function GET(): Promise<NextResponse> {
-    const tex = generateTex(Object.keys(data).map((section) => mapSection(section as keyof ICV)).join("\n"));
-    let pdf: Buffer | null = null;
-    try {
-        pdf = await pdflatex(tex);
-    } catch (e: unknown) {
-        void e;
-    }
-    return new NextResponse(pdf, { headers: { contentType: "application/pdf" } });
 }
