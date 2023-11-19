@@ -1,10 +1,10 @@
 import type { AxiosResponse } from "axios";
 import Config from "config";
+import { CronJob } from "cron";
 import type { IPost } from "./";
 import { LogLevel } from "api/logs";
 import { NextResponse } from "next/server";
 import axios from "axios";
-import { job } from "cron";
 
 async function refreshToken(): Promise<void> {
     try {
@@ -35,7 +35,7 @@ async function refreshToken(): Promise<void> {
     }
 }
 
-job("* * * * *", refreshToken as () => void, null, true, "utc");
+void new CronJob("* * * * *", refreshToken, null, true, "utc");
 
 export async function GET(): Promise<NextResponse> {
     await refreshToken();
