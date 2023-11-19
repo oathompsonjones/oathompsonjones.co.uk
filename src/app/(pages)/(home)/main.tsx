@@ -2,7 +2,7 @@ import { Avatar, Button, Divider, Stack, Typography } from "@mui/material";
 import BackgroundImage from "./backgrounds/image";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
-import Section from "components/section";
+import Section from "./section";
 
 export default function Main(): React.ReactNode {
     return (

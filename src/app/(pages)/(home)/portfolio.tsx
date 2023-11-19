@@ -1,4 +1,4 @@
-import Section from "components/section";
+import Section from "./section";
 import { Typography } from "@mui/material";
 
 export default function Portfolio(): React.ReactNode {

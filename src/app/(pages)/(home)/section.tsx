@@ -1,12 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
+import BackgroundCursor from "pages/(home)/backgrounds/cursor";
 import { Box } from "@mui/material";
 import useWindowSize from "hooks/useWindowSize";
 
 export default function Section({ background, children }: {
-    readonly background?: JSX.Element;
-    readonly children?: JSX.Element | JSX.Element[] | string;
-}): JSX.Element {
+    readonly background?: React.ReactNode;
+    readonly children?: React.ReactNode;
+}): React.ReactNode {
     const { innerHeight } = useWindowSize();
     const [height, setHeight] = useState(0);
     useEffect(() => setHeight(innerHeight - document.querySelector("footer")!.scrollHeight), [innerHeight]);
@@ -29,7 +30,7 @@ export default function Section({ background, children }: {
                 "scrollSnapAlign": "start"
             }}
         >
-            <Box zIndex={-1}>{background}</Box>
+            <Box zIndex={-1}>{background ?? <BackgroundCursor />}</Box>
             <Box sx={{ width: "100%" }}>{children}</Box>
         </Box>
     );

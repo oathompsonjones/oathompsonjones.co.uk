@@ -1,10 +1,9 @@
-import BackgroundCursor from "./backgrounds/cursor";
 import ContactPage from "pages/contact/page";
-import Section from "components/section";
+import Section from "./section";
 
 export default function Contact(): React.ReactNode {
     return (
-        <Section background={<BackgroundCursor />}>
+        <Section>
             <ContactPage />
         </Section>
     );
