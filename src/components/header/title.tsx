@@ -4,9 +4,9 @@ import { Typography } from "@mui/material";
 /**
  * Creates the header element.
  *
- * @returns {JSX.Element} The page header.
+ * @returns {React.ReactNode} The page header.
  */
-export default function Title({ textColour }: { readonly textColour: string; }): JSX.Element {
+export default function Title({ textColour }: { readonly textColour: string; }): React.ReactNode {
     return (
         <Typography
             align="center"

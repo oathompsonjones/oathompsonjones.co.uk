@@ -5,9 +5,9 @@ import Link from "next/link";
 /**
  * Contains the GCSEs segment for my CV page.
  *
- * @returns {JSX.Element} The GCSEs element.
+ * @returns {React.ReactNode} The GCSEs element.
  */
-export default function GCSEs(): JSX.Element {
+export default function GCSEs(): React.ReactNode {
     return (
         <Paper sx={{ display: "flex", flexDirection: "column", height: "100%", p: "2%" }}>
             <Typography variant="h4">GCSEs</Typography>

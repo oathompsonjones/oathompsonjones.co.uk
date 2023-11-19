@@ -9,9 +9,9 @@ import useAxios from "hooks/useAxios";
 /**
  * This page shows my Instagram posts.
  *
- * @returns {JSX.Element} My Instagram posts.
+ * @returns {React.ReactNode} My Instagram posts.
  */
-export default function Gallery(): JSX.Element {
+export default function Gallery(): React.ReactNode {
     // Calls the backend API to access the posts from Instagram.
     const posts = useAxios<IPost[]>("/api/instagram");
 

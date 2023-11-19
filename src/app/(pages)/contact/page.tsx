@@ -5,9 +5,9 @@ import { Typography } from "@mui/material";
 /**
  * This page provides contact links for me.
  *
- * @returns {JSX.Element} My contact links, and an email form.
+ * @returns {React.ReactNode} My contact links, and an email form.
  */
-export default function Contact(): JSX.Element {
+export default function Contact(): React.ReactNode {
     // Renders the contact page.
     return (
         <>

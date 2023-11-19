@@ -14,9 +14,9 @@ import type { IRepo } from "api/github";
  *
  * @param {{ repo: IRepo; }} props An object containing the component props.
  * @param {IRepo} props.repo The repository object.
- * @returns {JSX.Element} An element which renders a GitHub repository.
+ * @returns {React.ReactNode} An element which renders a GitHub repository.
  */
-export default function GitHubRepo({ repo }: { readonly repo: IRepo; }): JSX.Element {
+export default function GitHubRepo({ repo }: { readonly repo: IRepo; }): React.ReactNode {
     // Maps the repository languages into a more readable format.
     const repoLanguages = repo.primaryLanguage === null ? "N/A" : `${repo.primaryLanguage.name} ${(
         (languages: string[]): string => (languages.length > 0 ? `(${languages.join(", ")})` : "")

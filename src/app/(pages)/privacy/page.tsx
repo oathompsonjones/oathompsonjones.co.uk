@@ -4,9 +4,9 @@ import { Typography } from "@mui/material";
 /**
  * This is the privacy policy.
  *
- * @returns {JSX.Element} The privacy policy.
+ * @returns {React.ReactNode} The privacy policy.
  */
-export default function Privacy(): JSX.Element {
+export default function Privacy(): React.ReactNode {
     return (
         <>
             <Typography variant="h1">

@@ -34,9 +34,9 @@ export const metadata: Metadata = {
 /**
  * A wrapper to build every page.
  *
- * @returns {JSX.Element} A page wrapper.
+ * @returns {React.ReactNode} A page wrapper.
  */
-export default function Layout({ children }: { readonly children: React.ReactNode; }): JSX.Element {
+export default function Layout({ children }: { readonly children: React.ReactNode; }): React.ReactNode {
     return (
         <html lang="en">
             <Head>

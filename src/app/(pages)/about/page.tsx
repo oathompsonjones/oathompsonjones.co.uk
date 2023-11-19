@@ -10,9 +10,9 @@ import University from "./university";
 /**
  * This page acts as an online CV.
  *
- * @returns {JSX.Element} My CV.
+ * @returns {React.ReactNode} My CV.
  */
-export default function About(): JSX.Element {
+export default function About(): React.ReactNode {
     return (
         <>
             <div style={{ display: "flex" }}>

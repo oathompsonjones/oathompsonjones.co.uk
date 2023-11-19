@@ -8,7 +8,7 @@ interface IProps {
     readonly variant?: Variant;
 }
 
-export default function Name({ colour, id, minScreenSize, variant }: IProps): JSX.Element {
+export default function Name({ colour, id, minScreenSize, variant }: IProps): React.ReactNode {
     return (
         <CollapsibleText
             beginningText={colour ?? true ? [<><span className="colour">O</span>liver</>] : [<>Oliver</>]}

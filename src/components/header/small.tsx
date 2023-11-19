@@ -11,9 +11,9 @@ interface IProps {
 /**
  * Contains the nav bar for smaller displays.
  *
- * @returns {JSX.Element} The small nav.
+ * @returns {React.ReactNode} The small nav.
  */
-export default function SmallNav({ backgroundColor, toggleNavOpen, pages }: IProps): JSX.Element {
+export default function SmallNav({ backgroundColor, toggleNavOpen, pages }: IProps): React.ReactNode {
     const ref = useOutsideClick(toggleNavOpen);
     return (
         <Box

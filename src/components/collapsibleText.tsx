@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import { useThemeContext } from "contexts/themeContext";
 
 interface IProps {
-    readonly beginningText: Array<JSX.Element | string>;
-    readonly collapsibleText: Array<JSX.Element | string>;
-    readonly endingText: Array<JSX.Element | string>;
+    readonly beginningText: Array<React.ReactNode | string>;
+    readonly collapsibleText: Array<React.ReactNode | string>;
+    readonly endingText: Array<React.ReactNode | string>;
     readonly id: string;
     readonly minScreenSize?: Breakpoint;
     readonly variant?: Variant;
@@ -20,7 +20,7 @@ export default function CollapsibleText({
     id,
     minScreenSize,
     variant
-}: IProps): JSX.Element {
+}: IProps): React.ReactNode {
     const [expandName, setExpandName] = useState(false);
     const showAnimation = useMediaQuery((theme: Theme) => theme.breakpoints.up(minScreenSize ?? "xs"));
     const { theme: { palette: { secondary: { main } } } } = useThemeContext();

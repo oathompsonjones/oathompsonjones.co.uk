@@ -8,21 +8,21 @@ const data = cv as ICV;
 /**
  * Contains the skills segment for my CV page.
  *
- * @returns {JSX.Element} The Skills element.
+ * @returns {React.ReactNode} The Skills element.
  */
-export default function Skills(): JSX.Element {
+export default function Skills(): React.ReactNode {
     // Contains the data for the skills section of my CV.
-    const skills: Array<{ content: JSX.Element; heading: string; }> = Object.keys(data.Skills).map((skill) => ({
+    const skills: Array<{ content: React.ReactNode; heading: string; }> = Object.keys(data.Skills).map((skill) => ({
         content: mapData(data.Skills[skill]!),
         heading: skill
     }));
 
-    function mapData(content: string): JSX.Element {
+    function mapData(content: string): React.ReactNode {
         const matchingRegExp = /\[([^\]]+)\]\(([^\s)]+)\)/ug;
         const nonMatchingRegExp = /\[[^\]]+\]\([^\s)]+\)/ug;
         const links: string[] = content.match(matchingRegExp) ?? [];
         const splitAtLinks: string[] = content.split(nonMatchingRegExp);
-        const output: Array<JSX.Element | string> = [];
+        const output: Array<React.ReactNode | string> = [];
         for (let i = 0, j = 0, k = 0; i < splitAtLinks.length || j < links.length; k++) {
             if (k % 2 === 0) {
                 const str = splitAtLinks[i++]!;

@@ -6,9 +6,9 @@ import Main from "./main";
 /**
  * This is the home page.
  *
- * @returns {JSX.Element} The home page.
+ * @returns {React.ReactNode} The home page.
  */
-export default function Home(): JSX.Element {
+export default function Home(): React.ReactNode {
     return (
         <>
             <Main />

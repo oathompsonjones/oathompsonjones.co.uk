@@ -5,7 +5,7 @@ import { Send } from "@mui/icons-material";
 import axios from "axios";
 import { useState } from "react";
 
-export default function ContactForm(): JSX.Element {
+export default function ContactForm(): React.ReactNode {
     // State variables for the content of the contact form.
     const [content, setContent] = useState("");
     const [email, setEmail] = useState("");

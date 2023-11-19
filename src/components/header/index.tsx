@@ -11,9 +11,9 @@ import { useThemeContext } from "contexts/themeContext";
 /**
  * Creates the header element.
  *
- * @returns {JSX.Element} The page header.
+ * @returns {React.ReactNode} The page header.
  */
-export default function Header(): JSX.Element {
+export default function Header(): React.ReactNode {
     // Access the site theme.
     const { theme, toggleTheme } = useThemeContext();
     const { palette: { background: { dark, light }, mode, primary: { main } } } = theme;

@@ -6,7 +6,7 @@ import Link from "next/link";
 import type { TransitionProps } from "@mui/material/transitions";
 
 interface IProps {
-    readonly children?: JSX.Element;
+    readonly children?: React.ReactNode;
     readonly effect?: {
         element: FunctionComponent<TransitionProps>;
         props: TransitionProps;
@@ -16,7 +16,7 @@ interface IProps {
     readonly image: string;
 }
 
-export default function ImageLinkOverlay({ children, effect, glow, href, image }: IProps): JSX.Element {
+export default function ImageLinkOverlay({ children, effect, glow, href, image }: IProps): React.ReactNode {
     // Hover overlay handler
     const [hover, setHover] = useState(false);
     const handleHover = (): void => setHover((prev) => !prev);

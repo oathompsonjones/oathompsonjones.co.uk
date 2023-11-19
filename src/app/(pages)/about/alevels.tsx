@@ -5,9 +5,9 @@ import Link from "next/link";
 /**
  * Contains the A-Levels segment for my CV page.
  *
- * @returns {JSX.Element} The ALevels element.
+ * @returns {React.ReactNode} The ALevels element.
  */
-export default function ALevels(): JSX.Element {
+export default function ALevels(): React.ReactNode {
     return (
         <Paper sx={{ display: "flex", flexDirection: "column", height: "100%", p: "2%" }}>
             <Typography variant="h4">A-Levels</Typography>

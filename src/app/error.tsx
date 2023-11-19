@@ -7,9 +7,9 @@ import { useEffect } from "react";
 /**
  * Handles any 500 errors.
  *
- * @returns {JSX.Element} An error page.
+ * @returns {React.ReactNode} An error page.
  */
-export default function Error({ error, reset }: { readonly error: Error; readonly reset: () => void; }): JSX.Element {
+export default function Error({ error, reset }: { readonly error: Error; readonly reset: () => void; }): React.ReactNode {
     // Log the error.
     useEffect(() => void axios.post("/api/logs", {
         content: `${error.name}: ${error.message}\n${error.stack ?? ""}`,

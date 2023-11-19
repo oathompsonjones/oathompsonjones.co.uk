@@ -1,3 +1,3 @@
-export default function Spacer(): JSX.Element {
+export default function Spacer(): React.ReactNode {
     return <div style={{ flex: 1 }} />;
 }

@@ -4,9 +4,9 @@ import Link from "next/link";
 /**
  * Contains nav bar for larger displays.
  *
- * @returns {JSX.Element} The large nav.
+ * @returns {React.ReactNode} The large nav.
  */
-export default function LargeNav({ pages }: { readonly pages: Array<{ label: string; link: string; }>; }): JSX.Element {
+export default function LargeNav({ pages }: { readonly pages: Array<{ label: string; link: string; }>; }): React.ReactNode {
     return (
         <Box sx={{ display: { md: "flex", xs: "none" }, flex: 1 }}>
             {pages.map((page, i) => (
