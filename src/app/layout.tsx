@@ -1,8 +1,8 @@
+import type { Metadata, Viewport } from "next";
 import Footer from "components/footer";
 import { GRAVATAR_URL_ } from "utils";
 import Head from "next/head";
 import Header from "components/header";
-import type { Metadata } from "next";
 import ScrollToTop from "components/scrollToTop";
 import { ThemeProvider } from "contexts/themeContext";
 
@@ -23,12 +23,13 @@ export const metadata: Metadata = {
         ["Computer Science"],
         ["Portfolio", "CV", "Contact"]
     ].flat(),
+    title: "Oliver Jones"
+};
+
+export const viewport: Viewport = {
+    initialScale: 1,
     themeColor: "#1c7eea",
-    title: "Oliver Jones",
-    viewport: {
-        initialScale: 1,
-        width: "device-width"
-    }
+    width: "device-width"
 };
 
 /**
