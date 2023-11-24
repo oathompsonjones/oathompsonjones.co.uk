@@ -16,7 +16,7 @@ export default function University(): React.ReactNode {
                 Currently studying Undergraduate Computer Science at the University of Edinburgh.
             </Typography>
             <Grade grade="I" subject="1st Year" />
-            <Grade grade="TBD" subject="2nd Year" />
+            <Grade grade="II.i" subject="2nd Year" />
             <Grade grade="TBD" subject="3rd Year" />
             <Grade grade="TBD" subject="4th Year" />
             <Grade grade="TBD" subject="Final Grade" />
