@@ -1,6 +1,6 @@
 import { CronJob } from "cron";
 import axios from "axios";
-import { init } from "api/logs";
+import { init } from "api/logs/init";
 import { refreshToken } from "api/instagram";
 import { useEffect } from "react";
 
