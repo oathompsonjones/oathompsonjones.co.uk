@@ -1,7 +1,7 @@
 import type { LogLevel } from ".";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { init } from ".";
+import { init } from "./init";
 
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
