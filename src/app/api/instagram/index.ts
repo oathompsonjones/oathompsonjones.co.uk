@@ -1,4 +1,3 @@
-"use server";
 import type { AxiosResponse } from "axios";
 import Config from "config";
 import { CronJob } from "cron";
