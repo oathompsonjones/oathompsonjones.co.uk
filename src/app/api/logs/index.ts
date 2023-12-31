@@ -1,3 +1,4 @@
+"use server";
 import type { Collection, Db } from "mongodb";
 import Config from "config";
 import { CronJob } from "cron";
