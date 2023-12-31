@@ -1,8 +1,9 @@
+"use server";
 import type { Collection, Db } from "mongodb";
 import Config from "config";
 import { MongoClient } from "mongodb";
 
-export enum LogLevel {
+export const enum LogLevel {
     INFO = "INFO",
     WARN = "WARN",
     ERROR = "ERROR",
