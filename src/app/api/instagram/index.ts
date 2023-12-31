@@ -32,7 +32,6 @@ export type SINGLE_MEDIA_TYPE = "IMAGE" | "VIDEO";
 export type MEDIA_TYPE = SINGLE_MEDIA_TYPE | "CAROUSEL_ALBUM";
 
 export async function refreshToken(): Promise<void> {
-    "use server";
     try {
         if (Date.now() >= Config.instagram.accessTokenRefreshAt) {
             const response: AxiosResponse<{

@@ -17,7 +17,6 @@ export interface ILog {
 }
 
 export async function init(): Promise<[Collection<ILog>, () => void]> {
-    "use server";
     const mongoClient: MongoClient = new MongoClient(Config.databaseURL);
     await mongoClient.connect();
     const database: Db = mongoClient.db("Logs");
