@@ -1,6 +1,7 @@
-import { LogLevel, init } from ".";
+import type { LogLevel } from ".";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { init } from ".";
 
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
@@ -31,7 +32,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         typeof body.content === "string" &&
         body.content !== "" &&
         typeof body.level === "string" &&
-        Object.keys(LogLevel).includes(body.level);
+        ["INFO", "WARN", "ERROR", "DEBUG"].includes(body.level);
 
     if (!validBody)
         return new NextResponse("Invalid form body.", { status: 400 });
