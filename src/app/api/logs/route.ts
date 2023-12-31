@@ -1,18 +1,7 @@
-import type { Collection, Db } from "mongodb";
-import Config from "config";
-import type { ILog } from ".";
-import { LogLevel } from ".";
-import { MongoClient } from "mongodb";
+import { LogLevel, init } from ".";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-async function init(): Promise<[Collection<ILog>, () => void]> {
-    const mongoClient: MongoClient = new MongoClient(Config.databaseURL);
-    await mongoClient.connect();
-    const database: Db = mongoClient.db("Logs");
-    const logsCollection: Collection<ILog> = database.collection("Logs");
-    return [logsCollection, (): void => void mongoClient.close()];
-}
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
     const [logsCollection, close] = await init();
