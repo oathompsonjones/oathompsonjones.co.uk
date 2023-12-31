@@ -1,6 +1,5 @@
 import type { Collection, Db } from "mongodb";
 import Config from "config";
-import { CronJob } from "cron";
 import { MongoClient } from "mongodb";
 
 export enum LogLevel {
@@ -24,5 +23,3 @@ export async function init(): Promise<[Collection<ILog>, () => void]> {
     const logsCollection: Collection<ILog> = database.collection("Logs");
     return [logsCollection, (): void => void mongoClient.close()];
 }
-
-void new CronJob("0 0 1 * *", async () => void await init(), null, true, "utc");

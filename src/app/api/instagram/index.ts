@@ -1,6 +1,5 @@
 import type { AxiosResponse } from "axios";
 import Config from "config";
-import { CronJob } from "cron";
 import { LogLevel } from "api/logs";
 import axios from "axios";
 
@@ -60,5 +59,3 @@ export async function refreshToken(): Promise<void> {
         });
     }
 }
-
-void new CronJob("* * * * *", refreshToken, null, true, "utc");
