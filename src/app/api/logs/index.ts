@@ -25,4 +25,4 @@ export async function init(): Promise<[Collection<ILog>, () => void]> {
     return [logsCollection, (): void => void mongoClient.close()];
 }
 
-void new CronJob("0 0 1 * *", () => void init(), null, true, "utc");
+void new CronJob("0 0 1 * *", async () => void await init(), null, true, "utc");
