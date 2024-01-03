@@ -1,9 +1,8 @@
-import type { AxiosResponse } from "axios";
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable camelcase */
 import Config from "config";
 import Logger from "../../../logger";
-import axios from "axios";
 
-/* eslint-disable @typescript-eslint/naming-convention */
 export interface IBasePost {
     caption?: string;
     id: string;
@@ -31,20 +30,24 @@ export type IPost = ICarouselPost | ISinglePost;
 export type SINGLE_MEDIA_TYPE = "IMAGE" | "VIDEO";
 export type MEDIA_TYPE = SINGLE_MEDIA_TYPE | "CAROUSEL_ALBUM";
 
+interface Res {
+    access_token: string; 
+    expires_in: number; 
+    token_type: "bearer";
+}
+
 export async function refreshToken(): Promise<void> {
     try {
         if (Date.now() >= Config.instagram.accessTokenRefreshAt) {
-            const response: AxiosResponse<{
-                // eslint-disable-next-line @typescript-eslint/naming-convention
-                access_token: string; expires_in: number; token_type: "bearer";
-            }> = await axios.get(`https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${
-                Config.instagram.accessToken}`);
-            const { access_token: accessToken, expires_in: expiresIn } = response.data;
+            const { access_token, expires_in } = await fetch(`https://graph.instagram.com/refresh_access_token?${[
+                "grant_type=ig_refresh_token",
+                `access_token=${Config.instagram.accessToken}`
+            ].join("&")}`).then(async (res) => await res.json() as Res);
             Config.update({
                 instagram: {
                     ...Config.instagram,
-                    accessToken,
-                    accessTokenRefreshAt: Math.floor(Date.now() + 9 / 10 * expiresIn)
+                    accessToken: access_token,
+                    accessTokenRefreshAt: Math.floor(Date.now() + 9 / 10 * expires_in)
                 }
             });
             await Logger.info("Instagram token refreshed");

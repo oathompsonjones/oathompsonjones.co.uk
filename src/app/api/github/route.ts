@@ -1,7 +1,6 @@
 import type { IAPIResponse, IRepo } from ".";
 import Config from "config";
 import { NextResponse } from "next/server";
-import axios from "axios";
 import {  generateImage } from ".";
 import { graphql } from "@octokit/graphql";
 
@@ -31,10 +30,9 @@ export async function GET(): Promise<NextResponse> {
         }
     }`);
 
-    const imageBinaries: Array<{ data: string; }> = await Promise.all(repos.map(async (repo) => axios.get(
-        repo.openGraphImageUrl,
-        { responseType: "arraybuffer" }
-    )));
+    const imageBinaries: ArrayBuffer[] = await Promise.all(
+        repos.map(async (repo) => fetch(repo.openGraphImageUrl).then(async (res) => res.arrayBuffer()))
+    );
     const formattedRepos: IRepo[] = repos.map((repo, i) => ({
         ...repo,
         image: generateImage(imageBinaries, i)

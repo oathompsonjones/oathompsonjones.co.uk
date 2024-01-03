@@ -34,9 +34,9 @@ export interface IAPIResponse {
     };
 }
 
-export function generateImage(imageBinaries: Array<{ data: string; }>, i: number): string {
+export function generateImage(imageBinaries: ArrayBuffer[], i: number): string {
     const image: Image = new Image();
-    image.src = Buffer.from(imageBinaries[i]!.data, "binary");
+    image.src = Buffer.from(imageBinaries[i]!);
 
     // Get the colour of the top left pixel of the image.
     let canvas = new Canvas(image.width, image.height);
