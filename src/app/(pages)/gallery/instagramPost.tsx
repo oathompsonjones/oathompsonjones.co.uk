@@ -6,8 +6,8 @@ import { Zoom } from "@mui/material";
 /**
  * Renders an Instagram post.
  *
- * @param {{ post: IPost; }} props An object containing the component props.
- * @param {IPost} props.post The post object.
+ * @param props An object containing the component props.
+ * @param props.post The post object.
  * @returns An element which renders an Instagram post.
  */
 export default function InstagramPost({ post }: { readonly post: IPost; }): React.ReactElement {

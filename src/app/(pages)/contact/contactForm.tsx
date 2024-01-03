@@ -13,12 +13,6 @@ export default function ContactForm(): React.ReactElement {
     // State variable to say whether or not the form has been used (null if unused), and if so, if it's been successful (true/false).
     const [status, setStatus] = useState<boolean | null>(null);
 
-    /**
-     * Handles form submission.
-     *
-     * @async
-     * @param {FormEvent} event The submit event.
-     */
     async function handleSubmit(event: FormEvent): Promise<void> {
         // Prevents the default behaviour, which would reload the whole page.
         event.preventDefault();

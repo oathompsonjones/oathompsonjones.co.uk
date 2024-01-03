@@ -12,8 +12,8 @@ import type { IRepo } from "api/github";
 /**
  * Renders a GitHub repository.
  *
- * @param {{ repo: IRepo; }} props An object containing the component props.
- * @param {IRepo} props.repo The repository object.
+ * @param props An object containing the component props.
+ * @param  props.repo The repository object.
  * @returns An element which renders a GitHub repository.
  */
 export default function GitHubRepo({ repo }: { readonly repo: IRepo; }): React.ReactElement {

@@ -12,11 +12,10 @@ function parse<T>(value: string, fallbackValue: T): T {
 /**
  * Provides the same behaviour as `useState`, but also stores data using localStorage.
  *
- * @template T The type of the value being stored.
- * @param {string} key The name of the variable to store in localStorage.
- * @param {T} initialState The initial value to store for that variable.
+ * @param key The name of the variable to store in localStorage.
+ * @param initialState The initial value to store for that variable.
  * The first is the value stored, the second is a function to update that value.
- * @returns {[T, (newValue: T) => void]} An array with two values.
+ * @returns The value stored in localStorage, and a function to update that value.
  */
 export default function useLocalStorage<T>(key: string, initialState: T): [T, (newValue: T) => void] {
     // Stores the value in the state, allowing this Hook to have the same behaviour as the useState Hook.
