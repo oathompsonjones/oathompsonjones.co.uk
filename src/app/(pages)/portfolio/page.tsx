@@ -4,7 +4,7 @@ import type { IRepo } from "api/github";
 import Link from "next/link";
 import { Masonry } from "@mui/lab";
 import { Typography } from "@mui/material";
-import useAxios from "hooks/useAxios";
+import useFetch from "hooks/useFetch";
 
 /**
  * This page acts as an online portfolio.
@@ -13,7 +13,7 @@ import useAxios from "hooks/useAxios";
  */
 export default function Portfolio(): React.ReactElement {
     // Calls the backend API to access the repositories from GitHub.
-    const repos = useAxios<IRepo[]>("/api/github");
+    const repos = useFetch<IRepo[]>("/api/github");
 
     // Renders the portfolio page.
     return (

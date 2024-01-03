@@ -4,7 +4,7 @@ import InstagramPost from "./instagramPost";
 import Link from "next/link";
 import { Masonry } from "@mui/lab";
 import { Typography } from "@mui/material";
-import useAxios from "hooks/useAxios";
+import useFetch from "hooks/useFetch";
 
 /**
  * This page shows my Instagram posts.
@@ -13,7 +13,7 @@ import useAxios from "hooks/useAxios";
  */
 export default function Gallery(): React.ReactElement {
     // Calls the backend API to access the posts from Instagram.
-    const posts = useAxios<IPost[]>("/api/instagram");
+    const posts = useFetch<IPost[]>("/api/instagram");
 
     // Renders the gallery page.
     return (

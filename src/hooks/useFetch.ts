@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 function promiseWrapper<T = unknown>(promise: Promise<T>): () => T {
     let status: "error" | "pending" | "success" = "pending";
@@ -36,10 +35,10 @@ function promiseWrapper<T = unknown>(promise: Promise<T>): () => T {
 /**
  * Fetches data using Axios, then rerenders the page once that data has been fetched, using the behaviour provided by `useState`.
  *
- * @param {string} url The URL for Axios to fetch from.
- * @returns {(T | null)} The data returned by Axios, or null if the fetch fails.
+ * @param url The URL for Axios to fetch from.
+ * @returns The data returned by Axios, or null if the fetch fails.
  */
-export default function useAxios<T = unknown>(url: string): T | null {
+export default function useFetch<T = unknown>(url: string): T | null {
     /* Creates a state variable which will later store the fetched data,
     allowing this Hook to have the same behaviour as the useState Hook. */
     const [resource, setResource] = useState<T | null>(null);
@@ -48,7 +47,7 @@ export default function useAxios<T = unknown>(url: string): T | null {
     useEffect(() => {
         // eslint-disable-next-line @typescript-eslint/require-await
         void (async (): Promise<void> => {
-            const data: Promise<T> = axios.get<T>(url).then((res) => res.data);
+            const data: Promise<T> = fetch(url).then(async (res) => await res.json() as T);
             setResource(promiseWrapper(data));
         })();
     }, [url]);
