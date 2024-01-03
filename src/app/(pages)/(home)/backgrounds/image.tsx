@@ -1,7 +1,7 @@
 import Image from "next/image";
 import desk from "images/desk.jpg";
 
-export default function BackgroundImage(): React.ReactNode {
+export default function BackgroundImage(): React.ReactElement {
     return (
         <Image
             alt="Picture of a computer desk."

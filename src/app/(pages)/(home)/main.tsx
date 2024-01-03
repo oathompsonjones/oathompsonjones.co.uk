@@ -4,7 +4,7 @@ import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
 import Section from "./section";
 
-export default function Main(): React.ReactNode {
+export default function Main(): React.ReactElement {
     return (
         <Section background={<BackgroundImage />}>
             <Stack alignItems="center" direction="column" justifyContent="center">

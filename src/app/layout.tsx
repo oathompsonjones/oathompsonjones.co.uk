@@ -35,9 +35,9 @@ export const viewport: Viewport = {
 /**
  * A wrapper to build every page.
  *
- * @returns {React.ReactNode} A page wrapper.
+ * @returns A page wrapper.
  */
-export default function Layout({ children }: { readonly children: React.ReactNode; }): React.ReactNode {
+export default function Layout({ children }: { readonly children: React.ReactElement; }): React.ReactElement {
     return (
         <html lang="en">
             <Head>

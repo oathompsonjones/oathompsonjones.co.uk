@@ -4,9 +4,9 @@ import { Typography } from "@mui/material";
 /**
  * Handles any 404 errors.
  *
- * @returns {React.ReactNode} An error page.
+ * @returns An error page.
  */
-export default function Error(): React.ReactNode {
+export default function Error(): React.ReactElement {
     return (
         <>
             <Typography gutterBottom variant="h2">Error 404 - Page not found</Typography>

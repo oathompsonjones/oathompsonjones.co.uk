@@ -6,9 +6,9 @@ import { useEffect } from "react";
 /**
  * Handles any 500 errors.
  *
- * @returns {React.ReactNode} An error page.
+ * @returns An error page.
  */
-export default function Error({ error, reset }: { readonly error: Error; readonly reset: () => void; }): React.ReactNode {
+export default function Error({ error, reset }: { readonly error: Error; readonly reset: () => void; }): React.ReactElement {
     // Log the error.
     useEffect(() => void Logger.error(`${error.name}: ${error.message}\n${error.stack ?? ""}`), [error]);
 

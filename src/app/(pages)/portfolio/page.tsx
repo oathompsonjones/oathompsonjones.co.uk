@@ -9,9 +9,9 @@ import useAxios from "hooks/useAxios";
 /**
  * This page acts as an online portfolio.
  *
- * @returns {React.ReactNode} My portfolio, accessed from my GitHub profile.
+ * @returns My portfolio, accessed from my GitHub profile.
  */
-export default function Portfolio(): React.ReactNode {
+export default function Portfolio(): React.ReactElement {
     // Calls the backend API to access the repositories from GitHub.
     const repos = useAxios<IRepo[]>("/api/github");
 

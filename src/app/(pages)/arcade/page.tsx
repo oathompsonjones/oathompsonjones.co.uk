@@ -3,9 +3,9 @@ import { Typography } from "@mui/material";
 /**
  * This page contains some mini arcade games.
  *
- * @returns {React.ReactNode} An arcade page.
+ * @returns An arcade page.
  */
-export default function Arcade(): React.ReactNode {
+export default function Arcade(): React.ReactElement {
     return (
         <>
             <Typography variant="h2">Would you like to play a game?</Typography>

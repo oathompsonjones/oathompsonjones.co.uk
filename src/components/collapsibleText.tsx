@@ -20,7 +20,7 @@ export default function CollapsibleText({
     id,
     minScreenSize,
     variant
-}: IProps): React.ReactNode {
+}: IProps): React.ReactElement {
     const [expandName, setExpandName] = useState(false);
     const showAnimation = useMediaQuery((theme: Theme) => theme.breakpoints.up(minScreenSize ?? "xs"));
     const { theme: { palette: { secondary: { main } } } } = useThemeContext();

@@ -6,9 +6,9 @@ import Name from "components/name";
 /**
  * Contains the bio segment for my CV page.
  *
- * @returns {React.ReactNode} The Bio element.
+ * @returns The Bio element.
  */
-export default function Bio(): React.ReactNode {
+export default function Bio(): React.ReactElement {
     return (
         <Paper sx={{ p: "1%" }}>
             <Typography variant="h4">Biography</Typography>

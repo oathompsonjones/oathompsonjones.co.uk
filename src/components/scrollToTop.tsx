@@ -3,7 +3,7 @@ import { Fab, Zoom, useScrollTrigger } from "@mui/material";
 import { KeyboardArrowUp } from "@mui/icons-material";
 import { useCallback } from "react";
 
-export default function ScrollToTop(): React.ReactNode {
+export default function ScrollToTop(): React.ReactElement {
     const scrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 75 });
     const scrollToTop = useCallback(() => window.scrollTo({ behavior: "smooth", top: 0 }), []);
     return (

@@ -8,16 +8,16 @@ const data = cv as ICV;
 /**
  * Contains the experience segment for my CV page.
  *
- * @returns {React.ReactNode} The Experience element.
+ * @returns The Experience element.
  */
-export default function Experience(): React.ReactNode {
+export default function Experience(): React.ReactElement {
     // Contains the data for the experience section of my CV.
-    const experiences: Array<{ content: React.ReactNode; heading: string; }> = Object.keys(data.Experience).map((experience) => ({
+    const experiences: Array<{ content: React.ReactElement; heading: string; }> = Object.keys(data.Experience).map((experience) => ({
         content: mapData(data.Experience[experience]!),
         heading: experience
     }));
 
-    function mapData(content: string): React.ReactNode {
+    function mapData(content: string): React.ReactElement {
         const matchingRegExp = /\[([^\]]+)\]\(([^\s)]+)\)/ug;
         const nonMatchingRegExp = /\[[^\]]+\]\([^\s)]+\)/ug;
         const links: string[] = content.match(matchingRegExp) ?? [];

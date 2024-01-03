@@ -11,9 +11,9 @@ import { useThemeContext } from "contexts/themeContext";
 /**
  * Contains the footer element.
  *
- * @returns {React.ReactNode} The page footer.
+ * @returns The page footer.
  */
-export default function Footer(): React.ReactNode {
+export default function Footer(): React.ReactElement {
     const { theme: { palette: { primary: { main } } } } = useThemeContext();
     const pathname = usePathname();
 

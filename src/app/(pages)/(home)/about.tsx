@@ -4,7 +4,7 @@ import { Avatar, Stack, Typography } from "@mui/material";
 import Link from "next/link";
 import Section from "./section";
 
-export default function About(): React.ReactNode {
+export default function About(): React.ReactElement {
     return (
         <Section>
             <Stack alignItems="center" direction={{ md: "row-reverse" }} spacing="2rem">

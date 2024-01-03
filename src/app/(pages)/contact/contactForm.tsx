@@ -2,10 +2,9 @@
 import { Alert, Button, FormControl, FormHelperText, FormLabel, Grid, Paper, TextField } from "@mui/material";
 import type { FormEvent } from "react";
 import { Send } from "@mui/icons-material";
-import axios from "axios";
 import { useState } from "react";
 
-export default function ContactForm(): React.ReactNode {
+export default function ContactForm(): React.ReactElement {
     // State variables for the content of the contact form.
     const [content, setContent] = useState("");
     const [email, setEmail] = useState("");
@@ -23,13 +22,21 @@ export default function ContactForm(): React.ReactNode {
     async function handleSubmit(event: FormEvent): Promise<void> {
         // Prevents the default behaviour, which would reload the whole page.
         event.preventDefault();
+        
         // Attempts to submit the form.
         try {
             // Checks that there is content in each of fields.
             if ([content, email, name, subject].includes(""))
                 throw new Error("Invalid form body. All fields must have a value.");
+            
             // Sends a request to the backend.
-            await axios.post("/api/contact", { content, email, name, subject });
+            await fetch("/api/contact", {
+                body: JSON.stringify({ content, email, name, subject }),
+                // eslint-disable-next-line @typescript-eslint/naming-convention
+                headers: { "Content-Type": "application/json" },
+                method: "POST"
+            });
+            
             // Clears the fields for each of the fields in the form.
             setContent("");
             setEmail("");

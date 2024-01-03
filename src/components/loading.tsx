@@ -1,6 +1,6 @@
 import { CircularProgress } from "@mui/material";
 
-export default function Loading(): React.ReactNode {
+export default function Loading(): React.ReactElement {
     return (
         <div style={{
             alignItems: "center",

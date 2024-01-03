@@ -5,9 +5,9 @@ import Link from "next/link";
 /**
  * Contains the University segment for my CV page.
  *
- * @returns {React.ReactNode} The University element.
+ * @returns The University element.
  */
-export default function University(): React.ReactNode {
+export default function University(): React.ReactElement {
     return (
         <Paper sx={{ display: "flex", flexDirection: "column", height: "100%", p: "2%" }}>
             <Typography variant="h4">Further Education</Typography>

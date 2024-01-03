@@ -5,9 +5,9 @@ import { Box } from "@mui/material";
 import useWindowSize from "hooks/useWindowSize";
 
 export default function Section({ background, children }: {
-    readonly background?: React.ReactNode;
-    readonly children?: React.ReactNode;
-}): React.ReactNode {
+    readonly background?: React.ReactElement;
+    readonly children?: React.ReactElement;
+}): React.ReactElement {
     const { innerHeight } = useWindowSize();
     const [height, setHeight] = useState(0);
     useEffect(() => setHeight(innerHeight - document.querySelector("footer")!.scrollHeight), [innerHeight]);
