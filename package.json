@@ -33,7 +33,7 @@
         "http-proxy": "^1.18.1",
         "md5": "^2.3.0",
         "mongodb": "^6.3.0",
-        "next": "^14.0.4",
+        "next": "^14.0.3",
         "node-pdflatex": "^0.3.0",
         "nodemailer": "^6.9.8",
         "react": "^18.2.0",
