@@ -16,13 +16,13 @@ export default function ContactForm(): React.ReactElement {
     async function handleSubmit(event: FormEvent): Promise<void> {
         // Prevents the default behaviour, which would reload the whole page.
         event.preventDefault();
-        
+
         // Attempts to submit the form.
         try {
             // Checks that there is content in each of fields.
             if ([content, email, name, subject].includes(""))
                 throw new Error("Invalid form body. All fields must have a value.");
-            
+
             // Sends a request to the backend.
             await fetch("/api/contact", {
                 body: JSON.stringify({ content, email, name, subject }),
@@ -30,7 +30,7 @@ export default function ContactForm(): React.ReactElement {
                 headers: { "Content-Type": "application/json" },
                 method: "POST"
             });
-            
+
             // Clears the fields for each of the fields in the form.
             setContent("");
             setEmail("");

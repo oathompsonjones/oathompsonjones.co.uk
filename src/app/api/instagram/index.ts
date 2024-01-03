@@ -31,8 +31,8 @@ export type SINGLE_MEDIA_TYPE = "IMAGE" | "VIDEO";
 export type MEDIA_TYPE = SINGLE_MEDIA_TYPE | "CAROUSEL_ALBUM";
 
 interface Res {
-    access_token: string; 
-    expires_in: number; 
+    access_token: string;
+    expires_in: number;
     token_type: "bearer";
 }
 

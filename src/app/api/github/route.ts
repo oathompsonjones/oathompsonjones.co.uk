@@ -1,7 +1,7 @@
 import type { IAPIResponse, IRepo } from ".";
 import Config from "config";
 import { NextResponse } from "next/server";
-import {  generateImage } from ".";
+import { generateImage } from ".";
 import { graphql } from "@octokit/graphql";
 
 export async function GET(): Promise<NextResponse> {

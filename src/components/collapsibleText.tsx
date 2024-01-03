@@ -32,9 +32,9 @@ export default function CollapsibleText({
             document.querySelectorAll<HTMLElement>(`#${id} .collapsible`)
                 .forEach((element: HTMLElement) => (element.style.width = `${element.scrollWidth}px`));
             document.querySelectorAll<HTMLElement>(`#${id} .colour`)
-                .forEach((element: HTMLElement) => (element.style.color = `${main}`));
+                .forEach((element: HTMLElement) => (element.style.color = main));
             document.querySelectorAll<HTMLElement>(`#${id}`)
-                .forEach((element: HTMLElement) => (element.style.gap = `${0.25}em`));
+                .forEach((element: HTMLElement) => (element.style.gap = "0.25em"));
         } else {
             document.querySelectorAll<HTMLElement>(`#${id} .collapsible`)
                 .forEach((element: HTMLElement) => {

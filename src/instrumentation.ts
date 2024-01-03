@@ -12,6 +12,6 @@ export async function register(): Promise<void> {
         { cronTime: "* * * * *", func: refreshToken },
         { cronTime: "0 0 1 * *", func: async () => (await init())[1]() }
     ];
-    for (const { cronTime, func } of cronJobs) 
+    for (const { cronTime, func } of cronJobs)
         void new CronJob(cronTime, func, null, true, "utc");
 }
