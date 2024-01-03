@@ -1,6 +1,6 @@
 import type { AxiosResponse } from "axios";
 import Config from "config";
-import { LogLevel } from "api/logs";
+import Logger from "../../../logger";
 import axios from "axios";
 
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -47,15 +47,9 @@ export async function refreshToken(): Promise<void> {
                     accessTokenRefreshAt: Math.floor(Date.now() + 9 / 10 * expiresIn)
                 }
             });
-            await axios.post("/api/logs", {
-                content: "Instagram token refreshed",
-                level: LogLevel.INFO
-            });
+            await Logger.info("Instagram token refreshed");
         }
     } catch (err) {
-        await axios.post("/api/logs", {
-            content: err instanceof Error ? `${err.name}: ${err.message}\n${err.stack ?? ""}` : err,
-            level: LogLevel.ERROR
-        });
+        await Logger.error(err instanceof Error ? `${err.name}: ${err.message}\n${err.stack ?? ""}` : String(err));
     }
 }

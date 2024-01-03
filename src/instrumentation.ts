@@ -1,15 +1,11 @@
 import { CronJob } from "cron";
-import { LogLevel } from "api/logs";
-import axios from "axios";
+import Logger from "./logger";
 import { init } from "api/logs/init";
 import { refreshToken } from "api/instagram";
 
 export async function register(): Promise<void> {
     // Log the start up.
-    await axios.post("/api/logs", {
-        content: "Server started.",
-        level: LogLevel.INFO
-    });
+    await Logger.info("Server started.");
 
     // Set up cron jobs.
     const cronJobs: Array<{ cronTime: string; func: (...args: never[]) => Promise<void> | void; }> = [

@@ -1,7 +1,6 @@
 "use client";
 import { Button, Typography } from "@mui/material";
-import { LogLevel } from "api/logs";
-import axios from "axios";
+import Logger from "../../../logger";
 import { useEffect } from "react";
 
 /**
@@ -11,10 +10,7 @@ import { useEffect } from "react";
  */
 export default function Error({ error, reset }: { readonly error: Error; readonly reset: () => void; }): React.ReactNode {
     // Log the error.
-    useEffect(() => void axios.post("/api/logs", {
-        content: `Gallery ${error.name}: ${error.message}\n${error.stack ?? ""}`,
-        level: LogLevel.ERROR
-    }), [error]);
+    useEffect(() => void Logger.error(`Gallery ${error.name}: ${error.message}\n${error.stack ?? ""}`), [error]);
 
     return (
         <>
