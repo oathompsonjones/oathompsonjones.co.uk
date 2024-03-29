@@ -44,9 +44,6 @@
             "assets/*": [
                 "./src/assets/*"
             ],
-            "config": [
-                "./src/config"
-            ],
             "utils": [
                 "./src/utils"
             ],

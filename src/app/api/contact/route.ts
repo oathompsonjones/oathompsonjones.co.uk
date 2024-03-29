@@ -1,5 +1,5 @@
 import type { Body } from ".";
-import Config from "config";
+import Config from "../../../../config.json";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";

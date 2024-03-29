@@ -1,5 +1,5 @@
 import type { APIResponse, Repo } from ".";
-import Config from "config";
+import Config from "../../../../config.json";
 import { NextResponse } from "next/server";
 import { generateImage } from ".";
 

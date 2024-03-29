@@ -1,7 +1,5 @@
-"use server";
-
 import type { Collection, Db } from "mongodb";
-import Config from "config";
+import Config from "../../../../config.json";
 import type { Log } from ".";
 import { MongoClient } from "mongodb";
 

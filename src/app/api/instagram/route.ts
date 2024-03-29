@@ -1,4 +1,4 @@
-import Config from "config";
+import Config from "../../../../config.json";
 import { NextResponse } from "next/server";
 import type { Post } from ".";
 import { refreshToken } from ".";
