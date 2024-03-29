@@ -17,8 +17,6 @@ export async function register(): Promise<void> {
         { cronTime: "* * * * *", func: refreshToken },
         // Fetch the logs every month to prevent MongoDB from closing the database.
         { cronTime: "0 0 1 * *", func: async () => (await init())[1]() },
-        // Log the time every second.
-        { cronTime: "* * * * * *", func: () => console.info(new Date().toISOString()) },
     ];
 
     for (const { cronTime, func } of cronJobs)
