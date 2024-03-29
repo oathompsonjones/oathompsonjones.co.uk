@@ -35,3 +35,9 @@ try {
         console.log("Listening on port 80.");
     }
 }
+
+// Call the instagram and logs api endpoints every hour
+setInterval(() => {
+    https.get("https://oathompsonjones.co.uk/api/instagram");
+    https.get("https://oathompsonjones.co.uk/api/logs");
+}, 3600000);
