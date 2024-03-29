@@ -1,18 +1,19 @@
 import type { Metadata, Viewport } from "next";
 import Footer from "components/footer";
-import { GRAVATAR_URL_ } from "utils";
-import Head from "next/head";
+import Head from "next/head.js";
 import Header from "components/header";
+import type { ReactElement } from "react";
 import ScrollToTop from "components/scrollToTop";
 import { ThemeProvider } from "contexts/themeContext";
+import { gravatarURL } from "utils";
 
 // https://realfavicongenerator.net (remove the mask icon and msapplication stuff)
 export const metadata: Metadata = {
     description: "Portfolio site for Oliver Jones (oathompsonjones).",
     icons: {
-        apple: GRAVATAR_URL_(180),
-        icon: [GRAVATAR_URL_(32), GRAVATAR_URL_(16)],
-        shortcut: GRAVATAR_URL_(16)
+        apple: gravatarURL(180),
+        icon: [gravatarURL(32), gravatarURL(16)],
+        shortcut: gravatarURL(16),
     },
     keywords: [
         ["oathompsonjones", "Oliver Jones", "Oliver Andrew Thompson Jones", "Ollie Jones", "Ollie Andrew Thompson Jones"],
@@ -21,23 +22,22 @@ export const metadata: Metadata = {
         ["Coder", "Coding", "Code"],
         ["Software", "Software Engineer", "Software Engineering", "Software Developer", "Software Development"],
         ["Computer Science"],
-        ["Portfolio", "CV", "Contact"]
+        ["Portfolio", "CV", "Contact"],
     ].flat(),
-    title: "Oliver Jones"
+    title: "Oliver Jones",
 };
 
 export const viewport: Viewport = {
     initialScale: 1,
     themeColor: "#1c7eea",
-    width: "device-width"
+    width: "device-width",
 };
 
 /**
  * A wrapper to build every page.
- *
  * @returns A page wrapper.
  */
-export default function Layout({ children }: { readonly children: React.ReactElement; }): React.ReactElement {
+export default function Layout({ children }: { readonly children: ReactElement; }): ReactElement {
     return (
         <html lang="en">
             <Head>

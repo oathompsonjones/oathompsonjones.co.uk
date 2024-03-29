@@ -1,8 +1,10 @@
 "use client";
+
 import { Avatar, Divider, Paper, Stack, Typography } from "@mui/material";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
 import Name from "./name";
+import type { ReactElement } from "react";
 import SocialLinks from "./socialLinks";
 import Spacer from "./spacer";
 import { usePathname } from "next/navigation";
@@ -10,10 +12,9 @@ import { useThemeContext } from "contexts/themeContext";
 
 /**
  * Contains the footer element.
- *
  * @returns The page footer.
  */
-export default function Footer(): React.ReactElement {
+export default function Footer(): ReactElement {
     const { theme: { palette: { primary: { main } } } } = useThemeContext();
     const pathname = usePathname();
 
@@ -24,7 +25,7 @@ export default function Footer(): React.ReactElement {
             sx={{
                 borderTop: `1px solid ${main}`,
                 p: "1rem",
-                scrollSnapAlign: pathname === "/" ? "end" : "none"
+                scrollSnapAlign: pathname === "/" ? "end" : "none",
             }}
         >
             <Stack divider={<Divider sx={{ mb: "0.5%" }} />}>

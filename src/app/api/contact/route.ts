@@ -1,9 +1,14 @@
+import type { Body } from ".";
 import Config from "config";
-import type { IBody } from ".";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
+/**
+ * Handles POST requests to the contact form.
+ * @param req - The request.
+ * @returns The response.
+ */
 export async function POST(req: NextRequest): Promise<NextResponse> {
     // Check that the input is in the correct form.
     if (req.headers.get("content-type") !== "application/json")
@@ -20,12 +25,12 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         "name" in body &&
         "subject" in body &&
         Object.values(body).every((field) => typeof field === "string" && field !== "") &&
-        validEmailRegex.test((body as IBody).email);
+        validEmailRegex.test((body as Body).email);
 
     if (!validBody)
         return new NextResponse("Invalid form body. All fields must contain valid strings.", { status: 400 });
 
-    const { content, email, name, subject } = body as IBody;
+    const { content, email, name, subject } = body as Body;
 
     // Set up the transporter.
     const transporter = nodemailer.createTransport(Config.email);
@@ -38,7 +43,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         from: Config.email.auth.user,
         subject,
         text,
-        to: Config.email.auth.user
+        to: Config.email.auth.user,
     });
 
     // Send an email to the user.
@@ -48,7 +53,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         text: "Thank you for your message, I will get back to you shortly.\n\n" +
             "If you did not attempt to contact me via https://oathompsonjones.co.uk/ then please ignore this email.\n\n" +
             "Kind Regards,\nOliver Jones (oathompsonjones@gmail.com)",
-        to: email
+        to: email,
     });
 
     return NextResponse.json("Success");

@@ -1,13 +1,13 @@
 import { Divider, Paper, Typography } from "@mui/material";
 import Grade from "./grade";
 import Link from "next/link";
+import type { ReactElement } from "react";
 
 /**
  * Contains the GCSEs segment for my CV page.
- *
  * @returns The GCSEs element.
  */
-export default function GCSEs(): React.ReactElement {
+export default function GCSEs(): ReactElement {
     return (
         <Paper sx={{ display: "flex", flexDirection: "column", height: "100%", p: "2%" }}>
             <Typography variant="h4">GCSEs</Typography>

@@ -1,8 +1,14 @@
 "use client";
+
+import type { ReactElement } from "react";
 import StackOverflowLogo from "images/stackOverflow.svg";
 import SvgIcon from "@mui/material/SvgIcon";
 
-export default function StackOverflow(): React.ReactElement {
+/**
+ * Renders a Stack Overflow logo.
+ * @returns The Stack Overflow logo.
+ */
+export default function StackOverflow(): ReactElement {
     return (
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         <SvgIcon component={StackOverflowLogo} inheritViewBox />

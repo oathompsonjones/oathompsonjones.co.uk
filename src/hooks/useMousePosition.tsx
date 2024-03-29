@@ -1,7 +1,8 @@
 "use client";
+
 import { useEffect, useState } from "react";
 
-interface MousePosition {
+type MousePosition = {
     clientX: number;
     clientY: number;
     movementX: number;
@@ -12,8 +13,12 @@ interface MousePosition {
     pageY: number;
     screenX: number;
     screenY: number;
-}
+};
 
+/**
+ * Returns the current mouse position.
+ * @returns An object containing the current mouse position.
+ */
 export default function useMousePosition(): MousePosition {
     const [mousePosition, setMousePosition] = useState<MousePosition>({
         clientX: 0,
@@ -25,7 +30,7 @@ export default function useMousePosition(): MousePosition {
         pageX: 0,
         pageY: 0,
         screenX: 0,
-        screenY: 0
+        screenY: 0,
     });
     const updateMousePosition = (event: MouseEvent): void => setMousePosition({
         clientX: event.clientX,
@@ -37,11 +42,14 @@ export default function useMousePosition(): MousePosition {
         pageX: event.pageX,
         pageY: event.pageY,
         screenX: event.screenX,
-        screenY: event.screenY
+        screenY: event.screenY,
     });
+
     useEffect(() => {
         document.addEventListener("mousemove", updateMousePosition);
+
         return () => document.removeEventListener("mousemove", updateMousePosition);
     }, []);
+
     return mousePosition;
 }

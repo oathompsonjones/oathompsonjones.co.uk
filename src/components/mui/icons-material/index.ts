@@ -1,4 +1,5 @@
 "use client";
+
 import DarkMode from "@node_mui/icons-material/DarkMode";
 import Discord from "./Discord";
 import Email from "@node_mui/icons-material/Email";
@@ -28,5 +29,5 @@ export {
     Menu,
     Send,
     StackOverflow,
-    Twitter
+    Twitter,
 };

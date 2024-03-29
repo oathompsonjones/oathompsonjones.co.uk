@@ -1,10 +1,16 @@
 "use client";
+
 import { Discord, Email, Facebook, GitHub, Instagram, LinkedIn, StackOverflow, Twitter } from "@mui/icons-material";
 import { Divider, Stack } from "@mui/material";
 import Link from "next/link";
 import type { ReactElement } from "react";
 
-export default function SocialLinks({ dividers = false }: { readonly dividers?: boolean; }): React.ReactElement {
+/**
+ * Renders a list of social media links.
+ * @param dividers - Whether to display dividers between the links.
+ * @returns A list of social media links.
+ */
+export default function SocialLinks({ dividers = false }: { readonly dividers?: boolean; }): ReactElement {
     // Links a URL and an icon for each social media to display.
     const socials: Array<{ icon: ReactElement; link: string; }> = [
         { icon: <Email />, link: "/email" },
@@ -14,7 +20,7 @@ export default function SocialLinks({ dividers = false }: { readonly dividers?: 
         { icon: <Discord />, link: "/discord" },
         { icon: <Twitter />, link: "/twitter" },
         { icon: <Instagram />, link: "/instagram" },
-        { icon: <Facebook />, link: "/facebook" }
+        { icon: <Facebook />, link: "/facebook" },
     ];
 
     return (

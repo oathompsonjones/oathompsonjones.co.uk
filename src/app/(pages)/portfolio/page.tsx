@@ -1,19 +1,20 @@
 "use client";
+
 import GitHubRepo from "./githubRepo";
-import type { IRepo } from "api/github";
+import type { Repo } from "api/github";
 import Link from "next/link";
 import { Masonry } from "@mui/lab";
+import type { ReactElement } from "react";
 import { Typography } from "@mui/material";
 import useFetch from "hooks/useFetch";
 
 /**
  * This page acts as an online portfolio.
- *
  * @returns My portfolio, accessed from my GitHub profile.
  */
-export default function Portfolio(): React.ReactElement {
+export default function Portfolio(): ReactElement {
     // Calls the backend API to access the repositories from GitHub.
-    const repos = useFetch<IRepo[]>("/api/github");
+    const repos = useFetch<Repo[]>("/api/github");
 
     // Renders the portfolio page.
     return (

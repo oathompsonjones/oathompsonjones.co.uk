@@ -1,5 +1,7 @@
 "use client";
-import Logger from "../logger";
+
+import Logger from "logger";
+import type { ReactElement } from "react";
 import { Typography } from "@mui/material";
 import { useEffect } from "react";
 
@@ -8,9 +10,11 @@ import { useEffect } from "react";
  *
  * @returns An error page.
  */
-export default function Error({ error, reset }: { readonly error: Error; readonly reset: () => void; }): React.ReactElement {
+export default function Error({ error, reset }: { readonly error: Error; readonly reset: () => void; }): ReactElement {
     // Log the error.
-    useEffect(() => void Logger.error(`${error.name}: ${error.message}\n${error.stack ?? ""}`), [error]);
+    useEffect(() => {
+        void Logger.error(`${error.name}: ${error.message}\n${error.stack ?? ""}`);
+    }, [error]);
 
     return (
         <>

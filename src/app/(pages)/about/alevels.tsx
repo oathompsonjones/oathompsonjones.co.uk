@@ -1,13 +1,13 @@
 import { Divider, Paper, Typography } from "@mui/material";
 import Grade from "./grade";
 import Link from "next/link";
+import type { ReactElement } from "react";
 
 /**
  * Contains the A-Levels segment for my CV page.
- *
  * @returns The ALevels element.
  */
-export default function ALevels(): React.ReactElement {
+export default function ALevels(): ReactElement {
     return (
         <Paper sx={{ display: "flex", flexDirection: "column", height: "100%", p: "2%" }}>
             <Typography variant="h4">A-Levels</Typography>

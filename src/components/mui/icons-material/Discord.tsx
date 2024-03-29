@@ -1,8 +1,14 @@
 "use client";
+
 import DiscordLogo from "images/discord.svg";
+import type { ReactElement } from "react";
 import SvgIcon from "@mui/material/SvgIcon";
 
-export default function Discord(): React.ReactElement {
+/**
+ * Renders a Discord icon.
+ * @returns The Discord icon.
+ */
+export default function Discord(): ReactElement {
     return (
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         <SvgIcon component={DiscordLogo} inheritViewBox />

@@ -1,12 +1,12 @@
 import Link from "next/link";
+import type { ReactElement } from "react";
 import { Typography } from "@mui/material";
 
 /**
  * This is the privacy policy.
- *
  * @returns The privacy policy.
  */
-export default function Privacy(): React.ReactElement {
+export default function Privacy(): ReactElement {
     return (
         <>
             <Typography variant="h1">

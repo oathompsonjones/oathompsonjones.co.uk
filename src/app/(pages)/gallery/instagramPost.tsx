@@ -1,16 +1,15 @@
-import type { IPost } from "api/instagram";
+import type { Post } from "api/instagram";
 import ImageLinkOverlay from "components/imageLinkOverlay";
 import { Instagram } from "@mui/icons-material";
+import type { ReactElement } from "react";
 import { Zoom } from "@mui/material";
 
 /**
  * Renders an Instagram post.
- *
- * @param props An object containing the component props.
- * @param props.post The post object.
+ * @param props - An object containing the component props.
  * @returns An element which renders an Instagram post.
  */
-export default function InstagramPost({ post }: { readonly post: IPost; }): React.ReactElement {
+export default function InstagramPost({ post }: { readonly post: Post; }): ReactElement {
     // Posts with multiple images recursively call this element.
     if (post.media_type === "CAROUSEL_ALBUM") {
         return (
@@ -19,6 +18,7 @@ export default function InstagramPost({ post }: { readonly post: IPost; }): Reac
             </>
         );
     }
+
     // All other posts are displayed as a single image.
     return (
         // @ts-expect-error TypeScript configuration enforces that undefined properties and optional properties are different.
@@ -31,7 +31,7 @@ export default function InstagramPost({ post }: { readonly post: IPost; }): Reac
                 position: "absolute",
                 top: "50%",
                 transform: "translate(-50%, -50%)",
-                width: "50%"
+                width: "50%",
             }}
             />
         </ImageLinkOverlay>

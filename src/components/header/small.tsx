@@ -1,20 +1,21 @@
 import { Box, MenuItem, Typography } from "@mui/material";
 import Link from "next/link";
+import type { ReactElement } from "react";
 import useOutsideClick from "hooks/useOutsideClick";
 
-interface IProps {
+type IProps = {
     readonly backgroundColor: string;
     readonly toggleNavOpen: () => void;
     readonly pages: Array<{ label: string; link: string; }>;
-}
+};
 
 /**
  * Contains the nav bar for smaller displays.
- *
  * @returns The small nav.
  */
-export default function SmallNav({ backgroundColor, toggleNavOpen, pages }: IProps): React.ReactElement {
+export default function SmallNav({ backgroundColor, toggleNavOpen, pages }: IProps): ReactElement {
     const ref = useOutsideClick(toggleNavOpen);
+
     return (
         <Box
             alignItems="center"

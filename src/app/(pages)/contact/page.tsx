@@ -1,4 +1,5 @@
 import ContactForm from "./contactForm";
+import type { ReactElement } from "react";
 import SocialLinks from "components/socialLinks";
 import { Typography } from "@mui/material";
 
@@ -7,7 +8,7 @@ import { Typography } from "@mui/material";
  *
  * @returns My contact links, and an email form.
  */
-export default function Contact(): React.ReactElement {
+export default function Contact(): ReactElement {
     // Renders the contact page.
     return (
         <>

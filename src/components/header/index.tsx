@@ -1,8 +1,10 @@
 "use client";
+
 import { AppBar, IconButton, Toolbar, useMediaQuery, useScrollTrigger } from "@mui/material";
 import { DarkMode, LightMode, Menu } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import LargeHeader from "./large";
+import type { ReactElement } from "react";
 import SmallNav from "./small";
 import Title from "./title";
 import { usePathname } from "next/navigation";
@@ -10,10 +12,9 @@ import { useThemeContext } from "contexts/themeContext";
 
 /**
  * Creates the header element.
- *
  * @returns The page header.
  */
-export default function Header(): React.ReactElement {
+export default function Header(): ReactElement {
     // Access the site theme.
     const { theme, toggleTheme } = useThemeContext();
     const { palette: { background: { dark, light }, mode, primary: { main } } } = theme;
@@ -23,6 +24,7 @@ export default function Header(): React.ReactElement {
     const smallNav: boolean = useMediaQuery(theme.breakpoints.down("md"));
     const [navOpen, setNavOpen] = useState(false);
     const toggleNavOpen = (): void => setNavOpen(() => smallNav && !navOpen);
+
     useEffect(() => setNavOpen(false), [smallNav]);
     const pathname = usePathname();
     const textColour = { dark: light, light: dark }[pathname === "/" ? "dark" : mode];
@@ -34,7 +36,7 @@ export default function Header(): React.ReactElement {
         { label: "About Me", link: "/about" },
         { label: "Portfolio", link: "/portfolio" },
         { label: "Gallery", link: "/gallery" },
-        { label: "Contact Me", link: "/contact" }
+        { label: "Contact Me", link: "/contact" },
     ];
 
     // Returns an AppBar element (which renders as an HTML header element).
@@ -47,7 +49,7 @@ export default function Header(): React.ReactElement {
                 background: solidBackground ? null : "none",
                 backgroundImage: "none",
                 boxShadow: solidBackground ? null : "none",
-                color: solidBackground ? null : textColour
+                color: solidBackground ? null : textColour,
             }}
         >
             {/* Toolbar is essential for properly aligning elements within the AppBar. */}

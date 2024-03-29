@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { Typography } from "@mui/material";
 
 /**
@@ -5,7 +6,7 @@ import { Typography } from "@mui/material";
  *
  * @returns An arcade page.
  */
-export default function Arcade(): React.ReactElement {
+export default function Arcade(): ReactElement {
     return (
         <>
             <Typography variant="h2">Would you like to play a game?</Typography>

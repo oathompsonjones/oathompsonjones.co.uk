@@ -4,4 +4,5 @@ This catches that issue.
 */
 
 import Error from "app/not-found";
+
 export default Error;

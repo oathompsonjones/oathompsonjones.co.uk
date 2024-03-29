@@ -2,12 +2,12 @@ export const enum LogLevel {
     INFO = "INFO",
     WARN = "WARN",
     ERROR = "ERROR",
-    DEBUG = "DEBUG"
+    DEBUG = "DEBUG",
 }
 
-export interface ILog {
+export type Log = {
     content: string;
     level: LogLevel;
     production: boolean;
     timestamp: number;
-}
+};

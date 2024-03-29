@@ -1,10 +1,15 @@
 "use client";
+
 import { Alert, Button, FormControl, FormHelperText, FormLabel, Grid, Paper, TextField } from "@mui/material";
-import type { FormEvent } from "react";
+import type { FormEvent, ReactElement } from "react";
 import { Send } from "@mui/icons-material";
 import { useState } from "react";
 
-export default function ContactForm(): React.ReactElement {
+/**
+ * A contact form.
+ * @returns A contact form.
+ */
+export default function ContactForm(): ReactElement {
     // State variables for the content of the contact form.
     const [content, setContent] = useState("");
     const [email, setEmail] = useState("");
@@ -13,6 +18,10 @@ export default function ContactForm(): React.ReactElement {
     // State variable to say whether or not the form has been used (null if unused), and if so, if it's been successful (true/false).
     const [status, setStatus] = useState<boolean | null>(null);
 
+    /**
+     * Handles the submission of the form.
+     * @param event - The form event.
+     */
     async function handleSubmit(event: FormEvent): Promise<void> {
         // Prevents the default behaviour, which would reload the whole page.
         event.preventDefault();
@@ -28,7 +37,7 @@ export default function ContactForm(): React.ReactElement {
                 body: JSON.stringify({ content, email, name, subject }),
                 // eslint-disable-next-line @typescript-eslint/naming-convention
                 headers: { "Content-Type": "application/json" },
-                method: "POST"
+                method: "POST",
             });
 
             // Clears the fields for each of the fields in the form.
@@ -47,7 +56,10 @@ export default function ContactForm(): React.ReactElement {
     return (
         <Paper sx={{ display: "flex", mb: "1rem", p: "1rem" }}>
             {/* Form control calls handleSubmit when the form is submitted. */}
-            <FormControl component="form" onSubmit={(event: FormEvent): void => void handleSubmit(event)} sx={{ flex: 1 }}>
+            <FormControl
+                component="form" onSubmit={(event: FormEvent): void => {
+                    void handleSubmit(event);
+                }} sx={{ flex: 1 }}>
                 <Grid container spacing={2}>
                     {/* Renders an alert to state whether the form has been submitted. */}
                     {status !== null && (status

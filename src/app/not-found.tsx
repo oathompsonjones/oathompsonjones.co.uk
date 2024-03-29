@@ -1,12 +1,12 @@
 import Link from "next/link";
+import type { ReactElement } from "react";
 import { Typography } from "@mui/material";
 
 /**
  * Handles any 404 errors.
- *
  * @returns An error page.
  */
-export default function Error(): React.ReactElement {
+export default function Error(): ReactElement {
     return (
         <>
             <Typography gutterBottom variant="h2">Error 404 - Page not found</Typography>

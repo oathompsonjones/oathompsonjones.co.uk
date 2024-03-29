@@ -1,6 +1,6 @@
 import { Canvas, Image } from "canvas";
 
-export interface IRepo {
+export type Repo = {
     description: string;
     homepageUrl: string | null;
     image: string;
@@ -17,30 +17,38 @@ export interface IRepo {
         name: string;
     } | null;
     url: string;
-}
+};
 
-export interface IAPIResponse {
+export type APIResponse = {
     user: {
         organizations: {
             orgs: Array<{
                 repositories: {
-                    repos: IRepo[];
+                    repos: Repo[];
                 };
             }>;
         };
         repositories: {
-            repos: IRepo[];
+            repos: Repo[];
         };
     };
-}
+};
 
+/**
+ * Generates an image from an image binary.
+ * @param imageBinaries - The image binaries.
+ * @param i - The index of the image to generate.
+ * @returns The image.
+ */
 export function generateImage(imageBinaries: ArrayBuffer[], i: number): string {
     const image: Image = new Image();
+
     image.src = Buffer.from(imageBinaries[i]!);
 
     // Get the colour of the top left pixel of the image.
     let canvas = new Canvas(image.width, image.height);
     let context = canvas.getContext("2d");
+
     context.drawImage(image, 0, 0, image.width, image.height, 0, 0, image.width, image.height);
     const [r, g, b] = context.getImageData(0, 0, 1, 1).data;
     const colourToHex = (colour: number): string => colour.toString(16).padStart(2, "0");
@@ -56,6 +64,7 @@ export function generateImage(imageBinaries: ArrayBuffer[], i: number): string {
 
     // Draw the image with the correct dimensions.
     let [dw, dh, dx] = [image.width, image.height, 0];
+
     if (image.height >= image.width) {
         dh = canvas.height;
         dw = dh / image.height * image.width;
@@ -64,6 +73,8 @@ export function generateImage(imageBinaries: ArrayBuffer[], i: number): string {
         dw = canvas.width;
         dh = image.height / image.width * canvas.width;
     }
+
     context.drawImage(image, dx, 0, dw, dh);
+
     return `data:image/png;base64,${canvas.toBuffer().toString("base64")}`;
 }

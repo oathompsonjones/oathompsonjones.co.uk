@@ -1,7 +1,12 @@
 import Image from "next/image";
+import type { ReactElement } from "react";
 import desk from "images/desk.jpg";
 
-export default function BackgroundImage(): React.ReactElement {
+/**
+ * A background image.
+ * @returns A background image.
+ */
+export default function BackgroundImage(): ReactElement {
     return (
         <Image
             alt="Picture of a computer desk."
@@ -15,7 +20,7 @@ export default function BackgroundImage(): React.ReactElement {
                 position: "absolute",
                 top: 0,
                 transform: "translateX(-50%)",
-                width: "100%"
+                width: "100%",
             }}
         />
     );

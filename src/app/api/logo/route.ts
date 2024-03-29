@@ -3,6 +3,11 @@ import { Canvas } from "canvas";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
+/**
+ * Handles GET requests to the logo API.
+ * @param req - The request.
+ * @returns The response.
+ */
 export function GET(req: NextRequest): NextResponse {
     const { searchParams } = new URL(req.url);
     const parameters = {
@@ -15,10 +20,12 @@ export function GET(req: NextRequest): NextResponse {
         outerColour: validateHex(searchParams.get("outerColour"), "#094D1C"),
         outerLineColour: validateHex(searchParams.get("outerLineColour"), "#D4AF37"),
         pinColour: validateHex(searchParams.get("pinColour"), "#808080"),
-        topTextColour: validateHex(searchParams.get("topTextColour"), "#6ACF65")
+        topTextColour: validateHex(searchParams.get("topTextColour"), "#6ACF65"),
     };
     const canvas = new Canvas(SIZE, SIZE, getCanvasFileType(parameters.fileType));
+
     generateImage(canvas.getContext("2d"), parameters);
+
     return parameters.fileType === "dataUrl"
         ? new NextResponse(canvas.toDataURL())
         : new NextResponse(canvas.toBuffer(), { headers: { contentType: getResponseFileType(parameters.fileType) } });

@@ -3,10 +3,15 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { init } from "./init";
 
-
+/**
+ * Handles GET requests to the logs API.
+ * @param req - The request.
+ * @returns The response.
+ */
 export async function GET(req: NextRequest): Promise<NextResponse> {
     const [logsCollection, close] = await init();
     const logs = await logsCollection.find().toArray();
+
     close();
     const mappedLogs = logs
         .reverse()
@@ -14,11 +19,19 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
         .map((log) => {
             const dateTime = new Date(log.timestamp).toUTCString();
             const production = log.production ? "production" : "dev".padEnd(10);
+
             return `${dateTime}: ${production} ${log.level} - ${log.content.replace(/\n/ug, " \\n ")}`;
-        }).join("\n");
+        })
+        .join("\n");
+
     return new NextResponse(mappedLogs, { status: 200 });
 }
 
+/**
+ * Handles POST requests to the logs API.
+ * @param req - The request.
+ * @returns The response.
+ */
 export async function POST(req: NextRequest): Promise<NextResponse> {
     if (req.headers.get("content-type") !== "application/json")
         return new NextResponse("Invalid form body. Header 'content-type' must be of type 'application/json'.", { status: 400 });
@@ -41,9 +54,11 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const timestamp = Date.now();
 
     const [logsCollection, close] = await init();
+
     await logsCollection.insertOne({ content, level, production: process.platform === "linux", timestamp });
     close();
     // eslint-disable-next-line no-console
     console[level.toLowerCase() as "debug" | "error" | "info" | "warn"](timestamp, content);
+
     return new NextResponse("Log successful", { status: 200 });
 }

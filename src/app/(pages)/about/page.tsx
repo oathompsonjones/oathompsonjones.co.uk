@@ -3,16 +3,16 @@ import ALevels from "./alevels";
 import Bio from "./bio";
 import Experience from "./experience";
 import GCSEs from "./gcses";
+import type { ReactElement } from "react";
 import Skills from "./skills";
 import Spacer from "components/spacer";
 import University from "./university";
 
 /**
  * This page acts as an online CV.
- *
  * @returns My CV.
  */
-export default function About(): React.ReactElement {
+export default function About(): ReactElement {
     return (
         <>
             <div style={{ display: "flex" }}>

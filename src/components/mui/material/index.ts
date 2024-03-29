@@ -1,5 +1,7 @@
 "use client";
+
 declare module "@mui/material/styles" {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     interface TypeBackground {
         dark: string;
         light: string;
@@ -77,7 +79,7 @@ export {
     createTheme,
     responsiveFontSizes,
     useMediaQuery,
-    useScrollTrigger
+    useScrollTrigger,
 };
 
 export type { Breakpoint, Palette, SxProps, Theme, Variant };

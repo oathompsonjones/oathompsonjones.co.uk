@@ -1,14 +1,14 @@
-import { AGE, GRAVATAR_URL } from "utils";
 import { Avatar, Divider, Paper, Stack, Typography } from "@mui/material";
+import { GRAVATAR_URL, age } from "utils";
 import Link from "next/link";
 import Name from "components/name";
+import type { ReactElement } from "react";
 
 /**
  * Contains the bio segment for my CV page.
- *
  * @returns The Bio element.
  */
-export default function Bio(): React.ReactElement {
+export default function Bio(): ReactElement {
     return (
         <Paper sx={{ p: "1%" }}>
             <Typography variant="h4">Biography</Typography>
@@ -19,7 +19,7 @@ export default function Bio(): React.ReactElement {
                     sx={{
                         height: "auto",
                         m: "1rem",
-                        width: { lg: "30%", md: "50%", sm: "70%", xl: "20%", xs: "90%" }
+                        width: { lg: "30%", md: "50%", sm: "70%", xl: "20%", xs: "90%" },
                     }}
                 />
                 <Stack direction="column" flex={1} justifyContent="center" sx={{ width: "100%" }}>
@@ -30,7 +30,7 @@ export default function Bio(): React.ReactElement {
                     <Typography>British</Typography>
                     <Divider flexItem sx={{ m: "1.25% 0%" }} />
                     <Typography variant="h6">Age</Typography>
-                    <Typography>{AGE()}</Typography>
+                    <Typography>{age()}</Typography>
                 </Stack>
             </Stack>
             <br />

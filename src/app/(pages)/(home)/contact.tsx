@@ -1,7 +1,12 @@
 import ContactPage from "pages/contact/page";
+import type { ReactElement } from "react";
 import Section from "./section";
 
-export default function Contact(): React.ReactElement {
+/**
+ * This page displays contact information.
+ * @returns Contact information.
+ */
+export default function Contact(): ReactElement {
     return (
         <Section>
             <ContactPage />

@@ -1,24 +1,30 @@
 "use client";
+
 import {
     CssBaseline,
     ThemeProvider as MuiThemeProvider,
     StyledEngineProvider,
     createTheme,
-    responsiveFontSizes
+    responsiveFontSizes,
 } from "@mui/material";
 import type { Palette, Theme } from "@mui/material";
+import type { ReactElement, ReactNode } from "react";
 import { createContext, useContext, useMemo } from "react";
-import type { ReactNode } from "react";
 import useDarkMode from "hooks/useDarkMode";
 
-interface ThemeContextType {
+type ThemeContextType = {
     theme: Theme;
     toggleTheme: () => void;
-}
+};
 const ThemeContext = createContext<ThemeContextType>({} as ThemeContextType);
 const useThemeContext = (): ThemeContextType => useContext(ThemeContext);
 
-function ThemeProvider({ children }: { readonly children: ReactNode; }): React.ReactElement {
+/**
+ * Provides the theme to the application.
+ * @param children - The children to render.
+ * @returns The theme provider.
+ */
+function ThemeProvider({ children }: { readonly children: ReactNode; }): ReactElement {
     const [isDarkMode, toggleTheme] = useDarkMode();
 
     // Create the full theme.
@@ -28,18 +34,18 @@ function ThemeProvider({ children }: { readonly children: ReactNode; }): React.R
             MuiFab: { defaultProps: { color: "secondary" } },
             MuiPaper: {
                 defaultProps: { elevation: 5 },
-                styleOverrides: { root: { transition: "background-color 0.25s linear" } }
-            }
+                styleOverrides: { root: { transition: "background-color 0.25s linear" } },
+            },
         },
         palette: {
             background: {
                 dark: "#121212",
                 default: isDarkMode ? "#121212" : "#efefef",
-                light: "#efefef"
+                light: "#efefef",
             },
             mode: isDarkMode ? "dark" : "light",
             primary: { main: "#1c7eea" },
-            secondary: { main: "#ea881c" }
+            secondary: { main: "#ea881c" },
         },
         typography: (palette: Palette) => ({
             caption: { color: palette.secondary.main },
@@ -50,12 +56,12 @@ function ThemeProvider({ children }: { readonly children: ReactNode; }): React.R
             h5: { color: palette.primary.main },
             h6: { color: palette.primary.main },
             subtitle1: { color: palette.secondary.main },
-            subtitle2: { color: palette.secondary.main }
+            subtitle2: { color: palette.secondary.main },
         }),
         zIndex: {
             appBar: 10,
-            fab: 10
-        }
+            fab: 10,
+        },
     }), { breakpoints: ["xs", "sm", "md", "lg", "xl"] });
 
     return (

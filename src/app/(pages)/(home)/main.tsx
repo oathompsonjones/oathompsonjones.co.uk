@@ -2,9 +2,14 @@ import { Avatar, Button, Divider, Stack, Typography } from "@mui/material";
 import BackgroundImage from "./backgrounds/image";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
+import type { ReactElement } from "react";
 import Section from "./section";
 
-export default function Main(): React.ReactElement {
+/**
+ * This page displays the main page.
+ * @returns The main page.
+ */
+export default function Main(): ReactElement {
     return (
         <Section background={<BackgroundImage />}>
             <Stack alignItems="center" direction="column" justifyContent="center">

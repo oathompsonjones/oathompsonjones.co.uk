@@ -1,6 +1,13 @@
 "use client";
+
 import { useEffect, useState } from "react";
 
+/**
+ * Parses a string into a JSON object.
+ * @param value - The value to parse.
+ * @param fallbackValue - The value to return if the parsing fails.
+ * @returns The parsed value or the fallback value.
+ */
 function parse<T>(value: string, fallbackValue: T): T {
     try {
         return JSON.parse(value) as T;
@@ -11,9 +18,8 @@ function parse<T>(value: string, fallbackValue: T): T {
 
 /**
  * Provides the same behaviour as `useState`, but also stores data using localStorage.
- *
- * @param key The name of the variable to store in localStorage.
- * @param initialState The initial value to store for that variable.
+ * @param key - The name of the variable to store in localStorage.
+ * @param initialState - The initial value to store for that variable.
  * The first is the value stored, the second is a function to update that value.
  * @returns The value stored in localStorage, and a function to update that value.
  */
@@ -24,6 +30,7 @@ export default function useLocalStorage<T>(key: string, initialState: T): [T, (n
     // Stores the state in local storage once mounted.
     useEffect(() => {
         const item = localStorage.getItem(key);
+
         if (item !== null)
             setValue(parse<T>(item, initialState));
     }, []);

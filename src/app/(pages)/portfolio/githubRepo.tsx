@@ -4,23 +4,24 @@ import {
     Card, CardActions, CardContent, CardMedia,
     Stack,
     Typography,
-    Zoom
+    Zoom,
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
-import type { IRepo } from "api/github";
+import type { Repo } from "api/github";
+import type { ReactElement } from "react";
 
 /**
  * Renders a GitHub repository.
- *
- * @param props An object containing the component props.
- * @param  props.repo The repository object.
+ * @param props - An object containing the component props.
  * @returns An element which renders a GitHub repository.
  */
-export default function GitHubRepo({ repo }: { readonly repo: IRepo; }): React.ReactElement {
+export default function GitHubRepo({ repo }: { readonly repo: Repo; }): ReactElement {
     // Maps the repository languages into a more readable format.
-    const repoLanguages = repo.primaryLanguage === null ? "N/A" : `${repo.primaryLanguage.name} ${(
-        (languages: string[]): string => (languages.length > 0 ? `(${languages.join(", ")})` : "")
-    )(repo.languages.nodes.map((lang) => lang.name).filter((name) => name !== repo.primaryLanguage?.name))}`;
+    const repoLanguages = repo.primaryLanguage === null
+        ? "N/A"
+        : `${repo.primaryLanguage.name} ${(
+            (languages: string[]): string => (languages.length > 0 ? `(${languages.join(", ")})` : "")
+        )(repo.languages.nodes.map((lang) => lang.name).filter((name) => name !== repo.primaryLanguage?.name))}`;
 
     // Returns a Zoom element wrapping the repository to make it look nicer when loading in.
     return (
@@ -42,12 +43,14 @@ export default function GitHubRepo({ repo }: { readonly repo: IRepo; }): React.R
                     {/* Renders the extra information. */}
                     <AccordionDetails>
                         {/* Renders the repository team name, if there is one. */}
-                        {repo.nameWithOwner.split("/")[0] === "oathompsonjones" ? "" : (
-                            <>
-                                <Typography variant="h6">Team</Typography>
-                                <Typography>{repo.nameWithOwner.split("/")[0]}</Typography>
-                            </>
-                        )}
+                        {repo.nameWithOwner.split("/")[0] === "oathompsonjones"
+                            ? ""
+                            : (
+                                <>
+                                    <Typography variant="h6">Team</Typography>
+                                    <Typography>{repo.nameWithOwner.split("/")[0]}</Typography>
+                                </>
+                            )}
                         {/* Renders the languages used in this repository. */}
                         <Typography variant="h6">Languages</Typography>
                         <Typography>{repoLanguages}</Typography>

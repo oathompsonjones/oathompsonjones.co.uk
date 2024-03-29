@@ -1,13 +1,13 @@
 import { Divider, Paper, Typography } from "@mui/material";
 import Grade from "./grade";
 import Link from "next/link";
+import type { ReactElement } from "react";
 
 /**
  * Contains the University segment for my CV page.
- *
  * @returns The University element.
  */
-export default function University(): React.ReactElement {
+export default function University(): ReactElement {
     return (
         <Paper sx={{ display: "flex", flexDirection: "column", height: "100%", p: "2%" }}>
             <Typography variant="h4">Further Education</Typography>
