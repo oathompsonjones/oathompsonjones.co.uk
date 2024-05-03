@@ -9,7 +9,7 @@ import { Typography } from "@mui/material";
 export default function Privacy(): ReactElement {
     return (
         <>
-            <Typography variant="h1">
+            <Typography variant="h2">
                 Privacy Policy
             </Typography>
             <Typography>
