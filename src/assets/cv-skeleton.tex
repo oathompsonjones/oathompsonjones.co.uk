@@ -1,0 +1,68 @@
+% Define the type of document.
+\documentclass[10pt, a4paper]{article}
+
+% Set a more sensible document size.
+\usepackage[margin=1cm]{geometry}
+
+% Set the fonts.
+\usepackage[default]{lato}
+
+% Prevent words from being split accross lines.
+\tolerance=1\emergencystretch=\maxdimen\hyphenpenalty=10000\hbadness=10000
+
+% Prevent error from biber.
+\usepackage{biblatex}
+
+% Set up hyperlinks.
+\usepackage[hidelinks]{hyperref}
+
+% Allows the use of multiple columns.
+\usepackage{vwcol}
+
+% Removes numbers from sections and the contents page.
+\setcounter{secnumdepth}{0}
+
+% Remove page numbers.
+\pagenumbering{gobble}
+
+% Styles the title.
+\usepackage{xcolor}
+\usepackage{titling}
+    \pretitle{\centering\vskip-2cm\huge}
+    \posttitle{\par}
+    \preauthor{\centering}
+    \postauthor{\par}
+    \predate{}
+    \postdate{}
+    \renewcommand\maketitlehooka{\par\noindent{\color{lightgray}\hrulefill}\par}
+    \renewcommand\maketitlehookb{\par\noindent{\color{lightgray}\hrulefill}\par}
+
+% Style section sections.
+\usepackage[compact]{titlesec}
+\titleformat{\section}
+    {\color{black}\normalfont\large\bfseries}{\thesection}{0em}{}[{\color{lightgray}\titlerule\titlerule}]
+\titleformat{\subsection}
+    {\color{black}\normalfont}{\thesubsection}{0em}{}[{\color{lightgray}\titlerule}]
+
+% Reduce line height in tables.
+\renewcommand{\arraystretch}{1}
+
+% Sets the title.
+\title{Oliver Jones}
+\author{
+    \href{mailto:oathompsonones@gmail.com}{oathompsonones@gmail.com}
+    $\bullet$
+    07872 644095
+    $\bullet$
+    \href{https://oathompsonjones.co.uk}{oathompsonjones.co.uk}
+}
+\date{}
+
+% Begin the document.
+\begin{document}
+\maketitle
+\color{darkgray}
+
+%CONTENT%
+
+\end{document}
