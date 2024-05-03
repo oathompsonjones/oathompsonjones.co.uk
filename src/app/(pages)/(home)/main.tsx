@@ -15,8 +15,8 @@ export default function Main(): ReactElement {
             <Stack alignItems="center" direction="column" justifyContent="center">
                 <Avatar src={GRAVATAR_URL} sx={{ height: "auto", width: { lg: "30%", md: "50%", sm: "70%", xs: "90%" } }} />
                 <Typography align="center" variant="h1">Oliver Jones</Typography>
-                <Typography align="center" variant="h3">BSc Computer Science Undergraduate</Typography>
-                <Typography align="center" variant="h4">The University of Edinburgh</Typography>
+                <Typography align="center" variant="h3" color="secondary">BSc Computer Science Undergraduate</Typography>
+                <Typography align="center" variant="h4" color="secondary">The University of Edinburgh</Typography>
             </Stack>
             <Divider flexItem sx={{ bgcolor: "primary.main", m: "1%" }} />
             <Stack
