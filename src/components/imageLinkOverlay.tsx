@@ -43,20 +43,22 @@ export default function ImageLinkOverlay({ children, effect, glow, href, image }
             >
                 {children}
             </Link>
-            <CardMedia
-                component="img"
-                image={image}
-                sx={glow ?? false
-                    ? {
-                        filter: "blur(10px)",
-                        height: "calc(100% + 0.25rem)",
-                        margin: "-0.125rem",
-                        position: "absolute",
-                        width: "calc(100% + 0.25rem)",
-                        zIndex: -1,
-                    }
-                    : { display: "none" }}
-            />
+            {
+                glow ?? false ?
+                    <CardMedia
+                        component="img"
+                        image={image}
+                        sx={{
+                                filter: "blur(5px)",
+                                height: "calc(100% + 0.25rem)",
+                                margin: "-0.125rem",
+                                position: "absolute",
+                                width: "calc(100% + 0.25rem)",
+                                zIndex: -1,
+                            }}
+                    />
+                    : undefined
+            }
             <CardMedia component="img" image={image} sx={{ height: "100%", width: "100%" }} />
         </Card>
     );
