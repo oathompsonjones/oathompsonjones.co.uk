@@ -17,32 +17,24 @@ import type { ReactElement } from "react";
  */
 export default function GitHubRepo({ repo }: { readonly repo: Repo; }): ReactElement {
     // Maps the repository languages into a more readable format.
-    const repoLanguages = repo.primaryLanguage === null
-        ? "N/A"
-        : `${repo.primaryLanguage.name} ${(
-            (languages: string[]): string => (languages.length > 0 ? `(${languages.join(", ")})` : "")
-        )(repo.languages.nodes.map((lang) => lang.name).filter((name) => name !== repo.primaryLanguage?.name))}`;
+    const nonPrimaryLanguages = repo.languages.nodes.map((lang) => lang.name).filter((name) => name !== repo.primaryLanguage?.name);
+    const repoLanguages = <>
+        <strong>{repo.primaryLanguage?.name}</strong>{nonPrimaryLanguages.length > 0 ? `, ${nonPrimaryLanguages.join(", ")}` : ""}
+    </>;
 
     // Returns a Zoom element wrapping the repository to make it look nicer when loading in.
     return (
         <Zoom in>
-            {/* This Card element contains the repository. */}
             <Card>
-                {/* Renders the repository image. */}
                 <CardMedia component="img" image={repo.image} />
-                {/* Renders the repository name. */}
                 <CardContent>
                     <Typography variant="h6">{repo.name}</Typography>
                 </CardContent>
-                {/* Renders an Accordion to hide extra information by default. */}
                 <Accordion>
-                    {/* Renders a Learn More button. */}
                     <AccordionSummary expandIcon={<ExpandMore />}>
                         <Typography>Learn More</Typography>
                     </AccordionSummary>
-                    {/* Renders the extra information. */}
                     <AccordionDetails>
-                        {/* Renders the repository team name, if there is one. */}
                         {repo.nameWithOwner.split("/")[0] === "oathompsonjones"
                             ? ""
                             : (
@@ -51,20 +43,24 @@ export default function GitHubRepo({ repo }: { readonly repo: Repo; }): ReactEle
                                     <Typography>{repo.nameWithOwner.split("/")[0]}</Typography>
                                 </>
                             )}
-                        {/* Renders the languages used in this repository. */}
-                        <Typography variant="h6">Languages</Typography>
-                        <Typography>{repoLanguages}</Typography>
-                        {/* Renders buttons to goto the repository or its website. */}
+                        {repo.primaryLanguage === null
+                            ? undefined
+                            : (
+                                <>
+                                    <Typography variant="h6">Languages</Typography>
+                                    <Typography>{repoLanguages}</Typography>
+                                </>
+                            )}
                         <CardActions>
                             <Stack alignItems="center" direction="row" justifyContent="space-evenly" width="100%">
                                 {
                                     repo.isPrivate
-                                        ? <Button disabled size="small" variant="text">View Code</Button>
+                                        ? undefined
                                         : <Button href={repo.url} size="small" variant="text">View Code</Button>
                                 }
                                 {
                                     repo.isPrivate
-                                        ? <Button disabled size="small" variant="text">View Site</Button>
+                                        ? undefined
                                         : (
                                             <Button
                                                 href={repo.homepageUrl !== null && repo.homepageUrl.length > 0
@@ -79,7 +75,6 @@ export default function GitHubRepo({ repo }: { readonly repo: Repo; }): ReactEle
                                 }
                             </Stack>
                         </CardActions>
-                        {/* Renders the repository description. */}
                         {repo.description}
                     </AccordionDetails>
                 </Accordion>
