@@ -86,7 +86,7 @@ function ThemeProvider({ children }: { readonly children: ReactNode; }): ReactEl
                             }
                             main {
                                 flex: 1;
-                                padding: 4rem 1rem 1rem;
+                                padding: 4rem 3rem 1rem;
                             }
                             p, span {
                                 transition: color 0.25s linear;

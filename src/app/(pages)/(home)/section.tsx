@@ -26,21 +26,21 @@ export default function Section({ background, children }: {
             component="section"
             sx={{
                 // eslint-disable-next-line @typescript-eslint/naming-convention
-                "&:last-of-type": { margin: "-4rem -1rem -1rem", minHeight: `${height}px` },
+                "&:last-of-type": { marginBottom: "-1rem", minHeight: `${height}px` },
                 alignItems: "center",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
-                margin: "-4rem -1rem 4rem",
+                margin: "-4rem -3rem 4rem",
                 minHeight: "100dvh",
                 overflow: "hidden",
-                padding: "5rem 1rem 1rem",
+                padding: "5rem 3rem 1rem",
                 position: "relative",
                 scrollSnapAlign: "start",
             }}
         >
             <Box zIndex={-1}>{background ?? <BackgroundCursor />}</Box>
-            <Box sx={{ width: "100%" }}>{children}</Box>
+            <Box width="100%">{children}</Box>
         </Box>
     );
 }
