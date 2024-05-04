@@ -15,11 +15,8 @@ export default function About(): ReactElement {
         <Section>
             <Stack alignItems="center" direction={{ md: "row-reverse" }} spacing="2rem">
                 <Avatar
-                    src={GRAVATAR_URL} sx={{
-                        height: "auto",
-                        maxWidth: "90vh",
-                        width: { md: "50%", sm: "70%", xs: "90%" },
-                    }}
+                    src={GRAVATAR_URL}
+                    sx={{ boxShadow: 20, height: "auto", width: { lg: "30%", md: "50%", sm: "70%", xs: "90%" } }}
                 />
                 <Stack>
                     <Typography variant="h1">Hi, I'm Ollie</Typography>
