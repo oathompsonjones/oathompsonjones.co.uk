@@ -28,10 +28,11 @@ export default function BackgroundCursor(): ReactElement {
                 left: "50%",
                 objectFit: "cover",
                 overflow: "hidden",
-                position: "absolute",
+                position: "fixed",
                 top: 0,
                 transform: "translateX(-50%)",
                 width: "100%",
+                zIndex: -1,
             }}
         />
     );

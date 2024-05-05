@@ -1,21 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import BackgroundCursor from "pages/(home)/backgrounds/cursor";
 import { Box } from "@mui/material";
 import type { ReactElement } from "react";
 import useWindowSize from "hooks/useWindowSize";
 
 /**
  * A section on the home page.
- * @param background - The background.
  * @param children - The children.
  * @returns A section on the home page.
  */
-export default function Section({ background, children }: {
-    readonly background?: ReactElement;
-    readonly children?: ReactElement | ReactElement[];
-}): ReactElement {
+export default function Section({ children }: { readonly children?: ReactElement | ReactElement[]; }): ReactElement {
     const { innerHeight } = useWindowSize();
     const [height, setHeight] = useState(0);
 
@@ -39,7 +34,6 @@ export default function Section({ background, children }: {
                 scrollSnapAlign: "start",
             }}
         >
-            <Box zIndex={-1}>{background ?? <BackgroundCursor />}</Box>
             <Box width="100%">{children}</Box>
         </Box>
     );
