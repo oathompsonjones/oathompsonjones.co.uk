@@ -6,6 +6,7 @@ import type { ReactElement } from "react";
 import ScrollToTop from "components/scrollToTop";
 import { ThemeProvider } from "contexts/themeContext";
 import { gravatarURL } from "utils";
+import BackgroundCursor from "components/cursor";
 
 // https://realfavicongenerator.net (remove the mask icon and msapplication stuff)
 export const metadata: Metadata = {
@@ -49,6 +50,7 @@ export default function Layout({ children }: { readonly children: ReactElement; 
             <body>
                 <noscript>You need to enable JavaScript to run this app.</noscript>
                 <ThemeProvider>
+                    <BackgroundCursor />
                     <Header />
                     <main>{children}</main>
                     <ScrollToTop />

@@ -6,7 +6,6 @@ import Link from "next/link";
 import type { ReactElement } from "react";
 import Section from "./section";
 import desk from "images/desk.jpg";
-import BackgroundCursor from "./cursor";
 
 /**
  * This is the home page.
@@ -16,7 +15,7 @@ export default function Home(): ReactElement {
     return (
         <>
             {/* Background */}
-            <Box zIndex={-10} position="fixed">
+            <Box zIndex={-5} position="fixed">
                 <Image
                     alt="Picture of a computer desk."
                     src={desk}
@@ -24,7 +23,6 @@ export default function Home(): ReactElement {
                     fill
                 />
             </Box>
-            <BackgroundCursor />
             {/* Home */}
             <Section>
                 <Stack alignItems="center" direction="column" justifyContent="center">
