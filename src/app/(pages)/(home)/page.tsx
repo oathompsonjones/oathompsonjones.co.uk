@@ -16,7 +16,7 @@ export default function Home(): ReactElement {
     return (
         <>
             {/* Background */}
-            <Box zIndex={-10}>
+            <Box zIndex={-10} position="fixed">
                 <Image
                     alt="Picture of a computer desk."
                     src={desk}
