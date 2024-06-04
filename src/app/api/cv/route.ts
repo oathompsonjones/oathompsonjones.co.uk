@@ -11,7 +11,7 @@ const data = cv as CV;
  * @returns The CV in PDF format.
  */
 export async function GET(): Promise<NextResponse> {
-    const tex = generateTex(Object.keys(data).map((section) => mapSection(section as keyof CV)).join("\n"));
+    const tex = await generateTex(Object.keys(data).map((section) => mapSection(section as keyof CV)).join("\n"));
     let pdf: Buffer | null = null;
 
     try {
