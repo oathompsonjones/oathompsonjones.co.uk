@@ -43,13 +43,13 @@ type Res = {
 export async function refreshToken(): Promise<void> {
     try {
         if (Date.now() >= Config.instagram.accessTokenRefreshAt) {
-            const { access_token, expires_in } = await fetch(`https://graph.instagram.com/refresh_access_token?${[
+            const { access_token: accessToken } = await fetch(`https://graph.instagram.com/refresh_access_token?${[
                 "grant_type=ig_refresh_token",
                 `access_token=${Config.instagram.accessToken}`,
             ].join("&")}`).then(async (res) => await res.json() as Res);
 
-            Config.instagram.accessToken = access_token;
-            Config.instagram.accessTokenRefreshAt = Math.floor(Date.now() + 9 / 10 * expires_in);
+            Config.instagram.accessToken = accessToken;
+            Config.instagram.accessTokenRefreshAt = Date.now() + 24 * 60 * 60 * 1000;
             await writeFile("./config.json", JSON.stringify(Config, null, 4));
 
             await Logger.info("Instagram token refreshed");
