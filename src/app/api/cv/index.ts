@@ -1,5 +1,5 @@
 import cv from "assets/cv.json";
-import fs from "fs/promises";
+import fs from "fs";
 
 const data = cv as CV;
 
@@ -14,8 +14,9 @@ export type CV = {
  * @param content - The content of the CV.
  * @returns The LaTeX document.
  */
-export async function generateTex(content: string): Promise<string> {
-    const skeleton = await fs.readFile("src/assets/cv-skeleton.tex", "utf8");
+export function generateTex(content: string): string {
+    // eslint-disable-next-line no-sync
+    const skeleton = fs.readFileSync("src/assets/cv-skeleton.tex", "utf8");
 
     return skeleton.replace("%CONTENT%", content);
 }
