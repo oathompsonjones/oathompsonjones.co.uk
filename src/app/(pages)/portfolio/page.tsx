@@ -1,10 +1,10 @@
 "use client";
 
 import GitHubRepo from "./githubRepo";
-import type { Repo } from "api/github";
 import Link from "next/link";
 import { Masonry } from "@mui/lab";
 import type { ReactElement } from "react";
+import type { Repo } from "api/github";
 import { Typography } from "@mui/material";
 import useFetch from "hooks/useFetch";
 

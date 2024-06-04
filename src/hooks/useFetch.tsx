@@ -25,7 +25,7 @@ function promiseWrapper<T = unknown>(promise: Promise<T>): () => T {
     return (): T => {
         switch (status) {
             case "pending":
-                // eslint-disable-next-line @typescript-eslint/no-throw-literal
+                // eslint-disable-next-line @typescript-eslint/no-throw-literal, @typescript-eslint/only-throw-error
                 throw s;
             case "success":
                 return result as T;

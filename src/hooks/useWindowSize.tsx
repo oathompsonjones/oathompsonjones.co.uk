@@ -30,7 +30,7 @@ export default function useWindowSize(): WindowDimensions {
     useEffect(() => {
         window.addEventListener("resize", onResize);
 
-        return () => window.removeEventListener("resize", onResize);
+        return (): void => window.removeEventListener("resize", onResize);
     }, []);
 
     return windowSize;

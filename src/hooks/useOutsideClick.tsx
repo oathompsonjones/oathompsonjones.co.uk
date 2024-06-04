@@ -16,7 +16,7 @@ export default function useOutsideClick<T>(callback: () => T): RefObject<HTMLEle
 
         document.addEventListener("click", handleClick);
 
-        return () => document.removeEventListener("click", handleClick);
+        return (): void => document.removeEventListener("click", handleClick);
     }, []);
 
     return ref;

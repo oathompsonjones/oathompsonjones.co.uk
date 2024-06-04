@@ -1,6 +1,6 @@
-import type { Post } from "api/instagram";
 import ImageLinkOverlay from "components/imageLinkOverlay";
 import { Instagram } from "@mui/icons-material";
+import type { Post } from "api/instagram";
 import type { ReactElement } from "react";
 import { Zoom } from "@mui/material";
 

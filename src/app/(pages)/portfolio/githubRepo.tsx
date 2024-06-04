@@ -7,8 +7,8 @@ import {
     Zoom,
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
-import type { Repo } from "api/github";
 import type { ReactElement } from "react";
+import type { Repo } from "api/github";
 
 /**
  * Renders a GitHub repository.
@@ -18,9 +18,11 @@ import type { ReactElement } from "react";
 export default function GitHubRepo({ repo }: { readonly repo: Repo; }): ReactElement {
     // Maps the repository languages into a more readable format.
     const nonPrimaryLanguages = repo.languages.nodes.map((lang) => lang.name).filter((name) => name !== repo.primaryLanguage?.name);
-    const repoLanguages = <>
-        <strong>{repo.primaryLanguage?.name}</strong>{nonPrimaryLanguages.length > 0 ? `, ${nonPrimaryLanguages.join(", ")}` : ""}
-    </>;
+    const repoLanguages = (
+        <>
+            <strong>{repo.primaryLanguage?.name}</strong>{nonPrimaryLanguages.length > 0 ? `, ${nonPrimaryLanguages.join(", ")}` : ""}
+        </>
+    );
 
     // Returns a Zoom element wrapping the repository to make it look nicer when loading in.
     return (

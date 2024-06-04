@@ -48,7 +48,7 @@ export default function useMousePosition(): MousePosition {
     useEffect(() => {
         document.addEventListener("mousemove", updateMousePosition);
 
-        return () => document.removeEventListener("mousemove", updateMousePosition);
+        return (): void => document.removeEventListener("mousemove", updateMousePosition);
     }, []);
 
     return mousePosition;

@@ -1,9 +1,9 @@
 "use client";
 
-import type { Post } from "api/instagram";
 import InstagramPost from "./instagramPost";
 import Link from "next/link";
 import { Masonry } from "@mui/lab";
+import type { Post } from "api/instagram";
 import type { ReactElement } from "react";
 import { Typography } from "@mui/material";
 import useFetch from "hooks/useFetch";
