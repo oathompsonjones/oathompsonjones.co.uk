@@ -9,35 +9,36 @@
         "lint": "eslint ."
     },
     "devDependencies": {
-        "@oathompsonjones/eslint-config": "^1.2.2",
-        "@oathompsonjones/ts-config": "^0.0.31",
+        "@oathompsonjones/eslint-config": "^1.2.3",
+        "@oathompsonjones/ts-config": "^0.0.34",
         "@types/http-proxy": "^1.17.14",
         "@types/md5": "^2.3.5",
-        "@types/node": "^20.14.1",
+        "@types/node": "^20.14.12",
         "@types/nodemailer": "^6.4.15",
         "@types/react": "^18.3.3",
         "@types/react-dom": "^18.3.0",
-        "typescript": "^5.4.5"
+        "typescript": "^5.5.4"
     },
     "dependencies": {
-        "@emotion/react": "^11.11.4",
-        "@emotion/styled": "^11.11.5",
-        "@mui/icons-material": "^5.15.19",
-        "@mui/lab": "5.0.0-alpha.170",
-        "@mui/material": "^5.15.19",
+        "@emotion/react": "^11.13.0",
+        "@emotion/styled": "^11.13.0",
+        "@mui/icons-material": "^5.16.5",
+        "@mui/lab": "5.0.0-alpha.173",
+        "@mui/material": "^5.16.5",
         "@octokit/graphql": "^8.1.1",
         "@svgr/webpack": "^8.1.0",
         "canvas": "^2.11.2",
         "encoding": "^0.1.13",
         "http-proxy": "^1.18.1",
         "md5": "^2.3.0",
-        "mongodb": "^6.7.0",
-        "next": "^14.2.3",
+        "mongodb": "^6.8.0",
+        "next": "^14.2.5",
         "node-pdflatex": "^0.3.0",
-        "nodemailer": "^6.9.13",
+        "nodemailer": "^6.9.14",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "react-material-ui-carousel": "^3.4.2",
         "sharp": "^0.33.4"
-    }
+    },
+    "packageManager": "pnpm@9.1.4+sha512.9df9cf27c91715646c7d675d1c9c8e41f6fce88246f1318c1aa6a1ed1aeb3c4f032fcdf4ba63cc69c4fe6d634279176b5358727d8f2cc1e65b65f43ce2f8bfb0"
 }
