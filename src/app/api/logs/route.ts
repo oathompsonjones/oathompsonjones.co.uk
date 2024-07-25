@@ -20,7 +20,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
             const dateTime = new Date(log.timestamp).toUTCString();
             const production = log.production ? "production" : "dev".padEnd(10);
 
-            return `${dateTime}: ${production} ${log.level} - ${log.content.replace(/\n/ug, " \\n ")}`;
+            return `${dateTime}: ${production} ${log.level} - ${log.content.replace(/\n/g, " \\n ")}`;
         })
         .join("\n");
 

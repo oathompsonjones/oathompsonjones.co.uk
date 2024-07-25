@@ -122,7 +122,7 @@ export function generateImage(ctx: CanvasRenderingContext2D, parameters: Paramet
  * @returns The validated hex colour.
  */
 export function validateHex<T extends string | null>(str: string | null, defaultValue: T): T {
-    return str !== null && (/#?[0-9a-fA-F]{6}/u).test(str) ? str.padStart(7, "#") as T : defaultValue;
+    return str !== null && (/#?[0-9a-fA-F]{6}/).test(str) ? str.padStart(7, "#") as T : defaultValue;
 }
 
 /**

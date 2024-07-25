@@ -16,7 +16,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
     // Get each field from the body.
     const body: unknown = await req.json();
-    const validEmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/u;
+    const validEmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const validBody = typeof body === "object" &&
         body !== null &&
         Object.keys(body).length === 4 &&

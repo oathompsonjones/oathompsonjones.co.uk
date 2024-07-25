@@ -24,8 +24,8 @@ export default function Skills(): ReactElement {
      */
     function mapData(content: string): ReactElement {
         // eslint-disable-next-line prefer-named-capture-group
-        const matchingRegExp = /\[([^\]]+)\]\(([^\s)]+)\)/ug;
-        const nonMatchingRegExp = /\[[^\]]+\]\([^\s)]+\)/ug;
+        const matchingRegExp = /\[([^\]]+)\]\(([^\s)]+)\)/g;
+        const nonMatchingRegExp = /\[[^\]]+\]\([^\s)]+\)/g;
         const links: string[] = content.match(matchingRegExp) ?? [];
         const splitAtLinks: string[] = content.split(nonMatchingRegExp);
         const output: Array<ReactNode | string> = [];

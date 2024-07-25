@@ -28,11 +28,11 @@ export async function generateTex(content: string): Promise<string> {
 function format(content: string): string {
     return content
         // eslint-disable-next-line prefer-named-capture-group
-        .replace(/\[([^\]]+)\]\(([^\s)]+)\)/ug, "\\href{$2}{$1}")
-        .replace(/\n/ug, " \\\\\n")
+        .replace(/\[([^\]]+)\]\(([^\s)]+)\)/g, "\\href{$2}{$1}")
+        .replace(/\n/g, " \\\\\n")
         // eslint-disable-next-line prefer-named-capture-group
-        .replace(/([#&])/ug, "\\$1")
-        .replace(/\s-\s/ug, " --- ");
+        .replace(/([#&])/g, "\\$1")
+        .replace(/\s-\s/g, " --- ");
 }
 
 /**
