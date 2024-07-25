@@ -18,7 +18,7 @@ export default function Error({ error, reset }: { readonly error: Error; readonl
 
     return (
         <>
-            <Typography variant="h4">An error occurred, please try again later.</Typography>
+            <Typography color="secondary" variant="h4">An error occurred, please try again later.</Typography>
             <Button onClick={reset} size="large">Try Again</Button>
         </>
     );
