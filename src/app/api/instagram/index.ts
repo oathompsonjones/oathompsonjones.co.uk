@@ -1,4 +1,4 @@
-/* eslint-disable require-atomic-updates, @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/naming-convention */
 import Config from "../../../../config.json";
 import Logger from "logger";
 import { writeFile } from "fs/promises";
@@ -48,8 +48,11 @@ export async function refreshToken(): Promise<void> {
                 `access_token=${Config.instagram.accessToken}`,
             ].join("&")}`).then(async (res) => await res.json() as Res);
 
-            Config.instagram.accessToken = accessToken;
-            Config.instagram.accessTokenRefreshAt = Date.now() + 24 * 60 * 60 * 1000;
+            Config.instagram = {
+                ...Config.instagram,
+                accessToken,
+                accessTokenRefreshAt: Date.now() + 24 * 60 * 60 * 1000,
+            };
             await writeFile("./config.json", JSON.stringify(Config, null, 4));
 
             await Logger.info("Instagram token refreshed");

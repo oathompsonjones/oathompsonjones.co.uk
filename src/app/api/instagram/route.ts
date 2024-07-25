@@ -3,6 +3,16 @@ import { NextResponse } from "next/server";
 import type { Post } from ".";
 import { refreshToken } from ".";
 
+type Res = {
+    data: Post[];
+    paging: {
+        cursors: {
+            after: string;
+            before: string;
+        };
+    };
+};
+
 /**
  * Gets the Instagram posts.
  * @returns The Instagram posts.
@@ -18,15 +28,7 @@ export async function GET(): Promise<NextResponse> {
         "timestamp",
         "username",
         "children{media_type, media_url}",
-    ].join(",")}&access_token=${Config.instagram.accessToken}`).then(async (res) => res.json()) as {
-        data: Post[];
-        paging: {
-            cursors: {
-                after: string;
-                before: string;
-            };
-        };
-    };
+    ].join(",")}&access_token=${Config.instagram.accessToken}`).then(async (res) => res.json()) as Res;
     const data = response.data.filter((post) => !post.permalink.startsWith("https://www.instagram.com/reel/"));
     const head = data.find((post) => post.caption?.includes("#pin"));
     const tail = data.filter((post) => post.id !== head?.id);
