@@ -26,7 +26,7 @@ export default function GitHubRepo({ repo }: { readonly repo: Repo; }): ReactEle
 
     // Returns a Zoom element wrapping the repository to make it look nicer when loading in.
     return (
-        <Zoom in>
+        <Zoom in timeout={500}>
             <Card>
                 <CardMedia component="img" image={repo.image} />
                 <CardContent>
