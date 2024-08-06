@@ -98,7 +98,9 @@ function ThemeProvider({ children }: { readonly children: ReactNode; }): ReactEl
                             }
                         `}
                     </style>
-                    {children}
+                    <div style={{ height: "100dvh" }}>
+                        {children}
+                    </div>
                 </MuiThemeProvider>
             </ThemeContext.Provider>
         </StyledEngineProvider>
