@@ -17,7 +17,7 @@ export default function University(): ReactElement {
             </Typography>
             <Grade grade="I" subject="1st Year" />
             <Grade grade="II.i" subject="2nd Year" />
-            <Grade grade="TBD" subject="3rd Year" />
+            <Grade grade="I" subject="3rd Year" />
             <Grade grade="TBD" subject="4th Year" />
             <Grade grade="TBD" subject="Final Grade" />
             <Divider sx={{ m: "1.25% 0%" }} />
