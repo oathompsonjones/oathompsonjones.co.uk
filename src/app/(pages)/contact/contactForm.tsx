@@ -1,6 +1,6 @@
 "use client";
 
-import { Alert, Button, FormControl, FormHelperText, FormLabel, Grid, Paper, TextField } from "@mui/material";
+import { Alert, Button, FormControl, FormLabel, Grid, Paper, TextField } from "@mui/material";
 import type { FormEvent, ReactElement } from "react";
 import { Send } from "@mui/icons-material";
 import { useState } from "react";
@@ -132,10 +132,7 @@ export default function ContactForm(): ReactElement {
                         />
                     </Grid>
                     {/* Renders the send (submit) button. */}
-                    <Grid item xs={9}>
-                        <FormHelperText>Fields marked * are required.</FormHelperText>
-                    </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={12}>
                         <Button endIcon={<Send />} sx={{ float: "right" }} type="submit">
                             Send
                         </Button>
