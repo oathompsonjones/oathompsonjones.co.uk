@@ -52,7 +52,9 @@ export default function Home(): ReactElement {
         fadingDivs[0].style.filter = "opacity(100%)";
         fadingDivs[1].style.filter = "opacity(0%)";
 
-        window.addEventListener("scroll", handleScroll.bind(null, sectionCount, avatar, fadingDivs, pos1, pos2));
+        const handler = handleScroll.bind(null, sectionCount, avatar, fadingDivs, pos1, pos2);
+        window.addEventListener("scroll", handler, { passive: true, capture: true });
+        return () => window.removeEventListener("scroll", handler);
     }, []);
 
     return (
