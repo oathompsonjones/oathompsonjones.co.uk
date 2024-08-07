@@ -1,5 +1,6 @@
 "use client";
 
+import { Box } from "@mui/material";
 import type { ReactElement } from "react";
 
 /**
@@ -11,22 +12,22 @@ export default function FadingDiv({ children }: {
     readonly children?: ReactElement | ReactElement[];
 }): ReactElement {
     return (
-        <div
+        <Box
             className="fadingDiv"
-            style={{
+            sx={{
                 alignItems: "center",
                 flexDirection: "column",
                 display: "flex",
                 filter: `opacity(0%)`,
+                height: "100dvh",
                 justifyContent: "center",
-                minHeight: "100dvh",
                 overflow: "hidden",
                 padding: "5rem 0rem 1rem",
-                position: "fixed",
+                position: { md: "fixed" },
                 top: 0,
                 transition: "filter 0.25s linear",
             }}>
             {children}
-        </div>
+        </Box>
     );
 }

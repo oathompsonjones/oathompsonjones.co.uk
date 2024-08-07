@@ -1,16 +1,13 @@
 "use client";
 
-import { Box, Button, Divider, Stack, Typography } from "@mui/material";
-import { age } from "utils";
 import ContactPage from "pages/contact/page";
-import Image from "next/image";
-import Link from "next/link";
 import type { ReactElement } from "react";
 import Section from "./section";
-import desk from "images/desk.jpg";
 import { useEffect } from "react";
-import FadingDiv from "./fadingDiv";
 import ProfilePicture from "./profilePicture";
+import Main from "./main";
+import About from "./about";
+import Background from "./background";
 
 /**
  * This is the home page.
@@ -60,63 +57,11 @@ export default function Home(): ReactElement {
 
     return (
         <>
-            {/* Background */}
-            <Box zIndex={-5} position="fixed">
-                <Image
-                    alt="Picture of a computer desk."
-                    src={desk}
-                    style={{ filter: "brightness(50%) opacity(90%)", position: "fixed" }}
-                    fill
-                />
-            </Box>
-            {/* Scrolling animation avatar */}
+            <Background />
             <ProfilePicture />
-            {/* Home */}
-            <Section>
-                <FadingDiv>
-                    <Stack alignItems="center" direction="column" justifyContent="center">
-                        <ProfilePicture positioner />
-                        <Typography align="center" variant="h1">Oliver Jones</Typography>
-                        <Typography align="center" variant="h3" color="secondary">BSc Computer Science Undergraduate</Typography>
-                        <Typography align="center" variant="h4" color="secondary">The University of Edinburgh</Typography>
-                    </Stack>
-                    <Divider flexItem sx={{ bgcolor: "primary.main", m: "1%" }} />
-                    <Stack
-                        alignItems="center"
-                        direction={{ sm: "row", xs: "column" }}
-                        justifyContent="space-evenly"
-                        spacing="1%"
-                        sx={{ width: "100%" }}
-                    >
-                        <Button LinkComponent={Link} href="/about" size="large">About Me</Button>
-                        <Button LinkComponent="a" href="/api/cv" size="large">Download CV</Button>
-                        <Button LinkComponent={Link} href="/contact" size="large">Contact Me</Button>
-                    </Stack>
-                    <Divider flexItem sx={{ bgcolor: "primary.main", m: "1%" }} />
-                </FadingDiv>
-            </Section>
-            {/* About */}
-            <Section>
-                <FadingDiv>
-                    <Stack alignItems="center" direction={{ md: "row-reverse" }} spacing="2rem">
-                        <ProfilePicture positioner />
-                        <Stack>
-                            <Typography variant="h1">Hi, I'm Ollie</Typography>
-                            <Typography color="secondary" variant="h4">
-                                I'm {age()} years old, studying undergraduate Computer Science at the University of Edinburgh.
-                                I have a passion for programming, which stems from a love of solving problems.
-                                I direct that passion towards writing high quality code, creating efficient and robust solutions
-                                to the problems presented to me.
-                                Take a look at my CV <Link href="/about">here</Link>.
-                            </Typography>
-                        </Stack>
-                    </Stack>
-                </FadingDiv>
-            </Section>
-            {/* Contact */}
-            <Section>
-                <ContactPage />
-            </Section>
+            <Section><Main /></Section>
+            <Section><About /></Section>
+            <Section><ContactPage /></Section>
         </>
     );
 }

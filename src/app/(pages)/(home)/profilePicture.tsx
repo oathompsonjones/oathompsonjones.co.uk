@@ -15,7 +15,8 @@ export default function ProfilePicture({ positioner }: { readonly positioner?: b
             className={positioner ? "avatarPosition" : "avatar"}
             src={GRAVATAR_URL}
             sx={{
-                filter: positioner ? "opacity(0%)" : undefined,
+                display: { md: "block", xs: positioner ? undefined : "none" },
+                filter: positioner ? { md: "opacity(0%)", xs: undefined } : undefined,
                 height: "auto",
                 transition: ["left", "top", "width", "height"]
                     .map((prop) => `${prop} 0.5s ease`).join(", ") + ", filter 0.25s linear",

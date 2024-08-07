@@ -28,7 +28,7 @@ export default function Header(): ReactElement {
     useEffect(() => setNavOpen(false), [smallNav]);
     const pathname = usePathname();
     const textColour = { dark: light, light: dark }[pathname === "/" ? "dark" : mode];
-    const solidBackground = scrolling && pathname !== "/" || smallNav && navOpen;
+    const solidBackground = (mobile?: boolean) => scrolling && (mobile ? true : pathname !== "/") || smallNav && navOpen;
 
     // Associate a label and link with each page.
     const pages: Array<{ label: string; link: string; }> = [
@@ -46,10 +46,10 @@ export default function Header(): ReactElement {
             enableColorOnDark
             position="fixed"
             sx={{
-                background: solidBackground ? null : "none",
+                background: { md: solidBackground() ? null : "none", xs: solidBackground(true) ? null : "none" },
                 backgroundImage: "none",
-                boxShadow: solidBackground ? null : "none",
-                color: solidBackground ? null : textColour,
+                boxShadow: { md: solidBackground() ? null : "none", xs: solidBackground(true) ? null : "none" },
+                color: { md: solidBackground() ? null : textColour, xs: solidBackground(true) ? null : textColour },
             }}
         >
             {/* Toolbar is essential for properly aligning elements within the AppBar. */}
@@ -57,7 +57,7 @@ export default function Header(): ReactElement {
                 <IconButton color="inherit" onClick={toggleNavOpen} sx={{ display: { md: "none", xs: "block" }, height: "40px" }}>
                     <Menu />
                 </IconButton>
-                <Title textColour={solidBackground ? light : textColour} />
+                <Title textColour={solidBackground() ? light : textColour} />
                 <LargeHeader pages={pages} />
                 {/* Renders a button to control dark/light theme. This renders on displays of any size. */}
                 <IconButton color="inherit" onClick={toggleTheme}>
