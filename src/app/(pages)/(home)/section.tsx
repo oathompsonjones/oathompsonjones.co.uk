@@ -29,7 +29,7 @@ export default function Section({ children }: { readonly children?: ReactElement
                 margin: "-4rem -3rem 4rem",
                 minHeight: "100dvh",
                 overflow: "hidden",
-                padding: "1rem 3rem 1rem",
+                padding: "5rem 3rem 1rem",
                 position: "relative",
                 scrollSnapAlign: "start",
             }}
