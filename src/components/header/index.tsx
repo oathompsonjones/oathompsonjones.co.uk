@@ -28,7 +28,7 @@ export default function Header(): ReactElement {
     useEffect(() => setNavOpen(false), [smallNav]);
     const pathname = usePathname();
     const textColour = { dark: light, light: dark }[pathname === "/" ? "dark" : mode];
-    const solidBackground = scrolling || smallNav && navOpen;
+    const solidBackground = scrolling && pathname !== "/" || smallNav && navOpen;
 
     // Associate a label and link with each page.
     const pages: Array<{ label: string; link: string; }> = [
