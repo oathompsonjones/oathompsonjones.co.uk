@@ -72,7 +72,7 @@ function ThemeProvider({ children }: { readonly children: ReactNode; }): ReactEl
                     <style>
                         {/* CSS */`
                             html, body {
-                                height: 100vh;
+                                min-height: 100dvh;
                                 display: flex;
                                 flex-direction: column;
                                 scroll-behavior: smooth;
@@ -98,9 +98,7 @@ function ThemeProvider({ children }: { readonly children: ReactNode; }): ReactEl
                             }
                         `}
                     </style>
-                    <div style={{ height: "100dvh" }}>
-                        {children}
-                    </div>
+                    {children}
                 </MuiThemeProvider>
             </ThemeContext.Provider>
         </StyledEngineProvider>
