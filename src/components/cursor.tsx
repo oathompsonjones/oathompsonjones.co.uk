@@ -14,9 +14,9 @@ export default function BackgroundCursor(): ReactElement {
     const [r, g, b] = main.slice(1).match(/.{2}/g)!;
     const colour = `rgba(${parseInt(r, 16)}, ${parseInt(g!, 16)}, ${parseInt(b!, 16)}, 0.2)`;
     const { clientX, clientY } = useMousePosition();
-    const { innerWidth, innerHeight } = useWindowSize();
-    const mouseX = clientX / innerWidth;
-    const mouseY = clientY / innerHeight;
+    const { width, height } = useWindowSize();
+    const mouseX = clientX / width;
+    const mouseY = clientY / height;
 
     return (
         <span

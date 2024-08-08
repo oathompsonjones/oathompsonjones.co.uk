@@ -1,35 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-type WindowDimensions = {
-    innerHeight: number;
-    innerWidth: number;
-    outerHeight: number;
-    outerWidth: number;
-};
+import { useLayoutEffect, useState } from "react";
 
 /**
  * Returns the current window size.
  * @returns An object containing the current window size.
  */
-export default function useWindowSize(): WindowDimensions {
-    const [windowSize, setWindowSize] = useState<WindowDimensions>(() => ({
-        innerHeight: typeof window === "undefined" ? 0 : window.innerHeight,
-        innerWidth: typeof window === "undefined" ? 0 : window.innerWidth,
-        outerHeight: typeof window === "undefined" ? 0 : window.outerHeight,
-        outerWidth: typeof window === "undefined" ? 0 : window.outerWidth,
+export default function useWindowSize(): { height: number; width: number;  } {
+    const [windowSize, setWindowSize] = useState<{ height: number; width: number;  }>(() => ({
+        height: typeof window === "undefined" ? 0 : window.innerHeight,
+        width: typeof window === "undefined" ? 0 : window.innerWidth,
     }));
-    const onResize = (): void => setWindowSize({
-        innerHeight: window.innerHeight,
-        innerWidth: window.innerWidth,
-        outerHeight: window.outerHeight,
-        outerWidth: window.outerWidth,
-    });
-
-    useEffect(() => {
+    
+    useLayoutEffect(() => {
+        const onResize = (): void => setWindowSize({
+            height: window.innerHeight,
+            width: window.innerWidth,
+        });
         window.addEventListener("resize", onResize);
-
+        onResize();
         return (): void => window.removeEventListener("resize", onResize);
     }, []);
 

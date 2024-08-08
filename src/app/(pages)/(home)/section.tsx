@@ -11,10 +11,10 @@ import useWindowSize from "hooks/useWindowSize";
  * @returns A section on the home page.
  */
 export default function Section({ children }: { readonly children?: ReactElement | ReactElement[]; }): ReactElement {
-    const { innerHeight } = useWindowSize();
+    const { height: windowHeight } = useWindowSize();
     const [height, setHeight] = useState(0);
 
-    useEffect(() => setHeight(innerHeight - document.querySelector("footer")!.scrollHeight), [innerHeight]);
+    useEffect(() => setHeight(windowHeight - document.querySelector("footer")!.scrollHeight), [windowHeight]);
 
     return (
         <Box
