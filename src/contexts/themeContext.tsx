@@ -69,35 +69,33 @@ export function ThemeProvider({ children }: { readonly children: ReactNode; }): 
             <ThemeContext.Provider value={useMemo(() => ({ theme, toggleTheme }), [isDarkMode])}>
                 <MuiThemeProvider theme={theme}>
                     <CssBaseline enableColorScheme />
-                    <style>
-                        {/* CSS */`
-                            html, body {
-                                min-height: 100dvh;
-                                display: flex;
-                                flex-direction: column;
-                                scroll-behavior: smooth;
-                                scroll-snap-type: y mandatory;
-                            }
-                            body {
-                                overflow-x: hidden;
-                            }
-                            body, main, footer {
-                                transition: background-color 0.25s linear;
-                            }
-                            main {
-                                flex: 1;
-                                padding: 4rem 3rem 1rem;
-                            }
-                            p, span {
-                                transition: color 0.25s linear;
-                            }
-                            a {
-                                color: ${theme.palette.primary.main};
-                                text-decoration: none;
-                                cursor: pointer;
-                            }
-                        `}
-                    </style>
+                    <style>{/* CSS */`
+                        html, body {
+                            min-height: 100dvh;
+                            display: flex;
+                            flex-direction: column;
+                            scroll-behavior: smooth;
+                            scroll-snap-type: y mandatory;
+                        }
+                        body {
+                            overflow-x: hidden;
+                        }
+                        body, main, footer {
+                            transition: background-color 0.25s linear;
+                        }
+                        main {
+                            flex: 1;
+                            padding: 4rem 3rem 1rem;
+                        }
+                        p, span {
+                            transition: color 0.25s linear;
+                        }
+                        a {
+                            color: ${theme.palette.primary.main};
+                            text-decoration: none;
+                            cursor: pointer;
+                        }
+                    `}</style>
                     {children}
                 </MuiThemeProvider>
             </ThemeContext.Provider>
