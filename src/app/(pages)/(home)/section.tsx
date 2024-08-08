@@ -31,7 +31,7 @@ export default function Section({ children }: { readonly children?: ReactElement
                 overflow: "hidden",
                 padding: "5rem 3rem 1rem",
                 position: "relative",
-                scrollSnapAlign: "start",
+                scrollSnapAlign: { md: "start", xs: "center" },
             }}
         >
             <Box width="100%">{children}</Box>
