@@ -1,5 +1,3 @@
-"use client";
-
 import type { ReactElement } from "react";
 import StackOverflowLogo from "images/stackOverflow.svg";
 import SvgIcon from "@mui/material/SvgIcon";
