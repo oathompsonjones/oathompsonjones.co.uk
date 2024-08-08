@@ -16,7 +16,7 @@ export default function Background(): ReactElement {
             <Image
                 alt="Picture of a computer desk."
                 src={desk}
-                style={{ filter: "brightness(50%) opacity(90%)", position: "fixed" }}
+                style={{ filter: "brightness(50%) opacity(75%)", position: "fixed" }}
                 fill
             />
         </Box>
