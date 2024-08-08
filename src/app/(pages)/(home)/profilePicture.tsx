@@ -9,19 +9,34 @@ import { GRAVATAR_URL } from "utils";
  * @param children - The children.
  * @returns A div.
  */
-export default function ProfilePicture({ positioner }: { readonly positioner?: boolean; }): ReactElement {
+export default function ProfilePicture({ positioner, notMobile }: {
+    readonly positioner?: boolean;
+    readonly notMobile?: boolean;
+}): ReactElement {
     return (
         <Avatar
             className={positioner ? "avatarPosition" : "avatar"}
             src={GRAVATAR_URL}
             sx={{
-                display: { md: "block", xs: positioner ? undefined : "none" },
-                filter: positioner ? { md: "opacity(0%)", xs: undefined } : undefined,
+                boxShadow: positioner ? 0 : 20,
+                display: {
+                    md: "block",
+                    xs: positioner ? ["block", "none"][notMobile ? 1 : 0] : "none"
+                },
+                filter: positioner ? { 
+                    md: "opacity(0%)", 
+                    xs: undefined,
+                } : undefined,
                 height: "auto",
-                transition: ["left", "top", "width", "height"]
-                    .map((prop) => `${prop} 0.5s ease`).join(", ") + ", filter 0.25s linear",
+                position: positioner ? undefined : "fixed",
+                transition: [
+                    "left 0.5s ease",
+                    "top 0.5s ease",
+                    "width 0.5s ease",
+                    "height 0.5s ease",
+                    "filter 0.25s linear",
+                ].join(", "),
                 width: { lg: "30%", md: "50%", sm: "70%", xs: "90%" },
-                ...positioner ? {} : { boxShadow: 20, position: "fixed" }
             }}
         />
     );

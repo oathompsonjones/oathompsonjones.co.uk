@@ -15,7 +15,7 @@ export default function About(): ReactElement {
     return (
         <>
             <Stack alignItems="center" direction={{ md: "row-reverse" }} spacing="2rem">
-                <ProfilePicture positioner />
+                <ProfilePicture positioner notMobile />
                 <Stack>
                     <Typography variant="h1">Hi, I'm Ollie</Typography>
                     <Typography color="secondary" variant="h4">
