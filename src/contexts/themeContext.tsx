@@ -17,14 +17,14 @@ type ThemeContextType = {
     toggleTheme: () => void;
 };
 const ThemeContext = createContext<ThemeContextType>({} as ThemeContextType);
-const useThemeContext = (): ThemeContextType => useContext(ThemeContext);
+export const useThemeContext = (): ThemeContextType => useContext(ThemeContext);
 
 /**
  * Provides the theme to the application.
  * @param children - The children to render.
  * @returns The theme provider.
  */
-function ThemeProvider({ children }: { readonly children: ReactNode; }): ReactElement {
+export function ThemeProvider({ children }: { readonly children: ReactNode; }): ReactElement {
     const [isDarkMode, toggleTheme] = useDarkMode();
 
     // Create the full theme.
@@ -104,5 +104,3 @@ function ThemeProvider({ children }: { readonly children: ReactNode; }): ReactEl
         </StyledEngineProvider>
     );
 }
-
-export { useThemeContext, ThemeProvider };
