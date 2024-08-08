@@ -11,7 +11,6 @@ import type { Palette, Theme } from "@mui/material";
 import type { ReactElement, ReactNode } from "react";
 import { createContext, useContext, useMemo } from "react";
 import useDarkMode from "hooks/useDarkMode";
-import useWindowSize from "hooks/useWindowSize";
 
 type ThemeContextType = {
     theme: Theme;
@@ -65,8 +64,6 @@ export function ThemeProvider({ children }: { readonly children: ReactNode; }): 
         },
     }), { breakpoints: ["xs", "sm", "md", "lg", "xl"] });
 
-    const { innerWidth } = useWindowSize();
-
     return (
         <StyledEngineProvider injectFirst>
             <ThemeContext.Provider value={useMemo(() => ({ theme, toggleTheme }), [isDarkMode])}>
@@ -79,7 +76,7 @@ export function ThemeProvider({ children }: { readonly children: ReactNode; }): 
                                 display: flex;
                                 flex-direction: column;
                                 scroll-behavior: smooth;
-                                ${innerWidth >= 900 ? "scroll-snap-type: y mandatory;" : ""}
+                                scroll-snap-type: y mandatory;
                             }
                             body {
                                 overflow-x: hidden;
