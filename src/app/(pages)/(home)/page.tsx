@@ -8,6 +8,7 @@ import ProfilePicture from "./profilePicture";
 import Main from "./main";
 import About from "./about";
 import Background from "./background";
+import FadingDiv from "./fadingDiv";
 
 /**
  * This is the home page.
@@ -83,9 +84,19 @@ export default function Home(): ReactElement {
         <>
             <Background />
             <ProfilePicture />
-            <Section><Main /></Section>
-            <Section><About /></Section>
-            <Section><ContactPage /></Section>
+            <Section>
+                <FadingDiv>
+                    <Main />
+                </FadingDiv>
+            </Section>
+            <Section>
+                <FadingDiv>
+                    <About />
+                </FadingDiv>
+            </Section>
+            <Section>
+                <ContactPage />
+            </Section>
         </>
     );
 }

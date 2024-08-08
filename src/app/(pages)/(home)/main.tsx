@@ -4,7 +4,6 @@ import { Button, Divider, Stack, Typography } from "@mui/material";
 import type { ReactElement } from "react";
 import ProfilePicture from "./profilePicture";
 import Link from "next/link";
-import FadingDiv from "./fadingDiv";
 
 /**
  * A div which will be used to either fade in or out.
@@ -13,7 +12,7 @@ import FadingDiv from "./fadingDiv";
  */
 export default function Main(): ReactElement {
     return (
-        <FadingDiv>
+        <>
             <Stack alignItems="center" direction="column" justifyContent="center">
                 <ProfilePicture positioner />
                 <Typography align="center" variant="h1">Oliver Jones</Typography>
@@ -33,6 +32,6 @@ export default function Main(): ReactElement {
                 <Button LinkComponent={Link} href="/contact" size="large">Contact Me</Button>
             </Stack>
             <Divider flexItem sx={{ bgcolor: "primary.main", m: "1%" }} />
-        </FadingDiv>
+        </>
     );
 }

@@ -5,7 +5,6 @@ import type { ReactElement } from "react";
 import ProfilePicture from "./profilePicture";
 import Link from "next/link";
 import { age } from "utils";
-import FadingDiv from "./fadingDiv";
 
 /**
  * A div which will be used to either fade in or out.
@@ -14,7 +13,7 @@ import FadingDiv from "./fadingDiv";
  */
 export default function About(): ReactElement {
     return (
-        <FadingDiv>
+        <>
             <Stack alignItems="center" direction={{ md: "row-reverse" }} spacing="2rem">
                 <ProfilePicture positioner />
                 <Stack>
@@ -28,6 +27,6 @@ export default function About(): ReactElement {
                     </Typography>
                 </Stack>
             </Stack>
-        </FadingDiv>
+        </>
     );
 }
