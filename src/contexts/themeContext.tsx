@@ -92,7 +92,7 @@ function ThemeProvider({ children }: { readonly children: ReactNode; }): ReactEl
                                 transition: color 0.25s linear;
                             }
                             a {
-                                color: #1c7eea;
+                                color: ${theme.palette.primary.main};
                                 text-decoration: none;
                                 cursor: pointer;
                             }
