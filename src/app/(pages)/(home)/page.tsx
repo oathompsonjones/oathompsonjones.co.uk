@@ -9,6 +9,7 @@ import About from "./about";
 import Background from "./background";
 import FadingDiv from "./fadingDiv";
 import useWindowSize from "hooks/useWindowSize";
+import Mobile from "components/mobile";
 import Contact from "./contact";
 
 /**
@@ -70,6 +71,13 @@ export default function Home(): ReactElement {
         return () => window.removeEventListener("scroll", scrollHandler);
     }, [height, width]);
 
+    const mobileSpacer = (
+        <>
+            <Mobile><br /><br /></Mobile>
+            <Mobile><br /><br /></Mobile>
+        </>
+    );
+
     return (
         <>
             <Background />
@@ -79,11 +87,13 @@ export default function Home(): ReactElement {
                     <Main />
                 </FadingDiv>
             </Section>
+            {mobileSpacer}
             <Section>
                 <FadingDiv>
                     <About />
                 </FadingDiv>
             </Section>
+            {mobileSpacer}
             <Section>
                 <Contact />
             </Section>
