@@ -1,4 +1,4 @@
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import ALevels from "./alevels";
 import Bio from "./bio";
 import Experience from "./experience";
@@ -7,6 +7,7 @@ import type { ReactElement } from "react";
 import Skills from "./skills";
 import Spacer from "components/spacer";
 import University from "./university";
+import DynamicButton from "components/dynamicButton";
 
 /**
  * This page acts as an online CV.
@@ -18,14 +19,13 @@ export default function About(): ReactElement {
             <div style={{ display: "flex" }}>
                 <Typography variant="h2">About Me</Typography>
                 <Spacer />
-                <Button
+                <DynamicButton
                     LinkComponent="a"
                     href="/api/cv"
-                    size="large"
                     sx={{ float: "right", m: "1%" }}
                 >
                     Download CV
-                </Button>
+                </DynamicButton>
             </div>
             <Grid container spacing={2}>
                 <Grid item xs={12}>

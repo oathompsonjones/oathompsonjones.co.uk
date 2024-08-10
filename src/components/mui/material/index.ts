@@ -16,7 +16,8 @@ import Alert from "@node_mui/material/Alert";
 import AppBar from "@node_mui/material/AppBar";
 import Avatar from "@node_mui/material/Avatar";
 import Box from "@node_mui/material/Box";
-import Button from "@node_mui/material/Button";
+import Button, { ButtonOwnProps } from "@node_mui/material/Button";
+import { ButtonBaseOwnProps } from "@node_mui/material/ButtonBase";
 import Card from "@node_mui/material/Card";
 import CardActions from "@node_mui/material/CardActions";
 import CardContent from "@node_mui/material/CardContent";
@@ -84,4 +85,12 @@ export {
     useScrollTrigger,
 };
 
-export type { Breakpoint, Palette, SxProps, Theme, Variant };
+export type {
+    Breakpoint,
+    ButtonOwnProps,
+    ButtonBaseOwnProps,
+    Palette,
+    SxProps,
+    Theme,
+    Variant,
+};
