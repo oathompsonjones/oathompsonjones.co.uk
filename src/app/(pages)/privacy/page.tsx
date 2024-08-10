@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactElement } from "react";
-import { Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 
 /**
  * This is the privacy policy.
@@ -8,7 +8,7 @@ import { Typography } from "@mui/material";
  */
 export default function Privacy(): ReactElement {
     return (
-        <>
+        <Container>
             <Typography variant="h2">
                 Privacy Policy
             </Typography>
@@ -20,6 +20,6 @@ export default function Privacy(): ReactElement {
                 <br />
                 This information will only be used to allow me to respond to any enquiries.
             </Typography>
-        </>
+        </Container>
     );
 }

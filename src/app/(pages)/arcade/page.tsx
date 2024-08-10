@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import { Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 
 /**
  * This page contains some mini arcade games.
@@ -8,7 +8,7 @@ import { Typography } from "@mui/material";
  */
 export default function Arcade(): ReactElement {
     return (
-        <>
+        <Container>
             <Typography variant="h2">Would you like to play a game?</Typography>
             <Typography variant="h6">Upcoming Games</Typography>
             <Typography variant="body1">
@@ -31,6 +31,6 @@ export default function Arcade(): ReactElement {
                 - 1 player - user vs CPU <i>(or just user where appropriate)</i>    <br />
                 - 0 players - CPU vs CPU <i>(or just CPU where appropriate)</i>     <br />
             </Typography>
-        </>
+        </Container>
     );
 }

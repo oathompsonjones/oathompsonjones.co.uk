@@ -1,7 +1,7 @@
 import ContactForm from "./contactForm";
 import type { ReactElement } from "react";
 import SocialLinks from "components/socialLinks";
-import { Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 
 /**
  * This page provides contact links for me.
@@ -11,10 +11,10 @@ import { Typography } from "@mui/material";
 export default function Contact(): ReactElement {
     // Renders the contact page.
     return (
-        <>
+        <Container>
             <Typography variant="h2">Contact Me</Typography>
             <ContactForm />
             <SocialLinks dividers />
-        </>
+        </Container>
     );
 }

@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Container, Grid, Typography } from "@mui/material";
 import ALevels from "./alevels";
 import Bio from "./bio";
 import Experience from "./experience";
@@ -14,7 +14,7 @@ import University from "./university";
  */
 export default function About(): ReactElement {
     return (
-        <>
+        <Container>
             <div style={{ display: "flex" }}>
                 <Typography variant="h2">About Me</Typography>
                 <Spacer />
@@ -47,6 +47,6 @@ export default function About(): ReactElement {
                     <Skills />
                 </Grid>
             </Grid>
-        </>
+        </Container>
     );
 }

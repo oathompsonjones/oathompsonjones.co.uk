@@ -22,6 +22,7 @@ import CardActions from "@node_mui/material/CardActions";
 import CardContent from "@node_mui/material/CardContent";
 import CardMedia from "@node_mui/material/CardMedia";
 import CircularProgress from "@node_mui/material/CircularProgress";
+import Container from "@node_mui/material/Container";
 import CssBaseline from "@node_mui/material/CssBaseline";
 import Divider from "@node_mui/material/Divider";
 import Fab from "@node_mui/material/Fab";
@@ -59,6 +60,7 @@ export {
     CardContent,
     CardMedia,
     CircularProgress,
+    Container,
     CssBaseline,
     Divider,
     Fab,
