@@ -1,6 +1,5 @@
 "use client";
 
-import ContactPage from "pages/contact/page";
 import type { ReactElement } from "react";
 import Section from "./section";
 import { useLayoutEffect } from "react";
@@ -10,6 +9,7 @@ import About from "./about";
 import Background from "./background";
 import FadingDiv from "./fadingDiv";
 import useWindowSize from "hooks/useWindowSize";
+import Contact from "./contact";
 
 /**
  * This is the home page.
@@ -85,7 +85,7 @@ export default function Home(): ReactElement {
                 </FadingDiv>
             </Section>
             <Section>
-                <ContactPage />
+                <Contact />
             </Section>
         </>
     );
