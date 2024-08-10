@@ -18,6 +18,7 @@ export default function Background(): ReactElement {
                 src={desk}
                 style={{ filter: "brightness(50%) opacity(75%)", position: "fixed" }}
                 fill
+                objectFit="cover"
             />
         </Box>
     );
