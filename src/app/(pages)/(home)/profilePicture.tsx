@@ -1,5 +1,3 @@
-"use client";
-
 import { Avatar } from "@mui/material";
 import type { ReactElement } from "react";
 import { GRAVATAR_URL } from "utils";

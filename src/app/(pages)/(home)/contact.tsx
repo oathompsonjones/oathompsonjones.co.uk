@@ -1,5 +1,3 @@
-"use client";
-
 import { Typography } from "@mui/material";
 import type { ReactElement } from "react";
 import ContactForm from "pages/contact/contactForm";
