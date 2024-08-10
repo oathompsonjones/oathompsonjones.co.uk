@@ -11,6 +11,7 @@ import type { Palette, Theme } from "@mui/material";
 import type { ReactElement, ReactNode } from "react";
 import { createContext, useContext, useMemo } from "react";
 import useDarkMode from "hooks/useDarkMode";
+import useWindowSize from "hooks/useWindowSize";
 
 type ThemeContextType = {
     theme: Theme;
@@ -25,6 +26,7 @@ export const useThemeContext = (): ThemeContextType => useContext(ThemeContext);
  * @returns The theme provider.
  */
 export function ThemeProvider({ children }: { readonly children: ReactNode; }): ReactElement {
+    const { width } = useWindowSize();
     const [isDarkMode, toggleTheme] = useDarkMode();
 
     // Create the full theme.
@@ -75,7 +77,7 @@ export function ThemeProvider({ children }: { readonly children: ReactNode; }): 
                             display: flex;
                             flex-direction: column;
                             scroll-behavior: smooth;
-                            scroll-snap-type: y mandatory;
+                            scroll-snap-type: ${width > 900 ? "y mandatory;" : "none"};
                         }
                         body {
                             overflow-x: hidden;
