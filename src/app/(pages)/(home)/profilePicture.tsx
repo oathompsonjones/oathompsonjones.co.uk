@@ -34,7 +34,7 @@ export default function ProfilePicture({ positioner, notMobile }: {
                     "height 0.5s ease",
                     "filter 0.25s linear",
                 ].join(", "),
-                width: { lg: "30%", md: "50%", sm: "70%", xs: "90%" },
+                width: { md: "30%", sm: "50%", xs: "90%" },
             }}
         />
     );
