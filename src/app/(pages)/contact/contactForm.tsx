@@ -3,7 +3,8 @@
 import { Alert, Button, FormControl, FormLabel, Grid, Paper, TextField } from "@mui/material";
 import type { FormEvent, ReactElement } from "react";
 import { Send } from "@mui/icons-material";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
+import useWindowSize from "hooks/useWindowSize";
 
 /**
  * A contact form.
@@ -52,6 +53,17 @@ export default function ContactForm(): ReactElement {
             setStatus(false);
         }
     }
+
+    // Calculates the number of rows for the content field.
+    const { height } = useWindowSize()
+    const [contentRows, setContentRows] = useState(1);
+
+    useLayoutEffect(() => {
+        const field = document.querySelector("textarea[name=content]") as HTMLTextAreaElement;
+        const lineHeight = parseFloat(getComputedStyle(field).lineHeight);
+        
+        setContentRows(Math.floor(height / lineHeight / 2.5));
+    }, []);
 
     return (
         <Paper sx={{ display: "flex", mb: "1rem", p: "1rem" }}>
@@ -125,7 +137,7 @@ export default function ContactForm(): ReactElement {
                             name="content"
                             onChange={(event): void => setContent(event.target.value)}
                             required
-                            rows={18}
+                            rows={contentRows}
                             type="text"
                             value={content}
                             variant="filled"
