@@ -21,15 +21,20 @@ export default function Section({ children }: { readonly children?: ReactElement
             component="section"
             sx={{
                 // eslint-disable-next-line @typescript-eslint/naming-convention
-                "&:last-of-type": { marginBottom: "-1rem", minHeight: `${height}px` },
+                "&:last-of-type": {
+                    md: { 
+                        marginBottom: "-1rem", 
+                        minHeight: `${height}px`,
+                    }
+                },
                 alignItems: "center",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
-                margin: "-4rem -3rem 4rem",
-                minHeight: "100dvh",
+                margin: { md: "-4rem -3rem 4rem" },
+                minHeight: { md: "100vh" },
                 overflow: "hidden",
-                padding: "5rem 3rem 1rem",
+                padding: { md: "5rem 3rem 1rem" },
                 position: "relative",
                 scrollSnapAlign: { md: "start", xs: "center" },
             }}

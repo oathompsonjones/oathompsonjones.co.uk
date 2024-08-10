@@ -4,12 +4,16 @@ import { Button, Divider, Stack, Typography } from "@mui/material";
 import type { ReactElement } from "react";
 import ProfilePicture from "./profilePicture";
 import Link from "next/link";
+import useWindowSize from "hooks/useWindowSize";
 
 /**
  * The main section of the home page.
  * @returns The main section of the home page.
  */
 export default function Main(): ReactElement {
+    const { width } = useWindowSize();
+    const buttonSize = width > 600 ? "large" : "small";
+
     return (
         <>
             <Stack alignItems="center" direction="column" justifyContent="center">
@@ -21,14 +25,14 @@ export default function Main(): ReactElement {
             <Divider flexItem sx={{ bgcolor: "primary.main", m: "1%" }} />
             <Stack
                 alignItems="center"
-                direction={{ sm: "row", xs: "column" }}
+                direction="row"
                 justifyContent="space-evenly"
                 spacing="1%"
                 sx={{ width: "100%" }}
             >
-                <Button LinkComponent={Link} href="/about" size="large">About Me</Button>
-                <Button LinkComponent="a" href="/api/cv" size="large">Download CV</Button>
-                <Button LinkComponent={Link} href="/contact" size="large">Contact Me</Button>
+                <Button LinkComponent={Link} href="/about" size={buttonSize}>About Me</Button>
+                <Button LinkComponent="a" href="/api/cv" size={buttonSize}>Download CV</Button>
+                <Button LinkComponent={Link} href="/contact" size={buttonSize}>Contact Me</Button>
             </Stack>
             <Divider flexItem sx={{ bgcolor: "primary.main", m: "1%" }} />
         </>

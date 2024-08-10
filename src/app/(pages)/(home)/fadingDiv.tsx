@@ -23,7 +23,7 @@ export default function FadingDiv({ children }: {
                 justifyContent: "center",
                 left: 0,
                 overflow: "hidden",
-                padding: "5rem 3rem 1rem",
+                padding: { md: "5rem 3rem 1rem" },
                 position: { md: "fixed" },
                 top: 0,
                 transition: "filter 0.25s linear",
