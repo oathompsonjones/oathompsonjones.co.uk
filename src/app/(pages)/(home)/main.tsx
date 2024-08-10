@@ -6,9 +6,8 @@ import ProfilePicture from "./profilePicture";
 import Link from "next/link";
 
 /**
- * A div which will be used to either fade in or out.
- * @param children - The children.
- * @returns A div.
+ * The main section of the home page.
+ * @returns The main section of the home page.
  */
 export default function Main(): ReactElement {
     return (
