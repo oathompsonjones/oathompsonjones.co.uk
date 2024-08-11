@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import type { ReactElement } from "react";
 import Image from "next/image";
 import desk from "images/desk.jpg";
@@ -10,14 +9,20 @@ import desk from "images/desk.jpg";
  */
 export default function Background(): ReactElement {
     return (
-        <Box zIndex={-5} position="fixed">
-            <Image
-                alt="Picture of a computer desk."
-                src={desk}
-                style={{ filter: "brightness(50%) opacity(75%)", position: "fixed" }}
-                fill
-                objectFit="cover"
-            />
-        </Box>
+        <Image
+            alt="Picture of a computer desk."
+            src={desk}
+            style={{
+                filter: "brightness(50%) opacity(75%)",
+                left: "50%",
+                minHeight: "100%",
+                minWidth: "100%",
+                objectFit: "cover",
+                position: "fixed",
+                top: "50%",
+                transform: "translate(-50%, -50%)",
+                zIndex: -5,
+            }}
+        />
     );
 }
