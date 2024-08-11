@@ -1,18 +1,30 @@
 import { Stack, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import type { ReactElement } from "react";
 import ProfilePicture from "./profilePicture";
 import Link from "next/link";
 import { age } from "utils";
+import useWindowSize from "hooks/useWindowSize";
+import Desktop from "components/desktop";
 
 /**
  * The about section of the home page.
  * @returns The about section of the home page.
  */
 export default function About(): ReactElement {
+    const { height, width } = useWindowSize();
+    const [orientation, setOrientation] = useState<"portrait" | "landscape">("portrait");
+
+    useEffect(() => {
+        setOrientation(height < width ? "landscape" : "portrait");
+    }, [height, width]);
+
     return (
         <>
-            <Stack alignItems="center" direction={{ md: "row-reverse" }} spacing="2rem">
-                <ProfilePicture positioner notMobile />
+            <Stack alignItems="center" direction={orientation === "landscape" ? "row-reverse" : "column"} spacing="2rem">
+                <Desktop>
+                    <ProfilePicture positioner />
+                </Desktop>
                 <Stack>
                     <Typography variant="h1">Hi, I'm Ollie</Typography>
                     <Typography color="secondary" variant="h4">
