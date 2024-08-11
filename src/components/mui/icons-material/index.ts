@@ -14,6 +14,8 @@ import Menu from "@node_mui/icons-material/Menu";
 import Send from "@node_mui/icons-material/Send";
 import StackOverflow from "./StackOverflow";
 import Twitter from "@node_mui/icons-material/Twitter";
+import TwitterX from "./TwitterX";
+import X from "@node_mui/icons-material/X";
 
 export {
     DarkMode,
@@ -30,4 +32,6 @@ export {
     Send,
     StackOverflow,
     Twitter,
+    TwitterX,
+    X,
 };

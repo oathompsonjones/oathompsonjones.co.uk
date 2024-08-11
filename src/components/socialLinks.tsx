@@ -1,4 +1,4 @@
-import { Discord, Email, Facebook, GitHub, Instagram, LinkedIn, StackOverflow, Twitter } from "@mui/icons-material";
+import { Discord, Email, Facebook, GitHub, Instagram, LinkedIn, StackOverflow, TwitterX } from "@mui/icons-material";
 import { Divider, Stack } from "@mui/material";
 import Link from "next/link";
 import type { ReactElement } from "react";
@@ -16,7 +16,7 @@ export default function SocialLinks({ dividers = false }: { readonly dividers?: 
         { icon: <StackOverflow />, link: "/stackoverflow" },
         { icon: <LinkedIn />, link: "/linkedin" },
         { icon: <Discord />, link: "/discord" },
-        { icon: <Twitter />, link: "/twitter" },
+        { icon: <TwitterX />, link: "/twitter" },
         { icon: <Instagram />, link: "/instagram" },
         { icon: <Facebook />, link: "/facebook" },
     ];
