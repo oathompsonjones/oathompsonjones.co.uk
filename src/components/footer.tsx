@@ -26,6 +26,7 @@ export default function Footer(): ReactElement {
                 borderTop: `1px solid ${main}`,
                 p: "1rem",
                 scrollSnapAlign: pathname === "/" ? "end" : "none",
+                zIndex: 1,
             }}
         >
             <Stack divider={<Divider sx={{ mb: "0.5%" }} />}>
