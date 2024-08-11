@@ -1,9 +1,9 @@
 "use client";
 
-import { Button, ButtonBaseOwnProps, ButtonOwnProps } from "@mui/material";
-import useWindowSize from "hooks/useWindowSize";
+import { Button, ButtonBaseOwnProps, ButtonOwnProps, Theme } from "@mui/material";
 import Link from "next/link";
 import type { ReactElement, ReactNode } from "react";
+import { useMediaQuery } from "@mui/material";
 
 /**
  * Renders a MUI button with dynamic sizing.
@@ -12,8 +12,8 @@ import type { ReactElement, ReactNode } from "react";
 export default function DynamicButton({ children, ...props }: ButtonBaseOwnProps & ButtonOwnProps & {
     readonly children?: ReactNode;
 }): ReactElement {
-    const { width } = useWindowSize();
-    const buttonSize = width > 600 ? "large" : "small";
+    const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));
+    const buttonSize = isMobile ? "small" : "large";
 
     return (
         <Button LinkComponent={props.LinkComponent ?? Link} size={buttonSize} {...props}>
