@@ -2,7 +2,7 @@
 
 import type { ReactElement } from "react";
 import Section from "./section";
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 import ProfilePicture from "./profilePicture";
 import Main from "./main";
 import About from "./about";
@@ -42,9 +42,9 @@ export default function Home(): ReactElement {
         avatar.style.filter = `opacity(${visibleIndex > 1 ? 0 : 100}%)`;
     }
 
-    useLayoutEffect(() => {
         const sectionCount = [...document.querySelectorAll("section")].length;
         const fadingDivs = [...document.getElementsByClassName("fadingDiv")] as [HTMLDivElement, HTMLDivElement];
+    useEffect(() => {
         const avatar = document.getElementsByClassName("avatar")[0] as HTMLElement;
         const [pos1, pos2] = [...document.getElementsByClassName("avatarPosition")]
             .map((avatar) => avatar.getBoundingClientRect()) as [DOMRect, DOMRect];

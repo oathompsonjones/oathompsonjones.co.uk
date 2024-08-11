@@ -3,7 +3,7 @@
 import { Alert, Button, FormControl, FormLabel, Grid, Paper, TextField } from "@mui/material";
 import type { FormEvent, ReactElement } from "react";
 import { Send } from "@mui/icons-material";
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useWindowSize from "hooks/useWindowSize";
 
 /**
@@ -58,7 +58,7 @@ export default function ContactForm(): ReactElement {
     const { height } = useWindowSize()
     const [contentRows, setContentRows] = useState(1);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const field = document.querySelector("textarea[name=content]") as HTMLTextAreaElement;
         const lineHeight = parseFloat(getComputedStyle(field).lineHeight);
         
