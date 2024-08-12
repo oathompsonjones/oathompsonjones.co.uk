@@ -32,7 +32,7 @@ export default function About(): ReactElement {
                         I have a passion for programming, which stems from a love of solving problems.
                         I direct that passion towards writing high quality code, creating efficient and robust solutions
                         to the problems presented to me.
-                        Take a look at my CV <Link href="/about">here</Link>.
+                        Take a look at my CV <Link href="/about" style={{ pointerEvents: "auto" }}>here</Link>.
                     </Typography>
                 </Stack>
             </Stack>

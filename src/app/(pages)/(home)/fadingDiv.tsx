@@ -22,6 +22,7 @@ export default function FadingDiv({ children }: {
                 left: 0,
                 overflow: "hidden",
                 padding: { md: "5rem 3rem 1rem" },
+                pointerEvents: "none",
                 position: { md: "fixed" },
                 top: 0,
                 transition: "filter 0.25s linear",
