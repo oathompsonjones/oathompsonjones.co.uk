@@ -19,7 +19,10 @@ import Contact from "./contact";
 export default function Home(): ReactElement {
     const { height, width } = useWindowSize();
     const [, forceRerenderState] = useState(0);
-    const forceRerender = () => forceRerenderState(Math.random());
+    const forceRerender = () => {
+        handleScroll();
+        forceRerenderState(Math.random());
+    };
 
     function handleScroll(): void {
         const fadingDivs = [...document.getElementsByClassName("fadingDiv")] as [HTMLDivElement, HTMLDivElement];
