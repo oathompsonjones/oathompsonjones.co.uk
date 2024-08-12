@@ -19,10 +19,7 @@ import Contact from "./contact";
 export default function Home(): ReactElement {
     const { height, width } = useWindowSize();
     const [, forceRerenderState] = useState(0);
-    const forceRerender = () => {
-        handleScroll();
-        forceRerenderState(Math.random());
-    };
+    const forceRerender = () => forceRerenderState(Math.random());
 
     function handleScroll(): void {
         const fadingDivs = [...document.getElementsByClassName("fadingDiv")] as [HTMLDivElement, HTMLDivElement];
@@ -55,7 +52,10 @@ export default function Home(): ReactElement {
     }, []);
 
     // Update the avatar and fading divs on window resize
-    useEffect(forceRerender, [height, width]);
+    useEffect(() => {
+        handleScroll();
+        forceRerender();
+    }, [height, width]);
 
     const mobileSpacer = (
         <>
