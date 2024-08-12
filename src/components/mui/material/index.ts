@@ -34,6 +34,7 @@ import Grid from "@node_mui/material/Grid";
 import IconButton from "@node_mui/material/IconButton";
 import MenuItem from "@node_mui/material/MenuItem";
 import Paper from "@node_mui/material/Paper";
+import Skeleton from "@node_mui/material/Skeleton";
 import Stack from "@node_mui/material/Stack";
 import StyledEngineProvider from "@node_mui/material/StyledEngineProvider";
 import TextField from "@node_mui/material/TextField";
@@ -72,6 +73,7 @@ export {
     IconButton,
     MenuItem,
     Paper,
+    Skeleton,
     Stack,
     StyledEngineProvider,
     TextField,
