@@ -2,7 +2,7 @@
 
 import type { ReactElement } from "react";
 import Section from "./section";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProfilePicture from "./profilePicture";
 import Main from "./main";
 import About from "./about";
@@ -18,6 +18,8 @@ import Contact from "./contact";
  */
 export default function Home(): ReactElement {
     const { height, width } = useWindowSize();
+    const [, forceRerenderState] = useState(0);
+    const forceRerender = () => forceRerenderState(Math.random());
 
     function handleScroll(): void {
         const fadingDivs = [...document.getElementsByClassName("fadingDiv")] as [HTMLDivElement, HTMLDivElement];
@@ -44,12 +46,13 @@ export default function Home(): ReactElement {
 
     // Add event listener for scrolling
     useEffect(() => {
+        handleScroll();
         window.addEventListener("scroll", handleScroll, { passive: true, capture: true });
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     // Update the avatar and fading divs on window resize
-    useEffect(handleScroll, [height, width]);
+    useEffect(forceRerender, [height, width]);
 
     const mobileSpacer = (
         <>
