@@ -22,13 +22,11 @@ export default function Home(): ReactElement {
     function handleScroll(): void {
         const fadingDivs = [...document.getElementsByClassName("fadingDiv")] as [HTMLDivElement, HTMLDivElement];
         if (window.innerWidth >= 900) {
-            const sectionCount = [...document.querySelectorAll("section")].length;
             const avatar = document.getElementsByClassName("avatar")[0] as HTMLElement;
             const [pos1, pos2] = [...document.getElementsByClassName("avatarPosition")]
                 .map((avatar) => avatar.getBoundingClientRect()) as [DOMRect, DOMRect];
 
-            const scrollPercentage = window.scrollY / window.innerHeight * 100 / sectionCount;
-            const visibleIndex = Math.round(scrollPercentage / (100 / sectionCount));
+            const visibleIndex = Math.round(window.scrollY / window.innerHeight);
 
             // Update the position and size of the avatar
             avatar.style.left = `${(visibleIndex === 0 ? pos1 : pos2)?.x ?? 0}px`;
