@@ -35,7 +35,6 @@ export default function Home(): ReactElement {
             avatar.style.top = `${(visibleIndex === 0 ? pos1 : pos2)?.y ?? 0}px`;
             avatar.style.width = `${(visibleIndex === 0 ? pos1 : pos2)?.width ?? 0}px`;
             avatar.style.height = `${(visibleIndex === 0 ? pos1 : pos2)?.height ?? 0}px`;
-            console.log({ w1: pos1?.width, h1: pos1?.height, w2: pos2?.width, h2: pos2?.height });
 
             // Update the opacity of the fading divs and the avatar
             fadingDivs.forEach((div, index) => div.style.filter = `opacity(${index === visibleIndex ? 100 : 0}%)`);
