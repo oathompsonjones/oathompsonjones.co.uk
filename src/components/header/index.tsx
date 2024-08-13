@@ -3,7 +3,7 @@
 import { AppBar, IconButton, Toolbar, useMediaQuery, useScrollTrigger } from "@mui/material";
 import { DarkMode, LightMode, Menu } from "@mui/icons-material";
 import { useEffect, useState } from "react";
-import LargeHeader from "./large";
+import LargeNav from "./large";
 import type { ReactElement } from "react";
 import SmallNav from "./small";
 import Title from "./title";
@@ -28,7 +28,7 @@ export default function Header(): ReactElement {
     useEffect(() => setNavOpen(false), [smallNav]);
     const pathname = usePathname();
     const textColour = { dark: light, light: dark }[pathname === "/" ? "dark" : mode];
-    const solidBackground = (mobile?: boolean) => scrolling && (mobile ? true : pathname !== "/") || smallNav && navOpen;
+    const solidBackground = scrolling && (smallNav ? true : pathname !== "/") || smallNav && navOpen;
 
     // Associate a label and link with each page.
     const pages: Array<{ label: string; link: string; }> = [
@@ -46,10 +46,12 @@ export default function Header(): ReactElement {
             enableColorOnDark
             position="fixed"
             sx={{
-                background: { md: solidBackground() ? null : "none", xs: solidBackground(true) ? null : "none" },
+                ...(solidBackground ? {} : {
+                    background: "none",
+                    boxShadow: "none",
+                    color: textColour,
+                }),
                 backgroundImage: "none",
-                boxShadow: { md: solidBackground() ? null : "none", xs: solidBackground(true) ? null : "none" },
-                color: { md: solidBackground() ? null : textColour, xs: solidBackground(true) ? null : textColour },
             }}
         >
             {/* Toolbar is essential for properly aligning elements within the AppBar. */}
@@ -57,14 +59,14 @@ export default function Header(): ReactElement {
                 <IconButton color="inherit" onClick={toggleNavOpen} sx={{ display: { md: "none", xs: "block" }, height: "40px" }}>
                     <Menu />
                 </IconButton>
-                <Title textColour={solidBackground() ? light : textColour} />
-                <LargeHeader pages={pages} />
+                <Title textColour={solidBackground ? light : textColour} />
+                <LargeNav pages={pages} />
                 {/* Renders a button to control dark/light theme. This renders on displays of any size. */}
                 <IconButton color="inherit" onClick={toggleTheme}>
                     {mode === "dark" ? <DarkMode /> : <LightMode />}
                 </IconButton>
             </Toolbar>
-            {navOpen ? <SmallNav backgroundColor={main} pages={pages} toggleNavOpen={toggleNavOpen} /> : null}
+            <SmallNav backgroundColor={main} open={navOpen} pages={pages} toggleNavOpen={toggleNavOpen} />
         </AppBar>
     );
 }
