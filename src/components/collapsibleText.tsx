@@ -6,28 +6,19 @@ import { Typography, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useThemeContext } from "contexts/themeContext";
 
-type Props = {
-    readonly beginningText: Array<ReactNode | string>;
-    readonly collapsibleText: Array<ReactNode | string>;
-    readonly endingText: Array<ReactNode | string>;
-    readonly id: string;
-    readonly minScreenSize?: Breakpoint;
-    readonly variant?: Variant;
-};
-
 /**
  * Renders a collapsible text element.
  * @param props - An object containing the component props.
  * @returns An element which renders a collapsible text element.
  */
-export default function CollapsibleText({
-    beginningText,
-    collapsibleText,
-    endingText,
-    id,
-    minScreenSize,
-    variant,
-}: Props): ReactElement {
+export default function CollapsibleText({ beginningText, collapsibleText, endingText, id, minScreenSize, variant }: Readonly<{
+    beginningText: Array<ReactNode | string>;
+    collapsibleText: Array<ReactNode | string>;
+    endingText: Array<ReactNode | string>;
+    id: string;
+    minScreenSize?: Breakpoint;
+    variant?: Variant;
+}>): ReactElement {
     const [expandName, setExpandName] = useState(false);
     const showAnimation = useMediaQuery((theme: Theme) => theme.breakpoints.up(minScreenSize ?? "xs"));
     const { theme: { palette: { secondary: { main } } } } = useThemeContext();
@@ -75,7 +66,6 @@ export default function CollapsibleText({
             sx={{
                 /* eslint-disable @typescript-eslint/naming-convention */
                 ".collapsible": { width: 0 },
-                ".colour": { transition: "color 0.25s linear" },
                 ".section": { overflow: "hidden", transition: "width 0.25s linear" },
                 /* eslint-enable @typescript-eslint/naming-convention */
                 display: "inline-flex",
