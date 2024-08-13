@@ -2,19 +2,17 @@ import type { Breakpoint, Variant } from "@mui/material";
 import CollapsibleText from "./collapsibleText";
 import type { ReactElement } from "react";
 
-type Props = {
-    readonly colour?: boolean;
-    readonly id: string;
-    readonly minScreenSize?: Breakpoint;
-    readonly variant?: Variant;
-};
-
 /**
  * Renders my name.
  * @param props - The component properties.
  * @returns The rendered component.
  */
-export default function Name({ colour, id, minScreenSize, variant }: Props): ReactElement {
+export default function Name({ colour, id, minScreenSize, variant }: Readonly<{
+    colour?: boolean;
+    id: string;
+    minScreenSize?: Breakpoint;
+    variant?: Variant;
+}>): ReactElement {
     return (
         <CollapsibleText
             beginningText={colour ?? true ? [<><span className="colour">O</span>liver</>] : [<>Oliver</>]}
