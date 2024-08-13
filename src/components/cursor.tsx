@@ -17,8 +17,8 @@ export default function BackgroundCursor(): ReactElement {
     const { width, height } = useWindowSize();
     const mouseX = x / width;
     const mouseY = y / height;
-    const xPos = `calc(${mouseX} * 100%)`;
-    const yPos = `calc(${mouseY} * 100%)`;
+    const xPos = `calc(${isNaN(mouseX) ? 0 : mouseX} * 100%)`;
+    const yPos = `calc(${isNaN(mouseY) ? 0 : mouseY} * 100%)`;
 
     return (
         <div
