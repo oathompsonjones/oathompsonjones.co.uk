@@ -17,21 +17,20 @@ export default function BackgroundCursor(): ReactElement {
     const { width, height } = useWindowSize();
     const mouseX = clientX / width;
     const mouseY = clientY / height;
+    const x = `calc(${mouseX} * 100%)`;
+    const y = `calc(${mouseY} * 100%)`;
 
     return (
-        <span
+        <div
             style={{
-                background: "transparent " +
-                    `radial-gradient(at calc(${mouseX} * 100%) calc(${mouseY} * 100%), ${colour}, transparent)` +
-                    " no-repeat 0 0",
-                height: "100%",
-                left: "50%",
-                objectFit: "cover",
+                background: `radial-gradient(circle at ${x} ${y}, ${colour} 0, transparent, transparent 100%)`,
+                height: "100vh",
+                left: 0,
                 overflow: "hidden",
                 position: "fixed",
                 top: 0,
-                transform: "translateX(-50%)",
-                width: "100%",
+                transform: "translateX(-50%, -50%)",
+                width: "100vw",
                 zIndex: -10,
             }}
         />
