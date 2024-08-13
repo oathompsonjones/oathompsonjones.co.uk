@@ -1,11 +1,10 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Stack, Typography } from "@mui/material";
 import ALevels from "./alevels";
 import Bio from "./bio";
 import Experience from "./experience";
 import GCSEs from "./gcses";
 import type { ReactElement } from "react";
 import Skills from "./skills";
-import Spacer from "components/spacer";
 import University from "./university";
 import DynamicButton from "components/dynamicButton";
 
@@ -16,9 +15,8 @@ import DynamicButton from "components/dynamicButton";
 export default function About(): ReactElement {
     return (
         <Container>
-            <div style={{ display: "flex" }}>
-                <Typography variant="h2">About Me</Typography>
-                <Spacer />
+            <Stack direction="row">
+                <Typography variant="h2" flex={1}>About Me</Typography>
                 <DynamicButton
                     LinkComponent="a"
                     href="/api/cv"
@@ -26,7 +24,7 @@ export default function About(): ReactElement {
                 >
                     Download CV
                 </DynamicButton>
-            </div>
+            </Stack>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Bio />
