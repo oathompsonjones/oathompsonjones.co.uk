@@ -23,6 +23,7 @@ export default function InstagramPost({ post }: { readonly post: Post; }): React
     const [hover, setHover] = useState(false);
     const handleHover = (): void => setHover((prev) => !prev);
 
+    const borderRadius = "1vmin";
     const instagramLogo = (
         <Instagram
             sx={{
@@ -38,28 +39,16 @@ export default function InstagramPost({ post }: { readonly post: Post; }): React
         />
     );
 
-    // A glow effect is displayed behind each post.
-    const glowEffect = (
-        <CardMedia
-            component="img"
-            image={post.media_url}
-            sx={{
-                filter: "blur(5px)",
-                height: "calc(100% + 0.25rem)",
-                margin: "-0.125rem",
-                position: "absolute",
-                width: "calc(100% + 0.25rem)",
-                zIndex: -1,
-            }}
-        />
-    );
-
     // All other posts are displayed as a single image.
     return (
         <Zoom in timeout={500}>
-            <Card onMouseEnter={handleHover} onMouseLeave={handleHover} square
+            <Card 
+                onMouseEnter={handleHover} 
+                onMouseLeave={handleHover} 
+                square
                 sx={{
                     border: "none",
+                    borderRadius,
                     boxShadow: "none",
                     overflow: "visible",
                     position: "relative",
@@ -69,6 +58,7 @@ export default function InstagramPost({ post }: { readonly post: Post; }): React
                     href={post.permalink}
                     style={{
                         background: "rgba(0, 0, 0, 0.25)",
+                        borderRadius,
                         display: hover ? "block" : "none",
                         height: "100%",
                         position: "absolute",
@@ -77,8 +67,13 @@ export default function InstagramPost({ post }: { readonly post: Post; }): React
                 >
                     {instagramLogo}
                 </Link>
-                {glowEffect}
-                <CardMedia component="img" image={post.media_url} sx={{ height: "100%", width: "100%" }} />
+                <CardMedia
+                    component="img"
+                    image={post.media_url}
+                    sx={{ borderRadius }}
+                    height="100%"
+                    width="100%"
+                />
             </Card>
         </Zoom>
     );
