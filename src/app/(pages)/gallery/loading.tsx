@@ -11,15 +11,27 @@ import type { ReactElement } from "react";
  */
 export default function Loading(): ReactElement {
     const { width } = useWindowSize();
+
+    const skeletonCount = 20;
+    const heights = Array(skeletonCount).fill(0).map(() => (Math.random() / 2 + 0.5) * width);
     
     return (
         <>
-            <Masonry columns={{ lg: 6, sm: 3, xs: 1 }} spacing={0.5}>
-                {Array(20).fill(0).map(() => <Skeleton
-                    animation="pulse"
-                    sx={{ height: { lg: width / 6, sm: width / 3, xs: width } }}
-                    variant="rectangular"
-                />)}
+            <Masonry columns={{ lg: 6, sm: 3, xs: 1 }}>
+                {Array(skeletonCount).fill(0).map((_, i) => (
+                    <Skeleton
+                        key={i}
+                        sx={{
+                            borderRadius: "1vmin",
+                            height: {
+                                lg: heights[i]! / 6,
+                                sm: heights[i]! / 3,
+                                xs: heights[i]!,
+                            },
+                        }}
+                        variant="rectangular"
+                    />
+                ))}
             </Masonry>
         </>
     );
