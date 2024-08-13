@@ -14,11 +14,19 @@ export default function Loading(): ReactElement {
     
     return (
         <>
-            <Masonry columns={{ lg: 6, sm: 3, xs: 1 }}>
-                {Array(20).fill(0).map(() => <Skeleton
-                    animation="pulse"
-                    sx={{ height: { lg: width / 4, md: width / 3, sm: width / 2, xl: width / 5, xs: width } }}
-                    variant="rectangular"
+            <Masonry columns={{ lg: 4, md: 3, sm: 2, xl: 5, xs: 1 }}>
+                {Array(20).fill(0).map((_, i) => <Skeleton
+                    key={i}
+                    sx={{
+                        height: {
+                            lg: width / 8,
+                            md: width / 6,
+                            sm: width / 4,
+                            xl: width / 10,
+                            xs: width / 2,
+                        }
+                    }}
+                    variant="rounded"
                 />)}
             </Masonry>
         </>
