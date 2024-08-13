@@ -1,0 +1,36 @@
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+
+    @media (max-width: var(--breakpoints-md)) {
+        scroll-snap-type: none;
+    }
+}
+
+body {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    min-height: 100dvh;
+    overflow-x: hidden;
+}
+
+body,
+main,
+footer {
+    transition: background-color 0.25s linear;
+}
+
+main {
+    padding: 4rem 3rem 1rem;
+}
+
+p,
+span {
+    transition: color 0.25s linear;
+}
+
+a {
+    color: var(--primary);
+    cursor: pointer;
+    text-decoration: none;
+}

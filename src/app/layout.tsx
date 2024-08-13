@@ -1,3 +1,4 @@
+import "./global.css";
 import type { Metadata, Viewport } from "next";
 import BackgroundCursor from "components/cursor";
 import Footer from "components/footer";
@@ -51,9 +52,9 @@ export default function Layout({ children }: { readonly children: ReactElement; 
                 <noscript>You need to enable JavaScript to run this app.</noscript>
                 <ThemeProvider>
                     <BackgroundCursor />
+                    <ScrollToTop />
                     <Header />
                     <main>{children}</main>
-                    <ScrollToTop />
                     <Footer />
                 </ThemeProvider>
             </body>
