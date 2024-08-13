@@ -1,6 +1,5 @@
 import { Stack, Typography } from "@mui/material";
 import type { ReactElement } from "react";
-import Spacer from "components/spacer";
 
 /**
  * This component displays a grade.
@@ -10,8 +9,7 @@ import Spacer from "components/spacer";
 export default function Grade({ grade, subject }: { readonly grade: string; readonly subject: string; }): ReactElement {
     return (
         <Stack alignItems="center" direction="row" flex={1} sx={{ p: "0 5%" }}>
-            <Typography>{subject}</Typography>
-            <Spacer />
+            <Typography flex={1}>{subject}</Typography>
             <Typography>{grade}</Typography>
         </Stack>
     );

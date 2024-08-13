@@ -1,12 +1,11 @@
 "use client";
 
-import { Avatar, Divider, Paper, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Divider, Paper, Stack, Typography } from "@mui/material";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
 import Name from "./name";
 import type { ReactElement } from "react";
 import SocialLinks from "./socialLinks";
-import Spacer from "./spacer";
 import { usePathname } from "next/navigation";
 import { useThemeContext } from "contexts/themeContext";
 
@@ -32,8 +31,9 @@ export default function Footer(): ReactElement {
             <Stack divider={<Divider sx={{ mb: "0.5%" }} />}>
                 <Stack alignItems="center" direction="row">
                     <Avatar src={GRAVATAR_URL} sx={{ m: "1%" }} />
-                    <Name id="footer" minScreenSize="md" variant="h4" />
-                    <Spacer />
+                    <Box flex={1}>
+                        <Name id="footer" minScreenSize="md" variant="h4" />
+                    </Box>
                     <SocialLinks />
                 </Stack>
                 <Stack
