@@ -8,7 +8,10 @@ import type { ReactElement } from "react";
  */
 export default function LargeNav({ pages }: { readonly pages: Array<{ label: string; link: string; }>; }): ReactElement {
     return (
-        <Box sx={{ display: { md: "flex", xs: "none" }, flex: 1 }}>
+        <Box sx={{ 
+            display: { md: "flex", xs: "none" }, 
+            flex: 1,
+        }}>
             {pages.map((page, i) => (
                 <MenuItem component={Link} href={page.link} key={i}>
                     <Typography>{page.label}</Typography>
