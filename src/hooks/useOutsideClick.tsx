@@ -12,14 +12,18 @@ export default function useOutsideClick<T>(callback: () => T): RefObject<HTMLEle
     const ref = useRef<HTMLElement>(null);
 
     useEffect(() => {
-        function handleClickOutside(event: MouseEvent): void {
+        function handleClickOutside(event: MouseEvent | TouchEvent): void {
             if (ref.current !== null && !ref.current.contains(event.target as Node)) {
                 callback();
             }
         }
     
         document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
+        document.addEventListener("touchstart", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("touchstart", handleClickOutside);
+        }
     }, [ref]);
 
     return ref;

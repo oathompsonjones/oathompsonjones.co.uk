@@ -26,9 +26,9 @@ export default function Header(): ReactElement {
     const isHomePage: boolean = usePathname() === "/";
     const [isNavOpen, setIsNavOpen] = useState(false);
     const toggleNavOpen = (): void => setIsNavOpen(() => isMobile && !isNavOpen);
-    const ref = useOutsideClick(toggleNavOpen);
+    const ref = useOutsideClick(() => setIsNavOpen(false));
 
-    useEffect(() => setIsNavOpen(false), [isMobile]);
+    useEffect(() => setIsNavOpen(false), []);
     
     const textColour = { dark: light, light: dark }[isHomePage ? "dark" : mode];
     const solidBackground = isNavOpen || isScrolling && (isMobile || !isHomePage);
