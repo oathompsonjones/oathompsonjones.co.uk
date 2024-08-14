@@ -1,6 +1,5 @@
 import "./global.css";
 import type { Metadata, Viewport } from "next";
-import BackgroundCursor from "components/cursor";
 import Footer from "components/footer";
 import Head from "next/head.js";
 import Header from "components/header";
@@ -22,8 +21,8 @@ export const metadata: Metadata = {
         ["Bishop's Stortford", "Edinburgh", "Edinburgh University"],
         ["Programmer", "Programming", "Program"],
         ["Coder", "Coding", "Code"],
-        ["Software", "Software Engineer", "Software Engineering", "Software Developer", "Software Development"],
-        ["Computer Science"],
+        ["Software", "Software Engineer", "Software Engineering", "Software Developer", "Software Development", "Development", "Developer"],
+        ["Computer Science", "Computing", "Computer Scientist", "CS"],
         ["Portfolio", "CV", "Contact"],
     ].flat(),
     title: "Oliver Jones",
@@ -51,7 +50,7 @@ export default function Layout({ children }: { readonly children: ReactElement; 
             <body>
                 <noscript>You need to enable JavaScript to run this app.</noscript>
                 <ThemeProvider>
-                    <BackgroundCursor />
+                    <div id="background" />
                     <ScrollToTop />
                     <Header />
                     <main>{children}</main>

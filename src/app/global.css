@@ -31,7 +31,24 @@ span {
 }
 
 a {
-    color: var(--primary);
+    color: rgb(var(--primary));
     cursor: pointer;
     text-decoration: none;
+}
+
+#background {
+    /* Dotted Background */
+    background-image: radial-gradient(rgba(var(--primary), 0.5) 7%, transparent 0);
+    background-size: 2vw 2vw;
+    box-shadow: inset -25vw -25vh 25vw 25vh rgb(var(--background));
+    /* Cursor Following Background */
+    /* background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(var(--primary), 0.1) 0, transparent, transparent 100%); */
+    position: fixed;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    z-index: -10;
+    transition: box-shadow 0.25s linear;
 }
