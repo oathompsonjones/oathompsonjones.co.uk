@@ -1,7 +1,6 @@
-import { Divider, Paper, Typography } from "@mui/material";
 import Grade from "./grade";
-import Link from "next/link";
 import type { ReactElement } from "react";
+import Grades from "./grades";
 
 /**
  * Contains the GCSEs segment for my CV page.
@@ -9,9 +8,14 @@ import type { ReactElement } from "react";
  */
 export default function GCSEs(): ReactElement {
     return (
-        <Paper sx={{ display: "flex", flexDirection: "column", height: "100%", p: "2%" }}>
-            <Typography variant="h4">GCSEs</Typography>
-            <Divider sx={{ m: "1.25% 0%" }} />
+        <Grades
+            attainmentYear={2019}
+            educationLevel="GCSEs"
+            institutionLink="https://tbshs.org"
+            institutionName="The Bishop's Stortford High School"
+            maxGrade={9}
+            minGrade={1}
+        >
             <Grade grade="8" subject="Biology" />
             <Grade grade="7" subject="Chemistry" />
             <Grade grade="8" subject="Computer Science" />
@@ -21,10 +25,6 @@ export default function GCSEs(): ReactElement {
             <Grade grade="8" subject="History" />
             <Grade grade="8" subject="Mathematics" />
             <Grade grade="8" subject="Physics" />
-            <Divider sx={{ m: "1.25% 0%" }} />
-            <Typography sx={{ bottom: 0 }} variant="caption">
-                Attained at <Link href="https://tbshs.org">The Bishop's Stortford High School</Link> in 2019.
-            </Typography>
-        </Paper>
+        </Grades>
     );
 }
