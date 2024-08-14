@@ -9,15 +9,18 @@ import type { RefObject } from "react";
  * @returns The ref object to pass to the component.
  */
 export default function useOutsideClick<T>(callback: () => T): RefObject<HTMLElement> {
-    const ref = useRef<HTMLElement>({} as HTMLElement);
+    const ref = useRef<HTMLElement>(null);
 
     useEffect(() => {
-        const handleClick = (): T => callback();
-
-        document.addEventListener("click", handleClick);
-
-        return (): void => document.removeEventListener("click", handleClick);
-    }, []);
+        function handleClickOutside(event: MouseEvent): void {
+            if (ref.current !== null && !ref.current.contains(event.target as Node)) {
+                callback();
+            }
+        }
+    
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [ref]);
 
     return ref;
 }
