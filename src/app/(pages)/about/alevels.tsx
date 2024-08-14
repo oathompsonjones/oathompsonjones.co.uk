@@ -13,7 +13,7 @@ export default function ALevels(): ReactElement {
             educationLevel="A Levels"
             institutionLink="https://tbshs.org"
             institutionName="The Bishop's Stortford High School"
-            maxGrade={<>A<sup>*</sup></>}
+            maxGrade="A*"
             minGrade="E"
         >
             <Grade grade="A*" subject="Computer Science" />
