@@ -9,6 +9,7 @@ import SmallNav from "./small";
 import Title from "./title";
 import { usePathname } from "next/navigation";
 import { useThemeContext } from "contexts/themeContext";
+import useOutsideClick from "hooks/useOutsideClick";
 
 /**
  * Creates the header element.
@@ -17,18 +18,20 @@ import { useThemeContext } from "contexts/themeContext";
 export default function Header(): ReactElement {
     // Access the site theme.
     const { theme, toggleTheme } = useThemeContext();
-    const { palette: { background: { dark, light }, mode, primary: { main } } } = theme;
+    const { palette: { background: { dark, light }, mode } } = theme;
 
     // Handles behaviour for changing nav bar colour and opening/closing dropdown menu.
-    const scrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
-    const smallNav: boolean = useMediaQuery(theme.breakpoints.down("md"));
-    const [navOpen, setNavOpen] = useState(false);
-    const toggleNavOpen = (): void => setNavOpen(() => smallNav && !navOpen);
+    const isScrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
+    const isMobile: boolean = useMediaQuery(theme.breakpoints.down("md"));
+    const isHomePage: boolean = usePathname() === "/";
+    const [isNavOpen, setIsNavOpen] = useState(false);
+    const toggleNavOpen = (): void => setIsNavOpen(() => isMobile && !isNavOpen);
+    const ref = useOutsideClick(toggleNavOpen);
 
-    useEffect(() => setNavOpen(false), [smallNav]);
-    const pathname = usePathname();
-    const textColour = { dark: light, light: dark }[pathname === "/" ? "dark" : mode];
-    const solidBackground = scrolling && (smallNav ? true : pathname !== "/") || smallNav && navOpen;
+    useEffect(() => setIsNavOpen(false), [isMobile]);
+    
+    const textColour = { dark: light, light: dark }[isHomePage ? "dark" : mode];
+    const solidBackground = isNavOpen || isScrolling && (isMobile || !isHomePage);
 
     // Associate a label and link with each page.
     const pages: Array<{ label: string; link: string; }> = [
@@ -39,12 +42,12 @@ export default function Header(): ReactElement {
         { label: "Contact Me", link: "/contact" },
     ];
 
-    // Returns an AppBar element (which renders as an HTML header element).
     return (
         <AppBar
             component="header"
             enableColorOnDark
             position="fixed"
+            ref={ref} 
             sx={{
                 ...(solidBackground ? {} : {
                     background: "none",
@@ -56,7 +59,7 @@ export default function Header(): ReactElement {
         >
             {/* Toolbar is essential for properly aligning elements within the AppBar. */}
             <Toolbar>
-                <IconButton color="inherit" onClick={toggleNavOpen} sx={{ display: { md: "none", xs: "block" }, height: "40px" }}>
+                <IconButton color="inherit" onClick={toggleNavOpen} sx={{ display: { md: "none" } }}>
                     <Menu />
                 </IconButton>
                 <Title textColour={solidBackground ? light : textColour} />
@@ -66,7 +69,7 @@ export default function Header(): ReactElement {
                     {mode === "dark" ? <DarkMode /> : <LightMode />}
                 </IconButton>
             </Toolbar>
-            <SmallNav backgroundColor={main} open={navOpen} pages={pages} toggleNavOpen={toggleNavOpen} />
+            <SmallNav isOpen={isNavOpen} pages={pages} toggleNavOpen={toggleNavOpen} />
         </AppBar>
     );
 }

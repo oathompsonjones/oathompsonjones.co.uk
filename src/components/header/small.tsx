@@ -1,36 +1,24 @@
 import { Box, MenuItem, Typography } from "@mui/material";
 import Link from "next/link";
 import type { ReactElement } from "react";
-import useOutsideClick from "hooks/useOutsideClick";
 
 /**
  * Contains the nav bar for smaller displays.
  * @returns The small nav.
  */
-export default function SmallNav({ backgroundColor, open, pages, toggleNavOpen }: Readonly<{
-    backgroundColor: string;
-    open: boolean;
+export default function SmallNav({ isOpen, pages, toggleNavOpen }: Readonly<{
+    isOpen: boolean;
     pages: Array<{ label: string; link: string; }>;
     toggleNavOpen: () => void;
 }>): ReactElement {
-    const ref = useOutsideClick(toggleNavOpen);
-
     return (
-        <Box
-            alignItems="center"
-            ref={ref}
-            sx={{
-                backgroundColor,
-                display: open ? "block" : "none",
-                height: "100%",
-                width: "100%"
-            }}
-        >
+        <Box alignItems="center" sx={{ display: isOpen ? "block" : "none", }}>
             {pages.map((page, i) => (
                 <MenuItem
                     component={Link}
                     href={page.link}
                     key={i}
+                    onClick={toggleNavOpen}
                     sx={{ justifyContent: "center", width: "100%" }}
                 >
                     <Typography>{page.label}</Typography>
