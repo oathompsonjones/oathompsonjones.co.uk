@@ -28,7 +28,7 @@ export default function Footer(): ReactElement {
                 zIndex: 1,
             }}
         >
-            <Stack divider={<Divider sx={{ mb: "0.5%" }} />}>
+            <Stack divider={<Divider sx={{ my: "0.5%" }} />}>
                 <Stack alignItems="center" direction="row">
                     <Avatar src={GRAVATAR_URL} sx={{ m: "1%" }} />
                     <Box flex={1}>

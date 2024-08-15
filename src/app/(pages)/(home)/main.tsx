@@ -16,7 +16,7 @@ export default function Main(): ReactElement {
                 <Typography align="center" variant="h3" color="secondary">BSc Computer Science Undergraduate</Typography>
                 <Typography align="center" variant="h4" color="secondary">The University of Edinburgh</Typography>
             </Stack>
-            <Divider flexItem sx={{ bgcolor: "primary.main", m: "1%" }} />
+            <Divider flexItem sx={{ bgcolor: "primary.main" }} />
             <Stack
                 alignItems="center"
                 direction="row"
@@ -28,7 +28,7 @@ export default function Main(): ReactElement {
                 <DynamicButton href="/api/cv" sx={{ pointerEvents: "auto" }}>Download CV</DynamicButton>
                 <DynamicButton href="/contact" sx={{ pointerEvents: "auto" }}>Contact Me</DynamicButton>
             </Stack>
-            <Divider flexItem sx={{ bgcolor: "primary.main", m: "1%" }} />
+            <Divider flexItem sx={{ bgcolor: "primary.main" }} />
         </>
     );
 }

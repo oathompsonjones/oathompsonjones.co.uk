@@ -25,7 +25,7 @@ export default function SocialLinks({ dividers = false }: { readonly dividers?: 
         <Stack
             alignItems="center"
             direction="row"
-            divider={dividers ? <Divider flexItem orientation="vertical" /> : undefined}
+            divider={dividers ? <Divider flexItem orientation="vertical" sx={{ m: 0 }} /> : undefined}
             justifyContent="space-evenly"
         >
             {socials.map(({ icon, link }, i) => (
