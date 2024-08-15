@@ -11,8 +11,6 @@ import type { Palette, Theme } from "@mui/material";
 import type { ReactElement, ReactNode } from "react";
 import { createContext, useContext, useMemo } from "react";
 import useDarkMode from "hooks/useDarkMode";
-import useMousePosition from "hooks/useMousePosition";
-import useWindowSize from "hooks/useWindowSize";
 
 type ThemeContextType = {
     theme: Theme;
@@ -30,41 +28,57 @@ export function ThemeProvider({ children }: { readonly children: ReactNode; }): 
     const [isDarkMode, toggleTheme] = useDarkMode();
 
     // Create the full theme.
+    const colours = {
+        dark: "#121212",
+        light: "#efefef",
+        primary: "#1c7eea",
+        secondary: "#ea881c",
+    };
     const theme: Theme = responsiveFontSizes(createTheme({
         components: {
             MuiButton: {
                 defaultProps: {
-                    variant: "contained"
-                }
+                    variant: "contained",
+                },
             },
             MuiFab: {
                 defaultProps: {
-                    color: "secondary"
-                }
+                    color: "secondary",
+                },
             },
             MuiPaper: {
                 defaultProps: {
-                    elevation: 5
+                    elevation: 5,
                 },
                 styleOverrides: {
                     root: {
-                        transition: "background-color 0.25s linear"
+                        transition: "background-color 0.25s linear",
                     }
+                },
+            },
+            MuiDivider: {
+                defaultProps: {
+                    variant: "middle",
+                },
+                styleOverrides: {
+                    root: {
+                        marginTop: "1.25%",
+                        marginBottom: "1.25%",
+                    },
                 },
             },
         },
         palette: {
             background: {
-                dark: "#121212",
-                default: isDarkMode ? "#121212" : "#efefef",
-                light: "#efefef",
+                dark: colours.dark,
+                light: colours.light,
             },
             mode: isDarkMode ? "dark" : "light",
             primary: {
-                main: "#1c7eea"
+                main: colours.primary,
             },
             secondary: {
-                main: "#ea881c"
+                main: colours.secondary,
             },
         },
         typography: (palette: Palette) => {
@@ -80,9 +94,6 @@ export function ThemeProvider({ children }: { readonly children: ReactNode; }): 
         },
     }), { breakpoints: ["xs", "sm", "md", "lg", "xl"] });
 
-    // Create CSS variables for the mouse position.
-    const { x, y } = useMousePosition();
-    const { width, height } = useWindowSize();
     const hexToRGB = (hex: string): string => {
         const [r, g, b] = hex.slice(1).match(/.{2}/g)!;
         return `${parseInt(r, 16)}, ${parseInt(g!, 16)}, ${parseInt(b!, 16)}`;
@@ -95,13 +106,11 @@ export function ThemeProvider({ children }: { readonly children: ReactNode; }): 
                     <CssBaseline enableColorScheme />
                     <style>{/* CSS */`
                         :root {
-                            --primary: ${hexToRGB(theme.palette.primary.main)};
-                            --secondary: ${hexToRGB(theme.palette.secondary.main)};
-                            --dark: ${hexToRGB(theme.palette.background.dark)};
-                            --light: ${hexToRGB(theme.palette.background.light)};
+                            --primary: ${hexToRGB(colours.primary)};
+                            --secondary: ${hexToRGB(colours.secondary)};
+                            --dark: ${hexToRGB(colours.dark)};
+                            --light: ${hexToRGB(colours.light)};
                             --background: ${isDarkMode ? "var(--dark)" : "var(--light)"};
-                            --mouse-x: calc(${x / width} * 100%);
-                            --mouse-y: calc(${y / height} * 100%);
                         }
                     `}</style>
                     {children}

@@ -37,12 +37,9 @@ a {
 }
 
 #background {
-    /* Dotted Background */
     background-image: radial-gradient(rgba(var(--primary), 0.5) 7%, transparent 0);
     background-size: 2vw 2vw;
     box-shadow: inset -25vw -25vh 25vw 25vh rgb(var(--background));
-    /* Cursor Following Background */
-    /* background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(var(--primary), 0.1) 0, transparent, transparent 100%); */
     position: fixed;
     overflow: hidden;
     height: 100vh;
