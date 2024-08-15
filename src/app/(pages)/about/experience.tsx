@@ -1,4 +1,4 @@
-import { Divider, Paper, Typography } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import type { ReactElement, ReactNode } from "react";
 import type { CV } from "api/cv";
 import Link from "next/link";
@@ -48,17 +48,15 @@ export default function Experience(): ReactElement {
     }
 
     return (
-        <Paper sx={{ p: "1%" }}>
-            <Typography variant="h4">Experience</Typography>
-            {
-                experiences.map(({ content, heading }) => (
-                    <>
-                        <Divider sx={{ m: "1.25% 0%" }} />
-                        <Typography variant="subtitle1">{heading}</Typography>
-                        <Typography variant="body2">{content}</Typography>
-                    </>
-                ))
-            }
-        </Paper>
+        <>
+            <Typography variant="h3">Experience</Typography>
+            {experiences.map(({ content, heading }) => (
+                <>
+                    <Divider />
+                    <Typography variant="subtitle1">{heading}</Typography>
+                    <Typography variant="body2">{content}</Typography>
+                </>
+            ))}
+        </>
     );
 }

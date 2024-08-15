@@ -1,4 +1,4 @@
-import { Avatar, Divider, Paper, Stack, Typography } from "@mui/material";
+import { Avatar, Divider, Grid, Stack, Typography } from "@mui/material";
 import { GRAVATAR_URL, age } from "utils";
 import Link from "next/link";
 import Name from "components/name";
@@ -10,29 +10,27 @@ import type { ReactElement } from "react";
  */
 export default function Bio(): ReactElement {
     return (
-        <Paper sx={{ p: "1%" }}>
-            <Typography variant="h4">Biography</Typography>
-            <Divider sx={{ m: "1.25% 0%" }} />
-            <Stack alignItems="center" direction={{ md: "row" }}>
-                <Avatar
-                    src={GRAVATAR_URL}
-                    sx={{
-                        height: "auto",
-                        m: "1rem",
-                        width: { lg: "30%", md: "50%", sm: "70%", xl: "20%", xs: "90%" },
-                    }}
-                />
-                <Stack direction="column" flex={1} justifyContent="center" sx={{ width: "100%" }}>
-                    <Typography variant="h6">Name</Typography>
-                    <Name id="bio" />
-                    <Divider flexItem sx={{ m: "1.25% 0%" }} />
-                    <Typography variant="h6">Nationality</Typography>
-                    <Typography>British</Typography>
-                    <Divider flexItem sx={{ m: "1.25% 0%" }} />
-                    <Typography variant="h6">Age</Typography>
-                    <Typography>{age()}</Typography>
-                </Stack>
-            </Stack>
+        <>
+            <Grid container spacing={2}>
+                <Grid item md={4} xs={12}>
+                    <Avatar
+                        src={GRAVATAR_URL}
+                        sx={{ height: "auto", width: "100%" }}
+                    />
+                </Grid>
+                <Grid item md={8} xs={12}>
+                    <Stack direction="column" justifyContent="center" sx={{ height: "100%" }}>
+                        <Typography variant="h6">Name</Typography>
+                        <Name id="bio" />
+                        <Divider />
+                        <Typography variant="h6">Nationality</Typography>
+                        <Typography>British</Typography>
+                        <Divider />
+                        <Typography variant="h6">Age</Typography>
+                        <Typography>{age()}</Typography>
+                    </Stack>
+                </Grid>
+            </Grid>
             <br />
             <Typography>
                 I am an ambitious, hard-working person, able to work well even under stressful conditions.
@@ -42,9 +40,9 @@ export default function Bio(): ReactElement {
                 <br /><br />
                 I'm currently reading for a degree in Computer Science at the University of Edinburgh.
                 I'm familiar with several programming languages, including (but not limited to) JavaScript/TypeScript,
-                Python, C/C++, C# and Java, and I'm able to pick up new languages quickly.
+                Python, C/C++, C#, Java and Haskell, and I'm able to pick up new languages quickly.
                 A selection of my work can be found <Link href="/portfolio">here</Link>.
             </Typography>
-        </Paper>
+        </>
     );
 }

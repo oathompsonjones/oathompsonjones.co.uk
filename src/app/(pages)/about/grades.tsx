@@ -29,9 +29,9 @@ export default function Grades({
                 <Typography variant="h4" flex={1}>{educationLevel}</Typography>
                 <Typography variant="h6">({maxGrade} – {minGrade})</Typography>
             </Stack>
-            <Divider sx={{ m: "1.25% 0%" }} />
+            <Divider />
             {children}
-            <Divider sx={{ m: "1.25% 0%" }} />
+            <Divider />
             <Typography sx={{ bottom: 0 }} variant="caption">
                 Attained at <Link href={institutionLink}>{institutionName}</Link> in {attainmentYear}.
             </Typography>
