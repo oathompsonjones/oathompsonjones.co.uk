@@ -10,7 +10,7 @@ import {
 import type { Palette, Theme } from "@mui/material";
 import type { ReactElement, ReactNode } from "react";
 import { createContext, useContext, useMemo } from "react";
-import useDarkMode from "hooks/useDarkMode";
+import { useDarkMode } from "hooks/useDarkMode";
 
 type ThemeContextType = {
     theme: Theme;

@@ -11,7 +11,7 @@ import { useThemeContext } from "contexts/themeContext";
  * @param props - An object containing the component props.
  * @returns An element which renders a collapsible text element.
  */
-export default function CollapsibleText({ beginningText, collapsibleText, endingText, id, minScreenSize, variant }: Readonly<{
+export function CollapsibleText({ beginningText, collapsibleText, endingText, id, minScreenSize, variant }: Readonly<{
     beginningText: Array<ReactNode | string>;
     collapsibleText: Array<ReactNode | string>;
     endingText: Array<ReactNode | string>;

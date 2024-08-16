@@ -8,7 +8,7 @@ import { useState } from "react";
  * Renders a Twitter/X icon.
  * @returns The Twitter/X icon.
  */
-export default function TwitterX(): ReactElement {
+export function TwitterX(): ReactElement {
     const [useTwitterLogo, setUseTwitterLogo] = useState<boolean>(false);
 
     return (

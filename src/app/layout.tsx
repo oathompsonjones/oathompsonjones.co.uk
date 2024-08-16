@@ -1,10 +1,10 @@
 import "./global.css";
 import type { Metadata, Viewport } from "next";
-import Footer from "components/footer";
+import { Footer } from "components/footer";
 import Head from "next/head.js";
-import Header from "components/header";
+import { Header } from "components/header";
 import type { ReactElement } from "react";
-import ScrollToTop from "components/scrollToTop";
+import { ScrollToTop } from "components/scrollToTop";
 import { ThemeProvider } from "contexts/themeContext";
 import { gravatarURL } from "utils";
 

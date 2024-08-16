@@ -1,12 +1,12 @@
 "use client";
 
-import GitHubRepo from "./githubRepo";
+import { GitHubRepo } from "./githubRepo";
 import Link from "next/link";
 import { Masonry } from "@mui/lab";
 import type { ReactElement } from "react";
-import type { Repo } from "api/github";
+import type { Repo } from "api/github/route";
 import { Typography } from "@mui/material";
-import useFetch from "hooks/useFetch";
+import { useFetch } from "hooks/useFetch";
 
 /**
  * This page acts as an online portfolio.

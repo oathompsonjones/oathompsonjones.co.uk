@@ -1,7 +1,7 @@
 import { Card, CardMedia, Zoom } from "@mui/material";
 import { Instagram } from "@mui/icons-material";
 import Link from "next/link";
-import type { Post } from "api/instagram";
+import type { Post } from "api/instagram/route";
 import type { ReactElement } from "react";
 import { useState } from "react";
 
@@ -10,7 +10,7 @@ import { useState } from "react";
  * @param props - An object containing the component props.
  * @returns An element which renders an Instagram post.
  */
-export default function InstagramPost({ post }: { readonly post: Post; }): ReactElement {
+export function InstagramPost({ post }: { readonly post: Post; }): ReactElement {
     // Posts with multiple images recursively call this element.
     if (post.media_type === "CAROUSEL_ALBUM") {
         return (

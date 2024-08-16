@@ -6,7 +6,7 @@ import type { ReactElement } from "react";
  * Contains the nav bar for smaller displays.
  * @returns The small nav.
  */
-export default function SmallNav({ isOpen, pages, toggleNavOpen }: Readonly<{
+export function SmallNav({ isOpen, pages, toggleNavOpen }: Readonly<{
     isOpen: boolean;
     pages: Array<{ label: string; link: string; }>;
     toggleNavOpen: () => void;

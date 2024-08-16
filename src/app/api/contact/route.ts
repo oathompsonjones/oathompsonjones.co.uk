@@ -1,8 +1,14 @@
-import type { Body } from ".";
 import Config from "../../../../config.json";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+
+type Body = {
+    content: string;
+    email: string;
+    name: string;
+    subject: string;
+};
 
 /**
  * Handles POST requests to the contact form.

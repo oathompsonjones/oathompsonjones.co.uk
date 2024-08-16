@@ -1,16 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import About from "./about";
-import Background from "./background";
-import Contact from "./contact";
-import FadingDiv from "./fadingDiv";
-import Main from "./main";
-import Mobile from "components/mobile";
-import ProfilePicture from "./profilePicture";
+import { About } from "./about";
+import { Background } from "./background";
+import { Contact } from "./contact";
+import { FadingDiv } from "./fadingDiv";
+import { Main } from "./main";
+import { Mobile } from "components/mobile";
+import { ProfilePicture } from "./profilePicture";
 import type { ReactElement } from "react";
-import Section from "./section";
-import useWindowSize from "hooks/useWindowSize";
+import { Section } from "./section";
+import { useWindowSize } from "hooks/useWindowSize";
 
 /**
  * This is the home page.

@@ -7,7 +7,7 @@ import type { ReactElement } from "react";
  * @param children - The children.
  * @returns A div.
  */
-export default function ProfilePicture({ positioner }: { readonly positioner?: boolean; }): ReactElement {
+export function ProfilePicture({ positioner }: { readonly positioner?: boolean; }): ReactElement {
     const isPositioner = positioner ?? false;
 
     return (

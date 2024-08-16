@@ -3,9 +3,9 @@
 import { Avatar, Box, Divider, Paper, Stack, Typography } from "@mui/material";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
-import Name from "./name";
+import { Name } from "./name";
 import type { ReactElement } from "react";
-import SocialLinks from "./socialLinks";
+import { SocialLinks } from "./socialLinks";
 import { usePathname } from "next/navigation";
 import { useThemeContext } from "contexts/themeContext";
 
@@ -13,7 +13,7 @@ import { useThemeContext } from "contexts/themeContext";
  * Contains the footer element.
  * @returns The page footer.
  */
-export default function Footer(): ReactElement {
+export function Footer(): ReactElement {
     const { theme: { palette: { primary: { main } } } } = useThemeContext();
     const pathname = usePathname();
 

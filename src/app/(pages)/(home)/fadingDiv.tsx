@@ -6,7 +6,7 @@ import type { ReactElement } from "react";
  * @param children - The children.
  * @returns A div.
  */
-export default function FadingDiv({ children }: {
+export function FadingDiv({ children }: {
     readonly children?: ReactElement | ReactElement[];
 }): ReactElement {
     return (

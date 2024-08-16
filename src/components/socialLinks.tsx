@@ -8,7 +8,7 @@ import type { ReactElement } from "react";
  * @param dividers - Whether to display dividers between the links.
  * @returns A list of social media links.
  */
-export default function SocialLinks({ dividers = false }: { readonly dividers?: boolean; }): ReactElement {
+export function SocialLinks({ dividers = false }: { readonly dividers?: boolean; }): ReactElement {
     // Links a URL and an icon for each social media to display.
     const socials: Array<{ icon: ReactElement; link: string; }> = [
         { icon: <Email />, link: "/email" },

@@ -1,4 +1,4 @@
-import ContactForm from "pages/contact/contactForm";
+import { ContactForm } from "pages/contact/contactForm";
 import type { ReactElement } from "react";
 import { Typography } from "@mui/material";
 
@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
  * The contact section of the home page.
  * @returns The contact section of the home page.
  */
-export default function Contact(): ReactElement {
+export function Contact(): ReactElement {
     return (
         <>
             <Typography variant="h1">Contact Me</Typography>

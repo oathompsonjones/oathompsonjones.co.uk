@@ -3,11 +3,11 @@
 import { AppBar, IconButton, Toolbar, useMediaQuery, useScrollTrigger } from "@mui/material";
 import { DarkMode, LightMode, Menu } from "@mui/icons-material";
 import { useEffect, useState } from "react";
-import LargeNav from "./large";
+import { LargeNav } from "./large";
 import type { ReactElement } from "react";
-import SmallNav from "./small";
-import Title from "./title";
-import useOutsideClick from "hooks/useOutsideClick";
+import { SmallNav } from "./small";
+import { Title } from "./title";
+import { useOutsideClick } from "hooks/useOutsideClick";
 import { usePathname } from "next/navigation";
 import { useThemeContext } from "contexts/themeContext";
 
@@ -15,7 +15,7 @@ import { useThemeContext } from "contexts/themeContext";
  * Creates the header element.
  * @returns The page header.
  */
-export default function Header(): ReactElement {
+export function Header(): ReactElement {
     // Access the site theme.
     const { theme, toggleTheme } = useThemeContext();
     const { palette: { background: { dark, light }, mode } } = theme;

@@ -6,7 +6,7 @@ import Link from "next/link";
  * Contains a set of grades for the CV page.
  * @returns The Grades element.
  */
-export default function Grades({
+export function Grades({
     attainmentYear,
     children,
     educationLevel,

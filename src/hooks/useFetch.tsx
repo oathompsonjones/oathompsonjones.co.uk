@@ -42,7 +42,7 @@ function promiseWrapper<T = unknown>(promise: Promise<T>): () => T {
  * @param url - The URL to fetch from.
  * @returns The data returned, or null if the fetch fails.
  */
-export default function useFetch<T = unknown>(url: string): T | null {
+export function useFetch<T = unknown>(url: string): T | null {
     /* Creates a state variable which will later store the fetched data,
     allowing this Hook to have the same behaviour as the useState Hook. */
     const [resource, setResource] = useState<T | null>(null);

@@ -23,7 +23,7 @@ function parse<T>(value: string, fallbackValue: T): T {
  * The first is the value stored, the second is a function to update that value.
  * @returns The value stored in localStorage, and a function to update that value.
  */
-export default function useLocalStorage<T>(key: string, initialState: T): [T, (newValue: T) => void] {
+export function useLocalStorage<T>(key: string, initialState: T): [T, (newValue: T) => void] {
     // Stores the value in the state, allowing this Hook to have the same behaviour as the useState Hook.
     const [value, setValue] = useState<T>(initialState);
 

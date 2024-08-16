@@ -1,12 +1,12 @@
 "use client";
 
-import InstagramPost from "./instagramPost";
+import { InstagramPost } from "./instagramPost";
 import Link from "next/link";
 import { Masonry } from "@mui/lab";
-import type { Post } from "api/instagram";
+import type { Post } from "api/instagram/route";
 import type { ReactElement } from "react";
 import { Typography } from "@mui/material";
-import useFetch from "hooks/useFetch";
+import { useFetch } from "hooks/useFetch";
 
 /**
  * This page shows my Instagram posts.

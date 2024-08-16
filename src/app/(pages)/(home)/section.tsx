@@ -3,14 +3,14 @@
 import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import type { ReactElement } from "react";
-import useWindowSize from "hooks/useWindowSize";
+import { useWindowSize } from "hooks/useWindowSize";
 
 /**
  * A section on the home page.
  * @param children - The children.
  * @returns A section on the home page.
  */
-export default function Section({ children }: { readonly children?: ReactElement | ReactElement[]; }): ReactElement {
+export function Section({ children }: { readonly children?: ReactElement | ReactElement[]; }): ReactElement {
     const { height: windowHeight } = useWindowSize();
     const [height, setHeight] = useState(0);
 

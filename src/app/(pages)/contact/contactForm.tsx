@@ -4,13 +4,13 @@ import { Alert, Button, FormControl, FormLabel, Grid, Paper, TextField } from "@
 import type { FormEvent, ReactElement } from "react";
 import { useEffect, useState } from "react";
 import { Send } from "@mui/icons-material";
-import useWindowSize from "hooks/useWindowSize";
+import { useWindowSize } from "hooks/useWindowSize";
 
 /**
  * A contact form.
  * @returns A contact form.
  */
-export default function ContactForm(): ReactElement {
+export function ContactForm(): ReactElement {
     // State variables for the content of the contact form.
     const [content, setContent] = useState("");
     const [email, setEmail] = useState("");

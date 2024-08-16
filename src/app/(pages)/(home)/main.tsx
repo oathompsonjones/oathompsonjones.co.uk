@@ -1,13 +1,13 @@
 import { Divider, Stack, Typography } from "@mui/material";
-import DynamicButton from "components/dynamicButton";
-import ProfilePicture from "./profilePicture";
+import { DynamicButton } from "components/dynamicButton";
+import { ProfilePicture } from "./profilePicture";
 import type { ReactElement } from "react";
 
 /**
  * The main section of the home page.
  * @returns The main section of the home page.
  */
-export default function Main(): ReactElement {
+export function Main(): ReactElement {
     return (
         <>
             <Stack alignItems="center" direction="column" justifyContent="center">

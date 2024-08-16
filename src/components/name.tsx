@@ -1,5 +1,5 @@
 import type { Breakpoint, Variant } from "@mui/material";
-import CollapsibleText from "./collapsibleText";
+import { CollapsibleText } from "./collapsibleText";
 import type { ReactElement } from "react";
 
 /**
@@ -7,7 +7,7 @@ import type { ReactElement } from "react";
  * @param props - The component properties.
  * @returns The rendered component.
  */
-export default function Name({ colour, id, minScreenSize, variant }: Readonly<{
+export function Name({ colour, id, minScreenSize, variant }: Readonly<{
     colour?: boolean;
     id: string;
     minScreenSize?: Breakpoint;

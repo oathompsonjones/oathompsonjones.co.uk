@@ -1,10 +1,10 @@
 import { Container, Stack, Typography } from "@mui/material";
-import Bio from "./bio";
-import DynamicButton from "components/dynamicButton";
-import Experience from "./experience";
-import Qualifications from "./qualifications";
+import { Bio } from "./bio";
+import { DynamicButton } from "components/dynamicButton";
+import { Experience } from "./experience";
+import { Qualifications } from "./qualifications";
 import type { ReactElement } from "react";
-import Skills from "./skills";
+import { Skills } from "./skills";
 
 /**
  * This page acts as an online CV.

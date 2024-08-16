@@ -9,7 +9,7 @@ import { useCallback } from "react";
  * Scrolls to the top of the page when clicked.
  * @returns A button that scrolls to the top of the page when clicked.
  */
-export default function ScrollToTop(): ReactElement {
+export function ScrollToTop(): ReactElement {
     const scrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 75 });
     const scrollToTop = useCallback(() => window.scrollTo({ behavior: "smooth", top: 0 }), []);
 

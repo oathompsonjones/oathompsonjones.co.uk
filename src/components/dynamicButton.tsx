@@ -10,7 +10,7 @@ import { useMediaQuery } from "@mui/material";
  * Renders a MUI button with dynamic sizing.
  * @returns A MUI Button.
  */
-export default function DynamicButton({ children, ...props }: ButtonBaseOwnProps & ButtonOwnProps & {
+export function DynamicButton({ children, ...props }: ButtonBaseOwnProps & ButtonOwnProps & {
     readonly children?: ReactNode;
 }): ReactElement {
     const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));

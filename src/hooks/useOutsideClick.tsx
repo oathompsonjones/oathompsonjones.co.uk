@@ -8,7 +8,7 @@ import type { RefObject } from "react";
  * @param callback - Function to execute when the user clicks outside of the component.
  * @returns The ref object to pass to the component.
  */
-export default function useOutsideClick<T>(callback: () => T): RefObject<HTMLElement> {
+export function useOutsideClick<T>(callback: () => T): RefObject<HTMLElement> {
     const ref = useRef<HTMLElement>(null);
 
     useEffect(() => {

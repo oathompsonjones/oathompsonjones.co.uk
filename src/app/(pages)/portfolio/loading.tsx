@@ -3,7 +3,7 @@
 import { Masonry } from "@mui/lab";
 import type { ReactElement } from "react";
 import { Skeleton } from "@mui/material";
-import useWindowSize from "hooks/useWindowSize";
+import { useWindowSize } from "hooks/useWindowSize";
 
 /**
  * Renders a skeleton page while loading.

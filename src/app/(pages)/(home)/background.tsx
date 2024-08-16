@@ -7,7 +7,7 @@ import desk from "images/desk.jpg";
  * @param children - The children.
  * @returns A div.
  */
-export default function Background(): ReactElement {
+export function Background(): ReactElement {
     return (
         <Image
             alt="Picture of a computer desk."

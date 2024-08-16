@@ -6,7 +6,7 @@ import SvgIcon from "@mui/material/SvgIcon";
  * Renders a Stack Overflow logo.
  * @returns The Stack Overflow logo.
  */
-export default function StackOverflow(): ReactElement {
+export function StackOverflow(): ReactElement {
     return (
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         <SvgIcon component={StackOverflowLogo} inheritViewBox />
