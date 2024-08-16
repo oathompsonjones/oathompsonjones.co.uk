@@ -39,7 +39,7 @@ a {
 #background {
     background-image: radial-gradient(rgba(var(--primary), 0.5) 7%, transparent 0);
     background-size: 2vw 2vw;
-    box-shadow: inset -25vw -25vh 25vw 25vh rgb(var(--background));
+    box-shadow: inset -15vw -15vh 15vw 15vh rgb(var(--background));
     position: fixed;
     overflow: hidden;
     height: 100vh;
