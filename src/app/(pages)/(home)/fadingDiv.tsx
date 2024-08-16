@@ -14,9 +14,9 @@ export default function FadingDiv({ children }: {
             className="fadingDiv"
             sx={{
                 alignItems: "center",
-                flexDirection: "column",
                 display: "flex",
-                filter: { md: `opacity(0%)` },
+                filter: { md: "opacity(0%)" },
+                flexDirection: "column",
                 height: "100%",
                 justifyContent: "center",
                 left: 0,

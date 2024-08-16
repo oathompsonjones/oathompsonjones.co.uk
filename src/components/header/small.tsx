@@ -12,7 +12,7 @@ export default function SmallNav({ isOpen, pages, toggleNavOpen }: Readonly<{
     toggleNavOpen: () => void;
 }>): ReactElement {
     return (
-        <Box alignItems="center" sx={{ display: isOpen ? "block" : "none", }}>
+        <Box alignItems="center" sx={{ display: isOpen ? "block" : "none" }}>
             {pages.map((page, i) => (
                 <MenuItem
                     component={Link}

@@ -1,6 +1,6 @@
-import { useMediaQuery } from "@mui/material";
-import useLocalStorage from "./useLocalStorage";
 import { useEffect } from "react";
+import useLocalStorage from "./useLocalStorage";
+import { useMediaQuery } from "@mui/material";
 
 /**
  * Uses the useLocalStorage hook to handle dark mode.

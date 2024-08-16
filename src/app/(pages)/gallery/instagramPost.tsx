@@ -1,8 +1,9 @@
-import { Instagram } from "@mui/icons-material";
-import type { Post } from "api/instagram";
-import { useState, type ReactElement } from "react";
 import { Card, CardMedia, Zoom } from "@mui/material";
+import { Instagram } from "@mui/icons-material";
 import Link from "next/link";
+import type { Post } from "api/instagram";
+import type { ReactElement } from "react";
+import { useState } from "react";
 
 /**
  * Renders an Instagram post.
@@ -42,9 +43,9 @@ export default function InstagramPost({ post }: { readonly post: Post; }): React
     // All other posts are displayed as a single image.
     return (
         <Zoom in timeout={500}>
-            <Card 
-                onMouseEnter={handleHover} 
-                onMouseLeave={handleHover} 
+            <Card
+                onMouseEnter={handleHover}
+                onMouseLeave={handleHover}
                 square
                 sx={{
                     border: "none",

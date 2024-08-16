@@ -1,7 +1,7 @@
 import { Divider, Stack, Typography } from "@mui/material";
-import type { ReactElement } from "react";
-import ProfilePicture from "./profilePicture";
 import DynamicButton from "components/dynamicButton";
+import ProfilePicture from "./profilePicture";
+import type { ReactElement } from "react";
 
 /**
  * The main section of the home page.

@@ -1,7 +1,7 @@
-import type { ReactElement } from "react";
 import { Divider, Grid, Typography } from "@mui/material";
-import GCSEs from "./gcses";
 import ALevels from "./alevels";
+import GCSEs from "./gcses";
+import type { ReactElement } from "react";
 import University from "./university";
 
 /**

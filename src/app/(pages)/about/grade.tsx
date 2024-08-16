@@ -1,5 +1,5 @@
-import { Stack, Typography } from "@mui/material";
 import type { ReactElement, ReactNode } from "react";
+import { Stack, Typography } from "@mui/material";
 
 /**
  * This component displays a grade.

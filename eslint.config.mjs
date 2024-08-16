@@ -1,11 +1,10 @@
 import createConfig from "@oathompsonjones/eslint-config";
 
 export default [
-    ...createConfig("./tsconfig.json"),
+    ...createConfig("./tsconfig.json", "src/app/(pages)/"),
     {
         rules: {
-            "require-unicode-regexp": "off",
-            "@next/next/no-html-link-for-pages": ["error", "src/app/(pages)"]
+            "require-unicode-regexp": "off"
         }
     }
 ];

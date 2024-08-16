@@ -1,7 +1,7 @@
 import type { LogLevel } from ".";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { init } from "./init";
+import { init } from ".";
 
 /**
  * Handles GET requests to the logs API.

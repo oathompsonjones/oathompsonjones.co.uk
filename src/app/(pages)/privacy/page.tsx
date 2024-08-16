@@ -1,6 +1,6 @@
+import { Container, Typography } from "@mui/material";
 import Link from "next/link";
 import type { ReactElement } from "react";
-import { Container, Typography } from "@mui/material";
 
 /**
  * This is the privacy policy.

@@ -1,5 +1,6 @@
-import { Theme, useMediaQuery } from "@mui/material";
 import type { ReactElement } from "react";
+import type { Theme } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
 
 /**
  * Renders its children on desktop only.

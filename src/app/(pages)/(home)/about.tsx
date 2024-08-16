@@ -1,11 +1,11 @@
 import { Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import type { ReactElement } from "react";
-import ProfilePicture from "./profilePicture";
+import Desktop from "components/desktop";
 import Link from "next/link";
+import ProfilePicture from "./profilePicture";
+import type { ReactElement } from "react";
 import { age } from "utils";
 import useWindowSize from "hooks/useWindowSize";
-import Desktop from "components/desktop";
 
 /**
  * The about section of the home page.
@@ -13,7 +13,7 @@ import Desktop from "components/desktop";
  */
 export default function About(): ReactElement {
     const { height, width } = useWindowSize();
-    const [orientation, setOrientation] = useState<"portrait" | "landscape">("portrait");
+    const [orientation, setOrientation] = useState<"landscape" | "portrait">("portrait");
 
     useEffect(() => {
         setOrientation(height < width ? "landscape" : "portrait");

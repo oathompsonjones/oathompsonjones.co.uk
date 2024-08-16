@@ -11,9 +11,9 @@ export default function Title({ textColour }: Readonly<{ textColour: string; }>)
             align="center"
             color={textColour}
             sx={{
-                flexGrow: { md: 0, xs: 1 }, 
-                fontFamily: "monospace", 
-                fontWeight: 700, 
+                flexGrow: { md: 0, xs: 1 },
+                fontFamily: "monospace",
+                fontWeight: 700,
                 letterSpacing: ".3rem",
             }}
             variant="h5"

@@ -22,10 +22,10 @@ export default function Section({ children }: { readonly children?: ReactElement
             sx={{
                 // eslint-disable-next-line @typescript-eslint/naming-convention
                 "&:last-of-type": {
-                    md: { 
-                        marginBottom: "-1rem", 
+                    md: {
+                        marginBottom: "-1rem",
                         minHeight: `${height}px`,
-                    }
+                    },
                 },
                 alignItems: "center",
                 display: "flex",

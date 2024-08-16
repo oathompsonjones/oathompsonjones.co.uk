@@ -7,9 +7,9 @@ import LargeNav from "./large";
 import type { ReactElement } from "react";
 import SmallNav from "./small";
 import Title from "./title";
+import useOutsideClick from "hooks/useOutsideClick";
 import { usePathname } from "next/navigation";
 import { useThemeContext } from "contexts/themeContext";
-import useOutsideClick from "hooks/useOutsideClick";
 
 /**
  * Creates the header element.
@@ -29,7 +29,7 @@ export default function Header(): ReactElement {
     const ref = useOutsideClick(() => setIsNavOpen(false));
 
     useEffect(() => setIsNavOpen(false), []);
-    
+
     const textColour = { dark: light, light: dark }[isHomePage ? "dark" : mode];
     const solidBackground = isNavOpen || isScrolling && (isMobile || !isHomePage);
 
@@ -47,13 +47,15 @@ export default function Header(): ReactElement {
             component="header"
             enableColorOnDark
             position="fixed"
-            ref={ref} 
+            ref={ref}
             sx={{
-                ...(solidBackground ? {} : {
-                    background: "none",
-                    boxShadow: "none",
-                    color: textColour,
-                }),
+                ...solidBackground
+                    ? {}
+                    : {
+                        background: "none",
+                        boxShadow: "none",
+                        color: textColour,
+                    },
                 backgroundImage: "none",
             }}
         >

@@ -1,8 +1,8 @@
 import { Divider, Typography } from "@mui/material";
-import type { ReactElement } from "react";
 import type { CV } from "api/cv";
-import { jsonToJSDoc } from "api/cv";
+import type { ReactElement } from "react";
 import cv from "assets/cv.json";
+import { jsonToJSDoc } from "api/cv";
 
 const data = cv as CV;
 

@@ -1,7 +1,7 @@
+import { Container, Typography } from "@mui/material";
 import ContactForm from "./contactForm";
 import type { ReactElement } from "react";
 import SocialLinks from "components/socialLinks";
-import { Container, Typography } from "@mui/material";
 
 /**
  * This page provides contact links for me.

@@ -1,6 +1,6 @@
 import { Box, Divider, Stack, Typography } from "@mui/material";
-import Link from "next/link";
 import type { ReactElement, ReactNode } from "react";
+import Link from "next/link";
 
 /**
  * Contains a set of grades for the CV page.

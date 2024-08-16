@@ -1,16 +1,16 @@
 "use client";
 
-import type { ReactElement } from "react";
-import Section from "./section";
 import { useEffect, useState } from "react";
-import ProfilePicture from "./profilePicture";
-import Main from "./main";
 import About from "./about";
 import Background from "./background";
-import FadingDiv from "./fadingDiv";
-import useWindowSize from "hooks/useWindowSize";
-import Mobile from "components/mobile";
 import Contact from "./contact";
+import FadingDiv from "./fadingDiv";
+import Main from "./main";
+import Mobile from "components/mobile";
+import ProfilePicture from "./profilePicture";
+import type { ReactElement } from "react";
+import Section from "./section";
+import useWindowSize from "hooks/useWindowSize";
 
 /**
  * This is the home page.
@@ -19,36 +19,42 @@ import Contact from "./contact";
 export default function Home(): ReactElement {
     const { height, width } = useWindowSize();
     const [, forceRerenderState] = useState(0);
-    const forceRerender = () => forceRerenderState(Math.random());
+    const forceRerender = (): void => forceRerenderState(Math.random());
 
     function handleScroll(): void {
         const fadingDivs = [...document.getElementsByClassName("fadingDiv")] as [HTMLDivElement, HTMLDivElement];
+
         if (window.innerWidth >= 900) {
             const avatar = document.getElementsByClassName("avatar")[0] as HTMLElement;
             const [pos1, pos2] = [...document.getElementsByClassName("avatarPosition")]
-                .map((avatar) => avatar.getBoundingClientRect()) as [DOMRect, DOMRect];
+                .map((av) => av.getBoundingClientRect()) as [DOMRect, DOMRect];
 
             const visibleIndex = Math.round(window.scrollY / window.innerHeight);
 
             // Update the position and size of the avatar
-            avatar.style.left = `${(visibleIndex === 0 ? pos1 : pos2)?.x ?? 0}px`;
-            avatar.style.top = `${(visibleIndex === 0 ? pos1 : pos2)?.y ?? 0}px`;
-            avatar.style.width = `${(visibleIndex === 0 ? pos1 : pos2)?.width ?? 0}px`;
-            avatar.style.height = `${(visibleIndex === 0 ? pos1 : pos2)?.height ?? 0}px`;
+            avatar.style.left = `${(visibleIndex === 0 ? pos1 : pos2).x}px`;
+            avatar.style.top = `${(visibleIndex === 0 ? pos1 : pos2).y}px`;
+            avatar.style.width = `${(visibleIndex === 0 ? pos1 : pos2).width}px`;
+            avatar.style.height = `${(visibleIndex === 0 ? pos1 : pos2).height}px`;
 
             // Update the opacity of the fading divs and the avatar
-            fadingDivs.forEach((div, index) => div.style.filter = `opacity(${+(index === visibleIndex) * 100}%)`);
+            fadingDivs.forEach((div, index) => {
+                div.style.filter = `opacity(${Number(index === visibleIndex) * 100}%)`;
+            });
             avatar.style.filter = `opacity(${visibleIndex > 1 ? 0 : 100}%)`;
         } else {
-            fadingDivs.forEach((div) => div.style.filter = "opacity(100%)");
+            fadingDivs.forEach((div) => {
+                div.style.filter = "opacity(100%)";
+            });
         }
     }
 
     // Add event listener for scrolling
     useEffect(() => {
         handleScroll();
-        window.addEventListener("scroll", handleScroll, { passive: true, capture: true });
-        return () => window.removeEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", handleScroll, { capture: true, passive: true });
+
+        return (): void => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     // Update the avatar and fading divs on window resize

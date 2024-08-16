@@ -1,6 +1,6 @@
 import { Avatar } from "@mui/material";
-import type { ReactElement } from "react";
 import { GRAVATAR_URL } from "utils";
+import type { ReactElement } from "react";
 
 /**
  * A div which will be used to either fade in or out.
@@ -8,19 +8,21 @@ import { GRAVATAR_URL } from "utils";
  * @returns A div.
  */
 export default function ProfilePicture({ positioner }: { readonly positioner?: boolean; }): ReactElement {
+    const isPositioner = positioner ?? false;
+
     return (
         <Avatar
-            className={positioner ? "avatarPosition" : "avatar"}
+            className={isPositioner ? "avatarPosition" : "avatar"}
             src={GRAVATAR_URL}
             sx={{
-                boxShadow: positioner ? 0 : 20,
+                boxShadow: isPositioner ? 0 : 20,
                 display: {
                     md: "block",
-                    xs: positioner ? "block" : "none"
+                    xs: isPositioner ? "block" : "none",
                 },
-                filter: positioner ? { md: "opacity(0%)" } : undefined,
+                filter: isPositioner ? { md: "opacity(0%)" } : undefined,
                 height: "auto",
-                position: positioner ? undefined : "fixed",
+                position: isPositioner ? undefined : "fixed",
                 transition: [
                     "left 0.5s linear",
                     "top 0.5s linear",

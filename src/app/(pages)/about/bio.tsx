@@ -1,8 +1,8 @@
 import { Avatar, Divider, Grid, Stack, Typography } from "@mui/material";
 import { GRAVATAR_URL, age } from "utils";
 import Name from "components/name";
-import cv from "assets/cv.json";
 import type { ReactElement } from "react";
+import cv from "assets/cv.json";
 import { jsonToJSDoc } from "api/cv";
 
 /**

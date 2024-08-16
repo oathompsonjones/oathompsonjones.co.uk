@@ -1,9 +1,9 @@
 "use client";
 
 import { Masonry } from "@mui/lab";
+import type { ReactElement } from "react";
 import { Skeleton } from "@mui/material";
 import useWindowSize from "hooks/useWindowSize";
-import type { ReactElement } from "react";
 
 /**
  * Renders a skeleton page while loading.
@@ -14,7 +14,7 @@ export default function Loading(): ReactElement {
 
     const skeletonCount = 20;
     const heights = Array(skeletonCount).fill(0).map(() => (Math.random() / 2 + 0.5) * width);
-    
+
     return (
         <>
             <Masonry columns={{ lg: 6, sm: 3, xs: 1 }}>

@@ -1,5 +1,5 @@
-import type { ReactElement } from "react";
 import { Container, Typography } from "@mui/material";
+import type { ReactElement } from "react";
 
 /**
  * This page contains some mini arcade games.

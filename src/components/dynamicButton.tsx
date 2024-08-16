@@ -1,8 +1,9 @@
 "use client";
 
-import { Button, ButtonBaseOwnProps, ButtonOwnProps, Theme } from "@mui/material";
-import Link from "next/link";
+import type { ButtonBaseOwnProps, ButtonOwnProps, Theme } from "@mui/material";
 import type { ReactElement, ReactNode } from "react";
+import { Button } from "@mui/material";
+import Link from "next/link";
 import { useMediaQuery } from "@mui/material";
 
 /**

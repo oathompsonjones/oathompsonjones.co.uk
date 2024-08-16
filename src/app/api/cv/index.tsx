@@ -1,11 +1,11 @@
+import type { ReactElement, ReactNode } from "react";
+import Link from "next/link";
 import cv from "assets/cv.json";
 import fs from "fs/promises";
-import Link from "next/link";
-import { ReactElement, ReactNode } from "react";
 
 export type CV = {
     bio: string;
-    Qualifications: Record<string, string | string[][]>;
+    Qualifications: Record<string, string[][] | string>;
     Experience: Record<string, string>;
     Skills: Record<string, string>;
 };

@@ -2,8 +2,8 @@
 
 import { Alert, Button, FormControl, FormLabel, Grid, Paper, TextField } from "@mui/material";
 import type { FormEvent, ReactElement } from "react";
-import { Send } from "@mui/icons-material";
 import { useEffect, useState } from "react";
+import { Send } from "@mui/icons-material";
 import useWindowSize from "hooks/useWindowSize";
 
 /**
@@ -55,13 +55,13 @@ export default function ContactForm(): ReactElement {
     }
 
     // Calculates the number of rows for the content field.
-    const { height } = useWindowSize()
+    const { height } = useWindowSize();
     const [contentRows, setContentRows] = useState(1);
 
     useEffect(() => {
-        const field = document.querySelector("textarea[name=content]") as HTMLTextAreaElement;
+        const field = document.querySelector("textarea[name=content]")!;
         const lineHeight = parseFloat(getComputedStyle(field).lineHeight);
-        
+
         setContentRows(Math.floor(height / lineHeight / 2.5));
     }, []);
 

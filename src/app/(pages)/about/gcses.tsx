@@ -1,6 +1,6 @@
 import Grade from "./grade";
-import type { ReactElement } from "react";
 import Grades from "./grades";
+import type { ReactElement } from "react";
 
 /**
  * Contains the GCSEs segment for my CV page.
