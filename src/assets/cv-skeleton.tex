@@ -34,18 +34,27 @@
     \postauthor{\par}
     \predate{}
     \postdate{}
-    \renewcommand\maketitlehooka{\par\noindent{\color{lightgray}\hrulefill}\par}
-    \renewcommand\maketitlehookb{\par\noindent{\color{lightgray}\hrulefill}\par}
+    \renewcommand\maketitlehooka{\par\noindent{\color{lightgray}\titlerule[1pt]}\par}
+    \renewcommand\maketitlehookb{\par\noindent{\color{lightgray}\titlerule[1pt]}\par}
 
 % Style section sections.
 \usepackage[compact]{titlesec}
-\titleformat{\section}
-    {\color{black}\normalfont\large\bfseries}{\thesection}{0em}{}[{\color{lightgray}\titlerule\titlerule}]
-\titleformat{\subsection}
-    {\color{black}\normalfont}{\thesubsection}{0em}{}[{\color{lightgray}\titlerule}]
-
-% Reduce line height in tables.
-\renewcommand{\arraystretch}{1}
+\titleformat
+    {\section} % command
+    [block] % shape
+    {\color{black}\normalfont\large\bfseries} % format
+    {\thesection} % label
+    {} % sep
+    {\vskip0.1cm} % before-code
+    [{\color{lightgray}\titlerule[2pt]}] % after-code
+\titleformat
+    {\subsection} % command
+    [block] % shape
+    {\color{black}\normalfont} % format
+    {\thesubsection} % label
+    {} % sep
+    {\vskip0.05cm} % before-code
+    [{\color{lightgray}\titlerule[1pt]}] % after-code
 
 % Sets the title.
 \title{Oliver Jones}

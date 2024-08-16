@@ -21,9 +21,12 @@ export default function About(): ReactElement {
             </Stack>
             <Bio />
             <br />
+            <br />
             <Qualifications />
             <br />
+            <br />
             <Experience />
+            <br />
             <br />
             <Skills />
         </Container>

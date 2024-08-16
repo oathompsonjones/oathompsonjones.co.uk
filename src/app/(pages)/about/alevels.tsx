@@ -10,7 +10,7 @@ export default function ALevels(): ReactElement {
     return (
         <Grades
             attainmentYear={2021}
-            educationLevel="A Levels"
+            educationLevel="A-Levels"
             institutionLink="https://tbshs.org"
             institutionName="The Bishop's Stortford High School"
             maxGrade="A*"

@@ -1,8 +1,9 @@
 import { Avatar, Divider, Grid, Stack, Typography } from "@mui/material";
 import { GRAVATAR_URL, age } from "utils";
-import Link from "next/link";
 import Name from "components/name";
+import cv from "assets/cv.json";
 import type { ReactElement } from "react";
+import { jsonToJSDoc } from "api/cv";
 
 /**
  * Contains the bio segment for my CV page.
@@ -33,15 +34,7 @@ export default function Bio(): ReactElement {
             </Grid>
             <br />
             <Typography>
-                I am an ambitious, hard-working person, able to work well even under stressful conditions.
-                I'm able to work effectively with a group of like-minded colleagues and have experience managing teams,
-                yet I'm also able to work effectively alone.
-                I take pride in completing all tasks on time and to the highest standard.
-                <br /><br />
-                I'm currently reading for a degree in Computer Science at the University of Edinburgh.
-                I'm familiar with several programming languages, including (but not limited to) JavaScript/TypeScript,
-                Python, C/C++, C#, Java and Haskell, and I'm able to pick up new languages quickly.
-                A selection of my work can be found <Link href="/portfolio">here</Link>.
+                {jsonToJSDoc(cv.bio)}
             </Typography>
         </>
     );

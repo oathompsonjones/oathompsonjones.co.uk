@@ -1,4 +1,4 @@
-import { Divider, Paper, Stack, Typography } from "@mui/material";
+import { Box, Divider, Stack, Typography } from "@mui/material";
 import Link from "next/link";
 import type { ReactElement, ReactNode } from "react";
 
@@ -24,7 +24,7 @@ export default function Grades({
     minGrade: ReactNode;
 }>): ReactElement {
     return (
-        <Paper sx={{ display: "flex", flexDirection: "column", height: "100%", p: "2%" }}>
+        <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
             <Stack direction="row" alignItems="center">
                 <Typography variant="h4" flex={1}>{educationLevel}</Typography>
                 <Typography variant="h6">({maxGrade} – {minGrade})</Typography>
@@ -32,9 +32,9 @@ export default function Grades({
             <Divider />
             {children}
             <Divider />
-            <Typography sx={{ bottom: 0 }} variant="caption">
+            <Typography variant="caption">
                 Attained at <Link href={institutionLink}>{institutionName}</Link> in {attainmentYear}.
             </Typography>
-        </Paper>
+        </Box>
     );
 }

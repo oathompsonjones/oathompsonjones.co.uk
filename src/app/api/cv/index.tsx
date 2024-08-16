@@ -1,13 +1,45 @@
 import cv from "assets/cv.json";
 import fs from "fs/promises";
-
-const data = cv as CV;
+import Link from "next/link";
+import { ReactElement, ReactNode } from "react";
 
 export type CV = {
-    Qualifications: Record<string, string[][] | string>;
+    bio: string;
+    Qualifications: Record<string, string | string[][]>;
     Experience: Record<string, string>;
     Skills: Record<string, string>;
 };
+const data = cv as CV;
+
+/**
+ * Maps the data to a React element.
+ * @param content - The content to map.
+ * @returns The mapped data.
+ */
+export function jsonToJSDoc(content: string): ReactElement {
+    // eslint-disable-next-line prefer-named-capture-group
+    const matchingRegExp = /\[([^\]]+)\]\(([^\s)]+)\)/g;
+    const nonMatchingRegExp = /\[[^\]]+\]\([^\s)]+\)/g;
+    const links: string[] = content.match(matchingRegExp) ?? [];
+    const splitAtLinks: string[] = content.split(nonMatchingRegExp);
+    const output: Array<ReactNode | string> = [];
+
+    for (let i = 0, j = 0, k = 0; i < splitAtLinks.length || j < links.length; k++) {
+        if (k % 2 === 0) {
+            const str = splitAtLinks[i++]!;
+
+            output.push(...str.includes("\n") ? str.split("\n").map((line) => <>{line}<br /></>) : [str]);
+        } else {
+            const link = links[j++];
+            const href = link!.replace(matchingRegExp, "$2");
+            const label = link!.replace(matchingRegExp, "$1");
+
+            output.push(<Link href={href}>{label}</Link>);
+        }
+    }
+
+    return <>{output.flat()}</>;
+}
 
 /**
  * Generates a LaTeX document from the CV data.
@@ -29,10 +61,10 @@ function format(content: string): string {
     return content
         // eslint-disable-next-line prefer-named-capture-group
         .replace(/\[([^\]]+)\]\(([^\s)]+)\)/g, "\\href{$2}{$1}")
-        .replace(/\n/g, " \\\\\n")
+        .replace(/\n\n/g, " \\paragraph{}")
+        .replace(/\n/g, " \\")
         // eslint-disable-next-line prefer-named-capture-group
-        .replace(/([#&])/g, "\\$1")
-        .replace(/\s-\s/g, " --- ");
+        .replace(/([#&])/g, "\\$1");
 }
 
 /**
@@ -54,9 +86,10 @@ function mapTable([headings, ...rows]: string[][]): string {
  * @returns The LaTeX section.
  */
 export function mapSection(section: keyof CV): string {
-    return `${mapSectionHeading(section)}\n${mapSectionContent(section)
-        .split("\n").map((line) => `\t${line}`)
-        .join("\n")}`;
+    if (section === "bio")
+        return format(data[section]);
+
+    return `${mapSectionHeading(section)}\n${mapSectionContent(section)}`;
 }
 
 /**
@@ -65,10 +98,8 @@ export function mapSection(section: keyof CV): string {
  * @param subSection - The subsection.
  * @returns The LaTeX subsection.
  */
-function mapSubSection(section: keyof CV, subSection: string): string {
-    return `${mapSubSectionHeading(subSection)}\n${mapSubSectionContent(section, subSection)
-        .split("\n").map((line) => `\t${line}`)
-        .join("\n")}`;
+function mapSubSection(section: keyof Omit<CV, "bio">, subSection: string): string {
+    return `${mapSubSectionHeading(subSection)}\n${mapSubSectionContent(section, subSection)}`;
 }
 
 /**
@@ -76,7 +107,7 @@ function mapSubSection(section: keyof CV, subSection: string): string {
  * @param heading - The heading.
  * @returns The LaTeX section heading.
  */
-function mapSectionHeading(heading: keyof CV): string {
+function mapSectionHeading(heading: keyof Omit<CV, "bio">): string {
     return `\\section*{${format(heading)}}`;
 }
 
@@ -95,7 +126,7 @@ function mapSubSectionHeading(heading: string): string {
  * @param subSection - The subsection.
  * @returns The LaTeX subsection content.
  */
-function mapSectionContent(section: keyof CV): string {
+function mapSectionContent(section: keyof Omit<CV, "bio">): string {
     return Object.keys(data[section]).map((subSection) => mapSubSection(section, subSection)).join("\n");
 }
 
@@ -105,7 +136,7 @@ function mapSectionContent(section: keyof CV): string {
  * @param subSection - The subsection.
  * @returns The LaTeX subsection content.
  */
-function mapSubSectionContent(section: keyof CV, subSection: string): string {
+function mapSubSectionContent(section: keyof Omit<CV, "bio">, subSection: string): string {
     const subSectionData = data[section][subSection]!;
 
     return subSectionData instanceof Array ? mapTable(subSectionData) : format(subSectionData);
