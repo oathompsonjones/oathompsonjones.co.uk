@@ -17,6 +17,21 @@
             "@node_mui/*": [
                 "./node_modules/@mui/*"
             ],
+            "app/*": [
+                "./src/app/*"
+            ],
+            "pages/*": [
+                "./src/app/(pages)/*"
+            ],
+            "redirects/*": [
+                "./src/app/(redirects)/*"
+            ],
+            "api/*": [
+                "./src/app/api/*"
+            ],
+            "assets/*": [
+                "./src/assets/*"
+            ],
             "components/*": [
                 "./src/components/*"
             ],
@@ -26,29 +41,14 @@
             "hooks/*": [
                 "./src/hooks/*"
             ],
-            "api/*": [
-                "./src/app/api/*"
-            ],
-            "pages/*": [
-                "./src/app/(pages)/*"
-            ],
-            "redirects/*": [
-                "./src/app/(redirects)/*"
-            ],
-            "app/*": [
-                "./src/app/*"
-            ],
             "images/*": [
                 "./src/images/*"
             ],
-            "assets/*": [
-                "./src/assets/*"
+            "styles/*": [
+                "./src/styles/*"
             ],
             "utils": [
                 "./src/utils"
-            ],
-            "logger": [
-                "./src/logger"
             ],
         },
         "isolatedModules": true,
