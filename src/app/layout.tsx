@@ -1,4 +1,4 @@
-import "./global.css";
+import "styles/global.css";
 import type { Metadata, Viewport } from "next";
 import { Footer } from "components/footer";
 import Head from "next/head.js";
