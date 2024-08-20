@@ -1,5 +1,8 @@
+import type { Metadata } from "next";
 import type { ReactElement } from "react";
 import { Typography } from "@mui/material";
+
+export const metadata: Metadata = { title: "Oliver Jones | Portfolio" };
 
 /**
  * A wrapper to build the page and error.

@@ -1,7 +1,10 @@
 import { Container, Typography } from "@mui/material";
 import { ContactForm } from "./contactForm";
+import type { Metadata } from "next";
 import type { ReactElement } from "react";
 import { SocialLinks } from "components/socialLinks";
+
+export const metadata: Metadata = { title: "Oliver Jones | Contact Me" };
 
 /**
  * This page provides contact links for me.

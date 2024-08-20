@@ -1,6 +1,9 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import type { ReactElement } from "react";
 import { Typography } from "@mui/material";
+
+export const metadata: Metadata = { title: "Oliver Jones | Page Not Found" };
 
 /**
  * Handles any 404 errors.

@@ -2,9 +2,12 @@ import { Container, Stack, Typography } from "@mui/material";
 import { Bio } from "./bio";
 import { DynamicButton } from "components/dynamicButton";
 import { Experience } from "./experience";
+import type { Metadata } from "next";
 import { Qualifications } from "./qualifications";
 import type { ReactElement } from "react";
 import { Skills } from "./skills";
+
+export const metadata: Metadata = { title: "Oliver Jones | About Me" };
 
 /**
  * This page acts as an online CV.

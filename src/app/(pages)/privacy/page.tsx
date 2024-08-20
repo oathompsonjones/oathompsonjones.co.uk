@@ -1,6 +1,9 @@
 import { Container, Typography } from "@mui/material";
 import Link from "next/link";
+import type { Metadata } from "next";
 import type { ReactElement } from "react";
+
+export const metadata: Metadata = { title: "Oliver Jones | Privacy Policy" };
 
 /**
  * This is the privacy policy.
