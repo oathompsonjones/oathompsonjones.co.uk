@@ -1,10 +1,11 @@
+// @ts-check
 import createConfig from "@oathompsonjones/eslint-config";
 
-export default [
-    ...createConfig("./tsconfig.json", "src/app/(pages)/"),
-    {
-        rules: {
-            "require-unicode-regexp": "off"
-        }
-    }
-];
+export default createConfig({
+    useNextJS: true,
+    pagesDirectory: "src/app/(pages)",
+    rules: [
+        { ignores: ["next-env.d.ts"] },
+        { rules: { "require-unicode-regexp": "off" } },
+    ],
+});
