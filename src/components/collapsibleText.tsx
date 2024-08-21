@@ -9,16 +9,22 @@ import { useThemeContext } from "contexts/themeContext";
 /**
  * Renders a collapsible text element.
  * @param props - An object containing the component props.
+ * @param props.beginningText - The text to display before the collapsible text.
+ * @param props.collapsibleText - The text to display when the text is collapsed.
+ * @param props.endingText - The text to display after the collapsible text.
+ * @param props.id - The ID of the component.
+ * @param props.minScreenSize - The minimum screen size to display the full text.
+ * @param props.variant - The text variant to use.
  * @returns An element which renders a collapsible text element.
  */
-export function CollapsibleText({ beginningText, collapsibleText, endingText, id, minScreenSize, variant }: Readonly<{
+export function CollapsibleText({ beginningText, collapsibleText, endingText, id, minScreenSize, variant }: {
     beginningText: Array<ReactNode | string>;
     collapsibleText: Array<ReactNode | string>;
     endingText: Array<ReactNode | string>;
     id: string;
     minScreenSize?: Breakpoint;
     variant?: Variant;
-}>): ReactElement {
+}): ReactElement {
     const [expandName, setExpandName] = useState(false);
     const showAnimation = useMediaQuery((theme: Theme) => theme.breakpoints.up(minScreenSize ?? "xs"));
     const { theme: { palette: { secondary: { main } } } } = useThemeContext();

@@ -3,9 +3,11 @@ import { Typography } from "@mui/material";
 
 /**
  * Creates the header element.
+ * @param props - The properties of the component.
+ * @param props.textColour - The colour of the text in the header.
  * @returns The page header.
  */
-export function Title({ textColour }: Readonly<{ textColour: string; }>): ReactElement {
+export function Title({ textColour }: { textColour: string; }): ReactElement {
     return (
         <Typography
             align="center"

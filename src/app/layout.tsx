@@ -1,9 +1,9 @@
 import "styles/global.css";
 import type { Metadata, Viewport } from "next";
+import type { ReactElement, ReactNode } from "react";
 import { Footer } from "components/footer";
 import Head from "next/head.js";
 import { Header } from "components/header";
-import type { ReactElement } from "react";
 import { ScrollToTop } from "components/scrollToTop";
 import { ThemeProvider } from "contexts/themeContext";
 import { gravatarURL } from "utils";
@@ -57,9 +57,11 @@ export const viewport: Viewport = {
 
 /**
  * A wrapper to build every page.
+ * @param props - The properties of the component.
+ * @param props.children - The children to render.
  * @returns A page wrapper.
  */
-export default function Layout({ children }: { readonly children: ReactElement; }): ReactElement {
+export default function Layout({ children }: { children: ReactNode; }): ReactElement {
     return (
         <html lang="en">
             <Head>

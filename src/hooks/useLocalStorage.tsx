@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 /**
  * Parses a string into a JSON object.
+ * @template T - The type of the value to parse.
  * @param value - The value to parse.
  * @param fallbackValue - The value to return if the parsing fails.
  * @returns The parsed value or the fallback value.
@@ -18,6 +19,7 @@ function parse<T>(value: string, fallbackValue: T): T {
 
 /**
  * Provides the same behaviour as `useState`, but also stores data using localStorage.
+ * @template T - The type of the value to store.
  * @param key - The name of the variable to store in localStorage.
  * @param initialState - The initial value to store for that variable.
  * The first is the value stored, the second is a function to update that value.

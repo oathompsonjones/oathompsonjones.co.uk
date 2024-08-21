@@ -4,7 +4,6 @@ import desk from "images/desk.jpg";
 
 /**
  * A div which will be used to either fade in or out.
- * @param children - The children.
  * @returns A div.
  */
 export function Background(): ReactElement {

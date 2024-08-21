@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 /**
  * Wraps a promise in a function that can be called to get the result of that promise.
+ * @template T - The type of the value returned by the promise.
  * @param promise - The promise to wrap.
  * @returns A function that can be called to get the result of the promise.
  */
@@ -39,6 +40,7 @@ function promiseWrapper<T = unknown>(promise: Promise<T>): () => T {
 
 /**
  * Fetches data, then rerenders the page once that data has been fetched, using the behaviour provided by `useState`.
+ * @template T - The type of the data to fetch.
  * @param url - The URL to fetch from.
  * @returns The data returned, or null if the fetch fails.
  */

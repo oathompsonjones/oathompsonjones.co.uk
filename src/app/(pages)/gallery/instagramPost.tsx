@@ -8,9 +8,10 @@ import { useState } from "react";
 /**
  * Renders an Instagram post.
  * @param props - An object containing the component props.
+ * @param props.post - The Instagram post to render.
  * @returns An element which renders an Instagram post.
  */
-export function InstagramPost({ post }: { readonly post: Post; }): ReactElement {
+export function InstagramPost({ post }: { post: Post; }): ReactElement {
     // Posts with multiple images recursively call this element.
     if (post.media_type === "CAROUSEL_ALBUM") {
         return (

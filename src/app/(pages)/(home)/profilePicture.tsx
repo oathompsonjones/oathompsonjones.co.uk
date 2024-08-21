@@ -4,10 +4,11 @@ import type { ReactElement } from "react";
 
 /**
  * A div which will be used to either fade in or out.
- * @param children - The children.
+ * @param props - The component properties.
+ * @param props.positioner - Whether the profile picture is a positioner.
  * @returns A div.
  */
-export function ProfilePicture({ positioner }: { readonly positioner?: boolean; }): ReactElement {
+export function ProfilePicture({ positioner }: { positioner?: boolean; }): ReactElement {
     const isPositioner = positioner ?? false;
 
     return (

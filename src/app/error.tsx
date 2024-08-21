@@ -5,10 +5,12 @@ import { Typography } from "@mui/material";
 
 /**
  * Handles any 500 errors.
- *
+ * @param props - The properties of the component.
+ * @param props.error - The error that occurred.
+ * @param props.reset - The function to reset the application.
  * @returns An error page.
  */
-export default function Error({ error, reset }: { readonly error: Error; readonly reset: () => void; }): ReactElement {
+export default function Error({ error, reset }: { error: Error; reset: () => void; }): ReactElement {
     return (
         <>
             <Typography gutterBottom variant="h2">Error 500 - Internal server error</Typography>

@@ -22,10 +22,11 @@ export const useThemeContext = (): ThemeContextType => useContext(ThemeContext);
 
 /**
  * Provides the theme to the application.
- * @param children - The children to render.
- * @returns The theme provider.
+ * @param props - The properties of the component.
+ * @param props.children - The children to render.
+ * @returns The theme provider to wrap the application in.
  */
-export function ThemeProvider({ children }: { readonly children: ReactNode; }): ReactElement {
+export function ThemeProvider({ children }: { children: ReactNode; }): ReactElement {
     const [isDarkMode, toggleTheme] = useDarkMode();
 
     // Create the full theme.

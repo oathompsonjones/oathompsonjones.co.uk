@@ -9,11 +9,11 @@
         "lint": "eslint ."
     },
     "devDependencies": {
-        "@oathompsonjones/eslint-config": "^1.4.0",
+        "@oathompsonjones/eslint-config": "^1.5.0",
         "@oathompsonjones/ts-config": "^0.0.35",
         "@types/http-proxy": "^1.17.15",
         "@types/md5": "^2.3.5",
-        "@types/node": "^22.4.2",
+        "@types/node": "^22.5.0",
         "@types/nodemailer": "^6.4.15",
         "@types/react": "^18.3.4",
         "@types/react-dom": "^18.3.0",

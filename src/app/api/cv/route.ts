@@ -40,7 +40,9 @@ function format(content: string): string {
 
 /**
  * Maps a table to LaTeX.
- * @param table - The table.
+ * @param table - The JSON table.
+ * @param table.0 - The headings of the table.
+ * @param table.1 - The rows of the table.
  * @returns The LaTeX table.
  */
 function mapTable([headings, ...rows]: string[][]): string {
@@ -53,7 +55,7 @@ function mapTable([headings, ...rows]: string[][]): string {
 
 /**
  * Maps a section to LaTeX.
- * @param section - The section.
+ * @param section - The section name.
  * @returns The LaTeX section.
  */
 export function mapSection(section: keyof CV): string {
@@ -65,8 +67,8 @@ export function mapSection(section: keyof CV): string {
 
 /**
  * Maps a subsection to LaTeX.
- * @param section - The section.
- * @param subSection - The subsection.
+ * @param section - The section name.
+ * @param subSection - The sub section name.
  * @returns The LaTeX subsection.
  */
 function mapSubSection(section: keyof Omit<CV, "bio">, subSection: string): string {
@@ -75,7 +77,7 @@ function mapSubSection(section: keyof Omit<CV, "bio">, subSection: string): stri
 
 /**
  * Maps a section heading to LaTeX.
- * @param heading - The heading.
+ * @param heading - The heading name.
  * @returns The LaTeX section heading.
  */
 function mapSectionHeading(heading: keyof Omit<CV, "bio">): string {
@@ -84,7 +86,7 @@ function mapSectionHeading(heading: keyof Omit<CV, "bio">): string {
 
 /**
  * Maps a subsection heading to LaTeX.
- * @param heading - The heading.
+ * @param heading - The heading name.
  * @returns The LaTeX subsection heading.
  */
 function mapSubSectionHeading(heading: string): string {
@@ -93,8 +95,7 @@ function mapSubSectionHeading(heading: string): string {
 
 /**
  * Maps a subsection content to LaTeX.
- * @param section - The section.
- * @param subSection - The subsection.
+ * @param section - The section name.
  * @returns The LaTeX subsection content.
  */
 function mapSectionContent(section: keyof Omit<CV, "bio">): string {
@@ -103,8 +104,8 @@ function mapSectionContent(section: keyof Omit<CV, "bio">): string {
 
 /**
  * Maps a subsection content to LaTeX.
- * @param section - The section.
- * @param subSection - The subsection.
+ * @param section - The section name.
+ * @param subSection - The sub section name.
  * @returns The LaTeX subsection content.
  */
 function mapSubSectionContent(section: keyof Omit<CV, "bio">, subSection: string): string {

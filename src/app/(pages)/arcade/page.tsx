@@ -6,7 +6,6 @@ export const metadata: Metadata = { title: "Oliver Jones | Arcade" };
 
 /**
  * This page contains some mini arcade games.
- *
  * @returns An arcade page.
  */
 export default function Arcade(): ReactElement {

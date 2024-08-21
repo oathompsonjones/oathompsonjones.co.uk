@@ -1,16 +1,17 @@
 "use client";
 
+import type { ReactElement, ReactNode } from "react";
 import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import type { ReactElement } from "react";
 import { useWindowSize } from "hooks/useWindowSize";
 
 /**
  * A section on the home page.
- * @param children - The children.
+ * @param props - The component properties.
+ * @param props.children - The children to render.
  * @returns A section on the home page.
  */
-export function Section({ children }: { readonly children?: ReactElement | ReactElement[]; }): ReactElement {
+export function Section({ children }: { children: ReactNode; }): ReactElement {
     const { height: windowHeight } = useWindowSize();
     const [height, setHeight] = useState(0);
 

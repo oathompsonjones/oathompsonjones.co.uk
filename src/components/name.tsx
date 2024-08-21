@@ -5,14 +5,18 @@ import type { ReactElement } from "react";
 /**
  * Renders my name.
  * @param props - The component properties.
+ * @param props.colour - Whether to colour the text.
+ * @param props.id - The ID of the component.
+ * @param props.minScreenSize - The minimum screen size to display the full name.
+ * @param props.variant - The text variant to use.
  * @returns The rendered component.
  */
-export function Name({ colour, id, minScreenSize, variant }: Readonly<{
+export function Name({ colour, id, minScreenSize, variant }: {
     colour?: boolean;
     id: string;
     minScreenSize?: Breakpoint;
     variant?: Variant;
-}>): ReactElement {
+}): ReactElement {
     return (
         <CollapsibleText
             beginningText={colour ?? true ? [<><span className="colour">O</span>liver</>] : ["Oliver"]}

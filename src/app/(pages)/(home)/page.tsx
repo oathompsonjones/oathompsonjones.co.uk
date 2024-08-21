@@ -21,7 +21,7 @@ export default function Home(): ReactElement {
     const [, forceRerenderState] = useState(0);
     const forceRerender = (): void => forceRerenderState(Math.random());
 
-    function handleScroll(): void {
+    const handleScroll = (): void => {
         const fadingDivs = [...document.getElementsByClassName("fadingDiv")] as [HTMLDivElement, HTMLDivElement];
 
         if (window.innerWidth >= 900) {
@@ -47,7 +47,7 @@ export default function Home(): ReactElement {
                 div.style.filter = "opacity(100%)";
             });
         }
-    }
+    };
 
     // Add event listener for scrolling
     useEffect(() => {

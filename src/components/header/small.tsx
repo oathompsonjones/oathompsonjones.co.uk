@@ -4,13 +4,17 @@ import type { ReactElement } from "react";
 
 /**
  * Contains the nav bar for smaller displays.
- * @returns The small nav.
+ * @param props - The component properties.
+ * @param props.isOpen - Whether the nav is open.
+ * @param props.pages - The pages to display in the nav.
+ * @param props.toggleNavOpen - Toggles the nav open.
+ * @returns The nav bar for smaller displays.
  */
-export function SmallNav({ isOpen, pages, toggleNavOpen }: Readonly<{
+export function SmallNav({ isOpen, pages, toggleNavOpen }: {
     isOpen: boolean;
     pages: Array<{ label: string; link: string; }>;
     toggleNavOpen: () => void;
-}>): ReactElement {
+}): ReactElement {
     return (
         <Box alignItems="center" sx={{ display: isOpen ? "block" : "none" }}>
             {pages.map((page, i) => (

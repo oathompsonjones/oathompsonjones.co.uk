@@ -8,7 +8,6 @@ export const metadata: Metadata = { title: "Oliver Jones | Contact Me" };
 
 /**
  * This page provides contact links for me.
- *
  * @returns My contact links, and an email form.
  */
 export default function Contact(): ReactElement {

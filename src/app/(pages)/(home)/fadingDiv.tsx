@@ -1,14 +1,13 @@
+import type { ReactElement, ReactNode } from "react";
 import { Box } from "@mui/material";
-import type { ReactElement } from "react";
 
 /**
  * A div which will be used to either fade in or out.
- * @param children - The children.
+ * @param props - The component properties.
+ * @param props.children - The children to render.
  * @returns A div.
  */
-export function FadingDiv({ children }: {
-    readonly children?: ReactElement | ReactElement[];
-}): ReactElement {
+export function FadingDiv({ children }: { children: ReactNode; }): ReactElement {
     return (
         <Box
             className="fadingDiv"

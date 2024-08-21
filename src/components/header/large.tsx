@@ -4,9 +4,11 @@ import type { ReactElement } from "react";
 
 /**
  * Contains nav bar for larger displays.
- * @returns The large nav.
+ * @param props - The component properties.
+ * @param props.pages - The pages to display in the nav.
+ * @returns The nav bar for larger displays.
  */
-export function LargeNav({ pages }: { readonly pages: Array<{ label: string; link: string; }>; }): ReactElement {
+export function LargeNav({ pages }: { pages: Array<{ label: string; link: string; }>; }): ReactElement {
     return (
         <Box sx={{ display: { md: "flex", xs: "none" } }} flex={1}>
             {pages.map((page, i) => (

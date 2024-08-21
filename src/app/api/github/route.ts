@@ -38,9 +38,9 @@ type APIResponse = {
 
 /**
  * Generates an image from an image binary.
- * @param imageBinaries - The image binaries.
+ * @param imageBinaries - The binary data of the images.
  * @param i - The index of the image to generate.
- * @returns The image.
+ * @returns The resized image.
  */
 function generateImage(imageBinaries: ArrayBuffer[], i: number): string {
     const average = (l: Uint8ClampedArray): number => l.reduce((a, b) => a + b, 0) / l.length;
@@ -90,7 +90,7 @@ function generateImage(imageBinaries: ArrayBuffer[], i: number): string {
 /**
  * Handles GET requests to the GitHub API.
  * @returns The response.
-*/
+ */
 export async function GET(): Promise<NextResponse> {
     const graphqlWithAuth = (await import("@octokit/graphql")).graphql.defaults(Config.github);
     const { user: { repositories: { repos } } } = await graphqlWithAuth<APIResponse>(`{

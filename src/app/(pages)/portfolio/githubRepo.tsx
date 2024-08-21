@@ -13,9 +13,10 @@ import type { Repo } from "api/github/route";
 /**
  * Renders a GitHub repository.
  * @param props - An object containing the component props.
+ * @param props.repo - The repository to render.
  * @returns An element which renders a GitHub repository.
  */
-export function GitHubRepo({ repo }: { readonly repo: Repo; }): ReactElement {
+export function GitHubRepo({ repo }: { repo: Repo; }): ReactElement {
     // Maps the repository languages into a more readable format.
     const nonPrimaryLanguages = repo.languages.nodes.map((lang) => lang.name).filter((name) => name !== repo.primaryLanguage?.name);
     const repoLanguages = (
