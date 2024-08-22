@@ -27,7 +27,17 @@ export function About(): ReactElement {
                 </Desktop>
                 <Stack>
                     <Typography variant="h1">Hi, I'm Ollie</Typography>
-                    <Typography color="secondary" variant="h4">
+                    <Typography
+                        color="secondary"
+                        variant="h4"
+                        sx={{
+                            textShadow: [
+                                " 1px  1px black",
+                                "-1px -1px black",
+                                " 1px -1px black",
+                                "-1px  1px black",
+                            ].join(", "),
+                        }}>
                         I'm {age()} years old, studying undergraduate Computer Science at the University of Edinburgh.
                         I have a passion for programming, which stems from a love of solving problems.
                         I direct that passion towards writing high quality code, creating efficient and robust solutions
