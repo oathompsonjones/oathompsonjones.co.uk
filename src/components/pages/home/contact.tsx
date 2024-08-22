@@ -1,4 +1,4 @@
-import { ContactForm } from "pages/contact/contactForm";
+import { ContactForm } from "components/pages/contact/contactForm";
 import type { ReactElement } from "react";
 import { Typography } from "@mui/material";
 

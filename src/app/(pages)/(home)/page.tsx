@@ -1,15 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { About } from "./about";
-import { Background } from "./background";
-import { Contact } from "./contact";
-import { FadingDiv } from "./fadingDiv";
-import { Main } from "./main";
+import { About } from "components/pages/home/about";
+import { Background } from "components/pages/home/background";
+import { Contact } from "components/pages/home/contact";
+import { FadingDiv } from "components/pages/home/fadingDiv";
+import { Main } from "components/pages/home/main";
 import { Mobile } from "components/mobile";
-import { ProfilePicture } from "./profilePicture";
+import { ProfilePicture } from "components/pages/home/profilePicture";
 import type { ReactElement } from "react";
-import { Section } from "./section";
+import { Section } from "components/pages/home/section";
 import { useWindowSize } from "hooks/useWindowSize";
 
 /**

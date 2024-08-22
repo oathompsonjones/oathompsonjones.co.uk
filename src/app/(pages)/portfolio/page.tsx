@@ -1,6 +1,6 @@
 "use client";
 
-import { GitHubRepo } from "./githubRepo";
+import { GitHubRepo } from "components/pages/portfolio/githubRepo";
 import Link from "next/link";
 import { Masonry } from "@mui/lab";
 import type { ReactElement } from "react";

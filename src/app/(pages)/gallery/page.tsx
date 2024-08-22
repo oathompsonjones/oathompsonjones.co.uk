@@ -1,6 +1,6 @@
 "use client";
 
-import { InstagramPost } from "./instagramPost";
+import { InstagramPost } from "components/pages/gallery/instagramPost";
 import Link from "next/link";
 import { Masonry } from "@mui/lab";
 import type { Post } from "api/instagram/route";

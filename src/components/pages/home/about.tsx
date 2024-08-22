@@ -2,7 +2,7 @@ import { Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Desktop } from "components/desktop";
 import Link from "next/link";
-import { ProfilePicture } from "./profilePicture";
+import { ProfilePicture } from "components/pages/home/profilePicture";
 import type { ReactElement } from "react";
 import { age } from "utils";
 import { useWindowSize } from "hooks/useWindowSize";
