@@ -11,7 +11,7 @@ export function University(): ReactElement {
         <Grades
             attainmentYear={2025}
             educationLevel="Further Education"
-            institutionLink="https://ed.ac.uk"
+            institutionLink="https://www.ed.ac.uk"
             institutionName="The University of Edinburgh"
             maxGrade={<>1<sup>st</sup></>}
             minGrade={<>3<sup>rd</sup></>}
