@@ -67,7 +67,7 @@ export function Header(): ReactElement {
                 <Title textColour={solidBackground ? light : textColour} />
                 <LargeNav pages={pages} />
                 {/* Renders a button to control dark/light theme. This renders on displays of any size. */}
-                <IconButton color="inherit" onClick={toggleTheme}>
+                <IconButton color="inherit" onClick={toggleTheme} sx={{ transition: "background-color 0.25s linear" }}>
                     {mode === "dark" ? <DarkMode /> : <LightMode />}
                 </IconButton>
             </Toolbar>

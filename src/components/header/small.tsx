@@ -23,7 +23,11 @@ export function SmallNav({ isOpen, pages, toggleNavOpen }: {
                     href={page.link}
                     key={i}
                     onClick={toggleNavOpen}
-                    sx={{ justifyContent: "center", width: "100%" }}
+                    sx={{
+                        justifyContent: "center",
+                        transition: "background-color 0.25s linear",
+                        width: "100%",
+                    }}
                 >
                     <Typography>{page.label}</Typography>
                 </MenuItem>

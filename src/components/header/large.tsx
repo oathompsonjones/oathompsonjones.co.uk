@@ -12,7 +12,15 @@ export function LargeNav({ pages }: { pages: Array<{ label: string; link: string
     return (
         <Box sx={{ display: { md: "flex", xs: "none" } }} flex={1}>
             {pages.map((page, i) => (
-                <MenuItem component={Link} href={page.link} key={i} sx={{ borderRadius: "1vmin" }}>
+                <MenuItem
+                    component={Link}
+                    href={page.link}
+                    key={i}
+                    sx={{
+                        borderRadius: "1vmin",
+                        transition: "background-color 0.25s linear",
+                    }}
+                >
                     <Typography>{page.label}</Typography>
                 </MenuItem>
             ))}
