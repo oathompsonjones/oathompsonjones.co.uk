@@ -22,26 +22,30 @@ export default function Home(): ReactElement {
     const forceRerender = (): void => forceRerenderState(Math.random());
 
     const handleScroll = (): void => {
-        const fadingDivs = [...document.getElementsByClassName("fadingDiv")] as [HTMLDivElement, HTMLDivElement];
+        const fadingDivs = [...document.getElementsByClassName("fadingDiv")] as HTMLDivElement[];
 
         if (window.innerWidth >= 900) {
-            const avatar = document.getElementsByClassName("avatar")[0] as HTMLElement;
+            const avatar = document.getElementsByClassName("avatar")[0] as HTMLImageElement | undefined;
             const [pos1, pos2] = [...document.getElementsByClassName("avatarPosition")]
-                .map((av) => av.getBoundingClientRect()) as [DOMRect, DOMRect];
+                .map((av) => av.getBoundingClientRect()) as [DOMRect | undefined, DOMRect | undefined];
 
             const visibleIndex = Math.round(window.scrollY / window.innerHeight);
 
             // Update the position and size of the avatar
-            avatar.style.left = `${(visibleIndex === 0 ? pos1 : pos2).x}px`;
-            avatar.style.top = `${(visibleIndex === 0 ? pos1 : pos2).y}px`;
-            avatar.style.width = `${(visibleIndex === 0 ? pos1 : pos2).width}px`;
-            avatar.style.height = `${(visibleIndex === 0 ? pos1 : pos2).height}px`;
+            if (avatar !== undefined) {
+                avatar.style.left = `${(visibleIndex === 0 ? pos1 : pos2)?.x ?? 0}px`;
+                avatar.style.top = `${(visibleIndex === 0 ? pos1 : pos2)?.y ?? 0}px`;
+                avatar.style.width = `${(visibleIndex === 0 ? pos1 : pos2)?.width ?? 0}px`;
+                avatar.style.height = `${(visibleIndex === 0 ? pos1 : pos2)?.height ?? 0}px`;
+            }
 
             // Update the opacity of the fading divs and the avatar
             fadingDivs.forEach((div, index) => {
                 div.style.filter = `opacity(${Number(index === visibleIndex) * 100}%)`;
             });
-            avatar.style.filter = `opacity(${visibleIndex > 1 ? 0 : 100}%)`;
+
+            if (avatar !== undefined)
+                avatar.style.filter = `opacity(${visibleIndex > 1 ? 0 : 100}%)`;
         } else {
             fadingDivs.forEach((div) => {
                 div.style.filter = "opacity(100%)";
