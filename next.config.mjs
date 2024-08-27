@@ -2,13 +2,14 @@
 export default {
     compiler: {
         emotion: true,
-        styledComponents: true
+        styledComponents: true,
     },
     webpack(config) {
         config.module.rules.push({
             test: /\.svg$/u,
-            use: ["@svgr/webpack"]
+            use: ["@svgr/webpack"],
         });
+
         return config;
-    }
+    },
 };

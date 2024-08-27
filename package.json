@@ -9,7 +9,7 @@
         "lint": "eslint ."
     },
     "devDependencies": {
-        "@oathompsonjones/eslint-config": "^1.5.0",
+        "@oathompsonjones/eslint-config": "^1.5.2",
         "@oathompsonjones/ts-config": "^0.0.35",
         "@types/http-proxy": "^1.17.15",
         "@types/md5": "^2.3.5",
@@ -22,9 +22,9 @@
     "dependencies": {
         "@emotion/react": "^11.13.3",
         "@emotion/styled": "^11.13.0",
-        "@mui/icons-material": "^5.16.7",
-        "@mui/lab": "5.0.0-alpha.173",
-        "@mui/material": "5.16.7",
+        "@mui/icons-material": "^6.0.0",
+        "@mui/lab": "6.0.0-beta.8",
+        "@mui/material": "6.0.0",
         "@octokit/graphql": "^8.1.1",
         "@svgr/webpack": "^8.1.0",
         "canvas": "^2.11.2",
@@ -32,7 +32,7 @@
         "http-proxy": "^1.18.1",
         "md5": "^2.3.0",
         "mongodb": "^6.8.0",
-        "next": "^14.2.5",
+        "next": "^14.2.6",
         "node-pdflatex": "^0.3.0",
         "nodemailer": "^6.9.14",
         "react": "^18.3.1",

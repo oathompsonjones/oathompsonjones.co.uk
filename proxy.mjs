@@ -1,4 +1,5 @@
-import fs from "fs";
+/* eslint-disable no-console */
+import fs from "fs/promises";
 import http from "http";
 import httpProxy from "http-proxy";
 import https from "https";
@@ -8,13 +9,15 @@ const domain = "oathompsonjones.co.uk";
 const port = 3000;
 
 // Setup proxy.
-const ssl = { key: null, cert: null };
+const ssl = { cert: null, key: null };
+
 try {
-    ssl.key = fs.readFileSync(`/etc/letsencrypt/live/${domain}/privkey.pem`);
-    ssl.cert = fs.readFileSync(`/etc/letsencrypt/live/${domain}/fullchain.pem`);
-} catch(err) {
+    ssl.key = await fs.readFile(`/etc/letsencrypt/live/${domain}/privkey.pem`);
+    ssl.cert = await fs.readFile(`/etc/letsencrypt/live/${domain}/fullchain.pem`);
+} catch (err) {
     console.log(`Failed to read SSL certificates: ${err.message}`);
 }
+
 const proxy = httpProxy.createProxy({ ssl });
 
 // Setup HTTPS server to proxy requests.
