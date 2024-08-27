@@ -1,3 +1,4 @@
+import "@mui/material-pigment-css/styles.css";
 import "styles/global.css";
 import type { Metadata, Viewport } from "next";
 import type { ReactElement, ReactNode } from "react";
