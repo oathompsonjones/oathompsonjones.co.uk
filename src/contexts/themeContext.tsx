@@ -6,6 +6,14 @@ import type { ReactElement, ReactNode } from "react";
 import { createContext, useContext, useMemo } from "react";
 import { useDarkMode } from "hooks/useDarkMode";
 
+declare module "@mui/material/styles" {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    interface TypeBackground {
+        dark: string;
+        light: string;
+    }
+}
+
 type ThemeContextType = {
     theme: Theme;
     toggleTheme: () => void;
