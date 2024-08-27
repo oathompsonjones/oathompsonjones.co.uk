@@ -3,30 +3,39 @@ import http from "http";
 import httpProxy from "http-proxy";
 import https from "https";
 
-const proxy = httpProxy.createProxy();
-const domains = {
-    "oathompsonjones.co.uk": 3000,
-};
+// Configuration.
+const domain = "oathompsonjones.co.uk";
+const port = 3000;
 
+// Setup proxy.
+const ssl = { key: null, cert: null };
 try {
-    // Route port 443 traffic to correct ports.
-    https.createServer((req, res) => {
-        for (const [host, port] of Object.keys(domains)) {
-            if (req.headers.host === host) {
-                req.cert = fs.readFileSync(`/etc/letsencrypt/live/${host}/fullchain.pem`);
-                req.key = fs.readFileSync(`/etc/letsencrypt/live/${host}/privkey.pem`);
-                proxy.web(req, res, { target: `http://localhost:${port}` });
-            }
-        }
-    }).listen(443);
+    ssl.key = fs.readFileSync(`/etc/letsencrypt/live/${domain}/privkey.pem`);
+    ssl.cert = fs.readFileSync(`/etc/letsencrypt/live/${domain}/fullchain.pem`);
+} catch(err) {
+    console.log(`Failed to read SSL certificates: ${err.message}`);
+}
+const proxy = httpProxy.createProxy({ ssl });
+
+// Setup HTTPS server to proxy requests.
+const httpsServer = https.createServer((req, res) => {
+    proxy.web(req, res, { target: `http://localhost:${port}` });
+    res.end();
+});
+
+// Setup HTTP server to redirect to HTTPS.
+const httpServer = http.createServer((req, res) => {
+    res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
+    res.end();
+});
+
+// Listen on ports 80 and 443.
+try {
+    httpsServer.listen(443, domain);
     console.log("Listening on port 443");
 } catch (err) {
     console.log(`Failed to listen on port 443: ${err.message}`);
 } finally {
-    // Redirect port 80 to port 443.
-    http.createServer((req, res) => {
-        res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
-        res.end();
-    }).listen(80);
+    httpServer.listen(80, domain);
     console.log("Listening on port 80");
 }
