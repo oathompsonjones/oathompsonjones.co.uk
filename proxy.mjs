@@ -18,7 +18,7 @@ try {
 const proxy = httpProxy.createProxy({ ssl });
 
 // Setup HTTPS server to proxy requests.
-const httpsServer = https.createServer((req, res) => {
+const httpsServer = https.createServer(ssl, (req, res) => {
     proxy.web(req, res, { target: `http://localhost:${port}` });
     res.end();
 });
