@@ -6,7 +6,6 @@ import https from "https";
 const proxy = httpProxy.createProxy();
 const domains = {
     "oathompsonjones.co.uk": 3000,
-    "localhost": 3000,
 };
 
 try {
