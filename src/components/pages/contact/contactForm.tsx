@@ -1,6 +1,6 @@
 "use client";
 
-import { Alert, Button, FormControl, FormLabel, Grid, Paper, TextField } from "@mui/material";
+import { Alert, Button, FormControl, FormLabel, Grid2 as Grid, Paper, TextField } from "@mui/material";
 import type { FormEvent, ReactElement } from "react";
 import { useEffect, useState } from "react";
 import { Send } from "@mui/icons-material";
@@ -76,21 +76,21 @@ export function ContactForm(): ReactElement {
                     {/* Renders an alert to state whether the form has been submitted. */}
                     {status !== null && (status
                         ? (
-                            <Grid item xs={12}>
+                            <Grid size={12}>
                                 <Alert severity="success">Message sent!</Alert>
                             </Grid>
                         )
                         : (
-                            <Grid item xs={12}>
+                            <Grid size={12}>
                                 <Alert severity="error">Message failed to send.</Alert>
                             </Grid>
                         )
                     )}
-                    <Grid item xs={12}>
+                    <Grid size={12}>
                         <FormLabel>Fill out this form to contact me.</FormLabel>
                     </Grid>
                     {/* Renders the name field. */}
-                    <Grid item md={6} xs={12}>
+                    <Grid size={{ md: 6, xs: 12 }}>
                         <TextField
                             fullWidth
                             label="Name"
@@ -103,7 +103,7 @@ export function ContactForm(): ReactElement {
                         />
                     </Grid>
                     {/* Renders the email field. */}
-                    <Grid item md={6} xs={12}>
+                    <Grid size={{ md: 6, xs: 12 }}>
                         <TextField
                             fullWidth
                             label="Email"
@@ -116,7 +116,7 @@ export function ContactForm(): ReactElement {
                         />
                     </Grid>
                     {/* Renders the subject field. */}
-                    <Grid item xs={12}>
+                    <Grid size={12}>
                         <TextField
                             fullWidth
                             label="Subject"
@@ -129,7 +129,7 @@ export function ContactForm(): ReactElement {
                         />
                     </Grid>
                     {/* Renders the content field. */}
-                    <Grid item xs={12}>
+                    <Grid size={12}>
                         <TextField
                             fullWidth
                             label="Content"
@@ -144,7 +144,7 @@ export function ContactForm(): ReactElement {
                         />
                     </Grid>
                     {/* Renders the send (submit) button. */}
-                    <Grid item xs={12}>
+                    <Grid size={12}>
                         <Button endIcon={<Send />} sx={{ float: "right" }} type="submit">
                             Send
                         </Button>

@@ -1,6 +1,7 @@
-import type { Breakpoint, Variant } from "@mui/material";
+import type { Breakpoint } from "@mui/material";
 import { CollapsibleText } from "./collapsibleText";
 import type { ReactElement } from "react";
+import type { Variant } from "@mui/material/styles/createTypography";
 
 /**
  * Renders my name.

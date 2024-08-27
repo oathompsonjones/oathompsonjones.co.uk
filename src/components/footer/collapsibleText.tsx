@@ -1,9 +1,10 @@
 "use client";
 
-import type { Breakpoint, Theme, Variant } from "@mui/material";
+import type { Breakpoint, Theme } from "@mui/material";
 import type { ReactElement, ReactNode } from "react";
 import { Typography, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
+import type { Variant } from "@mui/material/styles/createTypography";
 import { useThemeContext } from "contexts/themeContext";
 
 /**

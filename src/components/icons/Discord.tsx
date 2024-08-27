@@ -1,3 +1,5 @@
+"use client";
+
 import DiscordLogo from "images/discord.svg";
 import type { ReactElement } from "react";
 import SvgIcon from "@mui/material/SvgIcon";

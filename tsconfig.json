@@ -11,12 +11,6 @@
             },
         ],
         "paths": {
-            "@mui/*": [
-                "./src/components/mui/*"
-            ],
-            "@node_mui/*": [
-                "./node_modules/@mui/*"
-            ],
             "app/*": [
                 "./src/app/*"
             ],

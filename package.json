@@ -11,6 +11,7 @@
     "devDependencies": {
         "@oathompsonjones/eslint-config": "^1.5.2",
         "@oathompsonjones/ts-config": "^0.0.35",
+        "@pigment-css/nextjs-plugin": "^0.0.20",
         "@types/http-proxy": "^1.17.15",
         "@types/md5": "^2.3.5",
         "@types/node": "^22.5.0",
@@ -20,11 +21,14 @@
         "typescript": "^5.5.4"
     },
     "dependencies": {
+        "@emotion/cache": "^11.13.1",
         "@emotion/react": "^11.13.3",
         "@emotion/styled": "^11.13.0",
         "@mui/icons-material": "^6.0.0",
         "@mui/lab": "6.0.0-beta.8",
         "@mui/material": "6.0.0",
+        "@mui/material-nextjs": "^6.0.0",
+        "@mui/material-pigment-css": "^6.0.0",
         "@octokit/graphql": "^8.1.1",
         "@svgr/webpack": "^8.1.0",
         "canvas": "^2.11.2",

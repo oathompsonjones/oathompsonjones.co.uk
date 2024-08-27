@@ -1,12 +1,6 @@
 "use client";
 
-import {
-    CssBaseline,
-    ThemeProvider as MuiThemeProvider,
-    StyledEngineProvider,
-    createTheme,
-    responsiveFontSizes,
-} from "@mui/material";
+import { CssBaseline, ThemeProvider as MuiProvider, StyledEngineProvider, createTheme, responsiveFontSizes } from "@mui/material";
 import type { Palette, Theme } from "@mui/material";
 import type { ReactElement, ReactNode } from "react";
 import { createContext, useContext, useMemo } from "react";
@@ -54,6 +48,7 @@ export function ThemeProvider({ children }: { children: ReactNode; }): ReactElem
                 styleOverrides: { root: { transition: "background-color 0.25s linear" } },
             },
         },
+        cssVariables: true,
         palette: {
             background: {
                 dark: colours.dark,
@@ -84,9 +79,10 @@ export function ThemeProvider({ children }: { children: ReactNode; }): ReactElem
     };
 
     return (
+        // Injects MUI styles before anything else.
         <StyledEngineProvider injectFirst>
             <ThemeContext.Provider value={useMemo(() => ({ theme, toggleTheme }), [isDarkMode])}>
-                <MuiThemeProvider theme={theme}>
+                <MuiProvider theme={theme}>
                     <CssBaseline enableColorScheme />
                     <style>{/* CSS */`
                         :root {
@@ -98,7 +94,7 @@ export function ThemeProvider({ children }: { children: ReactNode; }): ReactElem
                         }
                     `}</style>
                     {children}
-                </MuiThemeProvider>
+                </MuiProvider>
             </ThemeContext.Provider>
         </StyledEngineProvider>
     );

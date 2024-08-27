@@ -1,3 +1,5 @@
+"use client";
+
 import type { ReactElement } from "react";
 import SvgIcon from "@mui/material/SvgIcon";
 import { Twitter } from "@mui/icons-material";
@@ -9,14 +11,11 @@ import { useState } from "react";
  * @returns The Twitter/X icon.
  */
 export function TwitterX(): ReactElement {
-    const [useTwitterLogo, setUseTwitterLogo] = useState<boolean>(false);
+    const [useOldLogo, setUseOldLogo] = useState<boolean>(false);
 
     return (
-        <SvgIcon
-            onMouseEnter={(): void => setUseTwitterLogo(true)}
-            onMouseLeave={(): void => setUseTwitterLogo(false)}
-            component={useTwitterLogo ? Twitter : X}
-            inheritViewBox
-        />
+        <SvgIcon onMouseEnter={(): void => setUseOldLogo(true)} onMouseLeave={(): void => setUseOldLogo(false)} inheritViewBox>
+            {useOldLogo ? <Twitter /> : <X />}
+        </SvgIcon>
     );
 }

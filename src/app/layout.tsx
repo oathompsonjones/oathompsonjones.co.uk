@@ -1,6 +1,7 @@
 import "styles/global.css";
 import type { Metadata, Viewport } from "next";
 import type { ReactElement, ReactNode } from "react";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { Footer } from "components/footer";
 import Head from "next/head.js";
 import { Header } from "components/header";
@@ -72,13 +73,15 @@ export default function Layout({ children }: { children: ReactNode; }): ReactEle
             </Head>
             <body>
                 <noscript>You need to enable JavaScript to run this app.</noscript>
-                <ThemeProvider>
-                    <div id="background" />
-                    <ScrollToTop />
-                    <Header />
-                    <main>{children}</main>
-                    <Footer />
-                </ThemeProvider>
+                <AppRouterCacheProvider>
+                    <ThemeProvider>
+                        <div id="background" />
+                        <ScrollToTop />
+                        <Header />
+                        <main>{children}</main>
+                        <Footer />
+                    </ThemeProvider>
+                </AppRouterCacheProvider>
             </body>
         </html>
     );
