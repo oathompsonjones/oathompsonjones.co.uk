@@ -1,5 +1,6 @@
-import { Button, Container, Stack, Typography } from "@mui/material";
+import { Container, Stack, Typography } from "@mui/material";
 import { Bio } from "components/pages/about/bio";
+import { DynamicButton } from "components/dynamicButton";
 import { Experience } from "components/pages/about/experience";
 import type { Metadata } from "next";
 import { Qualifications } from "components/pages/about/qualifications";
@@ -17,9 +18,9 @@ export default function About(): ReactElement {
         <Container component="article">
             <Stack direction="row">
                 <Typography variant="h2" flex={1}>About Me</Typography>
-                <Button LinkComponent="a" href="/api/cv" sx={{ float: "right", m: "1%" }}>
+                <DynamicButton LinkComponent="a" href="/api/cv" sx={{ float: "right", m: "1%" }}>
                     Download CV
-                </Button>
+                </DynamicButton>
             </Stack>
             <Bio />
             <br />
