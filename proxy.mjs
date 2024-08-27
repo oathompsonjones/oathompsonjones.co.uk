@@ -4,40 +4,30 @@ import httpProxy from "http-proxy";
 import https from "https";
 
 const proxy = httpProxy.createProxy();
-const options = { 3000: /(www\.)?(.+\.)?oathompsonjones\.co\.uk/u };
-
-function httpsHandler(req, res) {
-    for (const [port, host] of Object.entries(options)) {
-        if (host.test(req.headers.host))
-            proxy.web(req, res, { target: `http://localhost:${port}` });
-    }
-}
-
-function httpHandler(req, res) {
-    res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
-    res.end();
-}
+const domains = {
+    "oathompsonjones.co.uk": 3000,
+    "localhost": 3000,
+};
 
 try {
-    // Route port 443 traffic to port 3000.
-    const cert = fs.readFileSync("/etc/letsencrypt/live/oathompsonjones.co.uk/fullchain.pem");
-    const key = fs.readFileSync("/etc/letsencrypt/live/oathompsonjones.co.uk/privkey.pem");
-    https.createServer({ cert, key }, httpsHandler).listen(443);
-
-    // Redirect port 80 to port 443.
-    http.createServer(httpHandler).listen(80);
-
-    console.log("Listening on ports 443 and 80.");
+    // Route port 443 traffic to correct ports.
+    https.createServer((req, res) => {
+        for (const [host, port] of Object.keys(domains)) {
+            if (req.headers.host === host) {
+                req.cert = fs.readFileSync(`/etc/letsencrypt/live/${host}/fullchain.pem`);
+                req.key = fs.readFileSync(`/etc/letsencrypt/live/${host}/privkey.pem`);
+                proxy.web(req, res, { target: `http://localhost:${port}` });
+            }
+        }
+    }).listen(443);
+    console.log("Listening on port 443");
 } catch (err) {
-    if (err instanceof Error) {
-        console.log(`HTTPS failed.\n${err.message}`);
-        http.createServer(httpsHandler).listen(80);
-        console.log("Listening on port 80.");
-    }
+    console.log(`Failed to listen on port 443: ${err.message}`);
+} finally {
+    // Redirect port 80 to port 443.
+    http.createServer((req, res) => {
+        res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
+        res.end();
+    }).listen(80);
+    console.log("Listening on port 80");
 }
-
-// Call the instagram and logs api endpoints every hour
-setInterval(() => {
-    https.get("https://oathompsonjones.co.uk/api/instagram");
-    https.get("https://oathompsonjones.co.uk/api/logs");
-}, 3600000);
