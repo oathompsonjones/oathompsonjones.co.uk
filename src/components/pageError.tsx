@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Button, Typography } from "@mui/material";
 import type { ReactElement } from "react";
 
 /**
@@ -12,10 +12,14 @@ import type { ReactElement } from "react";
  */
 export function PageError({ error, reset }: { error: Error; reset: () => void; }): ReactElement {
     return (
-        <>
-            <Typography variant="h4">An error occurred, please try again later.</Typography>
-            <Typography>{error.message}</Typography>
-            <Button onClick={reset} size="small">Try Again</Button>
-        </>
+        <Accordion sx={{ background: "none", boxShadow: "none" }}>
+            <AccordionSummary>
+                <Typography variant="h4" sx={{ flex: 1 }}>An error occurred, please try again later.</Typography>
+                <Button onClick={reset} size="small">Try Again</Button>
+            </AccordionSummary>
+            <AccordionDetails>
+                <Typography>{error.message}</Typography>
+            </AccordionDetails>
+        </Accordion>
     );
 }
