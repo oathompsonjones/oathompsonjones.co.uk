@@ -2,6 +2,7 @@ import {
     Accordion, AccordionDetails, AccordionSummary,
     Button,
     Card, CardActions, CardContent, CardMedia,
+    Chip,
     Stack,
     Typography,
     Zoom,
@@ -18,12 +19,16 @@ import type { Repo } from "api/github/route";
  */
 export function GitHubRepo({ repo }: { repo: Repo; }): ReactElement {
     // Maps the repository languages into a more readable format.
-    const nonPrimaryLanguages = repo.languages.nodes.map((lang) => lang.name).filter((name) => name !== repo.primaryLanguage?.name);
+    const langs = repo.languages.nodes.map((lang) => lang.name).filter((name) => name !== repo.primaryLanguage?.name);
     const repoLanguages = (
         <>
-            <strong>{repo.primaryLanguage?.name}</strong>{nonPrimaryLanguages.length > 0 ? `, ${nonPrimaryLanguages.join(", ")}` : ""}
+            <Chip label={repo.primaryLanguage?.name} />{langs.map((lang) => (<Chip label={lang} variant="outlined" />))}
         </>
     );
+
+    const homepageURL = repo.homepageUrl !== null && repo.homepageUrl.length > 0
+        ? repo.homepageUrl
+        : `https://oathompsonjones.github.io/${repo.name}`;
 
     // Returns a Zoom element wrapping the repository to make it look nicer when loading in.
     return (
@@ -46,39 +51,19 @@ export function GitHubRepo({ repo }: { repo: Repo; }): ReactElement {
                                     <Typography>{repo.nameWithOwner.split("/")[0]}</Typography>
                                 </>
                             )}
-                        {repo.primaryLanguage === null
-                            ? undefined
-                            : (
-                                <>
-                                    <Typography variant="h6">Languages</Typography>
-                                    <Typography>{repoLanguages}</Typography>
-                                </>
-                            )}
+                        <Typography>{repo.description}</Typography>
                         <CardActions>
                             <Stack alignItems="center" direction="row" justifyContent="space-evenly" width="100%">
-                                {
-                                    repo.isPrivate
-                                        ? undefined
-                                        : <Button href={repo.url} size="small" variant="text">View Code</Button>
-                                }
-                                {
-                                    repo.isPrivate
-                                        ? undefined
-                                        : (
-                                            <Button
-                                                href={repo.homepageUrl !== null && repo.homepageUrl.length > 0
-                                                    ? repo.homepageUrl
-                                                    : `https://oathompsonjones.github.io/${repo.name}`}
-                                                size="small"
-                                                variant="text"
-                                            >
-                                                View Site
-                                            </Button>
-                                        )
-                                }
+                                {repo.isPrivate
+                                    ? undefined
+                                    : <Button href={repo.url} size="small" variant="text">View Code</Button>}
+                                {repo.isPrivate
+                                    ? undefined
+                                    : (<Button href={homepageURL} size="small" variant="text">View Site</Button>)}
                             </Stack>
                         </CardActions>
-                        {repo.description}
+                        <br />
+                        {repo.primaryLanguage === null ? undefined : repoLanguages}
                     </AccordionDetails>
                 </Accordion>
             </Card>
