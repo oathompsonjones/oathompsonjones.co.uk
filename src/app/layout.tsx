@@ -6,6 +6,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { Footer } from "components/footer";
 import Head from "next/head.js";
 import { Header } from "components/header";
+import InitColorSchemeScript from "@mui/system/InitColorSchemeScript";
 import { ScrollToTop } from "components/scrollToTop";
 import { ThemeContextProvider } from "contexts/themeContext";
 import { gravatarURL } from "utils";
@@ -65,7 +66,7 @@ export const viewport: Viewport = {
  */
 export default function Layout({ children }: { children: ReactNode; }): ReactElement {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
             <Head>
                 <script
                     async crossOrigin="anonymous"
@@ -74,6 +75,7 @@ export default function Layout({ children }: { children: ReactNode; }): ReactEle
             </Head>
             <body>
                 <noscript>You need to enable JavaScript to run this app.</noscript>
+                <InitColorSchemeScript attribute="class" />
                 <AppRouterCacheProvider>
                     <ThemeContextProvider>
                         <div id="background" />

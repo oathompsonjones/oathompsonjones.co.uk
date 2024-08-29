@@ -29,6 +29,7 @@
         "@mui/material": "6.0.0",
         "@mui/material-nextjs": "^6.0.0",
         "@mui/material-pigment-css": "^6.0.0",
+        "@mui/system": "^6.0.0",
         "@octokit/graphql": "^8.1.1",
         "@svgr/webpack": "^8.1.0",
         "canvas": "^2.11.2",
