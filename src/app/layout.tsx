@@ -1,3 +1,7 @@
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 import "@mui/material-pigment-css/styles.css";
 import "styles/global.css";
 import type { Metadata, Viewport } from "next";
