@@ -29,15 +29,9 @@ export function About(): ReactElement {
                     <Typography variant="h1">Hi, I'm Ollie</Typography>
                     <Typography
                         variant="h4"
-                        sx={{
-                            textShadow: [
-                                " 1px  1px black",
-                                "-1px -1px black",
-                                " 1px -1px black",
-                                "-1px  1px black",
-                            ].join(", "),
-                        }}>
-                            color: "secondary.main",
+                        // eslint-disable-next-line @typescript-eslint/naming-convention
+                        sx={{ "-webkit-text-stroke-color": "black", "-webkit-text-stroke-width": "1px", color: "secondary.main" }}
+                    >
                         I'm {age()} years old, studying undergraduate Computer Science at the University of Edinburgh.
                         I have a passion for programming, which stems from a love of solving problems.
                         I direct that passion towards writing high quality code, creating efficient and robust solutions
