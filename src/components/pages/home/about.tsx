@@ -21,7 +21,7 @@ export function About(): ReactElement {
 
     return (
         <>
-            <Stack alignItems="center" direction={orientation === "landscape" ? "row-reverse" : "column"} spacing="2rem">
+            <Stack sx={{ alignItems: "center" }} direction={orientation === "landscape" ? "row-reverse" : "column"} spacing="2rem">
                 <Desktop>
                     <ProfilePicture positioner />
                 </Desktop>

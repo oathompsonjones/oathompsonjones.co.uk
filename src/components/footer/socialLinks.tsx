@@ -28,7 +28,7 @@ export function SocialLinks({ dividers = false }: { dividers?: boolean; }): Reac
     const divider = dividers ? <Divider flexItem orientation="vertical" sx={{ m: 0 }} /> : undefined;
 
     return (
-        <Stack alignItems="center" direction="row" divider={divider} justifyContent="space-evenly">
+        <Stack direction="row" divider={divider} sx={{ alignItems: "center", justifyContent: "space-evenly" }}>
             {socials.map(({ icon, link }, i) => (
                 <Link href={link} key={i} prefetch={false} style={{ color: "inherit" }}>
                     {icon}

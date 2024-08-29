@@ -53,7 +53,13 @@ export function GitHubRepo({ repo }: { repo: Repo; }): ReactElement {
                             )}
                         <Typography>{repo.description}</Typography>
                         <CardActions>
-                            <Stack alignItems="center" direction="row" justifyContent="space-evenly" width="100%">
+                            <Stack
+                                direction="row"
+                                sx={{
+                                    alignItems: "center",
+                                    justifyContent: "space-evenly",
+                                    width: "100%",
+                                }}>
                                 {repo.isPrivate
                                     ? undefined
                                     : <Button href={repo.url} size="small" variant="text">View Code</Button>}

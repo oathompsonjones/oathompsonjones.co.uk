@@ -40,7 +40,7 @@ export function Section({ children }: { children: ReactNode; }): ReactElement {
                 scrollSnapAlign: { md: "start", xs: "center" },
             }}
         >
-            <Box width="100%">{children}</Box>
+            {children}
         </Box>
     );
 }

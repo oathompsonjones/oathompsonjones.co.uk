@@ -25,7 +25,7 @@ export function Grades({ attainmentYear, children, educationLevel, institutionLi
 }): ReactElement {
     return (
         <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-            <Stack direction="row" alignItems="center">
+            <Stack direction="row" sx={{ alignItems: "center" }}>
                 <Typography variant="h4" sx={{ flex: 1 }}>{educationLevel}</Typography>
                 <Typography variant="h6">({maxGrade} – {minGrade})</Typography>
             </Stack>

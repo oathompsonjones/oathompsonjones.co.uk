@@ -20,7 +20,7 @@ export function Bio(): ReactElement {
                     />
                 </Grid>
                 <Grid size={{ md: 8, xs: 12 }}>
-                    <Stack direction="column" justifyContent="center" sx={{ height: "100%" }}>
+                    <Stack direction="column" sx={{ height: "100%", justifyContent: "center" }}>
                         <Typography variant="h6">Name</Typography>
                         <Name id="bio" />
                         <Divider />

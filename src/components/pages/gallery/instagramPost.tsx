@@ -57,7 +57,7 @@ export function InstagramPost({ post }: { post: Post; }): ReactElement {
                         width: "100%",
                     }}
                 >{instagramLogo}</Link>
-                <CardMedia component="img" image={post.media_url} sx={{ borderRadius }} height="100%" width="100%" />
+                <CardMedia component="img" image={post.media_url} sx={{ borderRadius }} />
             </Card>
         </Zoom>
     );
