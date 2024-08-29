@@ -1,5 +1,5 @@
-import type { SxProps } from "@mui/system";
-import type { Theme } from "@mui/material";
+/*! import type { SxProps } from "@mui/system";
+import type { Theme } from "@mui/material"; */
 import md5 from "md5";
 
 export const gravatarURL = (size: number): string => `https://www.gravatar.com/avatar/${md5("oathompsonjones@gmail.com")}?s=${size}`;
@@ -17,18 +17,17 @@ export const age = (): number => {
 /* eslint-disable
     @typescript-eslint/consistent-type-definitions,
     @typescript-eslint/no-namespace,
-    @typescript-eslint/no-unused-vars,
     @typescript-eslint/consistent-indexed-object-style */
 declare global {
     namespace React {
         // Allows the use of the sx prop on any HTML element.
-        interface HTMLAttributes<T> {
+        /*! interface HTMLAttributes<T> {
             sx?: SxProps<Theme>;
         }
 
         interface SVGProps<T> {
             sx?: SxProps<Theme>;
-        }
+        } */
 
         // Allows for the use of custom CSS variables.
         interface CSSProperties {
