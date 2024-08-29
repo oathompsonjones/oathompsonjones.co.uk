@@ -1,4 +1,4 @@
-import { Divider, Grid, Typography } from "@mui/material";
+import { Divider, Grid2 as Grid, Typography } from "@mui/material";
 import { ALevels } from "./alevels";
 import { GCSEs } from "./gcses";
 import type { ReactElement } from "react";
@@ -14,13 +14,13 @@ export function Qualifications(): ReactElement {
             <Typography variant="h3">Qualifications</Typography>
             <Divider />
             <Grid container spacing={2}>
-                <Grid item md={4} xs={12}>
+                <Grid size={{ md: 4, xs: 12 }}>
                     <GCSEs />
                 </Grid>
-                <Grid item md={4} xs={12}>
+                <Grid size={{ md: 4, xs: 12 }}>
                     <ALevels />
                 </Grid>
-                <Grid item md={4} xs={12}>
+                <Grid size={{ md: 4, xs: 12 }}>
                     <University />
                 </Grid>
             </Grid>

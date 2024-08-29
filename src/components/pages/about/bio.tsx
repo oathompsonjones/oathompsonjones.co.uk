@@ -1,4 +1,4 @@
-import { Avatar, Divider, Grid, Stack, Typography } from "@mui/material";
+import { Avatar, Divider, Grid2 as Grid, Stack, Typography } from "@mui/material";
 import { GRAVATAR_URL, age } from "utils";
 import { Name } from "components/footer/name";
 import type { ReactElement } from "react";
@@ -13,13 +13,13 @@ export function Bio(): ReactElement {
     return (
         <>
             <Grid container spacing={2}>
-                <Grid item md={4} xs={12}>
+                <Grid size={{ md: 4, xs: 12 }}>
                     <Avatar
                         src={GRAVATAR_URL}
                         sx={{ height: "auto", width: "100%" }}
                     />
                 </Grid>
-                <Grid item md={8} xs={12}>
+                <Grid size={{ md: 8, xs: 12 }}>
                     <Stack direction="column" justifyContent="center" sx={{ height: "100%" }}>
                         <Typography variant="h6">Name</Typography>
                         <Name id="bio" />
