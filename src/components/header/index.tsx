@@ -1,15 +1,16 @@
 "use client";
 
-import { AppBar, IconButton, Toolbar, useMediaQuery, useScrollTrigger } from "@mui/material";
-import { DarkMode, LightMode, Menu } from "@mui/icons-material";
+import { AppBar, IconButton, Toolbar, Tooltip, useMediaQuery, useScrollTrigger, useTheme } from "@mui/material";
+import { Contrast, DarkMode, LightMode, Menu } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { LargeNav } from "./large";
 import type { ReactElement } from "react";
 import { SmallNav } from "./small";
+import type { Theme } from "@mui/material";
 import { Title } from "./title";
 import { useOutsideClick } from "hooks/useOutsideClick";
 import { usePathname } from "next/navigation";
-import { useThemeContext } from "contexts/themeContext";
+import { useThemeMode } from "hooks/useThemeMode";
 
 /**
  * Creates the header element.
@@ -17,12 +18,12 @@ import { useThemeContext } from "contexts/themeContext";
  */
 export function Header(): ReactElement {
     // Access the site theme.
-    const { theme, toggleTheme } = useThemeContext();
-    const { palette: { background: { dark, light }, mode } } = theme;
+    const { switchThemeMode, themeColour, themeMode } = useThemeMode();
+    const { palette: { common: { black, white } } } = useTheme();
 
     // Handles behaviour for changing nav bar colour and opening/closing dropdown menu.
     const isScrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
-    const isMobile: boolean = useMediaQuery(theme.breakpoints.down("md"));
+    const isMobile: boolean = useMediaQuery((theme: Theme): string => theme.breakpoints.down("md"));
     const isHomePage: boolean = usePathname() === "/";
     const [isNavOpen, setIsNavOpen] = useState(false);
     const toggleNavOpen = (): void => setIsNavOpen(() => isMobile && !isNavOpen);
@@ -30,8 +31,8 @@ export function Header(): ReactElement {
 
     useEffect(() => setIsNavOpen(false), []);
 
-    const textColour = { dark: light, light: dark }[isHomePage ? "dark" : mode];
     const solidBackground = isNavOpen || isScrolling && (isMobile || !isHomePage);
+    const textColour = solidBackground ? white : { dark: white, light: black }[isHomePage ? "dark" : themeColour];
 
     // Associate a label and link with each page.
     const pages: Array<{ label: string; link: string; }> = [
@@ -42,34 +43,34 @@ export function Header(): ReactElement {
         { label: "Contact Me", link: "/contact" },
     ];
 
+    // Mode switcher button.
+    const switchThemeButton = {
+        dark: <DarkMode />,
+        light: <LightMode />,
+        system: <Contrast />,
+    }[themeMode];
+
     return (
         <AppBar
             component="header"
             enableColorOnDark
             position="fixed"
             ref={ref}
-            sx={{
-                ...solidBackground
-                    ? {}
-                    : {
-                        background: "none",
-                        boxShadow: "none",
-                        color: textColour,
-                    },
-                backgroundImage: "none",
-            }}
+            sx={{ ...solidBackground ? {} : { background: "none", boxShadow: "none", color: textColour }, backgroundImage: "none" }}
         >
             {/* Toolbar is essential for properly aligning elements within the AppBar. */}
             <Toolbar>
                 <IconButton color="inherit" onClick={toggleNavOpen} sx={{ display: { md: "none" } }}>
                     <Menu />
                 </IconButton>
-                <Title textColour={solidBackground ? light : textColour} />
+                <Title />
                 <LargeNav pages={pages} />
                 {/* Renders a button to control dark/light theme. This renders on displays of any size. */}
-                <IconButton color="inherit" onClick={toggleTheme} sx={{ transition: "background-color 0.25s linear" }}>
-                    {mode === "dark" ? <DarkMode /> : <LightMode />}
-                </IconButton>
+                <Tooltip title={`${themeMode[0]!.toUpperCase()}${themeMode.slice(1)} Mode`} arrow>
+                    <IconButton color="inherit" onClick={switchThemeMode} sx={{ transition: "background-color 0.25s linear" }}>
+                        {switchThemeButton}
+                    </IconButton>
+                </Tooltip>
             </Toolbar>
             <SmallNav isOpen={isNavOpen} pages={pages} toggleNavOpen={toggleNavOpen} />
         </AppBar>

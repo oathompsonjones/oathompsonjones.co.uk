@@ -7,7 +7,7 @@ import { Footer } from "components/footer";
 import Head from "next/head.js";
 import { Header } from "components/header";
 import { ScrollToTop } from "components/scrollToTop";
-import { ThemeProvider } from "contexts/themeContext";
+import { ThemeContextProvider } from "contexts/themeContext";
 import { gravatarURL } from "utils";
 
 // https://realfavicongenerator.net (remove the mask icon and msapplication stuff)
@@ -75,13 +75,13 @@ export default function Layout({ children }: { children: ReactNode; }): ReactEle
             <body>
                 <noscript>You need to enable JavaScript to run this app.</noscript>
                 <AppRouterCacheProvider>
-                    <ThemeProvider>
+                    <ThemeContextProvider>
                         <div id="background" />
                         <ScrollToTop />
                         <Header />
                         <main>{children}</main>
                         <Footer />
-                    </ThemeProvider>
+                    </ThemeContextProvider>
                 </AppRouterCacheProvider>
             </body>
         </html>

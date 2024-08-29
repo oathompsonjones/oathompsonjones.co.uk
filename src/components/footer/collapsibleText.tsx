@@ -2,10 +2,9 @@
 
 import type { Breakpoint, Theme } from "@mui/material";
 import type { ReactElement, ReactNode } from "react";
-import { Typography, useMediaQuery } from "@mui/material";
+import { Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import type { Variant } from "@mui/material/styles/createTypography";
-import { useThemeContext } from "contexts/themeContext";
 
 /**
  * Renders a collapsible text element.
@@ -28,7 +27,7 @@ export function CollapsibleText({ beginningText, collapsibleText, endingText, id
 }): ReactElement {
     const [expandName, setExpandName] = useState(false);
     const showAnimation = useMediaQuery((theme: Theme) => theme.breakpoints.up(minScreenSize ?? "xs"));
-    const { theme: { palette: { secondary: { main } } } } = useThemeContext();
+    const { palette: { secondary: { main } } } = useTheme();
 
     const spanCount = beginningText.length + collapsibleText.length + endingText.length;
 
