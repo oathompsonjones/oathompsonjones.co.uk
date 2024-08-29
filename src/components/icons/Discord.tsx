@@ -9,8 +9,6 @@ import SvgIcon from "@mui/material/SvgIcon";
  * @returns The Discord icon.
  */
 export function Discord(): ReactElement {
-    return (
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        <SvgIcon component={DiscordLogo} inheritViewBox />
-    );
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    return (<SvgIcon component={DiscordLogo} inheritViewBox />);
 }
