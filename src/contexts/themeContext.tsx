@@ -3,6 +3,7 @@
 import { CssBaseline, StyledEngineProvider, ThemeProvider, createTheme, responsiveFontSizes } from "@mui/material";
 import type { Palette, Theme } from "@mui/material";
 import type { ReactElement, ReactNode } from "react";
+import DefaultPropsProvider from "@mui/material/DefaultPropsProvider";
 
 /**
  * Provides the theme to the application.
@@ -23,16 +24,8 @@ export function ThemeContextProvider({ children }: { children: ReactNode; }): Re
             light: { palette: { background: { default: basePalette.common.white }, ...basePalette } },
         },
         components: {
-            MuiButton: { defaultProps: { variant: "contained" } },
-            MuiDivider: {
-                defaultProps: { variant: "middle" },
-                styleOverrides: { root: { marginBottom: "1.25%", marginTop: "1.25%" } },
-            },
-            MuiFab: { defaultProps: { color: "secondary" } },
-            MuiPaper: {
-                defaultProps: { elevation: 5 },
-                styleOverrides: { root: { transition: "background-color 0.25s linear" } },
-            },
+            MuiDivider: { styleOverrides: { root: { marginBottom: "1.25%", marginTop: "1.25%" } } },
+            MuiPaper: { styleOverrides: { root: { transition: "background-color 0.25s linear" } } },
         },
         cssVariables: { colorSchemeSelector: "class" },
         defaultColorScheme: "dark",
@@ -47,8 +40,15 @@ export function ThemeContextProvider({ children }: { children: ReactNode; }): Re
         /** Injects MUI styles before anything else. */
         <StyledEngineProvider injectFirst>
             <ThemeProvider theme={theme}>
-                <CssBaseline enableColorScheme />
-                {children}
+                <DefaultPropsProvider value={{
+                    MuiButton: { variant: "contained" },
+                    MuiDivider: { variant: "middle" },
+                    MuiFab: { color: "secondary" },
+                    MuiPaper: { elevation: 5 },
+                }}>
+                    <CssBaseline enableColorScheme />
+                    {children}
+                </DefaultPropsProvider>
             </ThemeProvider>
         </StyledEngineProvider>
     );
