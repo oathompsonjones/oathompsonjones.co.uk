@@ -1,11 +1,9 @@
 "use client";
 
 import { InstagramPost } from "components/pages/gallery/instagramPost";
-import Link from "next/link";
 import { Masonry } from "@mui/lab";
 import type { Post } from "api/instagram/route";
 import type { ReactElement } from "react";
-import { Typography } from "@mui/material";
 import { useFetch } from "hooks/useFetch";
 
 /**
@@ -18,13 +16,8 @@ export default function Gallery(): ReactElement {
 
     // Renders the gallery page.
     return (
-        <>
-            <Typography variant="subtitle1">
-                These images are pulled directly from my <Link href="/instagram" prefetch={false}>Instagram</Link> profile.
-            </Typography>
-            <Masonry columns={{ lg: 6, sm: 3, xs: 1 }}>
-                {(posts ?? []).map((post, i) => <InstagramPost key={i} post={post} />)}
-            </Masonry>
-        </>
+        <Masonry columns={{ lg: 6, sm: 3, xs: 1 }}>
+            {(posts ?? []).map((post, i) => <InstagramPost key={i} post={post} />)}
+        </Masonry>
     );
 }

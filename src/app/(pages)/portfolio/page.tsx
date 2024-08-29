@@ -1,11 +1,9 @@
 "use client";
 
 import { GitHubRepo } from "components/pages/portfolio/githubRepo";
-import Link from "next/link";
 import { Masonry } from "@mui/lab";
 import type { ReactElement } from "react";
 import type { Repo } from "api/github/route";
-import { Typography } from "@mui/material";
 import { useFetch } from "hooks/useFetch";
 
 /**
@@ -18,13 +16,8 @@ export default function Portfolio(): ReactElement {
 
     // Renders the portfolio page.
     return (
-        <>
-            <Typography variant="subtitle1">
-                These projects are pulled directly from my <Link href="/github" prefetch={false}>GitHub</Link> profile.
-            </Typography>
-            <Masonry columns={{ lg: 4, md: 3, sm: 2, xl: 5, xs: 1 }}>
-                {(repos ?? []).map((repo, i) => <GitHubRepo key={i} repo={repo} />)}
-            </Masonry>
-        </>
+        <Masonry columns={{ lg: 4, md: 3, sm: 2, xl: 5, xs: 1 }}>
+            {(repos ?? []).map((repo, i) => <GitHubRepo key={i} repo={repo} />)}
+        </Masonry>
     );
 }
