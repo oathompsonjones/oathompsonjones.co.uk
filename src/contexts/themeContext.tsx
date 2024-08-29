@@ -32,12 +32,6 @@ export function ThemeProvider({ children }: { children: ReactNode; }): ReactElem
     const [isDarkMode, toggleTheme] = useDarkMode();
 
     // Create the full theme.
-    const colours = {
-        dark: "#121212",
-        light: "#efefef",
-        primary: "#1c7eea",
-        secondary: "#ea881c",
-    };
     const theme: Theme = responsiveFontSizes(createTheme({
         components: {
             MuiButton: { defaultProps: { variant: "contained" } },
@@ -53,10 +47,10 @@ export function ThemeProvider({ children }: { children: ReactNode; }): ReactElem
         },
         cssVariables: true,
         palette: {
-            background: { dark: colours.dark, light: colours.light },
+            background: { dark: "#121212", light: "#efefef" },
             mode: isDarkMode ? "dark" : "light",
-            primary: { main: colours.primary },
-            secondary: { main: colours.secondary },
+            primary: { main: "#1c7eea" },
+            secondary: { main: "#ea881c" },
         },
         typography: (palette: Palette) => ({
             ...Object.fromEntries(["h1", "h2", "h3", "h4", "h5", "h6"].map((key) => [key, { color: palette.primary.main }])),
