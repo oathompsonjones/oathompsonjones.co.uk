@@ -9,16 +9,14 @@ export function Title(): ReactElement {
     return (
         <Typography
             align="center"
-            color="inherit"
+            variant="h5"
             sx={{
+                color: "inherit",
                 flexGrow: { md: 0, xs: 1 },
                 fontFamily: "monospace",
                 fontWeight: 700,
                 letterSpacing: ".3rem",
             }}
-            variant="h5"
-        >
-            OATHOMPSONJONES
-        </Typography>
+        >OATHOMPSONJONES</Typography>
     );
 }

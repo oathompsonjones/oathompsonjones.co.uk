@@ -13,8 +13,12 @@ export function Main(): ReactElement {
             <Stack direction="column" sx={{ alignItems: "center", justifyContent: "center" }}>
                 <ProfilePicture positioner />
                 <Typography align="center" variant="h1">Oliver Jones</Typography>
-                <Typography align="center" variant="h3" color="secondary">BSc Computer Science Undergraduate</Typography>
-                <Typography align="center" variant="h4" color="secondary">The University of Edinburgh</Typography>
+                <Typography align="center" variant="h3" sx={{ color: "secondary.main" }}>
+                    BSc Computer Science Undergraduate
+                </Typography>
+                <Typography align="center" variant="h4" sx={{ color: "secondary.main" }}>
+                    The University of Edinburgh
+                </Typography>
             </Stack>
             <Divider flexItem sx={{ bgcolor: "primary.main" }} />
             <Stack direction="row"spacing="1%"sx={{ alignItems: "center", justifyContent: "space-evenly", width: "100%" }}>
