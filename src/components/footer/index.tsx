@@ -31,7 +31,7 @@ export function Footer(): ReactElement {
             <Stack divider={<Divider sx={{ my: "0.5%" }} />}>
                 <Stack alignItems="center" direction="row">
                     <Avatar src={GRAVATAR_URL} sx={{ m: "1%" }} />
-                    <Box flex={1}>
+                    <Box sx={{ flex: 1 }}>
                         <Name id="footer" minScreenSize="md" variant="h4" />
                     </Box>
                     <SocialLinks />

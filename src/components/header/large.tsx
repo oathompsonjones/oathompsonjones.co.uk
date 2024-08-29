@@ -10,7 +10,7 @@ import type { ReactElement } from "react";
  */
 export function LargeNav({ pages }: { pages: Array<{ label: string; link: string; }>; }): ReactElement {
     return (
-        <Box sx={{ display: { md: "flex", xs: "none" } }} flex={1}>
+        <Box sx={{ display: { md: "flex", xs: "none" }, flex: 1 }}>
             {pages.map((page, i) => (
                 <MenuItem
                     component={Link}

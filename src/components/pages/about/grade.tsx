@@ -10,8 +10,8 @@ import { Stack, Typography } from "@mui/material";
  */
 export function Grade({ grade, subject }: { grade: ReactNode; subject: ReactNode; }): ReactElement {
     return (
-        <Stack alignItems="center" direction="row" flex={1} sx={{ px: "2%" }}>
-            <Typography flex={1}>{subject}</Typography>
+        <Stack alignItems="center" direction="row" sx={{ flex: 1, px: "2%" }}>
+            <Typography sx={{ flex: 1 }}>{subject}</Typography>
             <Typography>{grade}</Typography>
         </Stack>
     );

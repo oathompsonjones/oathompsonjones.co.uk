@@ -26,7 +26,7 @@ export function Grades({ attainmentYear, children, educationLevel, institutionLi
     return (
         <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
             <Stack direction="row" alignItems="center">
-                <Typography variant="h4" flex={1}>{educationLevel}</Typography>
+                <Typography variant="h4" sx={{ flex: 1 }}>{educationLevel}</Typography>
                 <Typography variant="h6">({maxGrade} – {minGrade})</Typography>
             </Stack>
             <Divider />
