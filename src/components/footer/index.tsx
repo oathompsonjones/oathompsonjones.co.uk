@@ -1,19 +1,20 @@
 "use client";
 
-import { Avatar, Box, Divider, Paper, Stack, Typography, useTheme } from "@mui/material";
+import { Avatar, Box, Divider, Paper, Stack, Typography } from "@mui/material";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
 import { Name } from "./name";
 import type { ReactElement } from "react";
 import { SocialLinks } from "./socialLinks";
 import { usePathname } from "next/navigation";
+import { useThemeMode } from "hooks/useThemeMode";
 
 /**
  * Contains the footer element.
  * @returns The page footer.
  */
 export function Footer(): ReactElement {
-    const { palette: { primary: { main } } } = useTheme();
+    const { theme: { palette: { primary: { main } } } } = useThemeMode();
     const pathname = usePathname();
 
     return (

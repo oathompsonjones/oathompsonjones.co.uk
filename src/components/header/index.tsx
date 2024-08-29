@@ -1,6 +1,6 @@
 "use client";
 
-import { AppBar, IconButton, Toolbar, Tooltip, useMediaQuery, useScrollTrigger, useTheme } from "@mui/material";
+import { AppBar, IconButton, Toolbar, Tooltip, useMediaQuery, useScrollTrigger } from "@mui/material";
 import { Contrast, DarkMode, LightMode, Menu } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { LargeNav } from "./large";
@@ -18,8 +18,7 @@ import { useThemeMode } from "hooks/useThemeMode";
  */
 export function Header(): ReactElement {
     // Access the site theme.
-    const { switchThemeMode, themeColour, themeMode } = useThemeMode();
-    const { palette: { common: { black, white } } } = useTheme();
+    const { switchThemeMode, theme: { palette: { common: { black, white } } }, themeColour, themeMode } = useThemeMode();
 
     // Handles behaviour for changing nav bar colour and opening/closing dropdown menu.
     const isScrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
