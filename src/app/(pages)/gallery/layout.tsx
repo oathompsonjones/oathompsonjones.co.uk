@@ -13,12 +13,13 @@ export const metadata: Metadata = { title: "Oliver Jones | Gallery" };
  */
 export default function Layout({ children }: { children: ReactNode; }): ReactElement {
     return (
-        <>
-            <Typography variant="h2" textAlign="center">Gallery</Typography>
+        <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+            <Typography variant="h2" sx={{ textAlign: "center" }}>Gallery</Typography>
             {children}
-            <Typography variant="subtitle1" textAlign="right">
+            <div style={{ flex: 1, height: "100%" }} />
+            <Typography variant="subtitle1" sx={{ textAlign: "right" }}>
                 Visit my <Link href="/instagram" prefetch={false}>Instagram</Link> profile.
             </Typography>
-        </>
+        </div>
     );
 }
