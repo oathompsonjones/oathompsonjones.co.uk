@@ -43,12 +43,7 @@ export function ThemeProvider({ children }: { children: ReactNode; }): ReactElem
             MuiButton: { defaultProps: { variant: "contained" } },
             MuiDivider: {
                 defaultProps: { variant: "middle" },
-                styleOverrides: {
-                    root: {
-                        marginBottom: "1.25%",
-                        marginTop: "1.25%",
-                    },
-                },
+                styleOverrides: { root: { marginBottom: "1.25%", marginTop: "1.25%" } },
             },
             MuiFab: { defaultProps: { color: "secondary" } },
             MuiPaper: {
@@ -58,33 +53,17 @@ export function ThemeProvider({ children }: { children: ReactNode; }): ReactElem
         },
         cssVariables: true,
         palette: {
-            background: {
-                dark: colours.dark,
-                light: colours.light,
-            },
+            background: { dark: colours.dark, light: colours.light },
             mode: isDarkMode ? "dark" : "light",
             primary: { main: colours.primary },
             secondary: { main: colours.secondary },
         },
-        typography: (palette: Palette) => {
-            const primaryKeys = ["h1", "h2", "h3", "h4", "h5", "h6"];
-            const primaryObj = Object.fromEntries(primaryKeys.map((key) => [key, { color: palette.primary.main }]));
-            const secondaryKeys = ["caption", "subtitle1", "subtitle2"];
-            const secondaryObj = Object.fromEntries(secondaryKeys.map((key) => [key, { color: palette.secondary.main }]));
-
-            return { ...primaryObj, ...secondaryObj };
-        },
-        zIndex: {
-            appBar: 10,
-            fab: 10,
-        },
+        typography: (palette: Palette) => ({
+            ...Object.fromEntries(["h1", "h2", "h3", "h4", "h5", "h6"].map((key) => [key, { color: palette.primary.main }])),
+            ...Object.fromEntries(["caption", "subtitle1", "subtitle2"].map((key) => [key, { color: palette.secondary.main }])),
+        }),
+        zIndex: { appBar: 10, fab: 10 },
     }), { breakpoints: ["xs", "sm", "md", "lg", "xl"] });
-
-    const hexToRGB = (hex: string): string => {
-        const [r, g, b] = hex.slice(1).match(/.{2}/g)!;
-
-        return `${parseInt(r, 16)}, ${parseInt(g!, 16)}, ${parseInt(b!, 16)}`;
-    };
 
     return (
         // Injects MUI styles before anything else.
@@ -92,15 +71,6 @@ export function ThemeProvider({ children }: { children: ReactNode; }): ReactElem
             <ThemeContext.Provider value={useMemo(() => ({ theme, toggleTheme }), [isDarkMode])}>
                 <MuiProvider theme={theme}>
                     <CssBaseline enableColorScheme />
-                    <style>{/* CSS */`
-                        :root {
-                            --primary: ${hexToRGB(colours.primary)};
-                            --secondary: ${hexToRGB(colours.secondary)};
-                            --dark: ${hexToRGB(colours.dark)};
-                            --light: ${hexToRGB(colours.light)};
-                            --background: ${isDarkMode ? "var(--dark)" : "var(--light)"};
-                        }
-                    `}</style>
                     {children}
                 </MuiProvider>
             </ThemeContext.Provider>

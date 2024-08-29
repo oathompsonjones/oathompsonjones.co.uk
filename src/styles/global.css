@@ -31,15 +31,15 @@ span {
 }
 
 a {
-    color: rgb(var(--primary));
+    color: var(--mui-palette-primary-main);
     cursor: pointer;
     text-decoration: none;
 }
 
 #background {
-    background-image: radial-gradient(rgba(var(--primary), 0.5) 7%, transparent 0);
+    background-image: radial-gradient(rgba(var(--mui-palette-primary-mainChannel) / 0.5) 7%, transparent 0);
     background-size: 2vw 2vw;
-    box-shadow: inset -15vw -15vh 15vw 15vh rgb(var(--background));
+    box-shadow: inset -15vw -15vh 15vw 15vh var(--mui-palette-background-default);
     position: fixed;
     overflow: hidden;
     height: 100vh;
