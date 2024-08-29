@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Typography } from "@mui/material";
+import { PageError } from "components/pageError";
 import type { ReactElement } from "react";
 
 /**
@@ -11,13 +11,5 @@ import type { ReactElement } from "react";
  * @returns An error element.
  */
 export default function Error({ error, reset }: { error: Error; reset: () => void; }): ReactElement {
-    return (
-        <>
-            <Typography color="secondary" variant="h4">An error occurred, please try again later.</Typography>
-            <Typography variant="caption">
-                {error.message}
-            </Typography>
-            <Button onClick={reset} size="large">Try Again</Button>
-        </>
-    );
+    return (<PageError error={error} reset={reset} />);
 }
