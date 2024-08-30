@@ -1,10 +1,9 @@
 "use client";
 
-import { Alert, Button, FormControl, FormLabel, Grid2 as Grid, Paper, TextField } from "@mui/material";
-import type { FormEvent, ReactElement } from "react";
-import { useEffect, useState } from "react";
+import { Alert, Button, Grid2 as Grid, Paper, Stack, TextField } from "@mui/material";
+import type { ChangeEvent, FormEvent, ReactElement } from "react";
 import { Send } from "@mui/icons-material";
-import { useWindowSize } from "hooks/useWindowSize";
+import { useState } from "react";
 
 /**
  * A contact form.
@@ -21,136 +20,104 @@ export function ContactForm(): ReactElement {
 
     /**
      * Handles the submission of the form.
-     * @param event - The form event.
+     * @param event - The event that triggered the submission.
      */
-    async function handleSubmit(event: FormEvent): Promise<void> {
+    function handleSubmit(event: FormEvent): void {
         // Prevents the default behaviour, which would reload the whole page.
         event.preventDefault();
 
-        // Attempts to submit the form.
-        try {
-            // Checks that there is content in each of fields.
-            if ([content, email, name, subject].includes(""))
-                throw new Error("Invalid form body. All fields must have a value.");
-
-            // Sends a request to the backend.
-            await fetch("/api/contact", {
+        // Checks that there is content in each of fields.
+        if ([content, email, name, subject].includes("")) {
+            setStatus(false);
+        } else {
+            // Attempts to send the form data to the server.
+            fetch("/api/contact", {
                 body: JSON.stringify({ content, email, name, subject }),
                 // eslint-disable-next-line @typescript-eslint/naming-convention
                 headers: { "Content-Type": "application/json" },
                 method: "POST",
-            });
-
-            // Clears the fields for each of the fields in the form.
-            setContent("");
-            setEmail("");
-            setName("");
-            setSubject("");
-            // Sets the form status to true if the form has submitted successfully.
-            setStatus(true);
-        } catch (err) {
-            // Sets the form status to false if the form fails to submit.
-            setStatus(false);
+            }).then(() => {
+                // Clears the fields for each of the fields in the form.
+                setContent("");
+                setEmail("");
+                setName("");
+                setSubject("");
+                // Sets the form status to true if the form has submitted successfully.
+                setStatus(true);
+            }).catch(() => setStatus(false));
         }
     }
 
-    // Calculates the number of rows for the content field.
-    const { height } = useWindowSize();
-    const [contentRows, setContentRows] = useState(1);
+    /**
+     * Updates the state of the form.
+     * @param event - The event that triggered the update.
+     */
+    function update(this: "content" | "email" | "name" | "subject", event: ChangeEvent<HTMLTextAreaElement>): void {
+        switch (this) {
+            case "name":
+                setName(event.target.value);
+                break;
+            case "email":
+                setEmail(event.target.value);
+                break;
+            case "subject":
+                setSubject(event.target.value);
+                break;
+            case "content":
+                setContent(event.target.value);
+                break;
+        }
+    }
 
-    useEffect(() => {
-        const field = document.querySelector("textarea[name=content]")!;
-        const lineHeight = parseFloat(getComputedStyle(field).lineHeight);
-
-        setContentRows(Math.floor(height / lineHeight / 2.5));
-    }, []);
+    const statusBanner = status !== null && (status
+        ? (
+            <Grid size={12}>
+                <Alert severity="success">Message sent!</Alert>
+            </Grid>
+        )
+        : (
+            <Grid size={12}>
+                <Alert severity="error">Message failed to send.</Alert>
+            </Grid>
+        )
+    );
 
     return (
-        <Paper sx={{ display: "flex", mb: "1rem", p: "1rem" }}>
-            {/* Form control calls handleSubmit when the form is submitted. */}
-            <FormControl
-                component="form" onSubmit={(event: FormEvent): void => {
-                    void handleSubmit(event);
-                }} sx={{ flex: 1 }}>
-                <Grid container spacing={2}>
-                    {/* Renders an alert to state whether the form has been submitted. */}
-                    {status !== null && (status
-                        ? (
-                            <Grid size={12}>
-                                <Alert severity="success">Message sent!</Alert>
-                            </Grid>
-                        )
-                        : (
-                            <Grid size={12}>
-                                <Alert severity="error">Message failed to send.</Alert>
-                            </Grid>
-                        )
-                    )}
-                    <Grid size={12}>
-                        <FormLabel>Fill out this form to contact me.</FormLabel>
-                    </Grid>
-                    {/* Renders the name field. */}
-                    <Grid size={{ md: 6, xs: 12 }}>
-                        <TextField
-                            fullWidth
-                            label="Name"
-                            name="name"
-                            onChange={(event): void => setName(event.target.value)}
-                            required
-                            type="text"
-                            value={name}
-                            variant="filled"
-                        />
-                    </Grid>
-                    {/* Renders the email field. */}
-                    <Grid size={{ md: 6, xs: 12 }}>
-                        <TextField
-                            fullWidth
-                            label="Email"
-                            name="email"
-                            onChange={(event): void => setEmail(event.target.value)}
-                            required
-                            type="email"
-                            value={email}
-                            variant="filled"
-                        />
-                    </Grid>
-                    {/* Renders the subject field. */}
-                    <Grid size={12}>
-                        <TextField
-                            fullWidth
-                            label="Subject"
-                            name="subject"
-                            onChange={(event): void => setSubject(event.target.value)}
-                            required
-                            type="text"
-                            value={subject}
-                            variant="filled"
-                        />
-                    </Grid>
-                    {/* Renders the content field. */}
-                    <Grid size={12}>
-                        <TextField
-                            fullWidth
-                            label="Content"
-                            multiline
-                            name="content"
-                            onChange={(event): void => setContent(event.target.value)}
-                            required
-                            rows={contentRows}
-                            type="text"
-                            value={content}
-                            variant="filled"
-                        />
-                    </Grid>
-                    {/* Renders the send (submit) button. */}
-                    <Grid size={12}>
-                        <Button endIcon={<Send />} sx={{ float: "right" }} type="submit">
-                            Send
-                        </Button>
-                    </Grid>
-                </Grid>
-            </FormControl>
+        <Paper
+            component="form"
+            onSubmit={handleSubmit}
+            sx={{
+                display: "flex",
+                flex: 1,
+                flexDirection: "column",
+                gap: 2,
+                height: "100%",
+                mb: "1rem",
+                p: "1rem",
+            }}
+        >
+            {statusBanner}
+            <Stack spacing={2} direction={{ md: "row" }}>
+                <TextField label="Name" name="name" onChange={update.bind("name")} value={name} />
+                <TextField label="Email" name="email" onChange={update.bind("email")} value={email} type="email" />
+            </Stack>
+            <TextField label="Subject" name="subject" onChange={update.bind("subject")} value={subject} />
+            <TextField
+                label="Content" name="content" onChange={update.bind("content")} value={content}
+                multiline sx={{
+                    // eslint-disable-next-line @typescript-eslint/naming-convention
+                    "> div": {
+                        // eslint-disable-next-line @typescript-eslint/naming-convention
+                        "> textarea": { flex: 1, height: "100% !important" },
+                        display: "flex",
+                        flex: 1,
+                        flexDirection: "column",
+                        height: "100%",
+                    },
+                    flex: 1,
+                    height: "100%",
+                }} />
+            <Button endIcon={<Send />} type="submit">Send</Button>
         </Paper>
     );
 }

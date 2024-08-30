@@ -1,6 +1,6 @@
+import { Box, Typography } from "@mui/material";
 import { ContactForm } from "components/pages/contact/contactForm";
 import type { ReactElement } from "react";
-import { Typography } from "@mui/material";
 
 /**
  * The contact section of the home page.
@@ -8,9 +8,9 @@ import { Typography } from "@mui/material";
  */
 export function Contact(): ReactElement {
     return (
-        <>
+        <Box sx={{ display: "flex", flex: 1, flexDirection: "column", height: "100%" }}>
             <Typography variant="h1">Contact Me</Typography>
             <ContactForm />
-        </>
+        </Box>
     );
 }

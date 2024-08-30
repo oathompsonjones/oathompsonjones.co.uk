@@ -13,7 +13,7 @@ export const metadata: Metadata = { title: "Oliver Jones | Contact Me" };
 export default function Contact(): ReactElement {
     // Renders the contact page.
     return (
-        <Container>
+        <Container sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
             <Typography variant="h2">Contact Me</Typography>
             <ContactForm />
             <SocialLinks dividers />
