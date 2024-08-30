@@ -108,7 +108,7 @@ export function ContactForm(): ReactElement {
                     // eslint-disable-next-line @typescript-eslint/naming-convention
                     "> div": {
                         // eslint-disable-next-line @typescript-eslint/naming-convention
-                        "> textarea": { flex: 1, height: "100% !important" },
+                        "> textarea": { flex: 1, height: "100%" },
                         display: "flex",
                         flex: 1,
                         flexDirection: "column",
