@@ -67,12 +67,7 @@ export default function Home(): ReactElement {
         forceRerender();
     }, [height, width]);
 
-    const mobileSpacer = (
-        <>
-            <Mobile><br /><br /></Mobile>
-            <Mobile><br /><br /></Mobile>
-        </>
-    );
+    const mobileSpacer = (<Mobile>{Array(4).fill(0).map((_, i) => (<br key={i} />))}</Mobile>);
 
     return (
         <>
