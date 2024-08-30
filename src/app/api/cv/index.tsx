@@ -18,7 +18,7 @@ export function jsonToJSDoc(content: string): ReactElement {
         if (k % 2 === 0) {
             const str = splitAtLinks[i++]!;
 
-            output.push(...str.includes("\n") ? str.split("\n").map((line) => <>{line}<br /></>) : [str]);
+            output.push(...str.includes("\n") ? str.split("\n").map((line, key) => <div key={key}>{line}<br /></div>) : [str]);
         } else {
             const link = links[j++];
             const href = link!.replace(matchingRegExp, "$2");

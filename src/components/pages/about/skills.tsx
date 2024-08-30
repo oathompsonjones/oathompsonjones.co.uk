@@ -20,12 +20,12 @@ export function Skills(): ReactElement {
     return (
         <>
             <Typography variant="h3">Skills</Typography>
-            {skills.map(({ content, heading }) => (
-                <>
+            {skills.map(({ content, heading }, i) => (
+                <div key={i}>
                     <Divider />
                     <Typography variant="subtitle1">{heading}</Typography>
                     <Typography variant="body2">{content}</Typography>
-                </>
+                </div>
             ))}
         </>
     );
