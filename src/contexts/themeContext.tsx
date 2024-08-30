@@ -45,6 +45,7 @@ export function ThemeContextProvider({ children }: { children: ReactNode; }): Re
                     MuiDivider: { variant: "middle" },
                     MuiFab: { color: "secondary" },
                     MuiPaper: { elevation: 5 },
+                    MuiTextField: { fullWidth: true, required: true, variant: "filled" },
                 }}>
                     <CssBaseline enableColorScheme />
                     {children}
