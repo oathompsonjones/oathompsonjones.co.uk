@@ -23,15 +23,15 @@ export function Header(): ReactElement {
     // Handles behaviour for changing nav bar colour and opening/closing dropdown menu.
     const isScrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
     const isMobile: boolean = useMediaQuery((theme: Theme): string => theme.breakpoints.down("md"));
-    const isHomePage: boolean = usePathname() === "/";
+    const isHome: boolean = usePathname() === "/";
     const [isNavOpen, setIsNavOpen] = useState(false);
     const toggleNavOpen = (): void => setIsNavOpen(() => isMobile && !isNavOpen);
     const ref = useOutsideClick(() => setIsNavOpen(false));
 
     useEffect(() => setIsNavOpen(false), []);
 
-    const solidBackground = isNavOpen || isScrolling && (isMobile || !isHomePage);
-    const textColour = solidBackground ? white : { dark: white, light: black }[isHomePage ? "dark" : themeColour];
+    const isSolid = isNavOpen || isScrolling && (isMobile || !isHome);
+    const textColour = isSolid ? white : { dark: white, light: black }[isHome ? "dark" : themeColour];
 
     // Associate a label and link with each page.
     const pages: Array<{ label: string; link: string; }> = [
@@ -55,7 +55,19 @@ export function Header(): ReactElement {
             enableColorOnDark
             position="fixed"
             ref={ref}
-            sx={{ ...solidBackground ? {} : { background: "none", boxShadow: "none", color: textColour }, backgroundImage: "none" }}
+            sx={{
+                background: "var(--background)",
+                backgroundImage: "none",
+                boxShadow: "var(--box-shadow)",
+                color: "var(--color)",
+            }}
+            style={{
+                /* eslint-disable @typescript-eslint/naming-convention */
+                "--background": isSolid ? "var(--mui-palette-primary-main)" : "none",
+                "--box-shadow": isSolid ? "var(--Paper-shadow)" : "none",
+                "--color": textColour,
+                /* eslint-enable @typescript-eslint/naming-convention */
+            }}
         >
             {/* Toolbar is essential for properly aligning elements within the AppBar. */}
             <Toolbar>
