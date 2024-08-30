@@ -70,16 +70,8 @@ export function ContactForm(): ReactElement {
     }
 
     const statusBanner = status !== null && (status
-        ? (
-            <Grid size={12}>
-                <Alert severity="success">Message sent!</Alert>
-            </Grid>
-        )
-        : (
-            <Grid size={12}>
-                <Alert severity="error">Message failed to send.</Alert>
-            </Grid>
-        )
+        ? (<Alert severity="success">Message sent!</Alert>)
+        : (<Alert severity="error">Message failed to send.</Alert>)
     );
 
     return (
