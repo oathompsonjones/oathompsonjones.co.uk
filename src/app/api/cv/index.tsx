@@ -1,12 +1,12 @@
-import type { ReactElement, ReactNode } from "react";
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 /**
  * Maps the data to a React element.
  * @param content - The content to map.
  * @returns The mapped data.
  */
-export function jsonToJSDoc(content: string): ReactElement {
+export function jsonToJSDoc(content: string): ReactNode {
     // eslint-disable-next-line prefer-named-capture-group
     const matchingRegExp = /\[([^\]]+)\]\(([^\s)]+)\)/g;
     const nonMatchingRegExp = /\[[^\]]+\]\([^\s)]+\)/g;
@@ -26,5 +26,5 @@ export function jsonToJSDoc(content: string): ReactElement {
         }
     }
 
-    return <>{output.flat()}</>;
+    return output;
 }
