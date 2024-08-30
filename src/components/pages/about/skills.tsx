@@ -24,7 +24,7 @@ export function Skills(): ReactElement {
                 <div key={i}>
                     <Divider />
                     <Typography variant="subtitle1">{heading}</Typography>
-                    <Typography variant="body2">{content}</Typography>
+                    <Typography variant="body2" sx={{ whiteSpace: "pre-wrap" }}>{content}</Typography>
                 </div>
             ))}
         </>
