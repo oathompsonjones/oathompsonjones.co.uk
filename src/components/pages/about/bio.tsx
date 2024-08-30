@@ -14,10 +14,7 @@ export function Bio(): ReactElement {
         <>
             <Grid container spacing={2}>
                 <Grid size={{ md: 4, xs: 12 }}>
-                    <Avatar
-                        src={GRAVATAR_URL}
-                        sx={{ height: "auto", width: "100%" }}
-                    />
+                    <Avatar src={GRAVATAR_URL} sx={{ height: "auto", width: "100%" }} />
                 </Grid>
                 <Grid size={{ md: 8, xs: 12 }}>
                     <Stack direction="column" sx={{ height: "100%", justifyContent: "center" }}>
