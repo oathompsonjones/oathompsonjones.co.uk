@@ -1,7 +1,6 @@
 "use client";
 
 import { CssBaseline, StyledEngineProvider, ThemeProvider, createTheme, responsiveFontSizes } from "@mui/material";
-import type { Palette, Theme } from "@mui/material";
 import type { ReactElement, ReactNode } from "react";
 import DefaultPropsProvider from "@mui/material/DefaultPropsProvider";
 
@@ -18,18 +17,18 @@ export function ThemeContextProvider({ children }: { children: ReactNode; }): Re
         primary: { main: "#1c7eea" },
         secondary: { main: "#ea881c" },
     };
-    const theme: Theme = responsiveFontSizes(createTheme({
+    const theme = responsiveFontSizes(createTheme({
         colorSchemes: {
             dark: { palette: { background: { default: basePalette.common.black }, ...basePalette } },
             light: { palette: { background: { default: basePalette.common.white }, ...basePalette } },
         },
         components: {
-            MuiDivider: { styleOverrides: { root: { marginBottom: "1.25%", marginTop: "1.25%" } } },
+            MuiDivider: { styleOverrides: { root: { margin: "1.25% 0" } } },
             MuiPaper: { styleOverrides: { root: { transition: "background-color 0.25s linear" } } },
         },
         cssVariables: { colorSchemeSelector: "class" },
         defaultColorScheme: "dark",
-        typography: (palette: Palette) => ({
+        typography: (palette) => ({
             ...Object.fromEntries(["h1", "h2", "h3", "h4", "h5", "h6"].map((key) => [key, { color: palette.primary.main }])),
             ...Object.fromEntries(["caption", "subtitle1", "subtitle2"].map((key) => [key, { color: palette.secondary.main }])),
         }),
