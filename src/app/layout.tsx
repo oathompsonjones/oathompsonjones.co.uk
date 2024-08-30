@@ -8,7 +8,6 @@ import type { Metadata, Viewport } from "next";
 import type { ReactElement, ReactNode } from "react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { Footer } from "components/footer";
-import Head from "next/head.js";
 import { Header } from "components/header";
 import InitColorSchemeScript from "@mui/system/InitColorSchemeScript";
 import { ScrollToTop } from "components/scrollToTop";
@@ -71,12 +70,12 @@ export const viewport: Viewport = {
 export default function Layout({ children }: { children: ReactNode; }): ReactElement {
     return (
         <html lang="en" suppressHydrationWarning>
-            <Head>
+            <head>
                 <script
                     async crossOrigin="anonymous"
                     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4179343737367118"
                 />
-            </Head>
+            </head>
             <body>
                 <noscript>You need to enable JavaScript to run this app.</noscript>
                 <InitColorSchemeScript attribute="class" />
