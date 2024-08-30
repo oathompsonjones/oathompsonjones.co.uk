@@ -97,7 +97,7 @@ export function ContactForm(): ReactElement {
             }}
         >
             {statusBanner}
-            <Stack spacing={2} direction={{ md: "row" }}>
+            <Stack spacing={2} direction={{ md: "row", xs: "column" }}>
                 <TextField label="Name" name="name" onChange={update.bind("name")} value={name} />
                 <TextField label="Email" name="email" onChange={update.bind("email")} value={email} type="email" />
             </Stack>
