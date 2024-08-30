@@ -28,15 +28,11 @@ export function Section({ children }: { children: ReactNode; }): ReactElement {
                         minHeight: `${height}px`,
                     },
                 },
-                alignItems: "center",
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "center",
                 margin: { md: "-4rem -3rem 4rem" },
                 minHeight: { md: "100vh" },
-                overflow: "hidden",
                 padding: { md: "5rem 3rem 1rem" },
-                position: "relative",
                 scrollSnapAlign: { md: "start", xs: "center" },
             }}
         >
