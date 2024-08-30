@@ -76,9 +76,11 @@ export function CollapsibleText({ beginningText, collapsibleText, endingText, id
                 ".section": { overflow: "hidden", transition: "width 0.25s linear" },
                 /* eslint-enable @typescript-eslint/naming-convention */
                 display: "inline-flex",
-                gap: `${0.25 / spanCount}em`,
+                gap: "calc(0.25 / var(--span-count))em",
                 transition: "gap 0.25s linear",
             }}
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            style={{ "--span-count": spanCount.toString() }}
             variant={variant ?? "body1"}
         >
             {beginningText.map((text, i) => (<span className="section" key={i}>{text}</span>))}

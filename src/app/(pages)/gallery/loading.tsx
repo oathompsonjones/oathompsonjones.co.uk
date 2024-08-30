@@ -24,11 +24,13 @@ export default function Loading(): ReactElement {
                         sx={{
                             borderRadius: "1vmin",
                             height: {
-                                lg: heights[i]! / 6,
-                                sm: heights[i]! / 3,
-                                xs: heights[i]!,
+                                lg: "calc(var(--height) / 6)",
+                                sm: "calc(var(--height) / 3)",
+                                xs: "var(--height)",
                             },
                         }}
+                        // eslint-disable-next-line @typescript-eslint/naming-convention
+                        style={{ "--height": `${heights[i]!}px` }}
                         variant="rectangular"
                     />
                 ))}

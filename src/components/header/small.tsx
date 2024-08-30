@@ -16,7 +16,11 @@ export function SmallNav({ isOpen, pages, toggleNavOpen }: {
     toggleNavOpen: () => void;
 }): ReactElement {
     return (
-        <Box sx={{ alignItems: "center", display: isOpen ? "block" : "none" }}>
+        <Box
+            sx={{ alignItems: "center", display: "var(--display)" }}
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            style={{ "--display": isOpen ? "block" : "none" }}
+        >
             {pages.map((page, i) => (
                 <MenuItem
                     component={Link}

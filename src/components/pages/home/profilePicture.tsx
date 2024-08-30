@@ -16,14 +16,14 @@ export function ProfilePicture({ positioner }: { positioner?: boolean; }): React
             className={isPositioner ? "avatarPosition" : "avatar"}
             src={GRAVATAR_URL}
             sx={{
-                boxShadow: isPositioner ? 0 : 20,
+                boxShadow: "var(--boxShadow)",
                 display: {
                     md: "block",
-                    xs: isPositioner ? "block" : "none",
+                    xs: "var(--display)",
                 },
-                filter: isPositioner ? { md: "opacity(0%)" } : undefined,
+                filter: { md: "var(--filter)" },
                 height: "auto",
-                position: isPositioner ? undefined : "fixed",
+                position: "var(--position)",
                 transition: [
                     "left 0.5s linear",
                     "top 0.5s linear",
@@ -32,6 +32,14 @@ export function ProfilePicture({ positioner }: { positioner?: boolean; }): React
                     "filter 0.25s linear",
                 ].join(", "),
                 width: { md: "30%", sm: "50%", xs: "90%" },
+            }}
+            style={{
+                /* eslint-disable @typescript-eslint/naming-convention */
+                "--boxShadow": isPositioner ? "0" : "20",
+                "--display": isPositioner ? "block" : "none",
+                "--filter": isPositioner ? "opacity(0%)" : "",
+                "--position": isPositioner ? "" : "fixed",
+                /* eslint-enable @typescript-eslint/naming-convention */
             }}
         />
     );

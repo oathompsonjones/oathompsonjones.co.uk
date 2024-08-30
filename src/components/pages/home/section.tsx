@@ -23,10 +23,8 @@ export function Section({ children }: { children: ReactNode; }): ReactElement {
             sx={{
                 // eslint-disable-next-line @typescript-eslint/naming-convention
                 "&:last-of-type": {
-                    md: {
-                        marginBottom: "-1rem",
-                        minHeight: `${height}px`,
-                    },
+                    marginBottom: { md: "-1rem" },
+                    minHeight: { md: "var(--height)" },
                 },
                 display: "flex",
                 flexDirection: "column",
@@ -35,6 +33,8 @@ export function Section({ children }: { children: ReactNode; }): ReactElement {
                 padding: { md: "5rem 3rem 1rem" },
                 scrollSnapAlign: { md: "start", xs: "center" },
             }}
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            style={{ "--height": `${height}px` }}
         >
             {children}
         </Box>

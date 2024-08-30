@@ -20,13 +20,15 @@ export default function Loading(): ReactElement {
                         key={i}
                         sx={{
                             height: {
-                                lg: width / 8,
-                                md: width / 6,
-                                sm: width / 4,
-                                xl: width / 10,
-                                xs: width / 2,
+                                lg: "calc(var(--width) / 8)",
+                                md: "calc(var(--width) / 6)",
+                                sm: "calc(var(--width) / 4)",
+                                xl: "calc(var(--width) / 10)",
+                                xs: "calc(var(--width) / 2)",
                             },
                         }}
+                        // eslint-disable-next-line @typescript-eslint/naming-convention
+                        style={{ "--width": `${width}px` }}
                         variant="rounded"
                     />
                 ))}

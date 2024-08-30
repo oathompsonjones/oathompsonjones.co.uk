@@ -6,27 +6,17 @@ import Link from "next/link";
 import { Name } from "./name";
 import type { ReactElement } from "react";
 import { SocialLinks } from "./socialLinks";
-import { usePathname } from "next/navigation";
-import { useThemeMode } from "hooks/useThemeMode";
 
 /**
  * Contains the footer element.
  * @returns The page footer.
  */
 export function Footer(): ReactElement {
-    const { theme: { palette: { primary: { main } } } } = useThemeMode();
-    const pathname = usePathname();
-
     return (
         <Paper
             component="footer"
             square
-            sx={{
-                borderTop: `1px solid ${main}`,
-                p: "1rem",
-                scrollSnapAlign: pathname === "/" ? "end" : "none",
-                zIndex: 1,
-            }}
+            sx={{ borderTop: "1px solid var(--mui-palette-primary-main)", p: "1rem", zIndex: 1 }}
         >
             <Stack divider={<Divider sx={{ my: "0.5%" }} />}>
                 <Stack sx={{ alignItems: "center" }} direction="row">
