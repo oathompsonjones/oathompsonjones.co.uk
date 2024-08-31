@@ -30,7 +30,7 @@ export function Bio(): ReactElement {
                 </Grid>
             </Grid>
             <br />
-            <Typography>
+            <Typography sx={{ whiteSpace: "pre-wrap" }}>
                 {jsonToJSDoc(cv.bio)}
             </Typography>
         </>
