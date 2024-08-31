@@ -1,8 +1,9 @@
 "use client";
 
-import { Alert, Button, Grid2 as Grid, Paper, Stack, TextField } from "@mui/material";
+import { Alert, Button, Paper, TextField } from "@mui/material";
 import type { ChangeEvent, FormEvent, ReactElement } from "react";
 import { Send } from "@mui/icons-material";
+import Stack from "components/layout/stack";
 import { useState } from "react";
 
 /**

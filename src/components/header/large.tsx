@@ -1,4 +1,5 @@
-import { Box, MenuItem, Typography } from "@mui/material";
+import { MenuItem, Typography } from "@mui/material";
+import Box from "components/layout/box";
 import Link from "next/link";
 import type { ReactElement } from "react";
 

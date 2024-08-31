@@ -1,6 +1,7 @@
-import { Container, Typography } from "@mui/material";
+import Container from "components/layout/container";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { Typography } from "@mui/material";
 
 export const metadata: Metadata = { title: "Oliver Jones | Arcade" };
 

@@ -1,7 +1,9 @@
-import { Avatar, Divider, Grid2 as Grid, Stack, Typography } from "@mui/material";
+import { Avatar, Divider, Typography } from "@mui/material";
 import { GRAVATAR_URL, age } from "utils";
+import Grid from "components/layout/grid";
 import { Name } from "components/footer/name";
 import type { ReactElement } from "react";
+import Stack from "components/layout/stack";
 import cv from "assets/cv.json";
 import { jsonToJSDoc } from "api/cv";
 

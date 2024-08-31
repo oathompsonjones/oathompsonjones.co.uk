@@ -1,5 +1,5 @@
 import type { ReactElement, ReactNode } from "react";
-import { Box } from "@mui/material";
+import Box from "components/layout/box";
 
 /**
  * A div which will be used to either fade in or out.

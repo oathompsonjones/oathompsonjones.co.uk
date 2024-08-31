@@ -1,6 +1,8 @@
-import { Box, Divider, Stack, Typography } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import type { ReactElement, ReactNode } from "react";
+import Box from "components/layout/box";
 import Link from "next/link";
+import Stack from "components/layout/stack";
 
 /**
  * Contains a set of grades for the CV page.

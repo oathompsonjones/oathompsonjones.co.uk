@@ -1,11 +1,13 @@
 "use client";
 
-import { Avatar, Box, Divider, Paper, Stack, Typography } from "@mui/material";
+import { Avatar, Divider, Paper, Typography } from "@mui/material";
+import Box from "components/layout/box";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
 import { Name } from "./name";
 import type { ReactElement } from "react";
 import { SocialLinks } from "./socialLinks";
+import Stack from "components/layout/stack";
 
 /**
  * Contains the footer element.

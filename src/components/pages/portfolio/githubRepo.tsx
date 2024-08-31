@@ -3,13 +3,13 @@ import {
     Button,
     Card, CardActions, CardContent, CardMedia,
     Chip,
-    Stack,
     Typography,
     Zoom,
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
 import type { ReactElement } from "react";
 import type { Repo } from "api/github/route";
+import Stack from "components/layout/stack";
 
 /**
  * Renders a GitHub repository.

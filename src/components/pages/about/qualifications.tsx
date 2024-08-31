@@ -1,6 +1,7 @@
-import { Divider, Grid2 as Grid, Typography } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import { ALevels } from "./alevels";
 import { GCSEs } from "./gcses";
+import Grid from "components/layout/grid";
 import type { ReactElement } from "react";
 import { University } from "./university";
 

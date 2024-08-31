@@ -1,8 +1,9 @@
-import { Divider, Stack } from "@mui/material";
 import { Email, Facebook, GitHub, Instagram, LinkedIn } from "@mui/icons-material";
 import { Discord } from "components/icons/Discord";
+import { Divider } from "@mui/material";
 import Link from "next/link";
 import type { ReactElement } from "react";
+import Stack from "components/layout/stack";
 import { StackOverflow } from "components/icons/StackOverflow";
 import { TwitterX } from "components/icons/TwitterX";
 

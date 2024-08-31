@@ -1,11 +1,13 @@
-import { Container, Stack, Typography } from "@mui/material";
 import { Bio } from "components/pages/about/bio";
+import Container from "components/layout/container";
 import { DynamicButton } from "components/dynamicButton";
 import { Experience } from "components/pages/about/experience";
 import type { Metadata } from "next";
 import { Qualifications } from "components/pages/about/qualifications";
 import type { ReactNode } from "react";
 import { Skills } from "components/pages/about/skills";
+import Stack from "components/layout/stack";
+import { Typography } from "@mui/material";
 
 export const metadata: Metadata = { title: "Oliver Jones | About Me" };
 

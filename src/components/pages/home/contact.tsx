@@ -1,6 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import Box from "components/layout/box";
 import { ContactForm } from "components/pages/contact/contactForm";
 import type { ReactElement } from "react";
+import { Typography } from "@mui/material";
 
 /**
  * The contact section of the home page.

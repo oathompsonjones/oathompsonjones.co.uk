@@ -1,9 +1,10 @@
-import { Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Desktop } from "components/desktop";
 import Link from "next/link";
 import { ProfilePicture } from "components/pages/home/profilePicture";
 import type { ReactElement } from "react";
+import Stack from "components/layout/stack";
+import { Typography } from "@mui/material";
 import { age } from "utils";
 import { useWindowSize } from "hooks/useWindowSize";
 
