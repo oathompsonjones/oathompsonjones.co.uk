@@ -2,7 +2,7 @@
 
 import { GitHubRepo } from "components/pages/portfolio/githubRepo";
 import { Masonry } from "@mui/lab";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 import type { Repo } from "api/github/route";
 import { useFetch } from "hooks/useFetch";
 
@@ -10,7 +10,7 @@ import { useFetch } from "hooks/useFetch";
  * This page acts as an online portfolio.
  * @returns My portfolio, accessed from my GitHub profile.
  */
-export default function Portfolio(): ReactElement {
+export default function Portfolio(): ReactNode {
     // Calls the backend API to access the repositories from GitHub.
     const repos = useFetch<Repo[]>("/api/github");
 

@@ -1,6 +1,6 @@
-import type { ReactElement, ReactNode } from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { Typography } from "@mui/material";
 
 export const metadata: Metadata = { title: "Oliver Jones | Gallery" };
@@ -11,7 +11,7 @@ export const metadata: Metadata = { title: "Oliver Jones | Gallery" };
  * @param props.children - The children to render.
  * @returns A page wrapper.
  */
-export default function Layout({ children }: { children: ReactNode; }): ReactElement {
+export default function Layout({ children }: { children: ReactNode; }): ReactNode {
     return (
         <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
             <Typography variant="h2" sx={{ textAlign: "center" }}>Gallery</Typography>

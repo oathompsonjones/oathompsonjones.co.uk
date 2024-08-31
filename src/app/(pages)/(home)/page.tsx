@@ -8,7 +8,7 @@ import { FadingDiv } from "components/pages/home/fadingDiv";
 import { Main } from "components/pages/home/main";
 import { Mobile } from "components/mobile";
 import { ProfilePicture } from "components/pages/home/profilePicture";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 import { Section } from "components/pages/home/section";
 import { useWindowSize } from "hooks/useWindowSize";
 
@@ -16,7 +16,7 @@ import { useWindowSize } from "hooks/useWindowSize";
  * This is the home page.
  * @returns The home page.
  */
-export default function Home(): ReactElement {
+export default function Home(): ReactNode {
     const { height, width } = useWindowSize();
     const [, forceRerenderState] = useState(0);
     const forceRerender = (): void => forceRerenderState(Math.random());

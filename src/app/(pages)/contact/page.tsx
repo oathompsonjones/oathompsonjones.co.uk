@@ -1,7 +1,7 @@
 import { Container, Typography } from "@mui/material";
 import { ContactForm } from "components/pages/contact/contactForm";
 import type { Metadata } from "next";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 import { SocialLinks } from "components/footer/socialLinks";
 
 export const metadata: Metadata = { title: "Oliver Jones | Contact Me" };
@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: "Oliver Jones | Contact Me" };
  * This page provides contact links for me.
  * @returns My contact links, and an email form.
  */
-export default function Contact(): ReactElement {
+export default function Contact(): ReactNode {
     // Renders the contact page.
     return (
         <Container sx={{ display: "flex", flexDirection: "column", height: "100%" }}>

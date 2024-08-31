@@ -1,7 +1,7 @@
 "use client";
 
 import { PageError } from "components/pageError";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 
 /**
  * Handles errors for the page.
@@ -10,6 +10,6 @@ import type { ReactElement } from "react";
  * @param props.reset - The function to reset the application.
  * @returns An error element.
  */
-export default function Error({ error, reset }: { error: Error; reset: () => void; }): ReactElement {
+export default function Error({ error, reset }: { error: Error; reset: () => void; }): ReactNode {
     return (<PageError error={error} reset={reset} />);
 }

@@ -3,14 +3,14 @@
 import { InstagramPost } from "components/pages/gallery/instagramPost";
 import { Masonry } from "@mui/lab";
 import type { Post } from "api/instagram/route";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 import { useFetch } from "hooks/useFetch";
 
 /**
  * This page shows my Instagram posts.
  * @returns My Instagram posts.
  */
-export default function Gallery(): ReactElement {
+export default function Gallery(): ReactNode {
     // Calls the backend API to access the posts from Instagram.
     const posts = useFetch<Post[]>("/api/instagram");
 

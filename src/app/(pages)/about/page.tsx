@@ -4,7 +4,7 @@ import { DynamicButton } from "components/dynamicButton";
 import { Experience } from "components/pages/about/experience";
 import type { Metadata } from "next";
 import { Qualifications } from "components/pages/about/qualifications";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 import { Skills } from "components/pages/about/skills";
 
 export const metadata: Metadata = { title: "Oliver Jones | About Me" };
@@ -13,7 +13,7 @@ export const metadata: Metadata = { title: "Oliver Jones | About Me" };
  * This page acts as an online CV.
  * @returns My CV.
  */
-export default function About(): ReactElement {
+export default function About(): ReactNode {
     return (
         <Container component="article">
             <Stack direction="row">

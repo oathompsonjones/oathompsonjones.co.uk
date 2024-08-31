@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 import { Typography } from "@mui/material";
 
 /**
@@ -10,7 +10,7 @@ import { Typography } from "@mui/material";
  * @param props.reset - The function to reset the application.
  * @returns An error page.
  */
-export default function Error({ error, reset }: { error: Error; reset: () => void; }): ReactElement {
+export default function Error({ error, reset }: { error: Error; reset: () => void; }): ReactNode {
     return (
         <>
             <Typography gutterBottom variant="h2">Error 500 - Internal server error</Typography>

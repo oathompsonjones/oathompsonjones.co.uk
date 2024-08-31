@@ -1,6 +1,6 @@
 import { Container, Typography } from "@mui/material";
 import type { Metadata } from "next";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 
 export const metadata: Metadata = { title: "Oliver Jones | Arcade" };
 
@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Oliver Jones | Arcade" };
  * This page contains some mini arcade games.
  * @returns An arcade page.
  */
-export default function Arcade(): ReactElement {
+export default function Arcade(): ReactNode {
     return (
         <Container>
             <Typography variant="h2">Would you like to play a game?</Typography>

@@ -1,11 +1,11 @@
 import "@mui/material-pigment-css/styles.css";
 import "styles/global.css";
 import type { Metadata, Viewport } from "next";
-import type { ReactElement, ReactNode } from "react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { Footer } from "components/footer";
 import { Header } from "components/header";
 import InitColorSchemeScript from "@mui/system/InitColorSchemeScript";
+import type { ReactNode } from "react";
 import { ScrollToTop } from "components/scrollToTop";
 import { ThemeContextProvider } from "contexts/themeContext";
 import { gravatarURL } from "utils";
@@ -63,7 +63,7 @@ export const viewport: Viewport = {
  * @param props.children - The children to render.
  * @returns A page wrapper.
  */
-export default function Layout({ children }: { children: ReactNode; }): ReactElement {
+export default function Layout({ children }: { children: ReactNode; }): ReactNode {
     return (
         <html lang="en" suppressHydrationWarning>
             <body>

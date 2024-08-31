@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 import { Typography } from "@mui/material";
 
 export const metadata: Metadata = { title: "Oliver Jones | Page Not Found" };
@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Oliver Jones | Page Not Found" };
  * Handles any 404 errors.
  * @returns An error page.
  */
-export default function Error(): ReactElement {
+export default function Error(): ReactNode {
     return (
         <>
             <Typography gutterBottom variant="h2">Error 404 - Page not found</Typography>

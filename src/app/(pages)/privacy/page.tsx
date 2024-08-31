@@ -1,7 +1,7 @@
 import { Container, Typography } from "@mui/material";
 import Link from "next/link";
 import type { Metadata } from "next";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 
 export const metadata: Metadata = { title: "Oliver Jones | Privacy Policy" };
 
@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Oliver Jones | Privacy Policy" };
  * This is the privacy policy.
  * @returns The privacy policy.
  */
-export default function Privacy(): ReactElement {
+export default function Privacy(): ReactNode {
     return (
         <Container>
             <Typography variant="h2">
