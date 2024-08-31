@@ -34,6 +34,21 @@ declare global {
             [Var: `--${string}`]: string;
         }
     }
+    namespace NodeJS {
+        interface ProcessEnv {
+            [key: string]: string | undefined;
+            INSTAGRAM_ACCESS_TOKEN: string;
+            INSTAGRAM_ACCESS_TOKEN_REFRESH_AT: string;
+            INSTAGRAM_CLIENT_ID: string;
+            INSTAGRAM_CLIENT_SECRET: string;
+            INSTAGRAM_REDIRECT_URI: string;
+            INSTAGRAM_USER_ID: string;
+            GITHUB_TOKEN: string;
+            EMAIL_SERVICE: string;
+            EMAIL_AUTH_USER: string;
+            EMAIL_AUTH_PASS: string;
+        }
+    }
 }
 
 /*! declare module "@mui/material-pigment-css" {

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import Config from "../../../../config.json";
+import { readFile, writeFile } from "fs/promises";
 import { NextResponse } from "next/server";
-import { writeFile } from "fs/promises";
 
 type BasePost = {
     caption?: string;
@@ -54,18 +53,24 @@ type DataRes = {
  */
 async function refreshToken(): Promise<void> {
     try {
-        if (Date.now() >= Config.instagram.accessTokenRefreshAt) {
+        if (Date.now() >= parseInt(process.env.INSTAGRAM_ACCESS_TOKEN_REFRESH_AT, 10)) {
             const { access_token: accessToken } = await fetch(`https://graph.instagram.com/refresh_access_token?${[
                 "grant_type=ig_refresh_token",
-                `access_token=${Config.instagram.accessToken}`,
+                `access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`,
             ].join("&")}`).then(async (res) => await res.json() as TokenRes);
 
-            Config.instagram = {
-                ...Config.instagram,
-                accessToken,
-                accessTokenRefreshAt: Date.now() + 24 * 60 * 60 * 1000,
-            };
-            await writeFile("./config.json", JSON.stringify(Config, null, 4));
+            const fileData = await readFile("./.env", "utf8");
+
+            fileData.replace(
+                /INSTAGRAM_ACCESS_TOKEN=.*\n/,
+                `INSTAGRAM_ACCESS_TOKEN=${accessToken}\n`,
+            );
+            fileData.replace(
+                /INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=.*\n/,
+                `INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=${Date.now() + 24 * 60 * 60 * 1000}\n`,
+            );
+
+            await writeFile("./.env", JSON.stringify(fileData, null, 4));
         }
     } catch (err) {
         // eslint-disable-next-line no-console
@@ -88,7 +93,7 @@ export async function GET(): Promise<NextResponse> {
         "timestamp",
         "username",
         "children{media_type, media_url}",
-    ].join(",")}&access_token=${Config.instagram.accessToken}`).then(async (res) => res.json()) as DataRes;
+    ].join(",")}&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`).then(async (res) => res.json()) as DataRes;
     const data = response.data.filter((post) => !post.permalink.startsWith("https://www.instagram.com/reel/"));
     const head = data.find((post) => post.caption?.includes("#pin"));
     const tail = data.filter((post) => post.id !== head?.id);

@@ -1,4 +1,3 @@
-import Config from "../../../../config.json";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
@@ -39,22 +38,28 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const { content, email, name, subject } = body as Body;
 
     // Set up the transporter.
-    const transporter = nodemailer.createTransport(Config.email);
+    const transporter = nodemailer.createTransport({
+        auth: {
+            pass: process.env.EMAIL_AUTH_PASS,
+            user: process.env.EMAIL_AUTH_USER,
+        },
+        service: process.env.EMAIL_SERVICE,
+    });
 
     // Set up the content of the email to be sent to me.
     const text = `New message from ${name} (${email})\n\n${content}`;
 
     // Send the email to me.
     await transporter.sendMail({
-        from: Config.email.auth.user,
+        from: process.env.EMAIL_AUTH_USER,
         subject,
         text,
-        to: Config.email.auth.user,
+        to: process.env.EMAIL_AUTH_USER,
     });
 
     // Send an email to the user.
     await transporter.sendMail({
-        from: Config.email.auth.user,
+        from: process.env.EMAIL_AUTH_USER,
         subject: `RE: ${subject}`,
         text: "Thank you for your message, I will get back to you shortly.\n\n" +
             "If you did not attempt to contact me via https://oathompsonjones.co.uk/ then please ignore this email.\n\n" +

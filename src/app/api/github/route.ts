@@ -1,5 +1,4 @@
 import { Canvas, Image } from "canvas";
-import Config from "../../../../config.json";
 import { NextResponse } from "next/server";
 
 export type Repo = {
@@ -92,7 +91,8 @@ function generateImage(imageBinaries: ArrayBuffer[], i: number): string {
  * @returns The response.
  */
 export async function GET(): Promise<NextResponse> {
-    const graphqlWithAuth = (await import("@octokit/graphql")).graphql.defaults(Config.github);
+    const graphqlWithAuth = (await import("@octokit/graphql")).graphql
+        .defaults({ headers: { authorization: process.env.GITHUB_TOKEN } });
     const { user: { repositories: { repos } } } = await graphqlWithAuth<APIResponse>(`{
         user(login: "oathompsonjones") {
             repositories(first: 100, isFork: false, ownerAffiliations: OWNER) {
