@@ -22,7 +22,7 @@ export function GitHubRepo({ repo }: { repo: Repo; }): ReactElement {
     const langs = repo.languages.nodes.map((lang) => lang.name).filter((name) => name !== repo.primaryLanguage?.name);
     const repoLanguages = (
         <>
-            <Chip label={repo.primaryLanguage?.name} />{langs.map((lang) => (<Chip label={lang} variant="outlined" />))}
+            <Chip label={repo.primaryLanguage?.name} />{langs.map((lang, i) => (<Chip key={i} label={lang} variant="outlined" />))}
         </>
     );
 
