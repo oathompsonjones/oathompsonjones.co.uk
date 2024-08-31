@@ -1,6 +1,6 @@
 import type { Breakpoint } from "@mui/material";
 import { CollapsibleText } from "./collapsibleText";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 import type { Variant } from "@mui/material/styles/createTypography";
 
 /**
@@ -17,7 +17,7 @@ export function Name({ colour, id, minScreenSize, variant }: {
     id: string;
     minScreenSize?: Breakpoint;
     variant?: Variant;
-}): ReactElement {
+}): ReactNode {
     return (
         <CollapsibleText
             beginningText={colour ?? true ? [<><span className="colour">O</span>liver</>] : ["Oliver"]}

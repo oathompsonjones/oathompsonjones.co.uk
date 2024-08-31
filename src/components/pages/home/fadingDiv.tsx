@@ -1,5 +1,5 @@
-import type { ReactElement, ReactNode } from "react";
 import Box from "components/layout/box";
+import type { ReactNode } from "react";
 
 /**
  * A div which will be used to either fade in or out.
@@ -7,7 +7,7 @@ import Box from "components/layout/box";
  * @param props.children - The children to render.
  * @returns A div.
  */
-export function FadingDiv({ children }: { children: ReactNode; }): ReactElement {
+export function FadingDiv({ children }: { children: ReactNode; }): ReactNode {
     return (
         <Box
             className="fadingDiv"

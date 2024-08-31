@@ -1,7 +1,7 @@
 "use client";
 
 import { Alert, Button, Paper, TextField } from "@mui/material";
-import type { ChangeEvent, FormEvent, ReactElement } from "react";
+import type { ChangeEvent, FormEvent, ReactNode } from "react";
 import { Send } from "@mui/icons-material";
 import Stack from "components/layout/stack";
 import { useState } from "react";
@@ -10,7 +10,7 @@ import { useState } from "react";
  * A contact form.
  * @returns A contact form.
  */
-export function ContactForm(): ReactElement {
+export function ContactForm(): ReactNode {
     // State variables for the content of the contact form.
     const [content, setContent] = useState("");
     const [email, setEmail] = useState("");

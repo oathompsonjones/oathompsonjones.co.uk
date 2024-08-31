@@ -1,9 +1,9 @@
 "use client";
 
 import type { ButtonBaseOwnProps, ButtonOwnProps, Theme } from "@mui/material";
-import type { ReactElement, ReactNode } from "react";
 import { Button } from "@mui/material";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { useMediaQuery } from "@mui/material";
 
 /**
@@ -12,7 +12,7 @@ import { useMediaQuery } from "@mui/material";
  * @param props.children - The children to render.
  * @returns A MUI Button.
  */
-export function DynamicButton({ children, ...props }: ButtonBaseOwnProps & ButtonOwnProps & { children: ReactNode; }): ReactElement {
+export function DynamicButton({ children, ...props }: ButtonBaseOwnProps & ButtonOwnProps & { children: ReactNode; }): ReactNode {
     const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));
     const buttonSize = isMobile ? "small" : "large";
 

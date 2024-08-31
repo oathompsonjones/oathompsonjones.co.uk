@@ -5,7 +5,7 @@ import Box from "components/layout/box";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
 import { Name } from "./name";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 import { SocialLinks } from "./socialLinks";
 import Stack from "components/layout/stack";
 
@@ -13,7 +13,7 @@ import Stack from "components/layout/stack";
  * Contains the footer element.
  * @returns The page footer.
  */
-export function Footer(): ReactElement {
+export function Footer(): ReactNode {
     return (
         <Paper
             component="footer"

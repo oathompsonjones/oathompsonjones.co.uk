@@ -1,8 +1,8 @@
 "use client";
 
-import type { ReactElement, ReactNode } from "react";
 import { useEffect, useState } from "react";
 import Box from "components/layout/box";
+import type { ReactNode } from "react";
 import { useWindowSize } from "hooks/useWindowSize";
 
 /**
@@ -11,7 +11,7 @@ import { useWindowSize } from "hooks/useWindowSize";
  * @param props.children - The children to render.
  * @returns A section on the home page.
  */
-export function Section({ children }: { children: ReactNode; }): ReactElement {
+export function Section({ children }: { children: ReactNode; }): ReactNode {
     const { height: windowHeight } = useWindowSize();
     const [height, setHeight] = useState(0);
 

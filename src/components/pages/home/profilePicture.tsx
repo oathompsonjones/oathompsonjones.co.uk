@@ -1,6 +1,6 @@
 import { Avatar } from "@mui/material";
 import { GRAVATAR_URL } from "utils";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 
 /**
  * A div which will be used to either fade in or out.
@@ -8,7 +8,7 @@ import type { ReactElement } from "react";
  * @param props.positioner - Whether the profile picture is a positioner.
  * @returns A div.
  */
-export function ProfilePicture({ positioner }: { positioner?: boolean; }): ReactElement {
+export function ProfilePicture({ positioner }: { positioner?: boolean; }): ReactNode {
     const isPositioner = positioner ?? false;
 
     return (

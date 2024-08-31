@@ -1,7 +1,7 @@
 import { MenuItem, Typography } from "@mui/material";
 import Box from "components/layout/box";
 import Link from "next/link";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 
 /**
  * Contains the nav bar for smaller displays.
@@ -15,7 +15,7 @@ export function SmallNav({ isOpen, pages, toggleNavOpen }: {
     isOpen: boolean;
     pages: Array<{ label: string; link: string; }>;
     toggleNavOpen: () => void;
-}): ReactElement {
+}): ReactNode {
     return (
         <Box
             sx={{ alignItems: "center", display: "var(--display)" }}

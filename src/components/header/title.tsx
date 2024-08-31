@@ -1,11 +1,11 @@
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 import { Typography } from "@mui/material";
 
 /**
  * Creates the header element.
  * @returns The page header.
  */
-export function Title(): ReactElement {
+export function Title(): ReactNode {
     return (
         <Typography
             align="center"

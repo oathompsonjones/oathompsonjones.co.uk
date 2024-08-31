@@ -7,7 +7,7 @@ import {
     Zoom,
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 import type { Repo } from "api/github/route";
 import Stack from "components/layout/stack";
 
@@ -17,7 +17,7 @@ import Stack from "components/layout/stack";
  * @param props.repo - The repository to render.
  * @returns An element which renders a GitHub repository.
  */
-export function GitHubRepo({ repo }: { repo: Repo; }): ReactElement {
+export function GitHubRepo({ repo }: { repo: Repo; }): ReactNode {
     // Maps the repository languages into a more readable format.
     const langs = repo.languages.nodes.map((lang) => lang.name).filter((name) => name !== repo.primaryLanguage?.name);
     const repoLanguages = (

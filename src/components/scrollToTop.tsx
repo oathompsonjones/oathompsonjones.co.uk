@@ -2,14 +2,14 @@
 
 import { Fab, Zoom, useScrollTrigger } from "@mui/material";
 import { KeyboardArrowUp } from "@mui/icons-material";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 import { useCallback } from "react";
 
 /**
  * Scrolls to the top of the page when clicked.
  * @returns A button that scrolls to the top of the page when clicked.
  */
-export function ScrollToTop(): ReactElement {
+export function ScrollToTop(): ReactNode {
     const scrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 75 });
     const scrollToTop = useCallback(() => window.scrollTo({ behavior: "smooth", top: 0 }), []);
 

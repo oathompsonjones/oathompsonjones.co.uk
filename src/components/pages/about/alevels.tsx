@@ -1,12 +1,12 @@
 import { Grade } from "./grade";
 import { Grades } from "./grades";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 
 /**
  * Contains the A-Levels segment for my CV page.
  * @returns The ALevels element.
  */
-export function ALevels(): ReactElement {
+export function ALevels(): ReactNode {
     return (
         <Grades
             attainmentYear={2021}

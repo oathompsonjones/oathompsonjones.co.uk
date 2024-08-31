@@ -1,7 +1,7 @@
 "use client";
 
 import { Accordion, AccordionDetails, AccordionSummary, Button, Typography } from "@mui/material";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 
 /**
  * Handles errors for the page.
@@ -10,7 +10,7 @@ import type { ReactElement } from "react";
  * @param props.reset - The function to reset the application.
  * @returns An error element.
  */
-export function PageError({ error, reset }: { error: Error; reset: () => void; }): ReactElement {
+export function PageError({ error, reset }: { error: Error; reset: () => void; }): ReactNode {
     return (
         <Accordion sx={{ background: "none", boxShadow: "none" }}>
             <AccordionSummary>

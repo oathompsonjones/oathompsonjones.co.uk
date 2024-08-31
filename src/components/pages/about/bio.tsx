@@ -2,7 +2,7 @@ import { Avatar, Divider, Typography } from "@mui/material";
 import { GRAVATAR_URL, age } from "utils";
 import Grid from "components/layout/grid";
 import { Name } from "components/footer/name";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 import Stack from "components/layout/stack";
 import cv from "assets/cv.json";
 import { jsonToJSDoc } from "api/cv";
@@ -11,7 +11,7 @@ import { jsonToJSDoc } from "api/cv";
  * Contains the bio segment for my CV page.
  * @returns The Bio element.
  */
-export function Bio(): ReactElement {
+export function Bio(): ReactNode {
     return (
         <>
             <Grid container spacing={2}>

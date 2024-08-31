@@ -1,8 +1,8 @@
 "use client";
 
 import { CssBaseline, StyledEngineProvider, ThemeProvider, createTheme, responsiveFontSizes } from "@mui/material";
-import type { ReactElement, ReactNode } from "react";
 import DefaultPropsProvider from "@mui/material/DefaultPropsProvider";
+import type { ReactNode } from "react";
 
 /**
  * Provides the theme to the application.
@@ -10,7 +10,7 @@ import DefaultPropsProvider from "@mui/material/DefaultPropsProvider";
  * @param props.children - The children to render.
  * @returns The theme provider to wrap the application in.
  */
-export function ThemeContextProvider({ children }: { children: ReactNode; }): ReactElement {
+export function ThemeContextProvider({ children }: { children: ReactNode; }): ReactNode {
     // Create the full theme.
     const basePalette = {
         common: { black: "#121212", white: "#efefef" },

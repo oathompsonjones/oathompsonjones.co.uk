@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 import desk from "images/desk.jpg";
 import { useThemeMode } from "hooks/useThemeMode";
 
@@ -7,7 +7,7 @@ import { useThemeMode } from "hooks/useThemeMode";
  * A div which will be used to either fade in or out.
  * @returns A div.
  */
-export function Background(): ReactElement {
+export function Background(): ReactNode {
     const { themeColour } = useThemeMode();
 
     return (

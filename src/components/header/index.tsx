@@ -4,7 +4,7 @@ import { AppBar, IconButton, Toolbar, Tooltip, useMediaQuery, useScrollTrigger }
 import { Contrast, DarkMode, LightMode, Menu } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { LargeNav } from "./large";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 import { SmallNav } from "./small";
 import type { Theme } from "@mui/material";
 import { Title } from "./title";
@@ -16,7 +16,7 @@ import { useThemeMode } from "hooks/useThemeMode";
  * Creates the header element.
  * @returns The page header.
  */
-export function Header(): ReactElement {
+export function Header(): ReactNode {
     // Access the site theme.
     const { switchThemeMode, theme: { palette: { common: { black, white } } }, themeColour, themeMode } = useThemeMode();
 

@@ -1,6 +1,6 @@
 import { Divider, Typography } from "@mui/material";
-import type { ReactElement, ReactNode } from "react";
 import type { CV } from "api/cv/route";
+import type { ReactNode } from "react";
 import cv from "assets/cv.json";
 import { jsonToJSDoc } from "api/cv";
 
@@ -10,7 +10,7 @@ const data = cv as CV;
  * Contains the experience segment for my CV page.
  * @returns The Experience element.
  */
-export function Experience(): ReactElement {
+export function Experience(): ReactNode {
     // Contains the data for the experience section of my CV.
     const experiences: Array<{ content: ReactNode; heading: string; }> = Object.keys(data.Experience).map((experience) => ({
         content: jsonToJSDoc(data.Experience[experience]!),

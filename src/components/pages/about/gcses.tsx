@@ -1,12 +1,12 @@
 import { Grade } from "./grade";
 import { Grades } from "./grades";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 
 /**
  * Contains the GCSEs segment for my CV page.
  * @returns The GCSEs element.
  */
-export function GCSEs(): ReactElement {
+export function GCSEs(): ReactNode {
     return (
         <Grades
             attainmentYear={2019}

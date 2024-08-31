@@ -1,9 +1,9 @@
 "use client";
 
 import type { Breakpoint, Theme } from "@mui/material";
-import type { ReactElement, ReactNode } from "react";
 import { Typography, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
+import type { ReactNode } from "react";
 import type { Variant } from "@mui/material/styles/createTypography";
 import { useThemeMode } from "hooks/useThemeMode";
 
@@ -25,7 +25,7 @@ export function CollapsibleText({ beginningText, collapsibleText, endingText, id
     id: string;
     minScreenSize?: Breakpoint;
     variant?: Variant;
-}): ReactElement {
+}): ReactNode {
     const [expandName, setExpandName] = useState(false);
     const showAnimation = useMediaQuery((theme: Theme) => theme.breakpoints.up(minScreenSize ?? "xs"));
     const { theme: { palette: { secondary: { main } } } } = useThemeMode();

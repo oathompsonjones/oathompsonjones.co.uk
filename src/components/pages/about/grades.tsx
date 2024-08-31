@@ -1,7 +1,7 @@
 import { Divider, Typography } from "@mui/material";
-import type { ReactElement, ReactNode } from "react";
 import Box from "components/layout/box";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import Stack from "components/layout/stack";
 
 /**
@@ -24,7 +24,7 @@ export function Grades({ attainmentYear, children, educationLevel, institutionLi
     institutionName: string;
     maxGrade: ReactNode;
     minGrade: ReactNode;
-}): ReactElement {
+}): ReactNode {
     return (
         <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
             <Stack direction="row" sx={{ alignItems: "center" }}>

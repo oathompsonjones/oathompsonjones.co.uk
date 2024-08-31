@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Desktop } from "components/desktop";
 import Link from "next/link";
 import { ProfilePicture } from "components/pages/home/profilePicture";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 import Stack from "components/layout/stack";
 import { Typography } from "@mui/material";
 import { age } from "utils";
@@ -12,7 +12,7 @@ import { useWindowSize } from "hooks/useWindowSize";
  * The about section of the home page.
  * @returns The about section of the home page.
  */
-export function About(): ReactElement {
+export function About(): ReactNode {
     const { height, width } = useWindowSize();
     const [orientation, setOrientation] = useState<"landscape" | "portrait">("portrait");
 

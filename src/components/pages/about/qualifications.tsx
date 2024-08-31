@@ -2,14 +2,14 @@ import { Divider, Typography } from "@mui/material";
 import { ALevels } from "./alevels";
 import { GCSEs } from "./gcses";
 import Grid from "components/layout/grid";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 import { University } from "./university";
 
 /**
  * Contains the Qualifications segment for my CV page.
  * @returns The Qualifications element.
  */
-export function Qualifications(): ReactElement {
+export function Qualifications(): ReactNode {
     return (
         <>
             <Typography variant="h3">Qualifications</Typography>
