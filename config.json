@@ -1,0 +1,22 @@
+{
+    "instagram": {
+        "accessToken": "",
+        "accessTokenRefreshAt": 0,
+        "clientID": "",
+        "clientSecret": "",
+        "redirectURI": "",
+        "userID": ""
+    },
+    "github": {
+        "headers": {
+            "authorization": ""
+        }
+    },
+    "email": {
+        "auth": {
+            "user": "",
+            "pass": ""
+        },
+        "service": ""
+    }
+}
