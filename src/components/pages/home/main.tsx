@@ -24,7 +24,7 @@ export function Main(): ReactNode {
             <Divider flexItem sx={{ bgcolor: "primary.main" }} />
             <Stack direction="row"spacing="1%"sx={{ alignItems: "center", justifyContent: "space-evenly", width: "100%" }}>
                 <DynamicButton href="/about" sx={{ pointerEvents: "auto" }}>About Me</DynamicButton>
-                <DynamicButton href="/api/cv" sx={{ pointerEvents: "auto" }}>Download CV</DynamicButton>
+                <DynamicButton href="/cv" sx={{ pointerEvents: "auto" }}>Download CV</DynamicButton>
                 <DynamicButton href="/contact" sx={{ pointerEvents: "auto" }}>Contact Me</DynamicButton>
             </Stack>
             <Divider flexItem sx={{ bgcolor: "primary.main" }} />
