@@ -4,9 +4,10 @@ import fs from "fs/promises";
 import pdflatex from "node-pdflatex";
 
 export type CV = {
-    bio: string;
-    Qualifications: Record<string, string[][] | string>;
+    Bio: string;
+    Qualifications: Record<string, Record<string, Record<string, string>> | { summary: string; grades: string[]; }>;
     Experience: Record<string, string>;
+    Volunteering: Record<string, string>;
     Skills: Record<string, string>;
 };
 
@@ -14,11 +15,11 @@ const data = cv as CV;
 
 /**
  * Generates a LaTeX document from the CV data.
- * @param content - The content of the CV.
  * @returns The LaTeX document.
  */
-async function generateTex(content: string): Promise<string> {
+async function generateTex(): Promise<string> {
     const skeleton = await fs.readFile("src/assets/cv-skeleton.tex", "utf8");
+    const content = Object.keys(data).map((section) => mapSection(section as keyof CV)).join("\n");
 
     return skeleton.replace("%CONTENT%", content);
 }
@@ -59,7 +60,7 @@ function mapTable([headings, ...rows]: string[][]): string {
  * @returns The LaTeX section.
  */
 export function mapSection(section: keyof CV): string {
-    if (section === "bio")
+    if (section === "Bio")
         return format(data[section]);
 
     return `${mapSectionHeading(section)}\n${mapSectionContent(section)}`;
@@ -71,7 +72,7 @@ export function mapSection(section: keyof CV): string {
  * @param subSection - The sub section name.
  * @returns The LaTeX subsection.
  */
-function mapSubSection(section: keyof Omit<CV, "bio">, subSection: string): string {
+function mapSubSection(section: keyof Omit<CV, "Bio">, subSection: string): string {
     return `${mapSubSectionHeading(subSection)}\n${mapSubSectionContent(section, subSection)}`;
 }
 
@@ -80,7 +81,7 @@ function mapSubSection(section: keyof Omit<CV, "bio">, subSection: string): stri
  * @param heading - The heading name.
  * @returns The LaTeX section heading.
  */
-function mapSectionHeading(heading: keyof Omit<CV, "bio">): string {
+function mapSectionHeading(heading: keyof Omit<CV, "Bio">): string {
     return `\\section*{${format(heading)}}`;
 }
 
@@ -98,7 +99,7 @@ function mapSubSectionHeading(heading: string): string {
  * @param section - The section name.
  * @returns The LaTeX subsection content.
  */
-function mapSectionContent(section: keyof Omit<CV, "bio">): string {
+function mapSectionContent(section: keyof Omit<CV, "Bio">): string {
     return Object.keys(data[section]).map((subSection) => mapSubSection(section, subSection)).join("\n");
 }
 
@@ -108,10 +109,31 @@ function mapSectionContent(section: keyof Omit<CV, "bio">): string {
  * @param subSection - The sub section name.
  * @returns The LaTeX subsection content.
  */
-function mapSubSectionContent(section: keyof Omit<CV, "bio">, subSection: string): string {
+function mapSubSectionContent(section: keyof Omit<CV, "Bio">, subSection: string): string {
     const subSectionData = data[section][subSection]!;
+    let content: string[][] | string;
 
-    return subSectionData instanceof Array ? mapTable(subSectionData) : format(subSectionData);
+    if (section === "Qualifications") {
+        if (typeof subSectionData === "object" && "summary" in subSectionData && typeof subSectionData.summary === "string") {
+            content = subSectionData.summary;
+        } else {
+            const filterGrade = (grade: string): string => Object.values(subSectionData)
+                .map((exams: Record<string, string>) => Object.entries(exams)).flat()
+                .filter(([, g]) => g === grade)
+                .map(([subject]) => subject)
+                .join(", ");
+
+            content = [
+                Object.keys(subSectionData).map((key) => [key, ""]).flat(),
+                [filterGrade("A*"), "A*", filterGrade("8"), "8"],
+                [filterGrade("B"), "B", filterGrade("7"), "7"],
+            ];
+        }
+    } else {
+        content = subSectionData as string;
+    }
+
+    return content instanceof Array ? mapTable(content) : format(content);
 }
 
 /**
@@ -119,7 +141,7 @@ function mapSubSectionContent(section: keyof Omit<CV, "bio">, subSection: string
  * @returns The CV in PDF format.
  */
 export async function GET(): Promise<NextResponse> {
-    const tex = await generateTex(Object.keys(data).map((section) => mapSection(section as keyof CV)).join("\n"));
+    const tex = await generateTex();
     let pdf: Buffer | null = null;
 
     try {

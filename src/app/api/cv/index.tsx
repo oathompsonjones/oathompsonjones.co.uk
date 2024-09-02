@@ -22,7 +22,7 @@ export function jsonToJSDoc(content: string): ReactNode {
             const href = link!.replace(matchingRegExp, "$2");
             const label = link!.replace(matchingRegExp, "$1");
 
-            output.push(<Link href={href}>{label}</Link>);
+            output.push(<Link href={href} key={i}>{label}</Link>);
         }
     }
 

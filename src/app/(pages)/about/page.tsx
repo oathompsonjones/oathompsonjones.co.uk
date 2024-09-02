@@ -8,6 +8,7 @@ import type { ReactNode } from "react";
 import { Skills } from "components/pages/about/skills";
 import Stack from "components/layout/stack";
 import { Typography } from "@mui/material";
+import { Volunteering } from "components/pages/about/volunteering";
 
 export const metadata: Metadata = { title: "Oliver Jones | About Me" };
 
@@ -25,14 +26,13 @@ export default function About(): ReactNode {
                 </DynamicButton>
             </Stack>
             <Bio />
-            <br />
-            <br />
+            <br /><br />
             <Qualifications />
-            <br />
-            <br />
+            <br /><br />
             <Experience />
-            <br />
-            <br />
+            <br /><br />
+            <Volunteering />
+            <br /><br />
             <Skills />
         </Container>
     );

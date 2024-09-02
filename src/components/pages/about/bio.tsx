@@ -15,10 +15,10 @@ export function Bio(): ReactNode {
     return (
         <>
             <Grid container spacing={2}>
-                <Grid size={{ md: 4, xs: 12 }}>
+                <Grid size={{ md: 4, sm: 5, xs: 6 }}>
                     <Avatar src={GRAVATAR_URL} sx={{ height: "auto", width: "100%" }} />
                 </Grid>
-                <Grid size={{ md: 8, xs: 12 }}>
+                <Grid size={{ md: 8, sm: 7, xs: 6 }}>
                     <Stack direction="column" sx={{ height: "100%", justifyContent: "center" }}>
                         <Typography variant="h6">Name</Typography>
                         <Name id="bio" />
@@ -33,7 +33,7 @@ export function Bio(): ReactNode {
             </Grid>
             <br />
             <Typography sx={{ whiteSpace: "pre-wrap" }}>
-                {jsonToJSDoc(cv.bio)}
+                {jsonToJSDoc(cv.Bio)}
             </Typography>
         </>
     );

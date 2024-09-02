@@ -12,9 +12,9 @@ const data = cv as CV;
  */
 export function Experience(): ReactNode {
     // Contains the data for the experience section of my CV.
-    const experiences: Array<{ content: ReactNode; heading: string; }> = Object.keys(data.Experience).map((experience) => ({
+    const experiences = Object.keys(data.Experience).map((experience) => ({
         content: jsonToJSDoc(data.Experience[experience]!),
-        heading: experience,
+        heading: jsonToJSDoc(experience),
     }));
 
     return (
