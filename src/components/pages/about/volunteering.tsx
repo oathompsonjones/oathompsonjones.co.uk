@@ -1,8 +1,8 @@
 import { Divider, Typography } from "@mui/material";
-import type { CV } from "api/cv/route";
+import type { CV } from "app/(pages)/cv/route";
 import type { ReactNode } from "react";
 import cv from "assets/cv.json";
-import { jsonToJSDoc } from "api/cv";
+import { jsonToJSDoc } from "app/(pages)/cv";
 
 const data = cv as CV;
 

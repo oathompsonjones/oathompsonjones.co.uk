@@ -5,7 +5,7 @@ import { Name } from "components/footer/name";
 import type { ReactNode } from "react";
 import Stack from "components/layout/stack";
 import cv from "assets/cv.json";
-import { jsonToJSDoc } from "api/cv";
+import { jsonToJSDoc } from "app/(pages)/cv";
 
 /**
  * Contains the bio segment for my CV page.

@@ -111,29 +111,34 @@ function mapSectionContent(section: keyof Omit<CV, "Bio">): string {
  */
 function mapSubSectionContent(section: keyof Omit<CV, "Bio">, subSection: string): string {
     const subSectionData = data[section][subSection]!;
-    let content: string[][] | string;
 
-    if (section === "Qualifications") {
-        if (typeof subSectionData === "object" && "summary" in subSectionData && typeof subSectionData.summary === "string") {
-            content = subSectionData.summary;
-        } else {
-            const filterGrade = (grade: string): string => Object.values(subSectionData)
-                .map((exams: Record<string, string>) => Object.entries(exams)).flat()
-                .filter(([, g]) => g === grade)
-                .map(([subject]) => subject)
-                .join(", ");
+    if (typeof subSectionData === "string")
+        return format(subSectionData);
 
-            content = [
-                Object.keys(subSectionData).map((key) => [key, ""]).flat(),
-                [filterGrade("A*"), "A*", filterGrade("8"), "8"],
-                [filterGrade("B"), "B", filterGrade("7"), "7"],
-            ];
-        }
-    } else {
-        content = subSectionData as string;
-    }
+    if (typeof subSectionData === "object" && "summary" in subSectionData && typeof subSectionData.summary === "string")
+        return format(subSectionData.summary);
 
-    return content instanceof Array ? mapTable(content) : format(content);
+    const filterGrade = (grade: string): string => Object.values(subSectionData)
+        .map((exams: Record<string, string>) => Object.entries(exams)).flat()
+        .filter(([, g]) => g === grade)
+        .map(([subject]) => subject)
+        .join(", ");
+
+    /* Return mapTable([
+        Object.keys(subSectionData).map((key) => [key, ""]).flat(),
+        [filterGrade("A*"), "A*", filterGrade("8"), "8"],
+        [filterGrade("B"), "B", filterGrade("7"), "7"],
+    ]); */
+
+    return `${mapTable([
+        [Object.keys(subSectionData)[0]!],
+        [filterGrade("A*"), "A*"],
+        [filterGrade("B"), "B"],
+    ])}\\newline${mapTable([
+        [Object.keys(subSectionData)[1]!],
+        [filterGrade("8"), "8"],
+        [filterGrade("7"), "7"],
+    ])}`;
 }
 
 /**
