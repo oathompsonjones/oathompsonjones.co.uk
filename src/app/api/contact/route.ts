@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { redirect } from "next/navigation";
 
 type Body = {
     content: string;
@@ -68,4 +69,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     });
 
     return NextResponse.json("Success");
+}
+
+/** Redirects to the home page. */
+export function GET(): void {
+    redirect("/");
 }
