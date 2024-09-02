@@ -78,6 +78,8 @@ async function refreshToken(): Promise<void> {
     }
 }
 
+export const dynamic = "force-dynamic";
+
 /**
  * Gets the Instagram posts.
  * @returns The Instagram posts.

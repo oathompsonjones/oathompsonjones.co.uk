@@ -86,6 +86,8 @@ function generateImage(imageBinaries: ArrayBuffer[], i: number): string {
     return `data:image/png;base64,${canvas.toBuffer().toString("base64")}`;
 }
 
+export const dynamic = "force-dynamic";
+
 /**
  * Handles GET requests to the GitHub API.
  * @returns The response.
