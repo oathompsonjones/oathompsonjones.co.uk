@@ -124,12 +124,6 @@ function mapSubSectionContent(section: keyof Omit<CV, "Bio">, subSection: string
         .map(([subject]) => subject)
         .join(", ");
 
-    /* Return mapTable([
-        Object.keys(subSectionData).map((key) => [key, ""]).flat(),
-        [filterGrade("A*"), "A*", filterGrade("8"), "8"],
-        [filterGrade("B"), "B", filterGrade("7"), "7"],
-    ]); */
-
     return `${mapTable([
         [Object.keys(subSectionData)[0]!],
         [filterGrade("A*"), "A*"],
