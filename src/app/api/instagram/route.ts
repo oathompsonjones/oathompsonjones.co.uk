@@ -62,8 +62,14 @@ async function refreshToken(): Promise<void> {
             const fileData = await readFile("./.env", "utf8");
             const newRefreshAt = Date.now() + 24 * 60 * 60 * 1000;
 
-            fileData.replace(/INSTAGRAM_ACCESS_TOKEN=.*\n/, `INSTAGRAM_ACCESS_TOKEN=${accessToken}\n`);
-            fileData.replace(/INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=.*\n/, `INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=${newRefreshAt}\n`);
+            fileData.replace(
+                /INSTAGRAM_ACCESS_TOKEN=.*\n/,
+                `INSTAGRAM_ACCESS_TOKEN=${accessToken}\n`,
+            );
+            fileData.replace(
+                /INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=.*\n/,
+                `INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=${newRefreshAt}\n`,
+            );
             await writeFile("./.env", fileData);
         }
     } catch (err) {

@@ -29,8 +29,10 @@ export function ThemeContextProvider({ children }: { children: ReactNode; }): Re
         cssVariables: { colorSchemeSelector: "class" },
         defaultColorScheme: "dark",
         typography: (palette) => ({
-            ...Object.fromEntries(["h1", "h2", "h3", "h4", "h5", "h6"].map((key) => [key, { color: palette.primary.main }])),
-            ...Object.fromEntries(["caption", "subtitle1", "subtitle2"].map((key) => [key, { color: palette.secondary.main }])),
+            ...Object.fromEntries(["h1", "h2", "h3", "h4", "h5", "h6"]
+                .map((key) => [key, { color: palette.primary.main }])),
+            ...Object.fromEntries(["caption", "subtitle1", "subtitle2"]
+                .map((key) => [key, { color: palette.secondary.main }])),
         }),
         zIndex: { appBar: 10, fab: 10 },
     }), { breakpoints: ["xs", "sm", "md", "lg", "xl"] });

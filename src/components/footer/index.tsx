@@ -33,10 +33,22 @@ export function Footer(): ReactNode {
                     divider={<Typography sx={{ color: "gray", m: "0 0.5%" }}>•</Typography>}
                     sx={{ alignItems: "center", justifyContent: "center" }}
                 >
-                    <Typography align="center" component={Link} href="/contact" variant="caption" sx={{ color: "primary.main" }}>
+                    <Typography
+                        align="center"
+                        component={Link}
+                        href="/contact"
+                        variant="caption"
+                        sx={{ color: "primary.main" }}
+                    >
                         Contact
                     </Typography>
-                    <Typography align="center" component={Link} href="/privacy" variant="caption" sx={{ color: "primary.main" }}>
+                    <Typography
+                        align="center"
+                        component={Link}
+                        href="/privacy"
+                        variant="caption"
+                        sx={{ color: "primary.main" }}
+                    >
                         Privacy Policy
                     </Typography>
                     <Typography align="center" variant="caption">

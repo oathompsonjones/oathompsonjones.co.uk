@@ -22,7 +22,11 @@ export function About(): ReactNode {
 
     return (
         <>
-            <Stack sx={{ alignItems: "center" }} direction={orientation === "landscape" ? "row-reverse" : "column"} spacing="2rem">
+            <Stack
+                sx={{ alignItems: "center" }}
+                direction={orientation === "landscape" ? "row-reverse" : "column"}
+                spacing="2rem"
+            >
                 <Desktop>
                     <ProfilePicture positioner />
                 </Desktop>
@@ -30,8 +34,13 @@ export function About(): ReactNode {
                     <Typography variant="h1">Hi, I'm Ollie</Typography>
                     <Typography
                         variant="h4"
-                        // eslint-disable-next-line @typescript-eslint/naming-convention
-                        sx={{ "-webkit-text-stroke-color": "black", "-webkit-text-stroke-width": "1px", color: "secondary.main" }}
+                        sx={{
+                            /* eslint-disable @typescript-eslint/naming-convention */
+                            "-webkit-text-stroke-color": "black",
+                            "-webkit-text-stroke-width": "1px",
+                            /* eslint-enable @typescript-eslint/naming-convention */
+                            color: "secondary.main",
+                        }}
                     >
                         I'm {age()} years old, studying undergraduate Computer Science at the University of Edinburgh.
                         I have a passion for programming, which stems from a love of solving problems.

@@ -16,7 +16,7 @@ import Stack from "components/layout/stack";
  * @param props.minGrade - The minimum grade.
  * @returns The Grades element.
  */
-export function Grades({ attainmentYear, children, educationLevel, institutionLink, institutionName, maxGrade, minGrade }: {
+export function Grades(props: {
     attainmentYear: number;
     children: ReactNode;
     educationLevel: ReactNode;
@@ -28,14 +28,14 @@ export function Grades({ attainmentYear, children, educationLevel, institutionLi
     return (
         <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
             <Stack direction="row" sx={{ alignItems: "center" }}>
-                <Typography variant="h4" sx={{ flex: 1 }}>{educationLevel}</Typography>
-                <Typography variant="h6">({maxGrade} – {minGrade})</Typography>
+                <Typography variant="h4" sx={{ flex: 1 }}>{props.educationLevel}</Typography>
+                <Typography variant="h6">({props.minGrade} – {props.maxGrade})</Typography>
             </Stack>
             <Divider />
-            {children}
+            {props.children}
             <Divider />
             <Typography variant="caption">
-                Attained at <Link href={institutionLink}>{institutionName}</Link> in {attainmentYear}.
+                Attained at <Link href={props.institutionLink}>{props.institutionName}</Link> in {props.attainmentYear}.
             </Typography>
         </Box>
     );

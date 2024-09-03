@@ -18,7 +18,12 @@ import { useThemeMode } from "hooks/useThemeMode";
  */
 export function Header(): ReactNode {
     // Access the site theme.
-    const { switchThemeMode, theme: { palette: { common: { black, white } } }, themeColour, themeMode } = useThemeMode();
+    const {
+        switchThemeMode,
+        theme: { palette: { common: { black, white } } },
+        themeColour,
+        themeMode,
+    } = useThemeMode();
 
     // Handles behaviour for changing nav bar colour and opening/closing dropdown menu.
     const isScrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
@@ -78,7 +83,11 @@ export function Header(): ReactNode {
                 <LargeNav pages={pages} />
                 {/* Renders a button to control dark/light theme. This renders on displays of any size. */}
                 <Tooltip title={`${themeMode[0]!.toUpperCase()}${themeMode.slice(1)} Mode`} arrow>
-                    <IconButton color="inherit" onClick={switchThemeMode} sx={{ transition: "background-color 0.25s linear" }}>
+                    <IconButton
+                        color="inherit"
+                        onClick={switchThemeMode}
+                        sx={{ transition: "background-color 0.25s linear" }}
+                    >
                         {switchThemeButton}
                     </IconButton>
                 </Tooltip>

@@ -14,7 +14,11 @@ export function TwitterX(): ReactNode {
     const [useOldLogo, setUseOldLogo] = useState<boolean>(false);
 
     return (
-        <SvgIcon onMouseEnter={(): void => setUseOldLogo(true)} onMouseLeave={(): void => setUseOldLogo(false)} inheritViewBox>
+        <SvgIcon
+            onMouseEnter={(): void => setUseOldLogo(true)}
+            onMouseLeave={(): void => setUseOldLogo(false)}
+            inheritViewBox
+        >
             {useOldLogo ? <Twitter /> : <X />}
         </SvgIcon>
     );

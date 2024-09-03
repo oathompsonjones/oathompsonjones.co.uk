@@ -11,12 +11,12 @@ import { useState } from "react";
  * @returns A contact form.
  */
 export function ContactForm(): ReactNode {
-    // State variables for the content of the contact form.
+    // Handles the content of the contact form.
     const [content, setContent] = useState("");
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [subject, setSubject] = useState("");
-    // State variable to say whether or not the form has been used (null if unused), and if so, if it's been successful (true/false).
+    // Handles the success status of the form.
     const [status, setStatus] = useState<boolean | null>(null);
 
     /**

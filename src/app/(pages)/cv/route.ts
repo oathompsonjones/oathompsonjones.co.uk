@@ -49,7 +49,8 @@ function format(content: string): string {
 function mapTable([headings, ...rows]: string[][]): string {
     const arr = [headings!.map((heading) => (heading.length > 0 ? `\\bfseries{${format(heading)}}` : "")), ...rows];
     const lengths = arr[0]!.map((_, i) => Math.max(...arr.map((row) => format(row[i]!).length)));
-    const mappedRows = arr.map((row) => `\t${row.map((column, i) => format(column).padEnd(lengths[i]!)).join(" & ")} \\\\`);
+    const mappedRows = arr.map((row) => `\t${row
+        .map((column, i) => format(column).padEnd(lengths[i]!)).join(" & ")} \\\\`);
 
     return `\\begin{tabular}{llll}\n${mappedRows.join("\n")}\n\\end{tabular}`;
 }

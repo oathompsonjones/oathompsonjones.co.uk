@@ -17,8 +17,12 @@ type Body = {
  */
 export async function POST(req: NextRequest): Promise<NextResponse> {
     // Check that the input is in the correct form.
-    if (req.headers.get("content-type") !== "application/json")
-        return new NextResponse("Invalid form body. Header 'content-type' must be of type 'application/json'.", { status: 400 });
+    if (req.headers.get("content-type") !== "application/json") {
+        return new NextResponse(
+            "Invalid form body. Header 'content-type' must be of type 'application/json'.",
+            { status: 400 },
+        );
+    }
 
     // Get each field from the body.
     const body: unknown = await req.json();
@@ -63,7 +67,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         from: process.env.EMAIL_AUTH_USER,
         subject: `RE: ${subject}`,
         text: "Thank you for your message, I will get back to you shortly.\n\n" +
-            "If you did not attempt to contact me via https://oathompsonjones.co.uk/ then please ignore this email.\n\n" +
+            "If you did not attempt to contact me via https://oathompsonjones.co.uk/ " +
+            "then please ignore this email.\n\n" +
             "Kind Regards,\nOliver Jones (oathompsonjones@gmail.com)",
         to: email,
     });

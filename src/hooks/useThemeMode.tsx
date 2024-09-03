@@ -12,11 +12,18 @@ type ThemeMode = ThemeColour | "system";
  * Uses the useLocalStorage hook to handle dark mode.
  * @returns Whether or not dark mode is enabled, and a function to toggle it.
  */
-export function useThemeMode(): { switchThemeMode: () => void; theme: Theme; themeColour: ThemeColour; themeMode: ThemeMode; } {
+export function useThemeMode(): {
+    switchThemeMode: () => void;
+    theme: Theme;
+    themeColour: ThemeColour;
+    themeMode: ThemeMode;
+} {
     const theme = useTheme();
     const { mode, systemMode, setMode } = useColorScheme();
     const [themeColour, setThemeColour] = useState<ThemeColour>((mode === "system" ? systemMode : mode) ?? "dark");
-    const getPreferredMode = (): ThemeColour => (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const getPreferredMode = (): ThemeColour => (window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light");
 
     // If the system mode is changed while the theme mode is set to system, update the theme colour.
     useEffect(() => {
