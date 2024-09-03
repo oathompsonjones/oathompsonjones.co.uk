@@ -60,17 +60,11 @@ async function refreshToken(): Promise<void> {
             ].join("&")}`).then(async (res) => await res.json() as TokenRes);
 
             const fileData = await readFile("./.env", "utf8");
+            const newRefreshAt = Date.now() + 24 * 60 * 60 * 1000;
 
-            fileData.replace(
-                /INSTAGRAM_ACCESS_TOKEN=.*\n/,
-                `INSTAGRAM_ACCESS_TOKEN=${accessToken}\n`,
-            );
-            fileData.replace(
-                /INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=.*\n/,
-                `INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=${Date.now() + 24 * 60 * 60 * 1000}\n`,
-            );
-
-            await writeFile("./.env", JSON.stringify(fileData, null, 4));
+            fileData.replace(/INSTAGRAM_ACCESS_TOKEN=.*\n/, `INSTAGRAM_ACCESS_TOKEN=${accessToken}\n`);
+            fileData.replace(/INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=.*\n/, `INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=${newRefreshAt}\n`);
+            await writeFile("./.env", fileData);
         }
     } catch (err) {
         // eslint-disable-next-line no-console
