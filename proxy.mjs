@@ -22,11 +22,25 @@ const proxy = httpProxy.createProxy({ ssl });
 
 // Setup HTTPS server to proxy requests.
 const httpsServer = https.createServer(ssl, (req, res) => {
+    if (req.headers.host !== domain) {
+        res.writeHead(404);
+        res.end();
+
+        return;
+    }
+
     proxy.web(req, res, { target: `http://localhost:${port}` });
 });
 
 // Setup HTTP server to redirect to HTTPS.
 const httpServer = http.createServer((req, res) => {
+    if (req.headers.host !== domain) {
+        res.writeHead(404);
+        res.end();
+
+        return;
+    }
+
     res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
     res.end();
 });
