@@ -1,6 +1,6 @@
+import { Divider, IconButton, Tooltip } from "@mui/material";
 import { Email, Facebook, GitHub, Instagram, LinkedIn } from "@mui/icons-material";
 import { Discord } from "components/icons/Discord";
-import { Divider } from "@mui/material";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import Stack from "components/layout/stack";
@@ -15,25 +15,34 @@ import { TwitterX } from "components/icons/TwitterX";
  */
 export function SocialLinks({ dividers = false }: { dividers?: boolean; }): ReactNode {
     // Links a URL and an icon for each social media to display.
-    const socials: Array<{ icon: ReactNode; link: string; }> = [
-        { icon: <Email />, link: "/email" },
-        { icon: <GitHub />, link: "/github" },
-        { icon: <StackOverflow />, link: "/stackoverflow" },
-        { icon: <LinkedIn />, link: "/linkedin" },
-        { icon: <Discord />, link: "/discord" },
-        { icon: <TwitterX />, link: "/twitter" },
-        { icon: <Instagram />, link: "/instagram" },
-        { icon: <Facebook />, link: "/facebook" },
+    const socials: Array<{ icon: ReactNode; label: string; link: string; }> = [
+        { icon: <Email />, label: "Email", link: "/email" },
+        { icon: <GitHub />, label: "GitHub", link: "/github" },
+        { icon: <StackOverflow />, label: "StackOverflow", link: "/stackoverflow" },
+        { icon: <LinkedIn />, label: "LinkedIn", link: "/linkedin" },
+        { icon: <Discord />, label: "Discord", link: "/discord" },
+        { icon: <TwitterX />, label: "Twitter/X", link: "/twitter" },
+        { icon: <Instagram />, label: "Instagram", link: "/instagram" },
+        { icon: <Facebook />, label: "Facebook", link: "/facebook" },
     ];
 
     const divider = dividers ? <Divider flexItem orientation="vertical" sx={{ m: 0 }} /> : undefined;
 
     return (
         <Stack direction="row" divider={divider} sx={{ alignItems: "center", justifyContent: "space-evenly" }}>
-            {socials.map(({ icon, link }, i) => (
-                <Link href={link} key={i} prefetch={false} style={{ color: "inherit" }}>
-                    {icon}
-                </Link>
+            {socials.map(({ icon, label, link }, i) => (
+                <Tooltip key={i} title={label} arrow>
+                    <IconButton
+                        component={Link}
+                        href={link}
+                        prefetch={false}
+                        sx={{ color: "inherit", padding: "var(--padding)" }}
+                        // eslint-disable-next-line @typescript-eslint/naming-convention
+                        style={{ "--padding": dividers ? "0.5rem" : "0" }}
+                    >
+                        {icon}
+                    </IconButton>
+                </Tooltip>
             ))}
         </Stack>
     );
