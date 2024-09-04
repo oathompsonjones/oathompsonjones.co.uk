@@ -21,7 +21,7 @@ export default function About(): ReactNode {
         <Container component="article">
             <Stack direction="row">
                 <Typography variant="h2" sx={{ flex: 1 }}>About Me</Typography>
-                <DynamicButton LinkComponent="a" href="/cv" sx={{ float: "right", m: "1%" }}>
+                <DynamicButton LinkComponent="a" href="/cv" sx={{ alignSelf: "center", float: "right", m: "1%" }}>
                     Download CV
                 </DynamicButton>
             </Stack>
