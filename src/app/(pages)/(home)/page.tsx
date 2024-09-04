@@ -10,6 +10,7 @@ import { Mobile } from "components/mobile";
 import { ProfilePicture } from "components/pages/home/profilePicture";
 import type { ReactNode } from "react";
 import { Section } from "components/pages/home/section";
+import { useThemeMode } from "hooks/useThemeMode";
 import { useWindowSize } from "hooks/useWindowSize";
 
 /**
@@ -20,11 +21,12 @@ export default function Home(): ReactNode {
     const { height, width } = useWindowSize();
     const [, forceRerenderState] = useState(0);
     const forceRerender = (): void => forceRerenderState(Math.random());
+    const { theme } = useThemeMode();
 
     const handleScroll = (): void => {
         const fadingDivs = [...document.getElementsByClassName("fadingDiv")] as HTMLDivElement[];
 
-        if (window.innerWidth >= 900) {
+        if (theme.breakpoints.up("sm")) {
             const avatar = document.getElementsByClassName("avatar")[0] as HTMLImageElement | undefined;
             const [pos1, pos2] = [...document.getElementsByClassName("avatarPosition")]
                 .map((av) => av.getBoundingClientRect()) as [DOMRect | undefined, DOMRect | undefined];
