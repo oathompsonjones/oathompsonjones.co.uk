@@ -25,6 +25,7 @@ export function FadingDiv({ children }: { children: ReactNode; }): ReactNode {
                 position: { md: "fixed" },
                 top: 0,
                 transition: "filter 0.25s linear",
+                width: "100%",
             }}>
             {children}
         </Box>
