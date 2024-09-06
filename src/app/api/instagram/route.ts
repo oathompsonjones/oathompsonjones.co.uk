@@ -52,29 +52,28 @@ type DataRes = {
  * @returns The latest Instagram posts.
  */
 async function refreshToken(): Promise<void> {
-    try {
-        if (Date.now() >= parseInt(process.env.INSTAGRAM_ACCESS_TOKEN_REFRESH_AT, 10)) {
+    if (Date.now() >= parseInt(process.env.INSTAGRAM_ACCESS_TOKEN_REFRESH_AT, 10)) {
+        try {
             const { access_token: accessToken } = await fetch(`https://graph.instagram.com/refresh_access_token?${[
                 "grant_type=ig_refresh_token",
                 `access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`,
             ].join("&")}`).then(async (res) => await res.json() as TokenRes);
 
-            const fileData = await readFile("./.env", "utf8");
-            const newRefreshAt = Date.now() + 24 * 60 * 60 * 1000;
+            let fileData = await readFile("./.env", "utf8");
 
-            fileData.replace(
+            fileData = fileData.replace(
                 /INSTAGRAM_ACCESS_TOKEN=.*\n/,
                 `INSTAGRAM_ACCESS_TOKEN=${accessToken}\n`,
             );
-            fileData.replace(
+            fileData = fileData.replace(
                 /INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=.*\n/,
-                `INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=${newRefreshAt}\n`,
+                `INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=${Date.now() + 24 * 60 * 60 * 1000}\n`,
             );
             await writeFile("./.env", fileData);
+        } catch (err) {
+            // eslint-disable-next-line no-console
+            console.error(err instanceof Error ? `${err.name}: ${err.message}\n${err.stack ?? ""}` : String(err));
         }
-    } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error(err instanceof Error ? `${err.name}: ${err.message}\n${err.stack ?? ""}` : String(err));
     }
 }
 
