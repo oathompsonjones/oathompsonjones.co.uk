@@ -15,7 +15,7 @@ export function Main(): ReactNode {
                 <ProfilePicture positioner />
                 <Typography align="center" variant="h1">Oliver Jones</Typography>
                 <Typography align="center" variant="h3" sx={{ color: "secondary.main" }}>
-                    BSc Computer Science Undergraduate
+                    BSc Computer Science
                 </Typography>
                 <Typography align="center" variant="h4" sx={{ color: "secondary.main" }}>
                     The University of Edinburgh
@@ -23,7 +23,7 @@ export function Main(): ReactNode {
             </Stack>
             <Divider flexItem sx={{ bgcolor: "primary.main" }} />
             <Stack
-                direction="row"
+                direction={{ sm: "row", xs: "column" }}
                 spacing="1%"
                 sx={{ alignItems: "center", justifyContent: "space-evenly", width: "100%" }}
             >

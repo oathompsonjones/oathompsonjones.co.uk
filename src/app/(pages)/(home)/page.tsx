@@ -6,7 +6,6 @@ import { Background } from "components/pages/home/background";
 import { Contact } from "components/pages/home/contact";
 import { FadingDiv } from "components/pages/home/fadingDiv";
 import { Main } from "components/pages/home/main";
-import { Mobile } from "components/mobile";
 import { ProfilePicture } from "components/pages/home/profilePicture";
 import type { ReactNode } from "react";
 import { Section } from "components/pages/home/section";
@@ -26,7 +25,7 @@ export default function Home(): ReactNode {
     const handleScroll = (): void => {
         const fadingDivs = [...document.getElementsByClassName("fadingDiv")] as HTMLDivElement[];
 
-        if (theme.breakpoints.up("sm")) {
+        if (width > theme.breakpoints.values.md) {
             const avatar = document.getElementsByClassName("avatar")[0] as HTMLImageElement | undefined;
             const [pos1, pos2] = [...document.getElementsByClassName("avatarPosition")]
                 .map((av) => av.getBoundingClientRect()) as [DOMRect | undefined, DOMRect | undefined];
@@ -69,8 +68,6 @@ export default function Home(): ReactNode {
         forceRerender();
     }, [height, width]);
 
-    const mobileSpacer = (<Mobile>{Array(4).fill(0).map((_, i) => (<br key={i} />))}</Mobile>);
-
     return (
         <>
             <Background />
@@ -80,13 +77,11 @@ export default function Home(): ReactNode {
                     <Main />
                 </FadingDiv>
             </Section>
-            {mobileSpacer}
             <Section>
                 <FadingDiv>
                     <About />
                 </FadingDiv>
             </Section>
-            {mobileSpacer}
             <Section>
                 <Contact />
             </Section>
