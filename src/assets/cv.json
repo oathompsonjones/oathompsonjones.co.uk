@@ -1,8 +1,8 @@
 {
-    "Bio": "I am ambitious, hard-working and enthusiastic. With a strong work ethic, I thrive in high-pressure environments, consistently delivering high quality results. I am a constructive team member with experience managing teams, yet I also work effectively alone when needed. I take pride in delivering all tasks on time and to the highest possible standard.\n\nMy programming abilities span various paradigms and multiple languages, including JavaScript/TypeScript, Python, C/C++, C#, Java and Haskell. My proficiency in these languages allows me to pick up new languages quickly.",
+    "Summary": "\nI am ambitious, hard-working and enthusiastic. With a strong work ethic, I thrive in high-pressure environments, consistently delivering high quality results. I am a constructive team member with experience managing teams, yet I also work effectively alone when needed. I take pride in delivering all tasks on time and to the highest possible standard.\nWith ten years experience in programming, I have developed a strong understanding of software development. I pick up new languages and technologies quickly, and I am always eager to learn more.",
     "Qualifications": {
         "The University of Edinburgh — 2021-2025": {
-            "summary": "I am currently studying in my final year for Undergraduate Computer Science, and I am on track to receive a 1\\textsuperscript{st} class honours degree.",
+            "summary": "\nI am currently studying in my final year, reading for Undergraduate Computer Science, and I am on track to receive a 1\\textsuperscript{st} class honours degree.\nWhile studying at Edinburgh, I have developed a strong understanding of a wide range of concepts and technologies, and I have completed a number of projects both individually and as part of a team. I have also developed strong problem solving and analytical skills, and I am able to work effectively under pressure.",
             "grades": [
                 "1",
                 "2:1",
@@ -33,22 +33,30 @@
     },
     "Experience": {
         "Bar Tender — [The Three Tuns](https://www.facebook.com/thethreetunsbishopsstortford/) — 2021-2024": "As a bar tender, I am responsible for serving customers, restocking, and ensuring the bar is kept clean and tidy. This role has allowed me to develop excellent communication and customer service skills.",
-        "Work Experience — [ARM Holdings](https://www.arm.com) — December 2019": "During my time at ARM, I was shown how ARM operates on a day-to-day basis, giving me a good sense of how leading companies work.",
+        "Work Experience — [ARM Holdings](https://www.arm.com) — December 2019": "During my time at ARM, I was shown how the company operates on a day-to-day basis, giving me a good sense of how industry leading companies work.",
         "Work Experience — [Bit Solutions](https://bitsolutions.net) — June 2018": "During my week at Bit Solutions, I experienced what it is like to work in the IT management sector, visiting clients' sites, and learning how to setup and manage various systems for those clients."
     },
     "Volunteering": {
-        "University Pool Society Secretary — 2024-2025": "As secretary, I play a large role in the organisation of events, and the overall running of the pool society.",
-        "Interact President — Member 2014-2021 — President 2020-2021": "Interact is a long-running fundraising organisation at [The Bishop's Stortford High School](https://tbshs.org), working closely with the [Rotary Club of Bishop's Stortford](http://bsrotary.org) to organise events and campaigns, raising money for local, national and global charities. My role as president entailed chairing our weekly meetings, and overseeing the organisation and running of events.",
-        "Senior Prefect — 2020-2021": "As a senior prefect, I was responsible for assisting the school's Sixth Form Management Team throughout the year, and representing the school in various events such as open evenings.",
-        "Paired Numeracy — 2021": "This involved weekly tutoring of younger students to help develop their maths skills at [The Bishop's Stortford High School](https://tbshs.org).",
-        "School Librarian — Member 2014-2019 — Committee 2017-2019": "My role involved the management of other Library Helpers to ensure the smooth running of the system, as well as weekly meetings to discuss how things went that week, and any plans for the next week."
+        "University Pool Society Secretary — 2024-2025": "As secretary, I play a large role in the organisation of events, and the overall running of the pool society. This role has allowed me to develop strong organisational and leadership abilities, as well as good communication and time management skills.",
+        "Interact President — Member 2014-2021 — President 2020-2021": "Interact is a long-running fundraising organisation at [The Bishop's Stortford High School](https://tbshs.org), working closely with the [Rotary Club of Bishop's Stortford](http://bsrotary.org) to organise events and campaigns, raising money for local, national and global charities. My role as president entailed chairing our weekly meetings, and overseeing the organisation and running of events. Being an integral member for 7 years, I have developed strong teamwork and leadership skills, as well as good public speaking abilities.",
+        "Senior Prefect — 2020-2021": "As a senior prefect, I was responsible for assisting the school's Sixth Form Management Team throughout the year, and representing the school in various events such as open evenings. ",
+        "Paired Numeracy — 2021": "This involved weekly tutoring of younger students to help develop their maths skills at [The Bishop's Stortford High School](https://tbshs.org). This required patience and good communication skills to ensure the students understood the material.",
+        "School Librarian — Member 2014-2019 — Committee 2017-2019": "My role involved the management of other Library Helpers to ensure the smooth running of the system, as well as weekly meetings to discuss how things went that week, and any plans for the next week. This role helped to develop my communication, leadership and teamwork skills."
     },
-    "Skills": {
-        "Programming & Problem Solving": "I can identify and solve problems quickly and efficiently and am a proficient programmer with knowledge of multiple languages including TypeScript, Java, C#, Haskell, PHP, C++, Python and more.",
-        "Numeracy": "With an A* grade in A-Level Maths, a B grade in A-Level Further Maths, and with further study in Maths being essential to my chosen degree, I am highly skilled in Mathematics.",
-        "Public Speaking": "I am perfectly capable of public speaking should the occasion arise. I was selected to speak in school church services every year, including Christmas and Easter services, as well as the [memorial service for a former headmaster](https://tbshs.org/ian-shaw-tbshs-1980-1998/).",
-        "Time Management": "My excellent time management skills allow me to complete tasks to high standards while meeting all deadlines, as well as being able to juggle multiple tasks at once.",
-        "Teamwork": "As a volunteer in the school library for 5 years and an integral part of [Interact](https://www.rotary.org/en/get-involved/interact-clubs) for 7, I developed strong teamwork skills, which were further developed during serveral group projects at university.",
-        "Customer Service": "I have experience in customer service from my time as a bar tender, and have developed excellent communication skills as a result."
-    }
+    "Skills": [
+        "TypeScript",
+        "Node.JS",
+        "Next.JS",
+        "Java",
+        "C#",
+        "Haskell",
+        "C/C++",
+        "Python",
+        "Problem Solving",
+        "Numeracy",
+        "Public Speaking",
+        "Time Management",
+        "Teamwork",
+        "Customer Service"
+    ]
 }

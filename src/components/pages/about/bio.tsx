@@ -33,7 +33,7 @@ export function Bio(): ReactNode {
             </Grid>
             <br />
             <Typography sx={{ whiteSpace: "pre-wrap" }}>
-                {jsonToJSDoc(cv.Bio)}
+                {jsonToJSDoc(cv.Summary)}
             </Typography>
         </>
     );

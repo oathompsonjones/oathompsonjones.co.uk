@@ -4,11 +4,11 @@ import fs from "fs/promises";
 import pdflatex from "node-pdflatex";
 
 export type CV = {
-    Bio: string;
+    Summary: string;
+    Skills: string[];
     Qualifications: Record<string, Record<string, Record<string, string>> | { summary: string; grades: string[]; }>;
     Experience: Record<string, string>;
     Volunteering: Record<string, string>;
-    Skills: Record<string, string>;
 };
 
 const data = cv as CV;
@@ -33,8 +33,7 @@ function format(content: string): string {
     return content
         // eslint-disable-next-line prefer-named-capture-group
         .replace(/\[([^\]]+)\]\(([^\s)]+)\)/g, "\\href{$2}{$1}")
-        .replace(/\n\n/g, " \\paragraph{}")
-        .replace(/\n/g, " \\")
+        .replace(/\n/g, " \\paragraph{}")
         // eslint-disable-next-line prefer-named-capture-group
         .replace(/([#&])/g, "\\$1");
 }
@@ -61,9 +60,6 @@ function mapTable([headings, ...rows]: string[][]): string {
  * @returns The LaTeX section.
  */
 export function mapSection(section: keyof CV): string {
-    if (section === "Bio")
-        return format(data[section]);
-
     return `${mapSectionHeading(section)}\n${mapSectionContent(section)}`;
 }
 
@@ -73,7 +69,7 @@ export function mapSection(section: keyof CV): string {
  * @param subSection - The sub section name.
  * @returns The LaTeX subsection.
  */
-function mapSubSection(section: keyof Omit<CV, "Bio">, subSection: string): string {
+function mapSubSection(section: keyof CV, subSection: string): string {
     return `${mapSubSectionHeading(subSection)}\n${mapSubSectionContent(section, subSection)}`;
 }
 
@@ -100,7 +96,16 @@ function mapSubSectionHeading(heading: string): string {
  * @param section - The section name.
  * @returns The LaTeX subsection content.
  */
-function mapSectionContent(section: keyof Omit<CV, "Bio">): string {
+function mapSectionContent(section: keyof CV): string {
+    if (typeof data[section] === "string")
+        return format(data[section]);
+
+    if (Array.isArray(data[section])) {
+        return `\\begin{center}
+            ${data[section].map((item) => typeof item === "string" && format(item)).join(" $\\bullet$ ")}
+        \\end{center}`;
+    }
+
     return Object.keys(data[section]).map((subSection) => mapSubSection(section, subSection)).join("\n");
 }
 
@@ -110,7 +115,10 @@ function mapSectionContent(section: keyof Omit<CV, "Bio">): string {
  * @param subSection - The sub section name.
  * @returns The LaTeX subsection content.
  */
-function mapSubSectionContent(section: keyof Omit<CV, "Bio">, subSection: string): string {
+function mapSubSectionContent(section: keyof CV, subSection: string): string {
+    if (typeof data[section] === "string" || Array.isArray(data[section]))
+        return "";
+
     const subSectionData = data[section][subSection]!;
 
     if (typeof subSectionData === "string")

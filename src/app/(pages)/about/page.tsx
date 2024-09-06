@@ -27,13 +27,13 @@ export default function About(): ReactNode {
             </Stack>
             <Bio />
             <br /><br />
+            <Skills />
+            <br /><br />
             <Qualifications />
             <br /><br />
             <Experience />
             <br /><br />
             <Volunteering />
-            <br /><br />
-            <Skills />
         </Container>
     );
 }
