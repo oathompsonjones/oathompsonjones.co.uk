@@ -23,6 +23,7 @@ export function ThemeContextProvider({ children }: { children: ReactNode; }): Re
             light: { palette: { background: { default: basePalette.common.white }, ...basePalette } },
         },
         components: {
+            MuiContainer: { styleOverrides: { maxWidthLg: { padding: "0" } } },
             MuiDivider: { styleOverrides: { root: { margin: "1.25% 0" } } },
             MuiPaper: { styleOverrides: { root: { transition: "background-color 0.25s linear" } } },
         },
