@@ -15,7 +15,7 @@ export function PageError({ error, reset }: { error: Error; reset: () => void; }
         <Accordion sx={{ background: "none", boxShadow: "none" }}>
             <AccordionSummary>
                 <Typography variant="h4" sx={{ flex: 1 }}>An error occurred, please try again later.</Typography>
-                <Button onClick={reset} size="small">Try Again</Button>
+                <Button onClick={reset} size="small" sx={{ alignSelf: "center" }}>Try Again</Button>
             </AccordionSummary>
             <AccordionDetails>
                 <Typography>{error.message}</Typography>
