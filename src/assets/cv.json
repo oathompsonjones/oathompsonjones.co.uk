@@ -1,5 +1,21 @@
 {
     "Summary": "\nI am ambitious, hard-working and enthusiastic. With a strong work ethic, I thrive in high-pressure environments, consistently delivering high quality results. I am a constructive team member with experience managing teams, yet I also work effectively alone when needed. I take pride in delivering all tasks on time and to the highest possible standard.\nWith ten years experience in programming, I have developed a strong understanding of software development. I pick up new languages and technologies quickly, and I am always eager to learn more.",
+    "Skills": [
+        "TypeScript",
+        "Node.JS",
+        "Next.JS",
+        "Java",
+        "C#",
+        "Haskell",
+        "C/C++",
+        "Python",
+        "Problem Solving",
+        "Numeracy",
+        "Public Speaking",
+        "Time Management",
+        "Teamwork",
+        "Customer Service"
+    ],
     "Qualifications": {
         "The University of Edinburgh — 2021-2025": {
             "summary": "\nI am currently studying in my final year, reading for Undergraduate Computer Science, and I am on track to receive a 1\\textsuperscript{st} class honours degree.\nWhile studying at Edinburgh, I have developed a strong understanding of a wide range of concepts and technologies, and I have completed a number of projects both individually and as part of a team. I have also developed strong problem solving and analytical skills, and I am able to work effectively under pressure.",
@@ -42,21 +58,5 @@
         "Senior Prefect — 2020-2021": "As a senior prefect, I was responsible for assisting the school's Sixth Form Management Team throughout the year, and representing the school in various events such as open evenings. ",
         "Paired Numeracy — 2021": "This involved weekly tutoring of younger students to help develop their maths skills at [The Bishop's Stortford High School](https://tbshs.org). This required patience and good communication skills to ensure the students understood the material.",
         "School Librarian — Member 2014-2019 — Committee 2017-2019": "My role involved the management of other Library Helpers to ensure the smooth running of the system, as well as weekly meetings to discuss how things went that week, and any plans for the next week. This role helped to develop my communication, leadership and teamwork skills."
-    },
-    "Skills": [
-        "TypeScript",
-        "Node.JS",
-        "Next.JS",
-        "Java",
-        "C#",
-        "Haskell",
-        "C/C++",
-        "Python",
-        "Problem Solving",
-        "Numeracy",
-        "Public Speaking",
-        "Time Management",
-        "Teamwork",
-        "Customer Service"
-    ]
+    }
 }
