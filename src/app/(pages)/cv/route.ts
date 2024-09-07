@@ -14,134 +14,97 @@ export type CV = {
 const data = cv as CV;
 
 /**
- * Generates a LaTeX document from the CV data.
- * @returns The LaTeX document.
- */
-async function generateTex(): Promise<string> {
-    const skeleton = await fs.readFile("src/assets/cv-skeleton.tex", "utf8");
-    const content = Object.keys(data).map((section) => mapSection(section as keyof CV)).join("\n");
-
-    return skeleton.replace("%CONTENT%", content);
-}
-
-/**
  * Formats the content of the CV.
  * @param content - The content to format.
  * @returns The formatted content.
  */
-function format(content: string): string {
+function jsonToLaTeX(content: string): string {
+    const markdownLink = /\[([^\]]+)\]\(([^\s)]+)\)/g;
+    const newLine = /\n/g;
+    const escapeCharacters = /([#&])/g;
+
     return content
-        // eslint-disable-next-line prefer-named-capture-group
-        .replace(/\[([^\]]+)\]\(([^\s)]+)\)/g, "\\href{$2}{$1}")
-        .replace(/\n/g, " \\paragraph{}")
-        // eslint-disable-next-line prefer-named-capture-group
-        .replace(/([#&])/g, "\\$1");
+        .replace(markdownLink, "\\href{$2}{$1}")
+        .replace(newLine, " \\paragraph{}")
+        .replace(escapeCharacters, "\\$1");
+}
+
+/**
+ * Filters the object by the specified value.
+ * @template T - The type of the value.
+ * @param object - The object to filter.
+ * @param value - The value to filter by.
+ * @returns The filtered object.
+ */
+function filterByValue<T>(object: Record<string, T>, value: T): string[] {
+    return Object.entries(object).filter(([, v]) => v === value).map(([k]) => k);
 }
 
 /**
  * Maps a table to LaTeX.
- * @param table - The JSON table.
- * @param table.0 - The headings of the table.
- * @param table.1 - The rows of the table.
- * @returns The LaTeX table.
+ * @param table - The table to map.
+ * @returns The mapped table.
  */
-function mapTable([headings, ...rows]: string[][]): string {
-    const arr = [headings!.map((heading) => (heading.length > 0 ? `\\bfseries{${format(heading)}}` : "")), ...rows];
-    const lengths = arr[0]!.map((_, i) => Math.max(...arr.map((row) => format(row[i]!).length)));
-    const mappedRows = arr.map((row) => `\t${row
-        .map((column, i) => format(column).padEnd(lengths[i]!)).join(" & ")} \\\\`);
-
-    return `\\begin{tabular}{llll}\n${mappedRows.join("\n")}\n\\end{tabular}`;
+function mapTable(table: string[][]): string {
+    return `\\noindent\\begin{tabular}{ll}\n${[
+        table[0]!.map((h) => (h.length > 0 ? `\\bfseries{${jsonToLaTeX(h)}}` : "")),
+        ...table.slice(1),
+    ].map((row) => `${row.map((column) => jsonToLaTeX(column)).join(" & ")} \\\\`).join("\n")
+    }\n\\end{tabular}`;
 }
 
 /**
- * Maps a section to LaTeX.
- * @param section - The section name.
- * @returns The LaTeX section.
+ * Generates a LaTeX document from the CV data.
+ * @returns The LaTeX document.
  */
-export function mapSection(section: keyof CV): string {
-    return `${mapSectionHeading(section)}\n${mapSectionContent(section)}`;
-}
+async function generateTex(): Promise<string> {
+    const content = Object.keys(data).map((section) => {
+        const sectionData = data[section as keyof CV];
+        const heading = `\\section*{${jsonToLaTeX(section)}}`;
+        let sectionContent = "";
 
-/**
- * Maps a subsection to LaTeX.
- * @param section - The section name.
- * @param subSection - The sub section name.
- * @returns The LaTeX subsection.
- */
-function mapSubSection(section: keyof CV, subSection: string): string {
-    return `${mapSubSectionHeading(subSection)}\n${mapSubSectionContent(section, subSection)}`;
-}
+        if (typeof sectionData === "string") {
+            sectionContent = jsonToLaTeX(sectionData);
+        } else if (Array.isArray(sectionData)) {
+            sectionContent = `\\begin{center}\n${
+                sectionData.map((item) => typeof item === "string" && jsonToLaTeX(item)).join(" $\\bullet$ ")
+            }\n\\end{center}`;
+        } else {
+            sectionContent = Object.keys(sectionData).map((subSection) => {
+                const subSectionData = sectionData[subSection];
+                const subHeading = `\\subsection*{${jsonToLaTeX(subSection)}}`;
+                let subSectionContent = "";
 
-/**
- * Maps a section heading to LaTeX.
- * @param heading - The heading name.
- * @returns The LaTeX section heading.
- */
-function mapSectionHeading(heading: keyof Omit<CV, "Bio">): string {
-    return `\\section*{${format(heading)}}`;
-}
+                if (typeof sectionData === "string" || Array.isArray(sectionData)) {
+                    throw new Error("Sub section not found.");
+                } else if (typeof subSectionData === "string") {
+                    subSectionContent = jsonToLaTeX(subSectionData);
+                } else if (typeof subSectionData === "object") {
+                    if ("summary" in subSectionData && typeof subSectionData.summary === "string") {
+                        subSectionContent = jsonToLaTeX(subSectionData.summary);
+                    } else if ("A-Levels" in subSectionData && "GCSEs" in subSectionData) {
+                        subSectionContent = `${mapTable([
+                            ["A-Levels"],
+                            [filterByValue(subSectionData["A-Levels"], "A*").join(", "), "A*"],
+                            [filterByValue(subSectionData["A-Levels"], "B").join(", "), "B"],
+                        ])}\n${mapTable([
+                            ["GCSEs"],
+                            [filterByValue(subSectionData.GCSEs, "8").join(", "), "8"],
+                            [filterByValue(subSectionData.GCSEs, "7").join(", "), "7"],
+                        ])}`;
+                    }
+                }
 
-/**
- * Maps a subsection heading to LaTeX.
- * @param heading - The heading name.
- * @returns The LaTeX subsection heading.
- */
-function mapSubSectionHeading(heading: string): string {
-    return `\\subsection*{${format(heading)}}`;
-}
+                return `${subHeading}\n${subSectionContent}`;
+            }).join("\n");
+        }
 
-/**
- * Maps a subsection content to LaTeX.
- * @param section - The section name.
- * @returns The LaTeX subsection content.
- */
-function mapSectionContent(section: keyof CV): string {
-    if (typeof data[section] === "string")
-        return format(data[section]);
+        return `${heading}\n${sectionContent}`;
+    }).join("\n");
 
-    if (Array.isArray(data[section])) {
-        return `\\begin{center}
-            ${data[section].map((item) => typeof item === "string" && format(item)).join(" $\\bullet$ ")}
-        \\end{center}`;
-    }
+    const skeleton = await fs.readFile("src/assets/cv-skeleton.tex", "utf8");
 
-    return Object.keys(data[section]).map((subSection) => mapSubSection(section, subSection)).join("\n");
-}
-
-/**
- * Maps a subsection content to LaTeX.
- * @param section - The section name.
- * @param subSection - The sub section name.
- * @returns The LaTeX subsection content.
- */
-function mapSubSectionContent(section: keyof CV, subSection: string): string {
-    if (typeof data[section] === "string" || Array.isArray(data[section]))
-        return "";
-
-    const subSectionData = data[section][subSection]!;
-
-    if (typeof subSectionData === "string")
-        return format(subSectionData);
-
-    if (typeof subSectionData === "object" && "summary" in subSectionData && typeof subSectionData.summary === "string")
-        return format(subSectionData.summary);
-
-    const filterGrade = (grade: string): string => Object.values(subSectionData)
-        .map((exams: Record<string, string>) => Object.entries(exams)).flat()
-        .filter(([, g]) => g === grade)
-        .map(([subject]) => subject)
-        .join(", ");
-
-    return `${mapTable([
-        [Object.keys(subSectionData)[0]!],
-        [filterGrade("A*"), "A*"],
-        [filterGrade("B"), "B"],
-    ])}\\newline${mapTable([
-        [Object.keys(subSectionData)[1]!],
-        [filterGrade("8"), "8"],
-        [filterGrade("7"), "7"],
-    ])}`;
+    return skeleton.replace("%CONTENT%", content);
 }
 
 /**
