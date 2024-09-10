@@ -25,22 +25,6 @@ export function InstagramPost({ post }: { post: Post; }): ReactNode {
     const [hover, setHover] = useState(false);
     const handleHover = (): void => setHover((prev) => !prev);
 
-    const borderRadius = "1vmin";
-    const instagramLogo = (
-        <Instagram
-            sx={{
-                color: "white",
-                cursor: "pointer",
-                height: "50%",
-                left: "50%",
-                position: "absolute",
-                top: "50%",
-                transform: "translate(-50%, -50%)",
-                width: "50%",
-            }}
-        />
-    );
-
     // All other posts are displayed as a single image.
     return (
         <Zoom in timeout={500}>
@@ -49,14 +33,25 @@ export function InstagramPost({ post }: { post: Post; }): ReactNode {
                     href={post.permalink}
                     style={{
                         background: "rgba(0, 0, 0, 0.25)",
-                        borderRadius,
                         height: "100%",
                         opacity: hover ? "100%" : "0%",
                         position: "absolute",
                         transition: "opacity 0.25s linear",
                         width: "100%",
                     }}
-                >{instagramLogo}</Link>
+                >
+                    <Instagram
+                        sx={{
+                            color: "white",
+                            height: "50%",
+                            left: "50%",
+                            position: "absolute",
+                            top: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50%",
+                        }}
+                    />
+                </Link>
                 <CardMedia component="img" image={post.media_url} />
             </Card>
         </Zoom>
