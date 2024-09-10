@@ -9,16 +9,16 @@
         "lint": "eslint ."
     },
     "devDependencies": {
-        "@oathompsonjones/eslint-config": "^1.5.3",
+        "@oathompsonjones/eslint-config": "^1.5.4",
         "@oathompsonjones/ts-config": "^0.0.35",
-        "@pigment-css/nextjs-plugin": "^0.0.21",
+        "@pigment-css/nextjs-plugin": "^0.0.22",
         "@types/http-proxy": "^1.17.15",
         "@types/md5": "^2.3.5",
-        "@types/node": "^22.5.2",
+        "@types/node": "^22.5.4",
         "@types/nodemailer": "^6.4.15",
         "@types/react": "^18.3.5",
         "@types/react-dom": "^18.3.0",
-        "typescript": "^5.5.4"
+        "typescript": "^5.6.2"
     },
     "dependencies": {
         "@emotion/cache": "^11.13.1",
@@ -36,10 +36,10 @@
         "encoding": "^0.1.13",
         "http-proxy": "^1.18.1",
         "md5": "^2.3.0",
-        "mongodb": "^6.8.0",
-        "next": "^14.2.7",
+        "mongodb": "^6.8.1",
+        "next": "^14.2.9",
         "node-pdflatex": "^0.3.0",
-        "nodemailer": "^6.9.14",
+        "nodemailer": "^6.9.15",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "sharp": "^0.33.5"
