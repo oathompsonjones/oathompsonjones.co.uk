@@ -17,10 +17,10 @@ export function Skills(): ReactNode {
     return (
         <>
             <Typography variant="h3">Skills</Typography>
-            <Typography variant="subtitle2" sx={{ textAlign: "center", whiteSpace: "pre-wrap" }}>
+            <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
                 {skills.map((skill, i) => (
                     <span key={i}>
-                        {i > 0 && <Typography component="span" sx={{ color: "gray", m: "0 0.5%" }}>•</Typography>}
+                        {i > 0 && <Typography component="span" sx={{ color: "gray" }}> • </Typography>}
                         {skill}
                     </span>
                 ))}
