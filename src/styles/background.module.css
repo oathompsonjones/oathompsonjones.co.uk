@@ -1,0 +1,13 @@
+.background {
+    background-image: radial-gradient(rgba(var(--mui-palette-primary-mainChannel) / 0.5) 7%, transparent 0);
+    background-size: 2vw 2vw;
+    box-shadow: inset -15vw -15vh 15vw 15vh var(--mui-palette-background-default);
+    position: fixed;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    z-index: -10;
+    transition: box-shadow 0.25s linear;
+}

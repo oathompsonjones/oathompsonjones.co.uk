@@ -8,6 +8,7 @@ import InitColorSchemeScript from "@mui/system/InitColorSchemeScript";
 import type { ReactNode } from "react";
 import { ScrollToTop } from "components/scrollToTop";
 import { ThemeContextProvider } from "contexts/themeContext";
+import bgStyles from "styles/background.module.css";
 import { gravatarURL } from "utils";
 
 // https://realfavicongenerator.net (remove the mask icon and msapplication stuff)
@@ -71,7 +72,7 @@ export default function Layout({ children }: { children: ReactNode; }): ReactNod
                 <InitColorSchemeScript attribute="class" />
                 <AppRouterCacheProvider>
                     <ThemeContextProvider>
-                        <div id="background" />
+                        <div className={bgStyles.background} />
                         <ScrollToTop />
                         <Header />
                         <main>{children}</main>
