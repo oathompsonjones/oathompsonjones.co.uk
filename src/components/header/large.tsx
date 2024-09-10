@@ -17,10 +17,7 @@ export function LargeNav({ pages }: { pages: Array<{ label: string; link: string
                     component={Link}
                     href={page.link}
                     key={i}
-                    sx={{
-                        borderRadius: "1vmin",
-                        transition: "background-color 0.25s linear",
-                    }}
+                    sx={{ transition: "background-color 0.25s linear" }}
                 >
                     <Typography>{page.label}</Typography>
                 </MenuItem>

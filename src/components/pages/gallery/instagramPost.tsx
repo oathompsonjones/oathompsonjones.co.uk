@@ -44,12 +44,7 @@ export function InstagramPost({ post }: { post: Post; }): ReactNode {
     // All other posts are displayed as a single image.
     return (
         <Zoom in timeout={500}>
-            <Card
-                onMouseEnter={handleHover}
-                onMouseLeave={handleHover}
-                square
-                sx={{ borderRadius, position: "relative" }}
-            >
+            <Card onMouseEnter={handleHover} onMouseLeave={handleHover} sx={{ position: "relative" }}>
                 <Link
                     href={post.permalink}
                     style={{
@@ -62,7 +57,7 @@ export function InstagramPost({ post }: { post: Post; }): ReactNode {
                         width: "100%",
                     }}
                 >{instagramLogo}</Link>
-                <CardMedia component="img" image={post.media_url} sx={{ borderRadius }} />
+                <CardMedia component="img" image={post.media_url} />
             </Card>
         </Zoom>
     );

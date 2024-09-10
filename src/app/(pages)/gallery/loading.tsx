@@ -22,7 +22,6 @@ export default function Loading(): ReactNode {
                     <Skeleton
                         key={i}
                         sx={{
-                            borderRadius: "1vmin",
                             height: {
                                 lg: "calc(var(--height) / 6)",
                                 sm: "calc(var(--height) / 3)",
