@@ -1,5 +1,4 @@
 import { Bio } from "components/pages/about/bio";
-import Container from "components/layout/container";
 import { DynamicButton } from "components/dynamicButton";
 import { Experience } from "components/pages/about/experience";
 import type { Metadata } from "next";
@@ -18,7 +17,7 @@ export const metadata: Metadata = { title: "Oliver Jones | About Me" };
  */
 export default function About(): ReactNode {
     return (
-        <Container component="article">
+        <div>
             <Stack direction="row">
                 <Typography variant="h2" sx={{ flex: 1 }}>About Me</Typography>
                 <DynamicButton LinkComponent="a" href="/cv" sx={{ alignSelf: "center", float: "right", m: "1%" }}>
@@ -34,6 +33,6 @@ export default function About(): ReactNode {
             <Experience />
             <br /><br />
             <Volunteering />
-        </Container>
+        </div>
     );
 }

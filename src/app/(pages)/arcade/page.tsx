@@ -1,4 +1,3 @@
-import Container from "components/layout/container";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Typography } from "@mui/material";
@@ -11,7 +10,7 @@ export const metadata: Metadata = { title: "Oliver Jones | Arcade" };
  */
 export default function Arcade(): ReactNode {
     return (
-        <Container>
+        <div>
             <Typography variant="h2">Would you like to play a game?</Typography>
             <Typography variant="h6">Upcoming Games</Typography>
             <Typography variant="body1">
@@ -34,6 +33,6 @@ export default function Arcade(): ReactNode {
                 - 1 player - user vs CPU <i>(or just user where appropriate)</i>    <br />
                 - 0 players - CPU vs CPU <i>(or just CPU where appropriate)</i>     <br />
             </Typography>
-        </Container>
+        </div>
     );
 }

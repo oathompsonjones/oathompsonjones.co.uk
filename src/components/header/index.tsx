@@ -35,7 +35,7 @@ export function Header(): ReactNode {
 
     useEffect(() => setIsNavOpen(false), []);
 
-    const isSolid = isNavOpen || isScrolling && (isMobile || !isHome);
+    const isSolid = isNavOpen && (isMobile || !isHome);
     const textColour = isSolid ? white : { dark: white, light: black }[isHome ? "dark" : themeColour];
 
     // Associate a label and link with each page.
@@ -58,7 +58,7 @@ export function Header(): ReactNode {
         <AppBar
             component="header"
             enableColorOnDark
-            position="fixed"
+            position={isHome ? "sticky" : "relative"}
             ref={ref}
             sx={{
                 background: "var(--background)",

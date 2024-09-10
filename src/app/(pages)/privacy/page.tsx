@@ -1,4 +1,3 @@
-import Container from "components/layout/container";
 import Link from "next/link";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
@@ -12,7 +11,7 @@ export const metadata: Metadata = { title: "Oliver Jones | Privacy Policy" };
  */
 export default function Privacy(): ReactNode {
     return (
-        <Container>
+        <div>
             <Typography variant="h2">
                 Privacy Policy
             </Typography>
@@ -24,6 +23,6 @@ export default function Privacy(): ReactNode {
                 <br />
                 This information will only be used to allow me to respond to any enquiries.
             </Typography>
-        </Container>
+        </div>
     );
 }

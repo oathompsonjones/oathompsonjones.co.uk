@@ -19,6 +19,7 @@ export function Section({ children }: { children: ReactNode; }): ReactNode {
 
     return (
         <Box
+            className="full-width"
             component="section"
             sx={{
                 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -26,12 +27,10 @@ export function Section({ children }: { children: ReactNode; }): ReactNode {
                     marginBottom: { md: "-1rem" },
                     minHeight: { md: "var(--height)" },
                 },
-                display: "flex",
-                flexDirection: "column",
-                margin: { md: "-4rem -3rem 4rem" },
+                marginBlock: { md: "-4rem 4rem" },
                 minHeight: { md: "100vh", xs: "75vh" },
-                padding: { md: "5rem 3rem 1rem" },
-                scrollSnapAlign: { md: "start", xs: "center" },
+                paddingBlock: { md: "5rem 1rem" },
+                scrollSnapAlign: { md: "start" },
             }}
             // eslint-disable-next-line @typescript-eslint/naming-convention
             style={{ "--height": `${height}px` }}

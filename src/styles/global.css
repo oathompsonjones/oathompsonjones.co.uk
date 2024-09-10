@@ -1,3 +1,4 @@
+/*** Scrolling Behaviour ***/
 html {
     scroll-behavior: smooth;
     scroll-snap-type: y mandatory;
@@ -9,20 +10,11 @@ html {
     }
 }
 
-body {
-    display: grid;
-    grid-template-rows: 1fr auto;
-    min-height: 100dvh;
-}
-
+/*** Colour Transitions ***/
 body,
 main,
 footer {
     transition: background-color 0.25s linear;
-}
-
-main {
-    padding: 4rem 3rem 1rem;
 }
 
 p,
@@ -30,10 +22,74 @@ span {
     transition: color 0.25s linear;
 }
 
+/*** Links ***/
 a {
     color: var(--mui-palette-primary-main);
     cursor: pointer;
     text-decoration: none;
 }
 
+/*** Layout ***/
+body {
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: [header-start] auto [header-end main-start] 1fr [main-end] 1rem [footer-start] auto [footer-end];
+}
+
+header {
+    grid-column: edge;
+    grid-row: header;
+}
+
+main {
+    grid-column: edge;
+    grid-row: main;
+}
+
+footer {
+    grid-column: edge;
+    grid-row: footer;
+}
+
+body,
+main,
+.wrapper {
+    --padding: 1rem;
+    --gutter: minmax(0, 1fr);
+    --content-max: 70rem;
+    --content: min(100% - 2 * var(--padding), var(--content-max));
+    --breakout-max: 90rem;
+    --breakout: minmax(0, calc((var(--breakout-max) - var(--content-max)) / 2));
+    display: grid;
+    grid-template-columns: [edge-start] var(--padding) [full-width-start] var(--gutter) [breakout-start breakout-left-start] var(--breakout) [content-start breakout-right-start] var(--content) [content-end breakout-left-end] var(--breakout) [breakout-end breakout-right-end] var(--gutter) [full-width-end] var(--padding) [edge-end];
+}
+
+main>*,
+.wrapper>* {
+    grid-column: content;
+}
+
+main>.breakout,
+.wrapper>.breakout {
+    grid-column: breakout;
+}
+
+main>.breakout-left,
+.wrapper>.breakout-left {
+    grid-column: breakout-left;
+}
+
+main>.breakout-right,
+.wrapper>.breakout-right {
+    grid-column: breakout-right;
+}
+
+main>.full-width,
+.wrapper>.full-width {
+    grid-column: full-width;
+}
+
+main>.edge,
+.wrapper>.edge {
+    grid-column: edge;
 }

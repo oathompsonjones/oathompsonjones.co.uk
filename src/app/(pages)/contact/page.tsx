@@ -1,5 +1,4 @@
 import { ContactForm } from "components/pages/contact/contactForm";
-import Container from "components/layout/container";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { SocialLinks } from "components/footer/socialLinks";
@@ -14,10 +13,10 @@ export const metadata: Metadata = { title: "Oliver Jones | Contact Me" };
 export default function Contact(): ReactNode {
     // Renders the contact page.
     return (
-        <Container sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+        <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
             <Typography variant="h2">Contact Me</Typography>
             <ContactForm />
             <SocialLinks dividers />
-        </Container>
+        </div>
     );
 }
