@@ -1,13 +1,13 @@
 "use client";
 
-import { AppBar, IconButton, Toolbar, Tooltip, useMediaQuery, useScrollTrigger } from "@mui/material";
+import { AppBar, IconButton, Toolbar, Tooltip, Typography, useMediaQuery, useScrollTrigger } from "@mui/material";
 import { Contrast, DarkMode, LightMode, Menu } from "@mui/icons-material";
 import { useEffect, useState } from "react";
-import { LargeNav } from "./large";
+import { Dropdown } from "./dropdown";
+import { Fixed } from "./fixed";
+import { Floating } from "./floating";
 import type { ReactNode } from "react";
-import { SmallNav } from "./small";
 import type { Theme } from "@mui/material";
-import { Title } from "./title";
 import { useOutsideClick } from "hooks/useOutsideClick";
 import { usePathname } from "next/navigation";
 import { useThemeMode } from "hooks/useThemeMode";
@@ -29,13 +29,13 @@ export function Header(): ReactNode {
     const isScrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
     const isMobile: boolean = useMediaQuery((theme: Theme): string => theme.breakpoints.down("md"));
     const isHome: boolean = usePathname() === "/";
-    const [isNavOpen, setIsNavOpen] = useState(false);
-    const toggleNavOpen = (): void => setIsNavOpen(() => isMobile && !isNavOpen);
-    const ref = useOutsideClick(() => setIsNavOpen(false));
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const toggleNavOpen = (): void => setIsDropdownOpen(() => isMobile && !isDropdownOpen);
+    const ref = useOutsideClick(() => setIsDropdownOpen(false));
 
-    useEffect(() => setIsNavOpen(false), []);
+    useEffect(() => setIsDropdownOpen(false), []);
 
-    const isSolid = isNavOpen && (isMobile || !isHome);
+    const isSolid = isDropdownOpen || isScrolling && isMobile && !isHome;
     const textColour = isSolid ? white : { dark: white, light: black }[isHome ? "dark" : themeColour];
 
     // Associate a label and link with each page.
@@ -58,7 +58,7 @@ export function Header(): ReactNode {
         <AppBar
             component="header"
             enableColorOnDark
-            position={isHome ? "sticky" : "relative"}
+            position={isMobile || isHome ? "sticky" : "relative"}
             ref={ref}
             sx={{
                 background: "var(--background)",
@@ -74,14 +74,28 @@ export function Header(): ReactNode {
                 /* eslint-enable @typescript-eslint/naming-convention */
             }}
         >
-            {/* Toolbar is essential for properly aligning elements within the AppBar. */}
             <Toolbar>
+                {/* Menu button to open/close the drop down nav. */}
                 <IconButton color="inherit" onClick={toggleNavOpen} sx={{ display: { md: "none" } }}>
                     <Menu />
                 </IconButton>
-                <Title />
-                <LargeNav pages={pages} />
-                {/* Renders a button to control dark/light theme. This renders on displays of any size. */}
+                {/* The title. */}
+                <Typography
+                    align="center"
+                    variant="h5"
+                    sx={{
+                        color: "inherit",
+                        flexGrow: { md: 0, xs: 1 },
+                        fontFamily: "monospace",
+                        fontWeight: 700,
+                        letterSpacing: ".3rem",
+                    }}
+                >
+                    OATHOMPSONJONES
+                </Typography>
+                {/* The fixed nav for larger displays. */}
+                <Fixed pages={pages} />
+                {/* Theme button to control dark/light theme. */}
                 <Tooltip title={`${themeMode[0]!.toUpperCase()}${themeMode.slice(1)} Mode`} arrow>
                     <IconButton
                         color="inherit"
@@ -92,7 +106,10 @@ export function Header(): ReactNode {
                     </IconButton>
                 </Tooltip>
             </Toolbar>
-            <SmallNav isOpen={isNavOpen} pages={pages} toggleNavOpen={toggleNavOpen} />
+            {/* The drop down nav for smaller displays. */}
+            <Dropdown isOpen={isDropdownOpen} pages={pages} toggleNavOpen={toggleNavOpen} />
+            {/* The floating nav for scrolling on larger displays. */}
+            <Floating pages={pages} />
         </AppBar>
     );
 }
