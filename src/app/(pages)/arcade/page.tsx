@@ -1,8 +1,5 @@
-import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Typography } from "@mui/material";
-
-export const metadata: Metadata = { title: "Oliver Jones | Arcade" };
 
 /**
  * This page contains some mini arcade games.

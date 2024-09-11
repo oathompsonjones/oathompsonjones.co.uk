@@ -1,10 +1,7 @@
 import { ContactForm } from "components/pages/contact/contactForm";
-import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { SocialLinks } from "components/footer/socialLinks";
 import { Typography } from "@mui/material";
-
-export const metadata: Metadata = { title: "Oliver Jones | Contact Me" };
 
 /**
  * This page provides contact links for me.
