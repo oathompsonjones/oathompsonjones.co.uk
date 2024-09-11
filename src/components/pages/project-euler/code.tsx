@@ -1,3 +1,4 @@
+import { Paper } from "@mui/material";
 import type { ReactNode } from "react";
 import hljs from "highlight.js/lib/common";
 
@@ -9,19 +10,25 @@ import hljs from "highlight.js/lib/common";
  */
 export function Code({ children }: { children: string; }): ReactNode {
     return (
-        <pre><code
-            className="language-typescript"
-            style={{
-                backgroundColor: "#282C34",
+        <Paper
+            component="pre"
+            sx={{
                 border: "3px solid gray",
                 borderRadius: "2vmin",
-                fontFamily: "'Fira Code', monospace",
-                overflow: "auto",
-                padding: "1rem",
+                overflow: "hidden",
                 textAlign: "left",
             }}
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            dangerouslySetInnerHTML={{ __html: hljs.highlight(children, { language: "typescript" }).value }}
-        /></pre>
+        ><code
+                className="language-typescript"
+                style={{
+                    background: "none",
+                    fontFamily: "'Fira Code', monospace",
+                    overflow: "auto",
+                    padding: "1rem",
+                    width: "100%",
+                }}
+                // eslint-disable-next-line @typescript-eslint/naming-convention
+                dangerouslySetInnerHTML={{ __html: hljs.highlight(children, { language: "typescript" }).value }}
+            /></Paper>
     );
 }

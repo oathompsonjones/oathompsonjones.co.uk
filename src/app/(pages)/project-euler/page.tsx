@@ -2,10 +2,10 @@
 
 import type { ChangeEvent, ReactNode } from "react";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
+import { Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Code } from "components/pages/project-euler/code";
 import type { Response } from "app/api/project-euler/route";
-import { Typography } from "@mui/material";
 import hljs from "highlight.js/lib/common";
 import { useFetch } from "hooks/useFetch";
 
@@ -41,7 +41,7 @@ export default function ProjectEuler(): ReactNode {
     useEffect(() => hljs.highlightAll(), []);
 
     return (
-        <div style={{ textAlign: "center" }}>
+        <>
             <style>{/* CSS */`
                 .plain-button,
                 .plain-input {
@@ -64,15 +64,19 @@ export default function ProjectEuler(): ReactNode {
                     appearance: textfield;
                     -moz-appearance: textfield;
                 }
-                .monospace-text {
+                .monospace {
                     font-family: "Fira Code", monospace;
                 }
                 .red {
                     color: red;
                 }
+                .center {
+                    text-align: center;
+                }
             `}</style>
             <Typography
-                className="monospace-text"
+                className="monospace"
+                textAlign="center"
                 variant="h2"
                 color="inherit"
                 sx={{
@@ -84,30 +88,38 @@ export default function ProjectEuler(): ReactNode {
             >
                 Project Euler
             </Typography>
-            <Typography className="monospace-text" variant="h4" color="inherit">
+            <Typography className="monospace" textAlign="center" variant="h4" color="inherit">
                 <button className="plain-button" onClick={prev}>&lt;|</button>
                 <a href={`https://projecteuler.net/problem=${problem}`}>Problem</a>
                 <input type="number" className="plain-input" min="1" value={problem} onChange={inputHandler} />
                 <button className="plain-button" onClick={next}>|&gt;</button>
             </Typography>
-
-            <Typography className="monospace-text" color="secondary" variant="h5">{title}</Typography>
-            <MathJaxContext
-                version={3}
-                config={{ options: { enableMenu: false } }}>
-                <Typography
-                    className="monospace-text"
-                    variant="body1"
-                    component={MathJax}
-                    // eslint-disable-next-line @typescript-eslint/naming-convention
-                    dangerouslySetInnerHTML={{ __html: description }}
-                    dynamic
-                />
-                <Code>{problemCode}</Code>
-            </MathJaxContext>
-
-            <Typography className="monospace-text" variant="h4" color="inherit">Utils</Typography>
+            <br />
+            <Paper sx={{ border: "3px solid gray", padding: "1rem" }}>
+                <Typography className="monospace" textAlign="center" color="secondary" variant="h5">
+                    {title}
+                </Typography>
+                <MathJaxContext config={{ options: { enableMenu: false } }}>
+                    <MathJax dynamic>
+                        <Typography
+                            className="monospace"
+                            variant="body1"
+                            // eslint-disable-next-line @typescript-eslint/naming-convention
+                            dangerouslySetInnerHTML={{ __html: description }}
+                        />
+                    </MathJax>
+                </MathJaxContext>
+            </Paper>
+            <br />
+            <Typography className="monospace" textAlign="center" variant="h4" color="inherit">
+                Solution
+            </Typography>
+            <Code>{problemCode}</Code>
+            <br />
+            <Typography className="monospace" textAlign="center" variant="h4" color="inherit">
+                Utils
+            </Typography>
             <Code>{utilsCode}</Code>
-        </div>
+        </>
     );
 }
