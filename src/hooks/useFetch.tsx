@@ -42,9 +42,10 @@ function promiseWrapper<T = unknown>(promise: Promise<T>): () => T {
  * Fetches data, then rerenders the page once that data has been fetched, using the behaviour provided by `useState`.
  * @template T - The type of the data to fetch.
  * @param url - The URL to fetch from.
+ * @param type - The type of the data to expect.
  * @returns The data returned, or null if the fetch fails.
  */
-export function useFetch<T = unknown>(url: string): T | null {
+export function useFetch<T = unknown>(url: string, type: T extends string ? "text" : "json"): T | null {
     /* Creates a state variable which will later store the fetched data,
     allowing this Hook to have the same behaviour as the useState Hook. */
     const [resource, setResource] = useState<T | null>(null);
@@ -53,7 +54,7 @@ export function useFetch<T = unknown>(url: string): T | null {
     useEffect(() => {
         // eslint-disable-next-line @typescript-eslint/require-await
         void (async (): Promise<void> => {
-            const data: Promise<T> = fetch(url).then(async (res) => await res.json() as T);
+            const data: Promise<T> = fetch(url).then(async (res) => await res[type]() as T);
 
             setResource(promiseWrapper(data));
         })();

@@ -12,7 +12,7 @@ import { useFetch } from "hooks/useFetch";
  */
 export default function Portfolio(): ReactNode {
     // Calls the backend API to access the repositories from GitHub.
-    const repos = useFetch<Repo[]>("/api/github");
+    const repos = useFetch<Repo[]>("/api/github", "json");
 
     // Renders the portfolio page.
     return (

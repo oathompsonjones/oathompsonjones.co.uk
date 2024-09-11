@@ -12,7 +12,7 @@ import { useFetch } from "hooks/useFetch";
  */
 export default function Gallery(): ReactNode {
     // Calls the backend API to access the posts from Instagram.
-    const posts = useFetch<Post[]>("/api/instagram");
+    const posts = useFetch<Post[]>("/api/instagram", "json");
 
     // Renders the gallery page.
     return (
