@@ -77,7 +77,7 @@ export default function Layout({ children }: { children: ReactNode; }): ReactNod
                         <div
                             style={{
                                 backgroundImage: "radial-gradient(rgba(var(--mui-palette-primary-mainChannel) " +
-                                    "/ 0.5) 5px, transparent 0)",
+                                    "/ 0.5) 2px, transparent 0)",
                                 backgroundSize: "2vw 2vw",
                                 boxShadow: "inset -15vw -15vh 15vw 15vh var(--mui-palette-background-default)",
                                 height: "100vh",
