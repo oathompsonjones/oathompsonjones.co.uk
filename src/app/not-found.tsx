@@ -11,11 +11,11 @@ export const metadata: Metadata = { title: "Oliver Jones | Page Not Found" };
  */
 export default function Error(): ReactNode {
     return (
-        <>
+        <div>
             <Typography gutterBottom variant="h2">Error 404 - Page not found</Typography>
             <Typography variant="subtitle1">
                 These aren't the droids you're looking for. Click <Link href="/">here</Link> to go to the homepage.
             </Typography>
-        </>
+        </div>
     );
 }

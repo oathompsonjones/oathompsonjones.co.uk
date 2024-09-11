@@ -12,7 +12,7 @@ import { Typography } from "@mui/material";
  */
 export default function Error({ error, reset }: { error: Error; reset: () => void; }): ReactNode {
     return (
-        <>
+        <div>
             <Typography gutterBottom variant="h2">Error 500 - Internal server error</Typography>
             <Typography variant="subtitle1">
                 I've got a bad feeling about this. Click <a onClick={reset}>here</a> to try again.
@@ -20,6 +20,6 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
             <Typography variant="caption">
                 {error.message}
             </Typography>
-        </>
+        </div>
     );
 }
