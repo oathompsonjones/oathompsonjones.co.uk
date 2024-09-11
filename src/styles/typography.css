@@ -1,0 +1,9 @@
+a {
+    color: var(--mui-palette-primary-main);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+* {
+    font-variant-ligatures: "contextual";
+}

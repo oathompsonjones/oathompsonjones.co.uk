@@ -1,0 +1,10 @@
+body,
+main,
+footer {
+    transition: background-color 0.25s linear;
+}
+
+p,
+span {
+    transition: color 0.25s linear;
+}

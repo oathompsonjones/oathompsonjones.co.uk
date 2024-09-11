@@ -1,35 +1,3 @@
-/*** Scrolling Behaviour ***/
-html {
-    scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
-}
-
-@media (max-width: 900px) {
-    html {
-        scroll-snap-type: none;
-    }
-}
-
-/*** Colour Transitions ***/
-body,
-main,
-footer {
-    transition: background-color 0.25s linear;
-}
-
-p,
-span {
-    transition: color 0.25s linear;
-}
-
-/*** Links ***/
-a {
-    color: var(--mui-palette-primary-main);
-    cursor: pointer;
-    text-decoration: none;
-}
-
-/*** Layout ***/
 body {
     min-height: 100dvh;
     display: grid;

@@ -1,5 +1,8 @@
 import "@mui/material-pigment-css/styles.css";
-import "styles/global.css";
+import "styles/layout.css";
+import "styles/scrolling.css";
+import "styles/transitions.css";
+import "styles/typography.css";
 import type { Metadata, Viewport } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { Footer } from "components/footer";
