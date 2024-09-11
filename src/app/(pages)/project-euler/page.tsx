@@ -92,19 +92,17 @@ export default function ProjectEuler(): ReactNode {
             </Typography>
 
             <Typography className="monospace-text" color="secondary" variant="h5">{title}</Typography>
-            <MathJaxContext config={{
-                asciimath: { delimiters: [["$", "$"]], displaystyle: true },
-                loader: { load: ["input/asciimath"] },
-            }}>
-                <MathJax inline dynamic>
-                    <Typography
-                        className="monospace-text"
-                        variant="body1"
-                        component="span"
-                        // eslint-disable-next-line @typescript-eslint/naming-convention
-                        dangerouslySetInnerHTML={{ __html: description }}
-                    />
-                </MathJax>
+            <MathJaxContext
+                version={3}
+                config={{ options: { enableMenu: false } }}>
+                <Typography
+                    className="monospace-text"
+                    variant="body1"
+                    component={MathJax}
+                    // eslint-disable-next-line @typescript-eslint/naming-convention
+                    dangerouslySetInnerHTML={{ __html: description }}
+                    dynamic
+                />
                 <Code>{problemCode}</Code>
             </MathJaxContext>
 
