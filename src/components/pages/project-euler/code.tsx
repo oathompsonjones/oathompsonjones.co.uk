@@ -15,6 +15,7 @@ export function Code({ children }: { children: string; }): ReactNode {
                 backgroundColor: "#282C34",
                 border: "3px solid gray",
                 borderRadius: "2vmin",
+                fontFamily: "'Fira Code', monospace",
                 overflow: "auto",
                 padding: "1rem",
                 textAlign: "left",

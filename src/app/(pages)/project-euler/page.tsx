@@ -7,7 +7,6 @@ import { Code } from "components/pages/project-euler/code";
 import type { Response } from "app/api/project-euler/route";
 import { Typography } from "@mui/material";
 import hljs from "highlight.js/lib/common";
-import styles from "styles/project-euler.module.css";
 import { useFetch } from "hooks/useFetch";
 
 /**
@@ -42,8 +41,35 @@ export default function ProjectEuler(): ReactNode {
     useEffect(() => hljs.highlightAll(), []);
 
     return (
-        <div className={styles.wrapper}>
+        <div style={{ textAlign: "center" }}>
+            <style>{/* CSS */`
+                .plain-button,
+                .plain-input {
+                    background: none;
+                    border: none;
+                    color: inherit;
+                    cursor: pointer;
+                    font: inherit;
+                    outline: inherit;
+                    padding: 0;
+                    text-align: center;
+                    width: 2em;
+                }
+                .plain-input::-webkit-outer-spin-button,
+                .plain-input::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+                .plain-input[type=number] {
+                    appearance: textfield;
+                    -moz-appearance: textfield;
+                }
+                .monospace-text {
+                    font-family: "Fira Code", monospace;
+                }
+            `}</style>
             <Typography
+                className="monospace-text"
                 variant="h2"
                 color="inherit"
                 sx={{
@@ -55,20 +81,21 @@ export default function ProjectEuler(): ReactNode {
             >
                 Project Euler
             </Typography>
-            <Typography variant="h4" color="inherit">
-                <button className={styles.button} onClick={prev}>&lt;|</button>
+            <Typography className="monospace-text" variant="h4" color="inherit">
+                <button className="plain-button" onClick={prev}>&lt;|</button>
                 <a href={`https://projecteuler.net/problem=${problem}`}>Problem</a>
-                <input type="number" className={styles.input} min="1" value={problem} onChange={inputHandler} />
-                <button className={styles.button} onClick={next}>|&gt;</button>
+                <input type="number" className="plain-input" min="1" value={problem} onChange={inputHandler} />
+                <button className="plain-button" onClick={next}>|&gt;</button>
             </Typography>
 
-            <Typography color="secondary" variant="h5">{title}</Typography>
+            <Typography className="monospace-text" color="secondary" variant="h5">{title}</Typography>
             <MathJaxContext config={{
                 asciimath: { delimiters: [["$", "$"]], displaystyle: true },
                 loader: { load: ["input/asciimath"] },
             }}>
                 <MathJax inline dynamic>
                     <Typography
+                        className="monospace-text"
                         variant="body1"
                         component="span"
                         // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -78,7 +105,7 @@ export default function ProjectEuler(): ReactNode {
                 <Code>{problemCode}</Code>
             </MathJaxContext>
 
-            <Typography variant="h4" color="inherit">Utils</Typography>
+            <Typography className="monospace-text" variant="h4" color="inherit">Utils</Typography>
             <Code>{utilsCode}</Code>
         </div>
     );
