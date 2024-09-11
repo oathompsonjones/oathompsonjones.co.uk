@@ -67,6 +67,9 @@ export default function ProjectEuler(): ReactNode {
                 .monospace-text {
                     font-family: "Fira Code", monospace;
                 }
+                .red {
+                    color: red;
+                }
             `}</style>
             <Typography
                 className="monospace-text"
