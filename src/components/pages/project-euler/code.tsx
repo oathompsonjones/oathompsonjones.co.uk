@@ -46,10 +46,10 @@ export function Code({ children }: { children: string; }): ReactNode {
                 </Tooltip>
                 <Tooltip title="Toggle font ligatures" placement="top" arrow>
                     <IconButton
+                        className="monospace"
                         onClick={toggleUseLigatures}
                         sx={{
                             borderRadius: "inherit",
-                            fontFamily: "'Fira Code', monospace",
                             fontVariantLigatures: useLigatures ? "contextual" : "none",
                         }}
                     >
@@ -58,10 +58,9 @@ export function Code({ children }: { children: string; }): ReactNode {
                 </Tooltip>
             </ButtonGroup>
             <pre><code
-                className="language-typescript"
+                className="monospace language-typescript"
                 style={{
                     background: "none",
-                    fontFamily: "'Fira Code', monospace",
                     fontVariantLigatures: useLigatures ? "contextual" : "none",
                     overflow: "auto",
                     padding: "1rem",

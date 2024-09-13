@@ -4,6 +4,7 @@ a {
     text-decoration: none;
 }
 
-* {
+.monospace {
+    font-family: "Fira Code", monospace;
     font-variant-ligatures: "contextual";
 }

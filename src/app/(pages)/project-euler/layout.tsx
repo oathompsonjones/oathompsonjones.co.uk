@@ -43,9 +43,6 @@ export default function Layout({ children }: { children: ReactNode; }): ReactNod
                     appearance: textfield;
                     -moz-appearance: textfield;
                 }
-                .monospace {
-                    font-family: "Fira Code", monospace;
-                }
                 .red {
                     color: red;
                 }
