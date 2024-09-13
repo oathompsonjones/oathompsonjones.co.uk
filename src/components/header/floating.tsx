@@ -24,19 +24,13 @@ export function Floating({ pages }: {
                 backdropFilter: "blur(5px) saturate(200%) contrast(50%) brightness(100%)",
                 backgroundColor: "rgba(var(--mui-palette-background-default), 1)",
                 display: { md: "flex", xs: "none" },
-                opacity: "var(--opacity)",
-                pointerEvents: "var(--pointer-events)",
                 position: "fixed",
-                top: "1rem",
-                transition: "opacity 0.25s linear",
+                top: "var(--top)",
+                transition: "top 0.25s linear",
                 zIndex: 1,
             }}
-            style={{
-                /* eslint-disable @typescript-eslint/naming-convention */
-                "--opacity": isScrolling && !isHome ? "100%" : "0%",
-                "--pointer-events": isScrolling && !isHome ? "auto" : "none",
-                /* eslint-enable @typescript-eslint/naming-convention */
-            }}
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            style={{ "--top": isScrolling && !isHome ? "1rem" : "-50px" }}
         >
             {pages.map((page, i) => (
                 <MenuItem
