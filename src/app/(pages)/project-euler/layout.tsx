@@ -23,7 +23,6 @@ export default function Layout({ children }: { children: ReactNode; }): ReactNod
                 rel="stylesheet"
             />
             <style>{/* CSS */`
-                .plain-button,
                 .plain-input {
                     background: none;
                     border: none;

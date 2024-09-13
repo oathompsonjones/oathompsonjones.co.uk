@@ -1,10 +1,11 @@
 "use client";
 
 import type { ChangeEvent, ReactNode } from "react";
+import { IconButton, Paper, Typography } from "@mui/material";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
-import { Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Code } from "components/pages/project-euler/code";
+import Link from "next/link";
 import type { Response } from "app/api/project-euler/route";
 import hljs from "highlight.js/lib/common";
 import { useFetch } from "hooks/useFetch";
@@ -43,10 +44,14 @@ export default function ProjectEuler(): ReactNode {
     return (
         <>
             <Typography className="monospace" textAlign="center" variant="h4" color="inherit">
-                <button className="plain-button" onClick={prev}>&lt;|</button>
-                <a href={`https://projecteuler.net/problem=${problem}`}>Problem</a>
+                <IconButton onClick={prev} className="monospace">
+                    <strong>&lt;|</strong>
+                </IconButton>
+                <Link href={`https://projecteuler.net/problem=${problem}`}>Problem</Link>
                 <input type="number" className="plain-input" min="1" value={problem} onChange={inputHandler} />
-                <button className="plain-button" onClick={next}>|&gt;</button>
+                <IconButton onClick={next} className="monospace">
+                    <strong>|&gt;</strong>
+                </IconButton>
             </Typography>
             <br />
             <Paper sx={{ border: "3px solid gray", padding: "1rem" }}>
