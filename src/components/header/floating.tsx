@@ -1,7 +1,6 @@
 "use client";
 
-import { MenuItem, Typography, useScrollTrigger } from "@mui/material";
-import Box from "components/layout/box";
+import { MenuItem, Paper, Typography, useScrollTrigger } from "@mui/material";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
@@ -19,13 +18,11 @@ export function Floating({ pages }: {
     const isScrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 100 });
 
     return (
-        <Box
+        <Paper
             sx={{
                 alignSelf: "center",
                 backdropFilter: "blur(5px) saturate(200%) contrast(50%) brightness(100%)",
                 backgroundColor: "rgba(var(--mui-palette-background-default), 1)",
-                borderRadius: "2vmin",
-                boxShadow: "0 0 3rem 0 black",
                 display: { md: "flex", xs: "none" },
                 opacity: "var(--opacity)",
                 pointerEvents: "var(--pointer-events)",
@@ -51,6 +48,6 @@ export function Floating({ pages }: {
                     <Typography variant="h5" color="inherit">{page.label}</Typography>
                 </MenuItem>
             ))}
-        </Box>
+        </Paper>
     );
 }

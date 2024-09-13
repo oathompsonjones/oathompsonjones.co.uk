@@ -23,10 +23,10 @@ export function ThemeContextProvider({ children }: { children: ReactNode; }): Re
             light: { palette: { background: { default: basePalette.common.white }, ...basePalette } },
         },
         components: {
-            MuiButton: { styleOverrides: { root: { borderRadius: "2vmin" } } },
+            MuiButton: { styleOverrides: { root: { borderRadius: "999px" } } },
             MuiContainer: { styleOverrides: { root: { padding: "0" } } },
             MuiDivider: { styleOverrides: { root: { margin: "1.25% 0" } } },
-            MuiMenuItem: { styleOverrides: { root: { borderRadius: "2vmin" } } },
+            MuiMenuItem: { styleOverrides: { root: { borderRadius: "999px" } } },
             MuiPaper: {
                 styleOverrides: {
                     root: { transition: "background-color 0.25s linear" },
