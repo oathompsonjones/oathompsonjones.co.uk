@@ -26,6 +26,7 @@ export function ThemeContextProvider({ children }: { children: ReactNode; }): Re
             MuiButton: { styleOverrides: { root: { borderRadius: "999px" } } },
             MuiContainer: { styleOverrides: { root: { padding: "0" } } },
             MuiDivider: { styleOverrides: { root: { margin: "1.25% 0" } } },
+            MuiInputBase: { styleOverrides: { root: { borderRadius: "1rem 1rem 0 0 !important" } } },
             MuiMenuItem: { styleOverrides: { root: { borderRadius: "999px" } } },
             MuiPaper: {
                 styleOverrides: {
