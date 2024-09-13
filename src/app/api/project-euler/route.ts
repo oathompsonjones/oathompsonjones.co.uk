@@ -23,7 +23,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
         .replaceAll(/\${1,2}([^$]+)\${1,2}/g, "\\($1\\)");
 
     const titleData = await fetch("https://projecteuler.net/minimal=problems;csv").then(async (res) => res.text());
-    const title = titleData.split("\n").find((line) => line.startsWith(`${query},`))!.split(",")[1]!;
+    const title = titleData.split("\n").find((line) => line.startsWith(`${query},`))?.split(",")[1] ?? "Unknown";
 
     return NextResponse.json({ description, title });
 }
