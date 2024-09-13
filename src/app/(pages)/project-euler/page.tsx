@@ -43,12 +43,32 @@ export default function ProjectEuler(): ReactNode {
 
     return (
         <>
-            <Typography className="monospace" textAlign="center" variant="h4" color="inherit">
+            <style>{/* CSS */`
+                .plain-input {
+                    background: none;
+                    border: none;
+                    font: inherit;
+                    text-align: center;
+                    width: 2em;
+                }
+                .plain-input[type=number]::-webkit-outer-spin-button,
+                .plain-input[type=number]::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+                .plain-input[type=number] {
+                    appearance: textfield;
+                    -moz-appearance: textfield;
+                }
+            `}</style>
+            <Typography textAlign="center" variant="h4" color="inherit">
                 <IconButton onClick={prev} className="monospace">
                     <strong>&lt;|</strong>
                 </IconButton>
-                <Link href={`https://projecteuler.net/problem=${problem}`}>Problem</Link>
-                <input type="number" className="plain-input" min="1" value={problem} onChange={inputHandler} />
+                <Link className="monospace" href={`https://projecteuler.net/problem=${problem}`}>
+                    Problem
+                </Link>
+                <input className="monospace plain-input" type="number" value={problem} onChange={inputHandler} />
                 <IconButton onClick={next} className="monospace">
                     <strong>|&gt;</strong>
                 </IconButton>
@@ -63,8 +83,10 @@ export default function ProjectEuler(): ReactNode {
                         <Typography
                             className="monospace"
                             variant="body1"
-                            // eslint-disable-next-line @typescript-eslint/naming-convention
+                            /* eslint-disable @typescript-eslint/naming-convention */
+                            sx={{ ".center": { textAlign: "center" }, ".red": { color: "red" } }}
                             dangerouslySetInnerHTML={{ __html: description }}
+                            /* eslint-enable @typescript-eslint/naming-convention */
                         />
                     </MathJax>
                 </MathJaxContext>
