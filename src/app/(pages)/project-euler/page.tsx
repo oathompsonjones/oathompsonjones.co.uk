@@ -15,7 +15,7 @@ import { useFetch } from "hooks/useFetch";
  * @returns An element displaying my project euler solutions.
  */
 export default function ProjectEuler(): ReactNode {
-    const [problem, setProblem] = useState<number>(1);
+    const [problem, setProblem] = useState(1);
 
     const inputHandler = (e: ChangeEvent<HTMLInputElement>): void => setProblem(Math.max(1, Number(e.target.value)));
     const prev = (): void => setProblem((p) => Math.max(1, p - 1));
