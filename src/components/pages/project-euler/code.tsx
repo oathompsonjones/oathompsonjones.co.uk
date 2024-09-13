@@ -64,7 +64,6 @@ export function Code({ children }: { children: string; }): ReactNode {
                     fontVariantLigatures: useLigatures ? "contextual" : "none",
                     overflow: "auto",
                     padding: "1rem",
-                    width: "100%",
                 }}
                 // eslint-disable-next-line @typescript-eslint/naming-convention
                 dangerouslySetInnerHTML={{ __html: hljs.highlight(children, { language: "typescript" }).value }}
