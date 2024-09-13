@@ -2,6 +2,7 @@
     "name": "oathompsonjones-website",
     "version": "0.1.0",
     "homepage": "https://oathompsonjones.co.uk/",
+    "type": "module",
     "scripts": {
         "dev": "next dev",
         "build": "next build",
