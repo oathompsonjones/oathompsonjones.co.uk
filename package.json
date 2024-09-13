@@ -9,7 +9,7 @@
         "lint": "eslint ."
     },
     "devDependencies": {
-        "@oathompsonjones/eslint-config": "^1.5.4",
+        "@oathompsonjones/eslint-config": "^1.5.5",
         "@oathompsonjones/ts-config": "^0.0.35",
         "@pigment-css/nextjs-plugin": "^0.0.22",
         "@types/http-proxy": "^1.17.15",
