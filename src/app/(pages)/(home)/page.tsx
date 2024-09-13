@@ -9,6 +9,7 @@ import { Main } from "components/pages/home/main";
 import { ProfilePicture } from "components/pages/home/profilePicture";
 import type { ReactNode } from "react";
 import { Section } from "components/pages/home/section";
+import { useMediaQuery } from "@mui/system";
 import { useThemeMode } from "hooks/useThemeMode";
 import { useWindowSize } from "hooks/useWindowSize";
 
@@ -17,6 +18,7 @@ import { useWindowSize } from "hooks/useWindowSize";
  * @returns The home page.
  */
 export default function Home(): ReactNode {
+    const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
     const { height, width } = useWindowSize();
     const [, forceRerenderState] = useState(0);
     const forceRerender = (): void => forceRerenderState(Math.random());
@@ -33,7 +35,7 @@ export default function Home(): ReactNode {
             const visibleIndex = Math.round(window.scrollY / window.innerHeight);
 
             // Update the position and size of the avatar
-            if (avatar !== undefined) {
+            if (!reducedMotion && avatar !== undefined) {
                 avatar.style.left = `${(visibleIndex === 0 ? pos1 : pos2)?.x ?? 0}px`;
                 avatar.style.top = `${(visibleIndex === 0 ? pos1 : pos2)?.y ?? 0}px`;
                 avatar.style.width = `${(visibleIndex === 0 ? pos1 : pos2)?.width ?? 0}px`;
@@ -44,9 +46,6 @@ export default function Home(): ReactNode {
             fadingDivs.forEach((div, index) => {
                 div.style.filter = `opacity(${Number(index === visibleIndex) * 100}%)`;
             });
-
-            if (avatar !== undefined)
-                avatar.style.filter = `opacity(${visibleIndex > 1 ? 0 : 100}%)`;
         } else {
             fadingDivs.forEach((div) => {
                 div.style.filter = "opacity(100%)";
@@ -71,7 +70,7 @@ export default function Home(): ReactNode {
     return (
         <>
             <Background />
-            <ProfilePicture />
+            {!reducedMotion && <ProfilePicture />}
             <Section>
                 <FadingDiv>
                     <Main />

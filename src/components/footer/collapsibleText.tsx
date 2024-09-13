@@ -28,11 +28,15 @@ export function CollapsibleText({ beginningText, collapsibleText, endingText, id
 }): ReactNode {
     const [expandName, setExpandName] = useState(false);
     const showAnimation = useMediaQuery((theme: Theme) => theme.breakpoints.up(minScreenSize ?? "xs"));
+    const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
     const { theme: { palette: { secondary: { main } } } } = useThemeMode();
 
     const spanCount = beginningText.length + collapsibleText.length + endingText.length;
 
     useEffect(() => {
+        if (reducedMotion)
+            return;
+
         if (expandName) {
             document.querySelectorAll<HTMLElement>(`#${id} .collapsible`)
                 .forEach((element: HTMLElement) => {

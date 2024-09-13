@@ -1,4 +1,6 @@
-import { Avatar } from "@mui/material";
+"use client";
+
+import { Avatar, useMediaQuery } from "@mui/material";
 import { GRAVATAR_URL } from "utils";
 import type { ReactNode } from "react";
 
@@ -10,6 +12,7 @@ import type { ReactNode } from "react";
  */
 export function ProfilePicture({ positioner }: { positioner?: boolean; }): ReactNode {
     const isPositioner = positioner ?? false;
+    const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
     return (
         <Avatar
@@ -35,10 +38,10 @@ export function ProfilePicture({ positioner }: { positioner?: boolean; }): React
             }}
             style={{
                 /* eslint-disable @typescript-eslint/naming-convention */
-                "--boxShadow": isPositioner ? "0" : "20",
-                "--display": isPositioner ? "block" : "none",
-                "--filter": isPositioner ? "opacity(0%)" : "",
-                "--position": isPositioner ? "" : "fixed",
+                "--boxShadow": isPositioner && !reducedMotion ? "0" : "20",
+                "--display": isPositioner && !reducedMotion ? "block" : "none",
+                "--filter": isPositioner && !reducedMotion ? "opacity(0%)" : "",
+                "--position": isPositioner || reducedMotion ? "" : "fixed",
                 /* eslint-enable @typescript-eslint/naming-convention */
             }}
         />

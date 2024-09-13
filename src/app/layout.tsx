@@ -5,6 +5,7 @@ import "styles/transitions.css";
 import "styles/typography.css";
 import type { Metadata, Viewport } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
+import { Background } from "components/background";
 import { Footer } from "components/footer";
 import { Header } from "components/header";
 import InitColorSchemeScript from "@mui/system/InitColorSchemeScript";
@@ -74,22 +75,7 @@ export default function Layout({ children }: { children: ReactNode; }): ReactNod
                 <InitColorSchemeScript attribute="class" />
                 <AppRouterCacheProvider>
                     <ThemeContextProvider>
-                        <div
-                            style={{
-                                backgroundImage: "radial-gradient(rgba(var(--mui-palette-primary-mainChannel) " +
-                                    "/ 0.5) 2px, transparent 0)",
-                                backgroundSize: "2vw 2vw",
-                                boxShadow: "inset -15vw -15vh 15vw 15vh var(--mui-palette-background-default)",
-                                height: "100vh",
-                                left: 0,
-                                overflow: "hidden",
-                                position: "fixed",
-                                top: 0,
-                                transition: "box-shadow 0.25s linear",
-                                width: "100vw",
-                                zIndex: -10,
-                            }}
-                        />
+                        <Background />
                         <ScrollToTop />
                         <Header />
                         <main>{children}</main>
