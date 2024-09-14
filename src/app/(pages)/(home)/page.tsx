@@ -48,7 +48,7 @@ export default function Home(): ReactNode {
             });
 
             if (!reducedMotion && avatar !== undefined)
-                avatar.style.filter = `opacity(${Number(visibleIndex > 1) * 100}%)`;
+                avatar.style.filter = `opacity(${Number(visibleIndex < 2) * 100}%)`;
         } else {
             fadingDivs.forEach((div) => {
                 div.style.filter = "opacity(100%)";
