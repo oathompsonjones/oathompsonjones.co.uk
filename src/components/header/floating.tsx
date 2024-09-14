@@ -15,7 +15,7 @@ export function Floating({ pages }: {
     pages: Array<{ label: string; link: string; }>;
 }): ReactNode {
     const isHome: boolean = usePathname() === "/";
-    const isScrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 100 });
+    const isScrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 75 });
 
     return (
         <Paper
