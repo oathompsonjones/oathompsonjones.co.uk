@@ -65,8 +65,11 @@ export default function ProjectEuler(): ReactNode {
                     background: none;
                     border: none;
                     font: inherit;
+                    outline: none;
+                    padding: 0;
+                    margin: 0.5rem;
                     text-align: center;
-                    width: 2em;
+                    width: ${problem.toString().length}ch;
                 }
                 .plain-input[type=number]::-webkit-outer-spin-button,
                 .plain-input[type=number]::-webkit-inner-spin-button {
