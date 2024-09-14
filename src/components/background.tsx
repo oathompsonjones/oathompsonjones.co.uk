@@ -43,7 +43,7 @@ export function Background(): ReactNode {
                 private readonly showWhite: boolean,
                 private readonly opacity: number,
             ) {
-                this.opacity /= 3;
+                this.opacity /= 2;
                 this.switchInterval = Math.round(Math.random() * (20 - 5) + 5);
                 this.setToRandomSymbol();
             }
