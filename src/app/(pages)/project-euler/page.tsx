@@ -1,10 +1,11 @@
 "use client";
 
 import type { ChangeEvent, ReactNode } from "react";
-import { IconButton, Paper, Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { useEffect, useState } from "react";
 import { Code } from "components/pages/project-euler/code";
+import { CodeWrapper } from "components/pages/project-euler/codeWrapper";
 import Link from "next/link";
 import type { Response } from "app/api/project-euler/route";
 import hljs from "highlight.js/lib/common";
@@ -94,23 +95,25 @@ export default function ProjectEuler(): ReactNode {
                 </IconButton>
             </Typography>
             <br />
-            <Paper sx={{ border: "3px solid gray", padding: "1rem" }}>
-                <Typography className="monospace" textAlign="center" color="secondary" variant="h5">
-                    {title}
-                </Typography>
-                <MathJaxContext config={{ options: { enableMenu: false } }}>
-                    <MathJax dynamic>
-                        <Typography
-                            className="monospace"
-                            variant="body1"
-                            /* eslint-disable @typescript-eslint/naming-convention */
-                            sx={{ ".center": { textAlign: "center" }, ".red": { color: "red" } }}
-                            dangerouslySetInnerHTML={{ __html: description }}
+            <CodeWrapper>
+                <div style={{ overflow: "auto", padding: "1rem" }}>
+                    <Typography className="monospace" textAlign="center" color="secondary" variant="h5">
+                        {title}
+                    </Typography>
+                    <MathJaxContext config={{ options: { enableMenu: false } }}>
+                        <MathJax dynamic>
+                            <Typography
+                                className="monospace"
+                                variant="body1"
+                                /* eslint-disable @typescript-eslint/naming-convention */
+                                sx={{ ".center": { textAlign: "center" }, ".red": { color: "red" } }}
+                                dangerouslySetInnerHTML={{ __html: description }}
                             /* eslint-enable @typescript-eslint/naming-convention */
-                        />
-                    </MathJax>
-                </MathJaxContext>
-            </Paper>
+                            />
+                        </MathJax>
+                    </MathJaxContext>
+                </div>
+            </CodeWrapper>
             <br />
             <Typography className="monospace" textAlign="center" variant="h4" color="inherit">
                 Solution

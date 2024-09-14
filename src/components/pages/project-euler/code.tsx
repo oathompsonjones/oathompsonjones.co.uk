@@ -1,4 +1,5 @@
-import { ButtonGroup, IconButton, Paper, Tooltip } from "@mui/material";
+import { ButtonGroup, IconButton, Tooltip } from "@mui/material";
+import { CodeWrapper } from "./codeWrapper";
 import { ContentCopy } from "@mui/icons-material";
 import type { ReactNode } from "react";
 import hljs from "highlight.js/lib/common";
@@ -19,16 +20,7 @@ export function Code({ children }: { children: string; }): ReactNode {
     };
 
     return (
-        <Paper
-            sx={{
-                border: "3px solid gray",
-                overflow: "hidden",
-                position: "relative",
-                textAlign: "left",
-            }}
-            onMouseEnter={(): void => setShowButtons(true)}
-            onMouseLeave={(): void => setShowButtons(false)}
-        >
+        <CodeWrapper onMouseEnter={(): void => setShowButtons(true)} onMouseLeave={(): void => setShowButtons(false)}>
             <ButtonGroup
                 sx={{
                     opacity: showButtons ? 1 : 0,
@@ -57,7 +49,7 @@ export function Code({ children }: { children: string; }): ReactNode {
                     </IconButton>
                 </Tooltip>
             </ButtonGroup>
-            <pre><code
+            <pre style={{ margin: 0 }}><code
                 className="monospace language-typescript"
                 style={{
                     background: "none",
@@ -68,6 +60,6 @@ export function Code({ children }: { children: string; }): ReactNode {
                 // eslint-disable-next-line @typescript-eslint/naming-convention
                 dangerouslySetInnerHTML={{ __html: hljs.highlight(children, { language: "typescript" }).value }}
             /></pre>
-        </Paper>
+        </CodeWrapper>
     );
 }
