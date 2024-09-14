@@ -4,7 +4,6 @@ import "styles/scrolling.css";
 import "styles/transitions.css";
 import "styles/typography.css";
 import type { Metadata, Viewport } from "next";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { Background } from "components/background";
 import { Footer } from "components/footer";
 import { Header } from "components/header";
@@ -73,15 +72,13 @@ export default function Layout({ children }: { children: ReactNode; }): ReactNod
             <body>
                 <noscript>You need to enable JavaScript to run this app.</noscript>
                 <InitColorSchemeScript attribute="class" />
-                <AppRouterCacheProvider>
-                    <ThemeContextProvider>
-                        <Background />
-                        <ScrollToTop />
-                        <Header />
-                        <main>{children}</main>
-                        <Footer />
-                    </ThemeContextProvider>
-                </AppRouterCacheProvider>
+                <ThemeContextProvider>
+                    <Background />
+                    <ScrollToTop />
+                    <Header />
+                    <main>{children}</main>
+                    <Footer />
+                </ThemeContextProvider>
             </body>
         </html>
     );
