@@ -1,9 +1,8 @@
-import { Divider, IconButton, Tooltip } from "@mui/material";
+import { ButtonGroup, Divider, IconButton, Tooltip } from "@mui/material";
 import { Email, Facebook, GitHub, Instagram, LinkedIn } from "@mui/icons-material";
 import { Discord } from "components/icons/Discord";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import Stack from "components/layout/stack";
 import { StackOverflow } from "components/icons/StackOverflow";
 import { TwitterX } from "components/icons/TwitterX";
 
@@ -26,24 +25,25 @@ export function SocialLinks({ dividers = false }: { dividers?: boolean; }): Reac
         { icon: <Facebook />, label: "Facebook", link: "/facebook" },
     ];
 
-    const divider = dividers ? <Divider flexItem orientation="vertical" sx={{ m: 0 }} /> : undefined;
-
     return (
-        <Stack direction="row" divider={divider} sx={{ alignItems: "center", justifyContent: "space-evenly" }}>
+        <ButtonGroup sx={{ alignItems: "center", justifyContent: "space-evenly" }}>
             {socials.map(({ icon, label, link }, i) => (
-                <Tooltip key={i} title={label} arrow>
-                    <IconButton
-                        component={Link}
-                        href={link}
-                        prefetch={false}
-                        sx={{ color: "inherit", padding: "var(--padding)" }}
-                        // eslint-disable-next-line @typescript-eslint/naming-convention
-                        style={{ "--padding": dividers ? "0.5rem" : "0" }}
-                    >
-                        {icon}
-                    </IconButton>
-                </Tooltip>
+                <>
+                    {dividers && i > 0 && <Divider key={`divider-${i}`} orientation="vertical" />}
+                    <Tooltip key={`tooltip-${i}`} title={label} arrow>
+                        <IconButton
+                            component={Link}
+                            href={link}
+                            prefetch={false}
+                            sx={{ color: "inherit", padding: "var(--padding)" }}
+                            // eslint-disable-next-line @typescript-eslint/naming-convention
+                            style={{ "--padding": dividers ? "0.5rem" : "0" }}
+                        >
+                            {icon}
+                        </IconButton>
+                    </Tooltip>
+                </>
             ))}
-        </Stack>
+        </ButtonGroup>
     );
 }
