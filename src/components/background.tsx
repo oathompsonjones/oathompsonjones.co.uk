@@ -8,6 +8,7 @@ import type { Sketch } from "@p5-wrapper/react";
 import type p5 from "p5";
 import { useMediaQuery } from "@mui/system";
 import { useThemeMode } from "hooks/useThemeMode";
+import { useWindowSize } from "hooks/useWindowSize";
 
 /**
  * A div which will be used to either fade in or out.
@@ -16,6 +17,8 @@ import { useThemeMode } from "hooks/useThemeMode";
 export function Background(): ReactNode {
     const { themeColour, theme } = useThemeMode();
     const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
+
+    useWindowSize();
 
     const hexToRgb = (hex: string): [number, number, number] => (hex.replace(/#/g, "")
         .match(/.{1,2}/g)?.map((x) => parseInt(x, 16)) ?? [0, 0, 0]) as [number, number, number];
