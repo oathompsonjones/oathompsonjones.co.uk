@@ -16,6 +16,7 @@ import { useFetch } from "hooks/useFetch";
  */
 export default function ProjectEuler(): ReactNode {
     const [problem, setProblem] = useState(1);
+    const [hasMounted, setHasMounted] = useState(false);
 
     const inputHandler = (e: ChangeEvent<HTMLInputElement>): void => setProblem(Math.max(1, Number(e.target.value)));
     const prev = (): void => setProblem((p) => Math.max(1, p - 1));
@@ -43,7 +44,19 @@ export default function ProjectEuler(): ReactNode {
         "// Something went wrong while fetching the utils file, please try again later.",
     );
 
-    useEffect(() => hljs.highlightAll(), []);
+    useEffect(() => {
+        if (hasMounted)
+            window.location.hash = problem.toString();
+    }, [problem]);
+
+    useEffect(() => {
+        setHasMounted(true);
+
+        if (window.location.hash !== "" && !isNaN(Number(window.location.hash.slice(1))))
+            setProblem(Number(window.location.hash.slice(1)));
+
+        hljs.highlightAll();
+    }, []);
 
     return (
         <>
