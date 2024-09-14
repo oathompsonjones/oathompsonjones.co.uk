@@ -29,15 +29,19 @@ export default function ProjectEuler(): ReactNode {
 
         return `https://raw.githubusercontent.com/oathompsonjones/Project-Euler/master/src/${path}`;
     })();
-    const problemCode = (useFetch<string>(problemFile, "text") ?? "404: Not Found")
-        .replace("404: Not Found", "// The solution to this problem is not available. I may not have solved it yet.");
+    const problemCode = (useFetch<string>(problemFile, "text") ?? "404: Not Found").replace(
+        "404: Not Found",
+        "// The solution to this problem is not available. I may not have solved it yet, or it may not exist.",
+    );
     const problemData = useFetch<Response>(`/api/project-euler?problem=${problem}`, "json");
     const title = problemData?.title ?? "";
     const description = problemData?.description ?? "";
 
     const utilsFile = "https://raw.githubusercontent.com/oathompsonjones/Project-Euler/master/src/utils.ts";
-    const utilsCode = (useFetch<string>(utilsFile, "text") ?? "404: Not Found")
-        .replace("404: Not Found", "// Something went wrong while fetching the utils file, please try again later.");
+    const utilsCode = (useFetch<string>(utilsFile, "text") ?? "404: Not Found").replace(
+        "404: Not Found",
+        "// Something went wrong while fetching the utils file, please try again later.",
+    );
 
     useEffect(() => hljs.highlightAll(), []);
 
