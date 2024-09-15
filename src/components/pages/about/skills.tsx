@@ -15,7 +15,7 @@ export function Skills(): ReactNode {
     const skills = data.Skills.map(jsonToJSDoc);
 
     return (
-        <>
+        <div>
             <Typography variant="h3">Skills</Typography>
             <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
                 {skills.map((skill, i) => (
@@ -25,6 +25,6 @@ export function Skills(): ReactNode {
                     </span>
                 ))}
             </Typography>
-        </>
+        </div>
     );
 }

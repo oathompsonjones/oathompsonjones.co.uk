@@ -1,4 +1,3 @@
-import Box from "components/layout/box";
 import { ContactForm } from "components/pages/contact/contactForm";
 import type { ReactNode } from "react";
 import { Typography } from "@mui/material";
@@ -9,9 +8,9 @@ import { Typography } from "@mui/material";
  */
 export function Contact(): ReactNode {
     return (
-        <Box sx={{ display: "flex", flex: 1, flexDirection: "column", height: "100%" }}>
+        <div className="wrapper">
             <Typography variant="h1">Contact Me</Typography>
             <ContactForm />
-        </Box>
+        </div>
     );
 }

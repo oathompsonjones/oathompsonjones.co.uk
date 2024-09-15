@@ -2,9 +2,10 @@
 
 import { Alert, Button, Paper, TextField } from "@mui/material";
 import type { ChangeEvent, FormEvent, ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { Send } from "@mui/icons-material";
 import Stack from "components/layout/stack";
-import { useState } from "react";
+import { useWindowSize } from "hooks/useWindowSize";
 
 /**
  * A contact form.
@@ -18,6 +19,16 @@ export function ContactForm(): ReactNode {
     const [subject, setSubject] = useState("");
     // Handles the success status of the form.
     const [status, setStatus] = useState<boolean | null>(null);
+
+    const { height } = useWindowSize();
+    const [contentRows, setContentRows] = useState(1);
+
+    useEffect(() => {
+        const field = document.querySelector("textarea[name=content]")!;
+        const lineHeight = parseFloat(getComputedStyle(field).lineHeight);
+
+        setContentRows(Math.floor(height / lineHeight / 3));
+    }, [height]);
 
     /**
      * Handles the submission of the form.
@@ -81,11 +92,8 @@ export function ContactForm(): ReactNode {
             onSubmit={handleSubmit}
             sx={{
                 display: "flex",
-                flex: 1,
                 flexDirection: "column",
                 gap: 2,
-                height: "100%",
-                mb: "1rem",
                 p: "1rem",
             }}
         >
@@ -96,20 +104,13 @@ export function ContactForm(): ReactNode {
             </Stack>
             <TextField label="Subject" name="subject" onChange={update.bind("subject")} value={subject} />
             <TextField
-                label="Content" name="content" onChange={update.bind("content")} value={content}
-                multiline sx={{
-                    // eslint-disable-next-line @typescript-eslint/naming-convention
-                    "> div": {
-                        // eslint-disable-next-line @typescript-eslint/naming-convention
-                        "> textarea": { flex: 1, height: "100%" },
-                        display: "flex",
-                        flex: 1,
-                        flexDirection: "column",
-                        height: "100%",
-                    },
-                    flex: 1,
-                    height: "100%",
-                }} />
+                label="Content"
+                name="content"
+                onChange={update.bind("content")}
+                value={content}
+                multiline
+                rows={Math.min(Math.max(5, contentRows), 30)}
+            />
             <Button endIcon={<Send />} type="submit">Send</Button>
         </Paper>
     );

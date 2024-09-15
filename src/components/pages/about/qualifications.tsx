@@ -11,7 +11,7 @@ import { University } from "./university";
  */
 export function Qualifications(): ReactNode {
     return (
-        <>
+        <div>
             <Typography variant="h3">Qualifications</Typography>
             <Divider />
             <Grid container spacing={2}>
@@ -25,6 +25,6 @@ export function Qualifications(): ReactNode {
                     <University />
                 </Grid>
             </Grid>
-        </>
+        </div>
     );
 }

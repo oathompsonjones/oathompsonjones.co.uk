@@ -14,7 +14,7 @@ import { Volunteering } from "components/pages/about/volunteering";
  */
 export default function About(): ReactNode {
     return (
-        <div>
+        <>
             <Stack direction="row">
                 <Typography variant="h2" sx={{ flex: 1 }}>About Me</Typography>
                 <DynamicButton LinkComponent="a" href="/cv" sx={{ alignSelf: "center", float: "right", m: "1%" }}>
@@ -22,14 +22,10 @@ export default function About(): ReactNode {
                 </DynamicButton>
             </Stack>
             <Bio />
-            <br /><br />
             <Skills />
-            <br /><br />
             <Qualifications />
-            <br /><br />
             <Experience />
-            <br /><br />
             <Volunteering />
-        </div>
+        </>
     );
 }

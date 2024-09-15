@@ -12,7 +12,7 @@ export const metadata: Metadata = { title: "Oliver Jones | Project Euler" };
  */
 export default function Layout({ children }: { children: ReactNode; }): ReactNode {
     return (
-        <div>
+        <>
             {/* eslint-disable-next-line @next/next/no-page-custom-font */}
             <link
                 href="https://fonts.googleapis.com/css?family=Fira Code&display=optional"
@@ -33,6 +33,6 @@ export default function Layout({ children }: { children: ReactNode; }): ReactNod
                 Project Euler
             </Typography>
             {children}
-        </div>
+        </>
     );
 }

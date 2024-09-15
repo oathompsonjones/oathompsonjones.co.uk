@@ -7,29 +7,33 @@ import { Typography } from "@mui/material";
  */
 export default function Arcade(): ReactNode {
     return (
-        <div>
+        <>
             <Typography variant="h2">Would you like to play a game?</Typography>
-            <Typography variant="h6">Upcoming Games</Typography>
-            <Typography variant="body1">
-                - Noughts and Crosses   <br />
-                - Connect 4             <br />
-                - Battleships           <br />
-                - Checkers              <br />
-                - Chess                 <br />
-                - Pong                  <br />
-                - Breakout              <br />
-                - Snake                 <br />
-                - Space Invaders        <br />
-                - PacMan                <br />
-                - Tetris                <br />
-                - Solitaire             <br />
-            </Typography>
-            <Typography variant="h6">Upcoming Game Modes</Typography>
-            <Typography variant="body1">
-                - 2 players - user vs user <i>(where appropriate)</i>               <br />
-                - 1 player - user vs CPU <i>(or just user where appropriate)</i>    <br />
-                - 0 players - CPU vs CPU <i>(or just CPU where appropriate)</i>     <br />
-            </Typography>
-        </div>
+            <div>
+                <Typography variant="h6">Upcoming Games</Typography>
+                <Typography variant="body1" component="ul">
+                    <li>Noughts and Crosses</li>
+                    <li>Connect 4</li>
+                    <li>Battleships</li>
+                    <li>Checkers</li>
+                    <li>Chess</li>
+                    <li>Pong</li>
+                    <li>Breakout</li>
+                    <li>Snake</li>
+                    <li>Space Invaders</li>
+                    <li>PacMan</li>
+                    <li>Tetris</li>
+                    <li>Solitaire</li>
+                </Typography>
+            </div>
+            <div>
+                <Typography variant="h6">Upcoming Game Modes</Typography>
+                <Typography variant="body1" component="ul">
+                    <li>2 players - user vs user <i>(where appropriate)</i></li>
+                    <li>1 player - user vs CPU <i>(or just user where appropriate)</i></li>
+                    <li>0 players - CPU vs CPU <i>(or just CPU where appropriate)</i></li>
+                </Typography>
+            </div>
+        </>
     );
 }

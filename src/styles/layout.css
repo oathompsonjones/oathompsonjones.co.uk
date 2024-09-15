@@ -2,29 +2,7 @@
     border: 0.01px yellow solid !important;
 }
 
-body {
-    min-height: 100dvh;
-    display: grid;
-    grid-template-rows: [header-start] auto [header-end main-start] 1fr [main-end] 1rem [footer-start] auto [footer-end];
-}
-
-header {
-    grid-column: edge;
-    grid-row: header;
-}
-
-main {
-    grid-column: edge;
-    grid-row: main;
-}
-
-footer {
-    grid-column: edge;
-    grid-row: footer;
-}
-
 body,
-main,
 .wrapper {
     --padding: 1rem;
     --gutter: minmax(0, 1fr);
@@ -36,32 +14,52 @@ main,
     grid-template-columns: [edge-start] var(--padding) [full-width-start] var(--gutter) [breakout-start breakout-left-start] var(--breakout) [content-start breakout-right-start] var(--content) [content-end breakout-left-end] var(--breakout) [breakout-end breakout-right-end] var(--gutter) [full-width-end] var(--padding) [edge-end];
 }
 
-main>*,
-.wrapper>* {
+* {
     grid-column: content;
 }
 
-main>.breakout,
-.wrapper>.breakout {
+.breakout {
     grid-column: breakout;
 }
 
-main>.breakout-left,
-.wrapper>.breakout-left {
+.breakout-left {
     grid-column: breakout-left;
 }
 
-main>.breakout-right,
-.wrapper>.breakout-right {
+.breakout-right {
     grid-column: breakout-right;
 }
 
-main>.full-width,
-.wrapper>.full-width {
+.full-width {
     grid-column: full-width;
 }
 
-main>.edge,
-.wrapper>.edge {
+.edge {
+    grid-column: edge;
+}
+
+body {
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: [header-start] auto [header-end main-start] 1fr [main-end footer-start] auto [footer-end];
+}
+
+header {
+    grid-row: header;
+    grid-column: edge;
+}
+
+main {
+    grid-row: main;
+    grid-column: edge;
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-auto-rows: min-content;
+    row-gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+footer {
+    grid-row: footer;
     grid-column: edge;
 }

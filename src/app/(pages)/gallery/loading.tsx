@@ -16,24 +16,22 @@ export default function Loading(): ReactNode {
     const heights = Array(skeletonCount).fill(0).map(() => (Math.random() / 2 + 0.5) * width);
 
     return (
-        <>
-            <Masonry columns={{ lg: 6, sm: 3, xs: 1 }}>
-                {Array(skeletonCount).fill(0).map((_, i) => (
-                    <Skeleton
-                        key={i}
-                        sx={{
-                            height: {
-                                lg: "calc(var(--height) / 6)",
-                                sm: "calc(var(--height) / 3)",
-                                xs: "var(--height)",
-                            },
-                        }}
-                        // eslint-disable-next-line @typescript-eslint/naming-convention
-                        style={{ "--height": `${heights[i]!}px` }}
-                        variant="rectangular"
-                    />
-                ))}
-            </Masonry>
-        </>
+        <Masonry columns={{ lg: 6, sm: 3, xs: 1 }}>
+            {Array(skeletonCount).fill(0).map((_, i) => (
+                <Skeleton
+                    key={i}
+                    sx={{
+                        height: {
+                            lg: "calc(var(--height) / 6)",
+                            sm: "calc(var(--height) / 3)",
+                            xs: "var(--height)",
+                        },
+                    }}
+                    // eslint-disable-next-line @typescript-eslint/naming-convention
+                    style={{ "--height": `${heights[i]!}px` }}
+                    variant="rectangular"
+                />
+            ))}
+        </Masonry>
     );
 }

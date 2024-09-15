@@ -94,7 +94,6 @@ export default function ProjectEuler(): ReactNode {
                     <strong>|&gt;</strong>
                 </IconButton>
             </Typography>
-            <br />
             <CodeWrapper>
                 <div style={{ overflow: "auto", padding: "1rem" }}>
                     <Typography className="monospace" textAlign="center" color="secondary" variant="h5">
@@ -108,22 +107,24 @@ export default function ProjectEuler(): ReactNode {
                                 /* eslint-disable @typescript-eslint/naming-convention */
                                 sx={{ ".center": { textAlign: "center" }, ".red": { color: "red" } }}
                                 dangerouslySetInnerHTML={{ __html: description }}
-                            /* eslint-enable @typescript-eslint/naming-convention */
+                                /* eslint-enable @typescript-eslint/naming-convention */
                             />
                         </MathJax>
                     </MathJaxContext>
                 </div>
             </CodeWrapper>
-            <br />
-            <Typography className="monospace" textAlign="center" variant="h4" color="inherit">
-                Solution
-            </Typography>
-            <Code>{problemCode}</Code>
-            <br />
-            <Typography className="monospace" textAlign="center" variant="h4" color="inherit">
-                Utils
-            </Typography>
-            <Code>{utilsCode}</Code>
+            <div>
+                <Typography className="monospace" textAlign="center" variant="h4" color="inherit">
+                    Solution
+                </Typography>
+                <Code>{problemCode}</Code>
+            </div>
+            <div>
+                <Typography className="monospace" textAlign="center" variant="h4" color="inherit">
+                    Utils
+                </Typography>
+                <Code>{utilsCode}</Code>
+            </div>
         </>
     );
 }

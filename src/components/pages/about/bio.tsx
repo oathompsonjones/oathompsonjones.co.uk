@@ -13,7 +13,7 @@ import { jsonToJSDoc } from "app/(pages)/cv";
  */
 export function Bio(): ReactNode {
     return (
-        <>
+        <div>
             <Grid container spacing={2}>
                 <Grid size={{ md: 4, sm: 5, xs: 6 }}>
                     <Avatar src={GRAVATAR_URL} sx={{ height: "auto", width: "100%" }} />
@@ -35,6 +35,6 @@ export function Bio(): ReactNode {
             <Typography sx={{ whiteSpace: "pre-wrap" }}>
                 {jsonToJSDoc(cv.Summary)}
             </Typography>
-        </>
+        </div>
     );
 }

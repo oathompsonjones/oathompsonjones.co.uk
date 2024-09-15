@@ -18,7 +18,7 @@ export function Volunteering(): ReactNode {
     }));
 
     return (
-        <>
+        <div>
             <Typography variant="h3">Volunteering</Typography>
             {volunteering.map(({ content, heading }, i) => (
                 <div key={i}>
@@ -27,6 +27,6 @@ export function Volunteering(): ReactNode {
                     <Typography variant="body2" sx={{ whiteSpace: "pre-wrap" }}>{content}</Typography>
                 </div>
             ))}
-        </>
+        </div>
     );
 }
