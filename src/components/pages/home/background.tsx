@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
-import desk from "images/desk.jpg";
+import desk from "assets/images/desk.jpg";
 import { useThemeMode } from "hooks/useThemeMode";
 
 /**

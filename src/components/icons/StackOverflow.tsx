@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import StackOverflowLogo from "images/stackOverflow.svg";
+import StackOverflowLogo from "assets/images/stackOverflow.svg";
 import SvgIcon from "@mui/material/SvgIcon";
 
 /**
