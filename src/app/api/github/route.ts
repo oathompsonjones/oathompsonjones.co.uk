@@ -1,5 +1,6 @@
 import { Canvas, Image } from "canvas";
 import { NextResponse } from "next/server";
+import { graphql } from "@octokit/graphql";
 
 export type Repo = {
     description: string;
@@ -37,17 +38,16 @@ type APIResponse = {
 
 /**
  * Generates an image from an image binary.
- * @param imageBinaries - The binary data of the images.
- * @param i - The index of the image to generate.
+ * @param arrayBuffer - The binary data of the image.
  * @returns The resized image.
  */
-function generateImage(imageBinaries: ArrayBuffer[], i: number): string {
+function generateImage(arrayBuffer: ArrayBuffer): string {
     const average = (l: Uint8ClampedArray): number => l.reduce((a, b) => a + b, 0) / l.length;
     const colourToHex = (c: number): string => Math.round(c).toString(16).padStart(2, "0");
 
     const image: Image = new Image();
 
-    image.src = Buffer.from(imageBinaries[i]!);
+    image.src = Buffer.from(arrayBuffer);
 
     // Get the average colour of the image.
     let canvas = new Canvas(image.width, image.height);
@@ -93,8 +93,7 @@ export const dynamic = "force-dynamic";
  * @returns The response.
  */
 export async function GET(): Promise<NextResponse> {
-    const graphqlWithAuth = (await import("@octokit/graphql")).graphql
-        .defaults({ headers: { authorization: process.env.GITHUB_TOKEN } });
+    const graphqlWithAuth = graphql.defaults({ headers: { authorization: process.env.GITHUB_TOKEN } });
     const { user: { repositories: { repos } } } = await graphqlWithAuth<APIResponse>(`{
         user(login: "oathompsonjones") {
             repositories(first: 100, isFork: false, ownerAffiliations: OWNER) {
@@ -119,13 +118,13 @@ export async function GET(): Promise<NextResponse> {
         }
     }`);
 
-    const imageBinaries: ArrayBuffer[] = await Promise.all(
-        repos.map(async (repo) => fetch(repo.openGraphImageUrl).then(async (res) => res.arrayBuffer())),
-    );
-    const formattedRepos: Repo[] = repos.map((repo, i) => ({
-        ...repo,
-        image: generateImage(imageBinaries, i),
-    }));
+    const imageArrayBuffers: Array<Promise<ArrayBuffer>> = repos
+        .map(async (repo) => fetch(repo.openGraphImageUrl).then(async (res) => res.arrayBuffer()));
 
-    return NextResponse.json(formattedRepos);
+    let i = 0;
+
+    for await (const arrayBuffer of imageArrayBuffers)
+        repos[i++]!.image = generateImage(arrayBuffer);
+
+    return NextResponse.json(repos);
 }

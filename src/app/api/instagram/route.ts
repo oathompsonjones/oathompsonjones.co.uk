@@ -54,22 +54,28 @@ type DataRes = {
 async function refreshToken(): Promise<void> {
     if (Date.now() >= parseInt(process.env.INSTAGRAM_ACCESS_TOKEN_REFRESH_AT, 10)) {
         try {
-            const { access_token: accessToken } = await fetch(`https://graph.instagram.com/refresh_access_token?${[
+            const response = await fetch(`https://graph.instagram.com/refresh_access_token?${[
                 "grant_type=ig_refresh_token",
                 `access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`,
-            ].join("&")}`).then(async (res) => await res.json() as TokenRes);
+            ].join("&")}`);
 
-            let fileData = await readFile("./.env", "utf8");
+            console.log("refreshToken", response.ok);
 
-            fileData = fileData.replace(
-                /INSTAGRAM_ACCESS_TOKEN=.*\n/,
-                `INSTAGRAM_ACCESS_TOKEN=${accessToken}\n`,
-            );
-            fileData = fileData.replace(
-                /INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=.*\n/,
-                `INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=${Date.now() + 24 * 60 * 60 * 1000}\n`,
-            );
-            await writeFile("./.env", fileData);
+            if (response.ok) {
+                const { access_token: accessToken } = await response.json() as TokenRes;
+                let fileData = await readFile("./.env", "utf8");
+
+                fileData = fileData.replace(
+                    /INSTAGRAM_ACCESS_TOKEN=.*\n/,
+                    `INSTAGRAM_ACCESS_TOKEN=${accessToken}\n`,
+                );
+                fileData = fileData.replace(
+                    /INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=.*\n/,
+                    `INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=${Date.now() + 24 * 60 * 60 * 1000}\n`,
+                );
+
+                await writeFile("./.env", fileData);
+            }
         } catch (err) {
             // eslint-disable-next-line no-console
             console.error(err instanceof Error ? `${err.name}: ${err.message}\n${err.stack ?? ""}` : String(err));
@@ -94,8 +100,14 @@ export async function GET(): Promise<NextResponse> {
         "timestamp",
         "username",
         "children{media_type, media_url}",
-    ].join(",")}&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`).then(async (res) => res.json()) as DataRes;
-    const data = response.data.filter((post) => !post.permalink.startsWith("https://www.instagram.com/reel/"));
+    ].join(",")}&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`);
+
+    if (!response.ok)
+        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+
+    let { data } = await response.json() as DataRes;
+
+    data = data.filter((post) => !post.permalink.startsWith("https://www.instagram.com/reel/"));
     const head = data.find((post) => post.caption?.includes("#pin"));
     const tail = data.filter((post) => post.id !== head?.id);
 

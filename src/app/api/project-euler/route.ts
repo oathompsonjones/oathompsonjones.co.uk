@@ -17,13 +17,19 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     if (query === null || isNaN(parseInt(query, 10)) || parseInt(query, 10) < 1)
         return new NextResponse("Invalid request.", { status: 400 });
 
-    const descriptionData = await fetch(`https://projecteuler.net/minimal=${query}`).then(async (res) => res.text());
-    const description = descriptionData
-        .replaceAll(/href="(.+)"/g, "href=https://projecteuler.net/$1")
-        .replaceAll(/\${1,2}([^$]+)\${1,2}/g, "\\($1\\)");
+    const descResponse = await fetch(`https://projecteuler.net/minimal=${query}`);
+    const description = descResponse.ok
+        ? (await descResponse.text())
+            .replaceAll(/href="(.+)"/g, "href=https://projecteuler.net/$1")
+            .replaceAll(/\${1,2}([^$]+)\${1,2}/g, "\\($1\\)")
+        : "Unknown";
 
-    const titleData = await fetch("https://projecteuler.net/minimal=problems;csv").then(async (res) => res.text());
-    const title = titleData.split("\n").find((line) => line.startsWith(`${query},`))?.split(",")[1] ?? "Unknown";
+    const titleResponse = await fetch("https://projecteuler.net/minimal=problems;csv");
+    const title = titleResponse.ok
+        ? (await titleResponse.text())
+            .split("\n")
+            .find((line) => line.startsWith(`${query},`))?.split(",")[1] ?? "Unknown"
+        : "Unknown";
 
     return NextResponse.json({ description, title });
 }
