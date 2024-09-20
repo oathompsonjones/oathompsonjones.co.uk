@@ -26,7 +26,7 @@ export function Floating({ pages }: {
                 display: { md: "flex", xs: "none" },
                 position: "fixed",
                 top: "var(--top)",
-                transition: "top 0.25s linear",
+                transition: "top 0.25s ease",
                 zIndex: 1,
             }}
             // eslint-disable-next-line @typescript-eslint/naming-convention
