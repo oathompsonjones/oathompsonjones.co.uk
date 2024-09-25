@@ -59,8 +59,6 @@ async function refreshToken(): Promise<void> {
                 `access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`,
             ].join("&")}`);
 
-            console.log("refreshToken", response.ok);
-
             if (response.ok) {
                 const { access_token: accessToken } = await response.json() as TokenRes;
                 let fileData = await readFile("./.env", "utf8");
