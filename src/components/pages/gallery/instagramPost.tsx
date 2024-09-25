@@ -13,13 +13,8 @@ import { useState } from "react";
  */
 export function InstagramPost({ post }: { post: Post; }): ReactNode {
     // Posts with multiple images recursively call this element.
-    if (post.media_type === "CAROUSEL_ALBUM") {
-        return (
-            <>
-                {post.children.data.map((image, i) => <InstagramPost key={i} post={{ ...post, ...image }} />)}
-            </>
-        );
-    }
+    if (post.media_type === "CAROUSEL_ALBUM")
+        return post.children.data.map((image, i) => <InstagramPost key={i} post={{ ...post, ...image }} />);
 
     // The hover state is used to display the Instagram logo when the user hovers over the post.
     const [hover, setHover] = useState(false);
