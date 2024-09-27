@@ -33,7 +33,6 @@ const httpsServer = https.createServer(ssl, (req, res) => {
         }
     }
 
-    res.writeHead(404);
     res.end();
 });
 
