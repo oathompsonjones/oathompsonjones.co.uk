@@ -11,7 +11,7 @@ const domainPortMap = {
     [`haskell-graphics.${baseDomain}`]: 3001,
 };
 
-// Setup proxies.
+// Setup proxy.
 const ssl = { cert: null, key: null };
 
 try {
@@ -25,8 +25,6 @@ const proxy = httpProxy.createProxy({ ssl });
 
 // Setup HTTPS server to proxy requests.
 const httpsServer = https.createServer(ssl, (req, res) => {
-    console.log("https server", req.headers.host, req.url);
-
     if (req.headers.host !== undefined) {
         for (const [domain, port] of Object.entries(domainPortMap)) {
             if ((req.headers.host.startsWith("www.") ? req.headers.host.slice(4) : req.headers.host) === domain)
@@ -39,10 +37,8 @@ const httpsServer = https.createServer(ssl, (req, res) => {
 
 // Setup HTTP server to redirect to HTTPS.
 const httpServer = http.createServer((req, res) => {
-    console.log("http server", req.headers.host, req.url);
-
     if (req.headers.host !== undefined)
-        return res.writeHead(301, { Location: `https://${req.headers.host}${req.url ?? ""}` });
+        res.writeHead(301, { Location: `https://${req.headers.host}${req.url ?? ""}` });
 
     return res.end();
 });
