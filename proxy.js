@@ -1,4 +1,4 @@
-/* eslint-disable no-await-in-loop, no-console */
+/* eslint-disable no-console */
 import fs from "fs/promises";
 import http from "http";
 import httpProxy from "http-proxy";
@@ -7,31 +7,30 @@ import https from "https";
 // Configuration.
 const baseDomain = "oathompsonjones.co.uk";
 const domainPortMap = {
-    [baseDomain]: { port: 3000, proxy: null },
-    [`haskell-graphics.${baseDomain}`]: { port: 3001, proxy: null },
+    [baseDomain]: 3000,
+    [`haskell-graphics.${baseDomain}`]: 3001,
 };
 
 // Setup proxies.
-for (const [domain, { port }] of Object.entries(domainPortMap)) {
-    try {
-        domainPortMap[domain].proxy = httpProxy.createProxy({
-            ssl: {
-                cert: await fs.readFile(`/etc/letsencrypt/live/${domain}/fullchain.pem`),
-                key: await fs.readFile(`/etc/letsencrypt/live/${domain}/privkey.pem`),
-            },
-            target: `http://localhost:${port}`,
-        });
-    } catch (err) {
-        console.log(`Failed to read SSL certificates: ${err.message}`);
-    }
+const ssl = { cert: null, key: null };
+
+try {
+    ssl.cert = await fs.readFile(`/etc/letsencrypt/live/${baseDomain}/fullchain.pem`);
+    ssl.key = await fs.readFile(`/etc/letsencrypt/live/${baseDomain}/privkey.pem`);
+} catch (err) {
+    console.log(`Failed to read SSL certificates: ${err.message}`);
 }
 
+const proxy = httpProxy.createProxy({ ssl });
+
 // Setup HTTPS server to proxy requests.
-const httpsServer = https.createServer((req, res) => {
+const httpsServer = https.createServer(ssl, (req, res) => {
+    console.log("https server", req.headers.host, req.url);
+
     if (req.headers.host !== undefined) {
-        for (const [domain, { proxy }] of Object.entries(domainPortMap)) {
+        for (const [domain, port] of Object.entries(domainPortMap)) {
             if ((req.headers.host.startsWith("www.") ? req.headers.host.slice(4) : req.headers.host) === domain)
-                return proxy.web(req, res);
+                return proxy.web(req, res, { target: `http://localhost:${port}` });
         }
     }
 
@@ -40,6 +39,8 @@ const httpsServer = https.createServer((req, res) => {
 
 // Setup HTTP server to redirect to HTTPS.
 const httpServer = http.createServer((req, res) => {
+    console.log("http server", req.headers.host, req.url);
+
     if (req.headers.host !== undefined)
         return res.writeHead(301, { Location: `https://${req.headers.host}${req.url ?? ""}` });
 
