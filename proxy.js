@@ -26,7 +26,7 @@ const proxy = httpProxy.createProxy({ ssl });
 // Setup HTTPS server to proxy requests.
 const httpsServer = https.createServer(ssl, (req, res) => {
     for (const [domain, port] of domainPortMap) {
-        if ((req.headers.host.startsWith("www.") ? req.headers.post.slice(4) : req.headers.host) === domain) {
+        if ((req.headers.host.startsWith("www.") ? req.headers.host.slice(4) : req.headers.host) === domain) {
             proxy.web(req, res, { target: `http://localhost:${port}` });
 
             return;
