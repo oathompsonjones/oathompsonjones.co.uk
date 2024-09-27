@@ -12,17 +12,14 @@ const domainPortMap = {
 };
 
 // Setup proxies.
-for (const [domain, { port }] of domainPortMap) {
+for (const [domain, { port }] of Object.entries(domainPortMap)) {
     try {
-        domainPortMap.set(domain, {
-            port,
-            proxy: httpProxy.createProxy({
-                ssl: {
-                    cert: await fs.readFile(`/etc/letsencrypt/live/${domain}/fullchain.pem`),
-                    key: await fs.readFile(`/etc/letsencrypt/live/${domain}/privkey.pem`),
-                },
-                target: `http://localhost:${port}`,
-            }),
+        domainPortMap[domain].proxy = httpProxy.createProxy({
+            ssl: {
+                cert: await fs.readFile(`/etc/letsencrypt/live/${domain}/fullchain.pem`),
+                key: await fs.readFile(`/etc/letsencrypt/live/${domain}/privkey.pem`),
+            },
+            target: `http://localhost:${port}`,
         });
     } catch (err) {
         console.log(`Failed to read SSL certificates: ${err.message}`);
@@ -32,7 +29,7 @@ for (const [domain, { port }] of domainPortMap) {
 // Setup HTTPS server to proxy requests.
 const httpsServer = https.createServer((req, res) => {
     if (req.headers.host !== undefined) {
-        for (const [domain, { proxy }] of domainPortMap) {
+        for (const [domain, { proxy }] of Object.entries(domainPortMap)) {
             if ((req.headers.host.startsWith("www.") ? req.headers.host.slice(4) : req.headers.host) === domain)
                 return proxy.web(req, res);
         }
