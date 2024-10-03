@@ -74,7 +74,7 @@ export function Header(): ReactNode {
                 /* eslint-enable @typescript-eslint/naming-convention */
             }}
         >
-            <Toolbar>
+            <Toolbar className="full-width">
                 {/* Menu button to open/close the drop down nav. */}
                 <IconButton color="inherit" onClick={toggleNavOpen} sx={{ display: { md: "none" } }}>
                     <Menu />

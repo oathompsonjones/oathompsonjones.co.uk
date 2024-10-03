@@ -20,12 +20,13 @@ export function Floating({ pages }: {
     return (
         <Paper
             sx={{
-                alignSelf: "center",
                 backdropFilter: "blur(5px) saturate(200%) contrast(50%) brightness(100%)",
                 backgroundColor: "rgba(var(--mui-palette-background-default), 1)",
                 display: { md: "flex", xs: "none" },
+                left: "50%",
                 position: "fixed",
                 top: "var(--top)",
+                transform: "translateX(-50%)",
                 transition: "top 0.25s ease",
                 zIndex: 1,
             }}

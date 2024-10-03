@@ -20,7 +20,7 @@ export function Footer(): ReactNode {
             square
             sx={{ borderTop: "1px solid var(--mui-palette-primary-main)", p: "1rem", zIndex: 1 }}
         >
-            <Stack divider={<Divider sx={{ my: "0.5%" }} />}>
+            <Stack className="full-width" divider={<Divider sx={{ my: "0.5%" }} />}>
                 <Stack sx={{ alignItems: "center" }} direction="row">
                     <Avatar src={GRAVATAR_URL} sx={{ display: { sm: "block", xs: "none" }, m: "1%" }} />
                     <Box sx={{ flex: 1 }}>
