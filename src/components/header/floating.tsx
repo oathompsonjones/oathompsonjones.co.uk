@@ -22,6 +22,7 @@ export function Floating({ pages }: {
             sx={{
                 backdropFilter: "blur(5px) saturate(200%) contrast(50%) brightness(100%)",
                 backgroundColor: "rgba(var(--mui-palette-background-default), 1)",
+                borderRadius: "999px",
                 display: { md: "flex", xs: "none" },
                 left: "50%",
                 position: "fixed",
