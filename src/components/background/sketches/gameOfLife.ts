@@ -15,8 +15,6 @@ export function gameOfLife(theme: Theme): Sketch {
 
     return function sketch(p5: p5) {
         class Game {
-            public hasLooped = false;
-
             private readonly cellSize = 20;
 
             private readonly gridSize = p5.createVector(
@@ -28,8 +26,6 @@ export function gameOfLife(theme: Theme): Sketch {
                 { length: this.gridSize.x },
                 () => Array.from({ length: this.gridSize.y }, () => 0),
             );
-
-            private readonly frames: string[] = [];
 
             public constructor(percentage: number = 25) {
                 for (let j = 0; j < this.gridSize.y; j++) {
@@ -64,8 +60,6 @@ export function gameOfLife(theme: Theme): Sketch {
                 }
 
                 this.cells = nextCells;
-                this.hasLooped = this.frames.includes(this.compressFrame(this.cells));
-                this.saveFrame(this.cells);
             }
 
             private getLivingNeighbours(x: number, y: number): number {
@@ -83,35 +77,6 @@ export function gameOfLife(theme: Theme): Sketch {
 
                 return livingNeighbours;
             }
-
-            private compressFrame(frame: number[][]): string {
-                let binary = "";
-
-                for (let j = 0; j < this.gridSize.y; j++) {
-                    for (let i = 0; i < this.gridSize.x; i++)
-                        binary += frame[i]![j]!;
-                }
-                const counter: number[] = [];
-                let lastChar = "0";
-                let currentCount = 0;
-
-                for (const thisChar of binary) {
-                    if (thisChar === lastChar) {
-                        currentCount++;
-                    } else {
-                        counter.push(currentCount);
-                        currentCount = 1;
-                    }
-
-                    lastChar = thisChar;
-                }
-
-                return counter.map((i) => i.toString()).join("-");
-            }
-
-            private saveFrame(frame: number[][]): void {
-                this.frames.push(this.compressFrame(frame));
-            }
         }
 
         let game: Game;
@@ -128,9 +93,6 @@ export function gameOfLife(theme: Theme): Sketch {
         };
 
         p5.draw = (): void => {
-            if (game.hasLooped)
-                game = new Game();
-
             p5.background(...bgColour);
             game.render();
             game.update();
