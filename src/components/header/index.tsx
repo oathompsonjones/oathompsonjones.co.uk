@@ -1,6 +1,6 @@
 "use client";
 
-import { AppBar, IconButton, Toolbar, Tooltip, Typography, useMediaQuery, useScrollTrigger } from "@mui/material";
+import { AppBar, Button, IconButton, Toolbar, Typography, useMediaQuery, useScrollTrigger } from "@mui/material";
 import { Contrast, DarkMode, LightMode, Menu } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { Dropdown } from "./dropdown";
@@ -47,13 +47,6 @@ export function Header(): ReactNode {
         { label: "Contact Me", link: "/contact" },
     ];
 
-    // Mode switcher button.
-    const switchThemeButton = {
-        dark: <DarkMode />,
-        light: <LightMode />,
-        system: <Contrast />,
-    }[themeMode];
-
     return (
         <AppBar
             component="header"
@@ -79,6 +72,7 @@ export function Header(): ReactNode {
                 <IconButton color="inherit" onClick={toggleNavOpen} sx={{ display: { md: "none" } }}>
                     <Menu />
                 </IconButton>
+
                 {/* The title. */}
                 <Typography
                     align="center"
@@ -93,21 +87,25 @@ export function Header(): ReactNode {
                 >
                     OATHOMPSONJONES
                 </Typography>
+
                 {/* The fixed nav for larger displays. */}
                 <Fixed pages={pages} />
+
                 {/* Theme button to control dark/light theme. */}
-                <Tooltip title={`${themeMode[0]!.toUpperCase()}${themeMode.slice(1)} Mode`} arrow>
-                    <IconButton
-                        color="inherit"
-                        onClick={switchThemeMode}
-                        sx={{ transition: "background-color 0.25s linear" }}
-                    >
-                        {switchThemeButton}
-                    </IconButton>
-                </Tooltip>
+                <Button
+                    color="inherit"
+                    onClick={switchThemeMode}
+                    sx={{ transition: "background-color 0.25s linear" }}
+                    endIcon={{ dark: <DarkMode />, light: <LightMode />, system: <Contrast /> }[themeMode]}
+                    variant="text"
+                >
+                    {`${themeMode[0]!.toUpperCase()}${themeMode.slice(1)} Mode`}
+                </Button>
             </Toolbar>
+
             {/* The drop down nav for smaller displays. */}
             <Dropdown isOpen={isDropdownOpen} pages={pages} toggleNavOpen={toggleNavOpen} />
+
             {/* The floating nav for scrolling on larger displays. */}
             <Floating pages={pages} />
         </AppBar>
