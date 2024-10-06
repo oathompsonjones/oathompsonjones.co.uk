@@ -112,7 +112,7 @@ export function Header(): ReactNode {
                             onClick={switchThemeMode}
                             sx={{ transition: "background-color 0.25s linear" }}
                             endIcon={<ThemeIcon />}
-                            variant="text"
+                            variant="outlined"
                         >
                             {`${themeMode[0]!.toUpperCase()}${themeMode.slice(1)} Mode`}
                         </Button>
@@ -124,7 +124,7 @@ export function Header(): ReactNode {
             <Dropdown isOpen={isDropdownOpen} pages={pages} toggleNavOpen={toggleNavOpen} />
 
             {/* The floating nav for scrolling on larger displays. */}
-            <Floating pages={pages} />
+            <Floating pages={pages} themeIcon={<ThemeIcon />} switchThemeMode={switchThemeMode} />
         </AppBar>
     );
 }

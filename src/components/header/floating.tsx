@@ -1,6 +1,6 @@
 "use client";
 
-import { MenuItem, Paper, Typography, useScrollTrigger } from "@mui/material";
+import { IconButton, MenuItem, Paper, Typography, useScrollTrigger } from "@mui/material";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
@@ -9,10 +9,14 @@ import { usePathname } from "next/navigation";
  * Contains the floating nav bar for larger displays.
  * @param props - The component properties.
  * @param props.pages - The pages to display in the nav.
+ * @param props.themeIcon - The icon to display for the theme switcher.
+ * @param props.switchThemeMode - The function to switch the theme mode.
  * @returns The floating nav bar.
  */
-export function Floating({ pages }: {
+export function Floating({ pages, themeIcon, switchThemeMode }: {
     pages: Array<{ label: string; link: string; }>;
+    themeIcon: ReactNode;
+    switchThemeMode: () => void;
 }): ReactNode {
     const isHome: boolean = usePathname() === "/";
     const isScrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 75 });
@@ -44,6 +48,9 @@ export function Floating({ pages }: {
                     <Typography variant="h5" color="inherit">{page.label}</Typography>
                 </MenuItem>
             ))}
+            <IconButton onClick={switchThemeMode} sx={{ transition: "background-color 0.25s linear" }}>
+                {themeIcon}
+            </IconButton>
         </Paper>
     );
 }
