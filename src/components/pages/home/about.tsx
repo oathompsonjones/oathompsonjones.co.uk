@@ -28,13 +28,7 @@ export function About(): ReactNode {
                     <Typography variant="h1">Hi, I'm Ollie</Typography>
                     <Typography
                         variant="h4"
-                        sx={{
-                            /* eslint-disable @typescript-eslint/naming-convention */
-                            "-webkit-text-stroke-color": "black",
-                            "-webkit-text-stroke-width": "1px",
-                            /* eslint-enable @typescript-eslint/naming-convention */
-                            color: "secondary.main",
-                        }}
+                        sx={{ WebkitTextStrokeColor: "black", WebkitTextStrokeWidth: "1px", color: "secondary.main" }}
                     >
                         I'm {age()} years old, studying undergraduate Computer Science at the University of Edinburgh.
                         I have a passion for programming, which stems from a love of solving problems.
