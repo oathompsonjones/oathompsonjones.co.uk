@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { About } from "components/pages/home/about";
-import { Background } from "components/pages/home/background";
 import { Contact } from "components/pages/home/contact";
 import { FadingDiv } from "components/pages/home/fadingDiv";
 import { Main } from "components/pages/home/main";
@@ -72,7 +71,6 @@ export default function Home(): ReactNode {
 
     return (
         <>
-            <Background />
             {!reducedMotion && <ProfilePicture />}
             <Section>
                 <FadingDiv>

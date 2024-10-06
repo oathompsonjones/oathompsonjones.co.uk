@@ -1,34 +1,22 @@
 /* eslint-disable max-classes-per-file */
-
-"use client";
-
-import { NextReactP5Wrapper } from "@p5-wrapper/next";
-import type { ReactNode } from "react";
 import type { Sketch } from "@p5-wrapper/react";
+import type { Theme } from "@mui/material";
+import { hexToRgb } from "../background";
 import type p5 from "p5";
-import { useMediaQuery } from "@mui/system";
-import { useThemeMode } from "hooks/useThemeMode";
-import { useWindowSize } from "hooks/useWindowSize";
 
 /**
- * A div which will be used to either fade in or out.
- * @returns A div.
+ * A matrix rain background.
+ * @param theme - The theme to use.
+ * @param themeColour - Whether the theme is dark or light.
+ * @returns A sketch.
  */
-export function Background(): ReactNode {
-    const { themeColour, theme } = useThemeMode();
-    const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
-
-    useWindowSize();
-
-    const hexToRgb = (hex: string): [number, number, number] => (hex.replace(/#/g, "")
-        .match(/.{1,2}/g)?.map((x) => parseInt(x, 16)) ?? [0, 0, 0]) as [number, number, number];
-
+export function matrix(theme: Theme, themeColour: "dark" | "light"): Sketch {
     const bgColour = hexToRgb(theme.palette.background.default);
     const txtColourMain = hexToRgb(theme.palette.primary.main);
     const txtColourHighlight = hexToRgb(theme.palette.common[themeColour === "dark" ? "white" : "black"]);
 
-    const sketch: Sketch = (p5: p5) => {
-        const symbolSize = 15;
+    return function sketch(p5: p5) {
+        const symbolSize = 25;
         const streams: Stream[] = [];
 
         class Character {
@@ -126,18 +114,4 @@ export function Background(): ReactNode {
                 stream.render();
         };
     };
-
-    return (
-        <div style={{
-            height: "100vh",
-            left: 0,
-            overflow: "hidden",
-            position: "fixed",
-            top: 0,
-            width: "100vw",
-            zIndex: -10,
-        }}>
-            {!reducedMotion && <NextReactP5Wrapper sketch={sketch} />}
-        </div>
-    );
 }

@@ -4,7 +4,7 @@ import "styles/scrolling.css";
 import "styles/transitions.css";
 import "styles/typography.css";
 import type { Metadata, Viewport } from "next";
-import { Background } from "components/background";
+import { Background } from "components/background/background";
 import { Footer } from "components/footer";
 import { Header } from "components/header";
 import InitColorSchemeScript from "@mui/system/InitColorSchemeScript";
