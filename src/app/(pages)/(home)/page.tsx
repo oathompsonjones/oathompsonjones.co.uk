@@ -8,6 +8,7 @@ import { Main } from "components/pages/home/main";
 // Import { ProfilePicture } from "components/pages/home/profilePicture";
 import type { ReactNode } from "react";
 import { Section } from "components/pages/home/section";
+import { Size } from "components/size";
 import { useMediaQuery } from "@mui/system";
 // Import { useThemeMode } from "hooks/useThemeMode";
 import { useWindowSize } from "hooks/useWindowSize";
@@ -60,11 +61,28 @@ export default function Home(): ReactNode {
 
     return (
         <>
-            {/* {!reducedMotion && <ProfilePicture reducedMotion={reducedMotion} />} */}
-            <FadingSections index={index}>
-                <Main />
-                <About />
-            </FadingSections>
+            <Size
+                xs={
+                    <>
+                        <div style={{ height: "4rem" }} />
+                        <Section>
+                            <Main />
+                        </Section>
+                        <Section>
+                            <About />
+                        </Section>
+                    </>
+                }
+                lg={
+                    <>
+                        {/* {!reducedMotion && <ProfilePicture reducedMotion={reducedMotion} />} */}
+                        <FadingSections index={index}>
+                            <Main />
+                            <About />
+                        </FadingSections>
+                    </>
+                }
+            />
             <Section allowFooter>
                 <Contact />
             </Section>

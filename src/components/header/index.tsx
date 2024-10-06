@@ -35,7 +35,7 @@ export function Header(): ReactNode {
 
     useEffect(() => setIsDropdownOpen(false), []);
 
-    const isSolid = isDropdownOpen || isScrolling && isMobile && !isHome;
+    const isSolid = isDropdownOpen || isScrolling && isMobile;
     const textColour = isSolid ? white : { dark: white, light: black }[isHome ? "dark" : themeColour];
 
     // Associate a label and link with each page.
@@ -99,7 +99,7 @@ export function Header(): ReactNode {
                     endIcon={{ dark: <DarkMode />, light: <LightMode />, system: <Contrast /> }[themeMode]}
                     variant="text"
                 >
-                    {`${themeMode[0]!.toUpperCase()}${themeMode.slice(1)} Mode`}
+                    {isMobile ? "" : `${themeMode[0]!.toUpperCase()}${themeMode.slice(1)} Mode`}
                 </Button>
             </Toolbar>
 

@@ -1,7 +1,7 @@
-import { Desktop } from "components/desktop";
 import Link from "next/link";
 import { ProfilePicture } from "components/pages/home/profilePicture";
 import type { ReactNode } from "react";
+import { Size } from "components/size";
 import Stack from "components/layout/stack";
 import { Typography } from "@mui/material";
 import { age } from "utils";
@@ -21,9 +21,7 @@ export function About(): ReactNode {
                 direction={orientation === "landscape" ? "row-reverse" : "column"}
                 spacing="2rem"
             >
-                <Desktop>
-                    <ProfilePicture positioner />
-                </Desktop>
+                <Size lg={<ProfilePicture positioner />} />
                 <Stack>
                     <Typography variant="h1">Hi, I'm Ollie</Typography>
                     <Typography
