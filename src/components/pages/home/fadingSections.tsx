@@ -35,7 +35,7 @@ export function FadingSections({ children, index }: { children: ReactNode[]; ind
                             opacity: "var(--opacity)",
                             position: "absolute",
                             top: 0,
-                            transition: "opacity 0.25s",
+                            transition: "opacity 0.5s",
                             width: "100%",
                         }}
                         // eslint-disable-next-line @typescript-eslint/naming-convention
