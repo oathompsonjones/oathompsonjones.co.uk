@@ -24,10 +24,10 @@ export function Section({ allowFooter, children }: { allowFooter?: boolean; chil
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
-                margin: 0,
-                marginTop: "-5rem",
-                minHeight: { md: "var(--height)", xs: "75vh" },
-                scrollSnapAlign: { md: "start" },
+                margin: "-4rem 0 -4rem 0",
+                minHeight: { lg: "var(--height)", xs: "auto" },
+                padding: "4rem 0 4rem 0",
+                scrollSnapAlign: { lg: "start" },
                 width: "100%",
             }}
             // eslint-disable-next-line @typescript-eslint/naming-convention

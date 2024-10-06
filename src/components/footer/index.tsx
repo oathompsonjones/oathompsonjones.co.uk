@@ -1,11 +1,11 @@
 "use client";
 
 import { Avatar, Divider, Paper, Typography } from "@mui/material";
-import Box from "components/layout/box";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
 import { Name } from "./name";
 import type { ReactNode } from "react";
+import { Size } from "components/size";
 import { SocialLinks } from "./socialLinks";
 import Stack from "components/layout/stack";
 
@@ -20,17 +20,17 @@ export function Footer(): ReactNode {
             square
             sx={{ borderTop: "1px solid var(--mui-palette-primary-main)", p: "1rem", zIndex: 1 }}
         >
-            <Stack className="full-width" divider={<Divider sx={{ my: "0.5%" }} />}>
-                <Stack sx={{ alignItems: "center" }} direction="row">
-                    <Avatar src={GRAVATAR_URL} sx={{ display: { sm: "block", xs: "none" }, m: "1%" }} />
-                    <Box sx={{ flex: 1 }}>
+            <Stack className="full-width" divider={<Divider />}>
+                <Stack sx={{ alignItems: "center" }} direction={{ sm: "row" }}>
+                    <Stack direction="row" sx={{ alignItems: "center", flex: 1 }} gap="1rem">
+                        <Avatar src={GRAVATAR_URL} sx={{ m: "1%" }} />
                         <Name id="footer" minScreenSize="md" variant="h4" />
-                    </Box>
+                    </Stack>
                     <SocialLinks />
                 </Stack>
                 <Stack
                     direction="row"
-                    divider={<Typography sx={{ color: "gray", m: "0 0.5%" }}>•</Typography>}
+                    divider={<Typography sx={{ color: "gray", mx: "1rem" }}>•</Typography>}
                     sx={{ alignItems: "center", justifyContent: "center" }}
                 >
                     <Typography
@@ -49,10 +49,10 @@ export function Footer(): ReactNode {
                         variant="caption"
                         sx={{ color: "primary.main" }}
                     >
-                        Privacy Policy
+                        <Size xs="Privacy" sm="Privacy Policy" />
                     </Typography>
                     <Typography align="center" variant="caption">
-                        © 2020-{new Date().getUTCFullYear()} Oliver Jones
+                        <Size xs="© Oliver Jones" sm={`© 2020-${new Date().getUTCFullYear()} Oliver Jones`} />
                     </Typography>
                 </Stack>
             </Stack>

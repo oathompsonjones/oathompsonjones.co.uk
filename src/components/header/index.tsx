@@ -7,6 +7,7 @@ import { Dropdown } from "./dropdown";
 import { Fixed } from "./fixed";
 import { Floating } from "./floating";
 import type { ReactNode } from "react";
+import { Size } from "components/size";
 import type { Theme } from "@mui/material";
 import { useOutsideClick } from "hooks/useOutsideClick";
 import { usePathname } from "next/navigation";
@@ -27,15 +28,15 @@ export function Header(): ReactNode {
 
     // Handles behaviour for changing nav bar colour and opening/closing dropdown menu.
     const isScrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
-    const isMobile: boolean = useMediaQuery((theme: Theme): string => theme.breakpoints.down("md"));
+    const isLarge: boolean = useMediaQuery((theme: Theme): string => theme.breakpoints.up("lg"));
     const isHome: boolean = usePathname() === "/";
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const toggleNavOpen = (): void => setIsDropdownOpen(() => isMobile && !isDropdownOpen);
+    const toggleNavOpen = (): void => setIsDropdownOpen(() => !isLarge && !isDropdownOpen);
     const ref = useOutsideClick(() => setIsDropdownOpen(false));
 
     useEffect(() => setIsDropdownOpen(false), []);
 
-    const isSolid = isDropdownOpen || isScrolling && isMobile;
+    const isSolid = isDropdownOpen || isScrolling && !isLarge;
     const textColour = isSolid ? white : { dark: white, light: black }[isHome ? "dark" : themeColour];
 
     // Associate a label and link with each page.
@@ -47,11 +48,14 @@ export function Header(): ReactNode {
         { label: "Contact Me", link: "/contact" },
     ];
 
+    // Theme button to control dark/light theme.
+    const ThemeIcon = { dark: DarkMode, light: LightMode, system: Contrast }[themeMode];
+
     return (
         <AppBar
             component="header"
             enableColorOnDark
-            position={isMobile || isHome ? "sticky" : "relative"}
+            position={!isLarge || isHome ? "sticky" : "relative"}
             ref={ref}
             sx={{
                 background: "var(--background)",
@@ -92,15 +96,28 @@ export function Header(): ReactNode {
                 <Fixed pages={pages} />
 
                 {/* Theme button to control dark/light theme. */}
-                <Button
-                    color="inherit"
-                    onClick={switchThemeMode}
-                    sx={{ transition: "background-color 0.25s linear" }}
-                    endIcon={{ dark: <DarkMode />, light: <LightMode />, system: <Contrast /> }[themeMode]}
-                    variant="text"
-                >
-                    {isMobile ? "" : `${themeMode[0]!.toUpperCase()}${themeMode.slice(1)} Mode`}
-                </Button>
+                <Size
+                    xs={
+                        <IconButton
+                            color="inherit"
+                            onClick={switchThemeMode}
+                            sx={{ transition: "background-color 0.25s linear" }}
+                        >
+                            <ThemeIcon />
+                        </IconButton>
+                    }
+                    lg={
+                        <Button
+                            color="inherit"
+                            onClick={switchThemeMode}
+                            sx={{ transition: "background-color 0.25s linear" }}
+                            endIcon={<ThemeIcon />}
+                            variant="text"
+                        >
+                            {`${themeMode[0]!.toUpperCase()}${themeMode.slice(1)} Mode`}
+                        </Button>
+                    }
+                />
             </Toolbar>
 
             {/* The drop down nav for smaller displays. */}

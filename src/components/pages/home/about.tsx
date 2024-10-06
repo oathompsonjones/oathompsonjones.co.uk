@@ -24,10 +24,7 @@ export function About(): ReactNode {
                 <Size lg={<ProfilePicture positioner />} />
                 <Stack>
                     <Typography variant="h1">Hi, I'm Ollie</Typography>
-                    <Typography
-                        variant="h4"
-                        sx={{ WebkitTextStrokeColor: "black", WebkitTextStrokeWidth: "1px", color: "secondary.main" }}
-                    >
+                    <Typography variant="h4" color="white">
                         I'm {age()} years old, studying undergraduate Computer Science at the University of Edinburgh.
                         I have a passion for programming, which stems from a love of solving problems.
                         I direct that passion towards writing high quality code, creating efficient and robust solutions

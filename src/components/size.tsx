@@ -24,6 +24,7 @@ export function Size({ lg, md, sm, xl, xs }: Partial<Record<"lg" | "md" | "sm" |
         case isLg: return lg ?? md ?? sm ?? xs;
         case isMd: return md ?? sm ?? xs;
         case isSm: return sm ?? xs;
-        case isXs: default: return xs;
+        case isXs: return xs;
+        default: return xs;
     }
 }

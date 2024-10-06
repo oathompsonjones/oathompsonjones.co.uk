@@ -64,7 +64,6 @@ export default function Home(): ReactNode {
             <Size
                 xs={
                     <>
-                        <div style={{ height: "4rem" }} />
                         <Section>
                             <Main />
                         </Section>

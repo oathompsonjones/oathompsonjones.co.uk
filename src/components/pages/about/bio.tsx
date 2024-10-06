@@ -14,7 +14,10 @@ export function Bio(): ReactNode {
     return (
         <div>
             <Grid container spacing={2}>
-                <Grid size={{ md: 8, sm: 7, xs: 6 }}>
+                <Grid size={{ md: 4, sm: 5, xs: 12 }}>
+                    <Avatar src={GRAVATAR_URL} sx={{ height: "auto", width: "100%" }} />
+                </Grid>
+                <Grid size={{ md: 8, sm: 7, xs: 12 }}>
                     <Stack direction="column" sx={{ height: "100%", justifyContent: "center" }}>
                         <Typography sx={{ whiteSpace: "pre-wrap" }}>
                             {[
@@ -24,9 +27,6 @@ export function Bio(): ReactNode {
                             ].join(" ").split("\n").join("\n\n")}
                         </Typography>
                     </Stack>
-                </Grid>
-                <Grid size={{ md: 4, sm: 5, xs: 6 }}>
-                    <Avatar src={GRAVATAR_URL} sx={{ height: "auto", width: "100%" }} />
                 </Grid>
             </Grid>
         </div>

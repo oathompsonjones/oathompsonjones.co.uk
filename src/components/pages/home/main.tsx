@@ -1,6 +1,5 @@
+import { Button, Divider, Typography } from "@mui/material";
 import { ContactPage, FileDownload, Info } from "@mui/icons-material";
-import { Divider, Typography } from "@mui/material";
-import { DynamicButton } from "components/dynamicButton";
 import { ProfilePicture } from "./profilePicture";
 import type { ReactNode } from "react";
 import Stack from "components/layout/stack";
@@ -28,15 +27,31 @@ export function Main(): ReactNode {
                 spacing="1%"
                 sx={{ alignItems: "center", justifyContent: "space-evenly", width: "100%" }}
             >
-                <DynamicButton href="/about" sx={{ pointerEvents: "auto" }} startIcon={<Info />}>
+                <Button
+                    href="/about"
+                    sx={{ pointerEvents: "auto" }}
+                    startIcon={<Info />}
+                    size="large"
+                >
                     About Me
-                </DynamicButton>
-                <DynamicButton LinkComponent="a" href="/cv" sx={{ pointerEvents: "auto" }} startIcon={<FileDownload />}>
+                </Button>
+                <Button
+                    LinkComponent="a"
+                    href="/cv"
+                    sx={{ pointerEvents: "auto" }}
+                    startIcon={<FileDownload />}
+                    size="large"
+                >
                     Download CV
-                </DynamicButton>
-                <DynamicButton href="/contact" sx={{ pointerEvents: "auto" }} startIcon={<ContactPage />}>
+                </Button>
+                <Button
+                    href="/contact"
+                    sx={{ pointerEvents: "auto" }}
+                    startIcon={<ContactPage />}
+                    size="large"
+                >
                     Contact Me
-                </DynamicButton>
+                </Button>
             </Stack>
             <Divider flexItem sx={{ bgcolor: "primary.main" }} />
         </div>
