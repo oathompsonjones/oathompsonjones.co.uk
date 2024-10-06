@@ -11,7 +11,7 @@ import Stack from "components/layout/stack";
  */
 export function Main(): ReactNode {
     return (
-        <>
+        <div className="full-width">
             <Stack direction="column" sx={{ alignItems: "center", justifyContent: "center" }}>
                 <ProfilePicture positioner />
                 <Typography align="center" variant="h1">Oliver Jones</Typography>
@@ -39,6 +39,6 @@ export function Main(): ReactNode {
                 </DynamicButton>
             </Stack>
             <Divider flexItem sx={{ bgcolor: "primary.main" }} />
-        </>
+        </div>
     );
 }

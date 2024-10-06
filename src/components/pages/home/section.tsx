@@ -3,39 +3,37 @@
 import { useEffect, useState } from "react";
 import Box from "components/layout/box";
 import type { ReactNode } from "react";
-import { useWindowSize } from "hooks/useWindowSize";
 
 /**
  * A section on the home page.
  * @param props - The component properties.
+ * @param props.allowFooter - Whether to allow space for the footer.
  * @param props.children - The children to render.
  * @returns A section on the home page.
  */
-export function Section({ children }: { children: ReactNode; }): ReactNode {
-    const { height: windowHeight } = useWindowSize();
-    const [height, setHeight] = useState(0);
+export function Section({ allowFooter, children }: { allowFooter?: boolean; children?: ReactNode; }): ReactNode {
+    const [footerHeight, setFooterHeight] = useState(0);
 
-    useEffect(() => setHeight(windowHeight - document.querySelector("footer")!.scrollHeight), [windowHeight]);
+    useEffect(() => setFooterHeight(document.querySelector("footer")!.scrollHeight), []);
 
     return (
         <Box
-            className="full-width"
+            className="edge"
             component="section"
             sx={{
-                // eslint-disable-next-line @typescript-eslint/naming-convention
-                "&:last-of-type": {
-                    marginBottom: { md: "-1rem" },
-                    minHeight: { md: "var(--height)" },
-                },
-                marginBlock: { md: "-4rem 4rem" },
-                minHeight: { md: "100vh", xs: "75vh" },
-                paddingBlock: { md: "5rem 1rem" },
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                margin: 0,
+                marginTop: "-5rem",
+                minHeight: { md: "var(--height)", xs: "75vh" },
                 scrollSnapAlign: { md: "start" },
+                width: "100%",
             }}
             // eslint-disable-next-line @typescript-eslint/naming-convention
-            style={{ "--height": `${height}px` }}
+            style={{ "--height": allowFooter ?? false ? `calc(100vh - ${footerHeight}px - 1rem)` : "100vh" }}
         >
-            {children}
+            <div className="wrapper">{children}</div>
         </Box>
     );
 }

@@ -8,8 +8,8 @@ import { Typography } from "@mui/material";
  */
 export function Contact(): ReactNode {
     return (
-        <div className="wrapper">
-            <Typography variant="h1">Contact Me</Typography>
+        <div className="breakout">
+            <Typography textAlign="center" variant="h1">Contact Me</Typography>
             <ContactForm />
         </div>
     );

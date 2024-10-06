@@ -15,7 +15,7 @@ export function About(): ReactNode {
     const orientation = useOrientation();
 
     return (
-        <>
+        <div className="full-width">
             <Stack
                 sx={{ alignItems: "center" }}
                 direction={orientation === "landscape" ? "row-reverse" : "column"}
@@ -38,6 +38,6 @@ export function About(): ReactNode {
                     </Typography>
                 </Stack>
             </Stack>
-        </>
+        </div>
     );
 }
