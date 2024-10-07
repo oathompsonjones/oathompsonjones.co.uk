@@ -29,12 +29,13 @@ export function Header(): ReactNode {
     // Handles behaviour for changing nav bar colour and opening/closing dropdown menu.
     const isScrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
     const isMedium = useMediaQuery((theme: Theme): string => theme.breakpoints.up("md"));
+    const isLarge = useMediaQuery((theme: Theme): string => theme.breakpoints.up("lg"));
     const isHome: boolean = usePathname() === "/";
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const toggleNavOpen = (): void => setIsDropdownOpen((prev) => !prev);
     const ref = useOutsideClick(() => setIsDropdownOpen(false));
 
-    const isSolid = isDropdownOpen || isScrolling && !isMedium;
+    const isSolid = isDropdownOpen || isScrolling && (isHome && !isLarge || !isMedium);
     const textColour = isSolid ? white : { dark: white, light: black }[isHome ? "dark" : themeColour];
 
     // Associate a label and link with each page.
