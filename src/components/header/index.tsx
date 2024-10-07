@@ -2,7 +2,6 @@
 
 import { AppBar, Button, IconButton, Toolbar, Typography, useMediaQuery, useScrollTrigger } from "@mui/material";
 import { Contrast, DarkMode, LightMode, Menu } from "@mui/icons-material";
-import { useEffect, useState } from "react";
 import { Dropdown } from "./dropdown";
 import { Fixed } from "./fixed";
 import { Floating } from "./floating";
@@ -11,6 +10,7 @@ import { Size } from "components/size";
 import type { Theme } from "@mui/material";
 import { useOutsideClick } from "hooks/useOutsideClick";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { useThemeMode } from "hooks/useThemeMode";
 
 /**
@@ -28,15 +28,13 @@ export function Header(): ReactNode {
 
     // Handles behaviour for changing nav bar colour and opening/closing dropdown menu.
     const isScrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
-    const isLarge: boolean = useMediaQuery((theme: Theme): string => theme.breakpoints.up("lg"));
+    const isMedium = useMediaQuery((theme: Theme): string => theme.breakpoints.up("md"));
     const isHome: boolean = usePathname() === "/";
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const toggleNavOpen = (): void => setIsDropdownOpen(() => !isLarge && !isDropdownOpen);
+    const toggleNavOpen = (): void => setIsDropdownOpen((prev) => !prev);
     const ref = useOutsideClick(() => setIsDropdownOpen(false));
 
-    useEffect(() => setIsDropdownOpen(false), []);
-
-    const isSolid = isDropdownOpen || isScrolling && !isLarge;
+    const isSolid = isDropdownOpen || isScrolling && !isMedium;
     const textColour = isSolid ? white : { dark: white, light: black }[isHome ? "dark" : themeColour];
 
     // Associate a label and link with each page.
@@ -55,7 +53,7 @@ export function Header(): ReactNode {
         <AppBar
             component="header"
             enableColorOnDark
-            position={!isLarge || isHome ? "sticky" : "relative"}
+            position={isMedium && !isHome ? "relative" : "sticky"}
             ref={ref}
             sx={{
                 background: "var(--background)",
@@ -73,9 +71,7 @@ export function Header(): ReactNode {
         >
             <Toolbar className="full-width">
                 {/* Menu button to open/close the drop down nav. */}
-                <IconButton color="inherit" onClick={toggleNavOpen} sx={{ display: { md: "none" } }}>
-                    <Menu />
-                </IconButton>
+                <Size xs={<IconButton color="inherit" onClick={toggleNavOpen}><Menu /></IconButton>} md={<></>} />
 
                 {/* The title. */}
                 <Typography
@@ -93,7 +89,7 @@ export function Header(): ReactNode {
                 </Typography>
 
                 {/* The fixed nav for larger displays. */}
-                <Fixed pages={pages} />
+                <Size md={<Fixed pages={pages} />} />
 
                 {/* Theme button to control dark/light theme. */}
                 <Size
@@ -121,10 +117,10 @@ export function Header(): ReactNode {
             </Toolbar>
 
             {/* The drop down nav for smaller displays. */}
-            <Dropdown isOpen={isDropdownOpen} pages={pages} toggleNavOpen={toggleNavOpen} />
+            {isDropdownOpen && <Dropdown pages={pages} toggleNavOpen={toggleNavOpen} />}
 
             {/* The floating nav for scrolling on larger displays. */}
-            <Floating pages={pages} themeIcon={<ThemeIcon />} switchThemeMode={switchThemeMode} />
+            <Size md={<Floating pages={pages} themeIcon={<ThemeIcon />} switchThemeMode={switchThemeMode} />} />
         </AppBar>
     );
 }

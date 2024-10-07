@@ -9,11 +9,9 @@ import type { ReactNode } from "react";
  * @param props.pages - The pages to display in the nav.
  * @returns The fixed nav bar.
  */
-export function Fixed({ pages }: {
-    pages: Array<{ label: string; link: string; }>;
-}): ReactNode {
+export function Fixed({ pages }: { pages: Array<{ label: string; link: string; }>; }): ReactNode {
     return (
-        <Box sx={{ display: { md: "flex", xs: "none" }, flex: 1 }}>
+        <Box sx={{ flex: 1 }}>
             {pages.map((page, i) => (
                 <MenuItem
                     component={Link}
