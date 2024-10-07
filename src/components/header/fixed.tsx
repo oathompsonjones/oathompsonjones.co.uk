@@ -11,7 +11,7 @@ import type { ReactNode } from "react";
  */
 export function Fixed({ pages }: { pages: Array<{ label: string; link: string; }>; }): ReactNode {
     return (
-        <Box sx={{ flex: 1 }}>
+        <Box sx={{ display: "flex", flex: 1 }}>
             {pages.map((page, i) => (
                 <MenuItem
                     component={Link}

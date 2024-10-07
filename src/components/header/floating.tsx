@@ -27,6 +27,7 @@ export function Floating({ pages, themeIcon, switchThemeMode }: {
                 backdropFilter: "blur(5px) saturate(200%) contrast(50%) brightness(100%)",
                 backgroundColor: "rgba(var(--mui-palette-background-default), 1)",
                 borderRadius: "999px",
+                display: "flex",
                 left: "50%",
                 position: "fixed",
                 top: "var(--top)",
