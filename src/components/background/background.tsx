@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import desk from "assets/images/desk.jpg";
 import { gameOfLife } from "./sketches/gameOfLife";
 import { matrix } from "./sketches/matrix";
+import { metaballs } from "./sketches/metaballs";
 import { useMediaQuery } from "@mui/system";
 import { usePathname } from "next/navigation";
 import { useThemeMode } from "hooks/useThemeMode";
@@ -31,6 +32,7 @@ export function Background(): ReactNode {
     const sketches = [
         matrix(theme, themeColour),
         gameOfLife(theme),
+        metaballs(theme),
     ];
     const sketch = sketches[Math.floor(Math.random() * sketches.length)];
 
