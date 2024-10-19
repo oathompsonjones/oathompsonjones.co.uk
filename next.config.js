@@ -1,3 +1,4 @@
+// @ts-check
 import { createTheme, responsiveFontSizes } from "@mui/material";
 import { withPigment } from "@pigment-css/nextjs-plugin";
 
@@ -7,7 +8,8 @@ const nextConfig = {
         emotion: true,
         styledComponents: true,
     },
-    redirects() {
+    // eslint-disable-next-line require-await
+    async redirects() {
         return Object.entries({
             discord: "https://discord.com/users/310145094684639235",
             email: "mailto:oathompsonjones@gmail.com",
