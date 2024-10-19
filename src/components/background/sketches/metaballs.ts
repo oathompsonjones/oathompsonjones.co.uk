@@ -121,7 +121,6 @@ export function metaballs(theme: Theme): Sketch {
 
         p5.setup = (): void => {
             p5.createCanvas(window.innerWidth, window.innerHeight);
-            p5.fullscreen();
             p5.stroke(mainColour);
             p5.strokeWeight(3);
             p5.noFill();

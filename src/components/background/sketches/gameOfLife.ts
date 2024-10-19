@@ -83,7 +83,6 @@ export function gameOfLife(theme: Theme): Sketch {
 
         p5.setup = (): void => {
             p5.createCanvas(window.innerWidth, window.innerHeight);
-            p5.fullscreen();
             p5.noCursor();
             p5.background(...bgColour);
             p5.fill(...mainColour, 25);

@@ -94,7 +94,6 @@ export function matrix(theme: Theme, themeColour: "dark" | "light"): Sketch {
 
         p5.setup = (): void => {
             p5.createCanvas(window.innerWidth, window.innerHeight);
-            p5.fullscreen();
 
             let x = 0;
 
