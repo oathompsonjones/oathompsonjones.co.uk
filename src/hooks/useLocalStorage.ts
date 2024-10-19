@@ -1,45 +1,58 @@
 "use client";
 
+import type { Dispatch, SetStateAction } from "react";
 import { useEffect, useState } from "react";
-
-/**
- * Parses a string into a JSON object.
- * @template T - The type of the value to parse.
- * @param value - The value to parse.
- * @param fallbackValue - The value to return if the parsing fails.
- * @returns The parsed value or the fallback value.
- */
-function parse<T>(value: string, fallbackValue: T): T {
-    try {
-        return JSON.parse(value) as T;
-    } catch {
-        return fallbackValue;
-    }
-}
 
 /**
  * Provides the same behaviour as `useState`, but also stores data using localStorage.
  * @template T - The type of the value to store.
  * @param key - The name of the variable to store in localStorage.
- * @param initialState - The initial value to store for that variable.
- * The first is the value stored, the second is a function to update that value.
- * @returns The value stored in localStorage, and a function to update that value.
+ * @param initialValue - The initial value to store for that variable.
+ * @returns The value stored in localStorage, a function to update that value, and a function to remove that value.
  */
-export function useLocalStorage<T>(key: string, initialState: T): [T, (newValue: T) => void] {
-    // Stores the value in the state, allowing this Hook to have the same behaviour as the useState Hook.
-    const [value, setValue] = useState<T>(initialState);
+export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<SetStateAction<T>>] {
+    const parse = (value: string): T => {
+        if (value === "undefined")
+            return undefined as unknown as T;
 
-    // Stores the state in local storage once mounted.
-    useEffect(() => {
-        const item = localStorage.getItem(key);
+        let parsed: unknown;
 
-        if (item !== null)
-            setValue(parse<T>(item, initialState));
-    }, []);
+        try {
+            parsed = JSON.parse(value);
+        } catch (error) {
+            return initialValue;
+        }
 
-    // Updates the local storage when the state updates.
-    useEffect(() => localStorage.setItem(key, JSON.stringify(value)), [value]);
+        return parsed as T;
+    };
 
-    // Returns the value and the updater function.
-    return [value, setValue];
+    const readValue = (): T => {
+        if (typeof window === "undefined")
+            return initialValue;
+
+        try {
+            const raw = localStorage.getItem(key);
+
+            return raw === null ? initialValue : parse(raw);
+        } catch (error) {
+            return initialValue;
+        }
+    };
+
+    const [storedValue, setStoredValue] = useState(readValue);
+
+    const setValue: Dispatch<SetStateAction<T>> = (value) => {
+        if (typeof window !== "undefined") {
+            // Allow value to be a function so we have the same API as useState
+            const newValue = value instanceof Function ? value(readValue()) : value;
+
+            // Save to local storage and state
+            localStorage.setItem(key, JSON.stringify(newValue));
+            setStoredValue(newValue);
+        }
+    };
+
+    useEffect(() => setStoredValue(readValue()), [key]);
+
+    return [storedValue, setValue];
 }
