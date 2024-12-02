@@ -1,3 +1,5 @@
+"use client";
+
 import { ButtonGroup, IconButton, Tooltip } from "@mui/material";
 import { CodeWrapper } from "./codeWrapper";
 import { ContentCopy } from "@mui/icons-material";

@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
 import type { ReactNode } from "react";
-import type { Repo } from "api/github/route";
+import type { Repo } from "actions/github";
 import Stack from "components/layout/stack";
 
 /**

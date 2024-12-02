@@ -1,7 +1,9 @@
+"use client";
+
 import { Card, CardMedia, Zoom } from "@mui/material";
 import { Instagram } from "@mui/icons-material";
 import Link from "next/link";
-import type { Post } from "api/instagram/route";
+import type { Post } from "actions/instagram";
 import type { ReactNode } from "react";
 import { useState } from "react";
 

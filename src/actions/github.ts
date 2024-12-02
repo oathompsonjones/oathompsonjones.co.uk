@@ -1,5 +1,7 @@
+"use server";
+
 import { Canvas, Image } from "canvas";
-import { NextResponse } from "next/server";
+import type { ActionResponse } from ".";
 import { graphql } from "@octokit/graphql";
 
 export type Repo = {
@@ -86,45 +88,47 @@ function generateImage(arrayBuffer: ArrayBuffer): string {
     return `data:image/png;base64,${canvas.toBuffer().toString("base64")}`;
 }
 
-export const dynamic = "force-dynamic";
-
 /**
- * Handles GET requests to the GitHub API.
- * @returns The response.
+ * Fetches all of my repositories from GitHub.
+ * @returns An array of all of my repositories.
  */
-export async function GET(): Promise<NextResponse> {
-    const graphqlWithAuth = graphql.defaults({ headers: { authorization: process.env.GITHUB_TOKEN } });
-    const { user: { repositories: { repos } } } = await graphqlWithAuth<APIResponse>(`{
-        user(login: "oathompsonjones") {
-            repositories(first: 100, isFork: false, ownerAffiliations: OWNER) {
-                repos: nodes {
-                    description
-                    homepageUrl
-                    isPrivate
-                    languages(first: 10) {
-                        nodes {
+export async function getGithubRepos(): Promise<ActionResponse<Repo[]>> {
+    try {
+        const graphqlWithAuth = graphql.defaults({ headers: { authorization: process.env.GITHUB_TOKEN } });
+        const { user: { repositories: { repos } } } = await graphqlWithAuth<APIResponse>(`{
+            user(login: "oathompsonjones") {
+                repositories(first: 100, isFork: false, ownerAffiliations: OWNER) {
+                    repos: nodes {
+                        description
+                        homepageUrl
+                        isPrivate
+                        languages(first: 10) {
+                            nodes {
+                                name
+                            }
+                        }
+                        name
+                        nameWithOwner
+                        openGraphImageUrl
+                        primaryLanguage {
                             name
                         }
+                        url
                     }
-                    name
-                    nameWithOwner
-                    openGraphImageUrl
-                    primaryLanguage {
-                        name
-                    }
-                    url
                 }
             }
-        }
-    }`);
+        }`);
 
-    const imageArrayBuffers: Array<Promise<ArrayBuffer>> = repos
-        .map(async (repo) => fetch(repo.openGraphImageUrl).then(async (res) => res.arrayBuffer()));
+        const imageArrayBuffers: Array<Promise<ArrayBuffer>> = repos
+            .map(async (repo) => fetch(repo.openGraphImageUrl).then(async (res) => res.arrayBuffer()));
 
-    let i = 0;
+        let i = 0;
 
-    for await (const arrayBuffer of imageArrayBuffers)
-        repos[i++]!.image = generateImage(arrayBuffer);
+        for await (const arrayBuffer of imageArrayBuffers)
+            repos[i++]!.image = generateImage(arrayBuffer);
 
-    return NextResponse.json(repos);
+        return { data: repos, success: true };
+    } catch (error) {
+        return { error: "Internal Server Error", success: false };
+    }
 }

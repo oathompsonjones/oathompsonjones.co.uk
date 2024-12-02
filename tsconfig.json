@@ -37,6 +37,9 @@
             "hooks/*": [
                 "./src/hooks/*"
             ],
+            "actions/*": [
+                "./src/actions/*"
+            ],
             "styles/*": [
                 "./src/styles/*"
             ],

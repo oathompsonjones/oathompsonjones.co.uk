@@ -1,6 +1,8 @@
+"use server";
+
 /* eslint-disable @typescript-eslint/naming-convention */
 import { readFile, writeFile } from "fs/promises";
-import { NextResponse } from "next/server";
+import type { ActionResponse } from ".";
 
 type BasePost = {
     caption?: string;
@@ -81,33 +83,35 @@ async function refreshToken(): Promise<void> {
     }
 }
 
-export const dynamic = "force-dynamic";
-
 /**
- * Gets the Instagram posts.
- * @returns The Instagram posts.
+ * Gets all of my Instagram posts.
+ * @returns An array of my Instagram posts.
  */
-export async function GET(): Promise<NextResponse> {
-    await refreshToken();
-    const response = await fetch(`https://graph.instagram.com/me/media?fields=${[
-        "caption",
-        "id",
-        "media_type",
-        "media_url",
-        "permalink",
-        "timestamp",
-        "username",
-        "children{media_type, media_url}",
-    ].join(",")}&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`);
+export async function getInstagramPosts(): Promise<ActionResponse<Post[]>> {
+    try {
+        await refreshToken();
+        const response = await fetch(`https://graph.instagram.com/me/media?fields=${[
+            "caption",
+            "id",
+            "media_type",
+            "media_url",
+            "permalink",
+            "timestamp",
+            "username",
+            "children{media_type, media_url}",
+        ].join(",")}&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`);
 
-    if (!response.ok)
-        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+        if (!response.ok)
+            throw new Error();
 
-    let { data } = await response.json() as DataRes;
+        let { data } = await response.json() as DataRes;
 
-    data = data.filter((post) => !post.permalink.startsWith("https://www.instagram.com/reel/"));
-    const head = data.find((post) => post.caption?.includes("#pin"));
-    const tail = data.filter((post) => post.id !== head?.id);
+        data = data.filter((post) => !post.permalink.startsWith("https://www.instagram.com/reel/"));
+        const head = data.find((post) => post.caption?.includes("#pin"));
+        const tail = data.filter((post) => post.id !== head?.id);
 
-    return NextResponse.json([head, ...tail]);
+        return { data: head ? [head, ...tail] : tail, success: true };
+    } catch (error) {
+        return { error: "Internal Server Error", success: false };
+    }
 }

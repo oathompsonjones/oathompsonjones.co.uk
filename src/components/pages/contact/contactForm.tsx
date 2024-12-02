@@ -1,10 +1,11 @@
 "use client";
 
 import { Alert, Button, Paper, TextField } from "@mui/material";
-import type { ChangeEvent, FormEvent, ReactNode } from "react";
+import type { FormEvent, ReactNode } from "react";
 import { useEffect, useState } from "react";
 import { Send } from "@mui/icons-material";
 import Stack from "components/layout/stack";
+import { contact } from "actions/contact";
 import { useWindowSize } from "hooks/useWindowSize";
 
 /**
@@ -43,12 +44,14 @@ export function ContactForm(): ReactNode {
             setStatus(false);
         } else {
             // Attempts to send the form data to the server.
-            fetch("/api/contact", {
-                body: JSON.stringify({ content, email, name, subject }),
-                // eslint-disable-next-line @typescript-eslint/naming-convention
-                headers: { "Content-Type": "application/json" },
-                method: "POST",
-            }).then(() => {
+            contact({ content, email, name, subject }).then(({ success }) => {
+                // Checks if the form submission was successful.
+                if (!success) {
+                    setStatus(false);
+
+                    return;
+                }
+
                 // Clears the fields for each of the fields in the form.
                 setContent("");
                 setEmail("");
@@ -57,27 +60,6 @@ export function ContactForm(): ReactNode {
                 // Sets the form status to true if the form has submitted successfully.
                 setStatus(true);
             }).catch(() => setStatus(false));
-        }
-    }
-
-    /**
-     * Updates the state of the form.
-     * @param event - The event that triggered the update.
-     */
-    function update(this: "content" | "email" | "name" | "subject", event: ChangeEvent<HTMLTextAreaElement>): void {
-        switch (this) {
-            case "name":
-                setName(event.target.value);
-                break;
-            case "email":
-                setEmail(event.target.value);
-                break;
-            case "subject":
-                setSubject(event.target.value);
-                break;
-            case "content":
-                setContent(event.target.value);
-                break;
         }
     }
 
@@ -99,14 +81,30 @@ export function ContactForm(): ReactNode {
         >
             {statusBanner}
             <Stack spacing={2} direction={{ md: "row", xs: "column" }}>
-                <TextField label="Name" name="name" onChange={update.bind("name")} value={name} />
-                <TextField label="Email" name="email" onChange={update.bind("email")} value={email} type="email" />
+                <TextField
+                    label="Name"
+                    name="name"
+                    onChange={(e) => setName(e.target.value)}
+                    value={name}
+                />
+                <TextField
+                    label="Email"
+                    name="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    type="email"
+                />
             </Stack>
-            <TextField label="Subject" name="subject" onChange={update.bind("subject")} value={subject} />
+            <TextField
+                label="Subject"
+                name="subject"
+                onChange={(e) => setSubject(e.target.value)}
+                value={subject}
+            />
             <TextField
                 label="Content"
                 name="content"
-                onChange={update.bind("content")}
+                onChange={(e) => setContent(e.target.value)}
                 value={content}
                 multiline
                 rows={Math.min(Math.max(5, contentRows), 30)}
