@@ -8,24 +8,29 @@ import type { ActionResponse } from ".";
  * @returns Information about a project Euler problem.
  */
 export async function getProblem(problem: number): Promise<ActionResponse<{ description: string; title: string; }>> {
-    const response = { description: "Unknown", title: "Unknown" };
+    const data = { description: "Unknown", title: "Unknown" };
 
     try {
         const descResponse = await fetch(`https://projecteuler.net/minimal=${problem}`);
 
-        response.description = descResponse.ok
+        data.description = descResponse.ok
             ? (await descResponse.text())
                 .replaceAll(/href="(.+)"/g, "href=https://projecteuler.net/$1")
                 .replaceAll(/\${1,2}([^$]+)\${1,2}/g, "\\($1\\)")
             : "Unknown";
     } catch (error) {
-        return { error: "Failed to fetch the description.", success: false };
+        return {
+            error: error instanceof Error
+                ? error
+                : new Error("Failed to fetch the description."),
+            success: false,
+        };
     }
 
     try {
         const titleResponse = await fetch("https://projecteuler.net/minimal=problems;csv");
 
-        response.title = titleResponse.ok
+        data.title = titleResponse.ok
             ? (await titleResponse.text())
                 .split("\n")
                 .find((line) => line.startsWith(`${problem},`))
@@ -34,10 +39,18 @@ export async function getProblem(problem: number): Promise<ActionResponse<{ desc
                 .replaceAll(/\${1,2}([^$]+)\${1,2}/g, "\\($1\\)") ?? "Unknown"
             : "Unknown";
     } catch (error) {
-        return { error: "Failed to fetch the title.", success: false };
+        return {
+            error: error instanceof Error
+                ? error
+                : new Error("Failed to fetch the title."),
+            success: false,
+        };
     }
 
-    return { data: response, success: true };
+    return {
+        data,
+        success: true,
+    };
 }
 
 /**
@@ -53,9 +66,19 @@ export async function getSolution(problem: number): Promise<ActionResponse<strin
     const url = `https://raw.githubusercontent.com/oathompsonjones/Project-Euler/master/src/${path}`;
 
     try {
-        return { data: await (await fetch(url)).text(), success: true };
+        const data = await (await fetch(url)).text();
+
+        return {
+            data,
+            success: true,
+        };
     } catch (error) {
-        return { error: "Failed to fetch the solution to this problem.", success: false };
+        return {
+            error: error instanceof Error
+                ? error
+                : new Error("Failed to fetch the solution to this problem."),
+            success: false,
+        };
     }
 }
 
@@ -67,8 +90,18 @@ export async function getUtils(): Promise<ActionResponse<string>> {
     const url = "https://raw.githubusercontent.com/oathompsonjones/Project-Euler/master/src/utils.ts";
 
     try {
-        return { data: await (await fetch(url)).text(), success: true };
+        const data = await (await fetch(url)).text();
+
+        return {
+            data,
+            success: true,
+        };
     } catch (error) {
-        return { error: "Failed to fetch the utils file for project Euler problems.", success: false };
+        return {
+            error: error instanceof Error
+                ? error
+                : new Error("Failed to fetch the utils file for project Euler problems."),
+            success: false,
+        };
     }
 }

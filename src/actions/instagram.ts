@@ -61,29 +61,30 @@ async function refreshToken(): Promise<void> {
                 `access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`,
             ].join("&")}`);
 
-            if (response.ok) {
-                const { access_token: accessToken } = await response.json() as TokenRes;
-                const refreshAt = Date.now() + 24 * 60 * 60 * 1000;
+            if (!response.ok)
+                throw new Error("Failed to refresh the access token.");
 
-                /* eslint-disable require-atomic-updates */
-                process.env.INSTAGRAM_ACCESS_TOKEN = accessToken;
-                // eslint-disable-next-line id-length
-                process.env.INSTAGRAM_ACCESS_TOKEN_REFRESH_AT = String(refreshAt);
-                /* eslint-enable require-atomic-updates */
+            const { access_token: accessToken } = await response.json() as TokenRes;
+            const refreshAt = Date.now() + 24 * 60 * 60 * 1000;
 
-                let fileData = await readFile("./.env", "utf8");
+            /* eslint-disable require-atomic-updates */
+            process.env.INSTAGRAM_ACCESS_TOKEN = accessToken;
+            // eslint-disable-next-line id-length
+            process.env.INSTAGRAM_ACCESS_TOKEN_REFRESH_AT = String(refreshAt);
+            /* eslint-enable require-atomic-updates */
 
-                fileData = fileData.replace(
-                    /INSTAGRAM_ACCESS_TOKEN=.*\n/,
-                    `INSTAGRAM_ACCESS_TOKEN=${accessToken}\n`,
-                );
-                fileData = fileData.replace(
-                    /INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=.*\n/,
-                    `INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=${refreshAt}\n`,
-                );
+            let fileData = await readFile("./.env", "utf8");
 
-                await writeFile("./.env", fileData);
-            }
+            fileData = fileData.replace(
+                /INSTAGRAM_ACCESS_TOKEN=.*\n/,
+                `INSTAGRAM_ACCESS_TOKEN=${accessToken}\n`,
+            );
+            fileData = fileData.replace(
+                /INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=.*\n/,
+                `INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=${refreshAt}\n`,
+            );
+
+            await writeFile("./.env", fileData);
         } catch (err) {
             // eslint-disable-next-line no-console
             console.error(err instanceof Error ? `${err.name}: ${err.message}\n${err.stack ?? ""}` : String(err));
@@ -96,8 +97,12 @@ async function refreshToken(): Promise<void> {
  * @returns An array of my Instagram posts.
  */
 export async function getInstagramPosts(): Promise<ActionResponse<Post[]>> {
+    // Refresh the access token if necessary.
+    await refreshToken();
+
+    let data: Post[] = [];
+
     try {
-        await refreshToken();
         const response = await fetch(`https://graph.instagram.com/me/media?fields=${[
             "caption",
             "id",
@@ -110,16 +115,22 @@ export async function getInstagramPosts(): Promise<ActionResponse<Post[]>> {
         ].join(",")}&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`);
 
         if (!response.ok)
-            throw new Error();
+            throw new Error("Failed to fetch the Instagram posts.");
 
-        let { data } = await response.json() as DataRes;
-
-        data = data.filter((post) => !post.permalink.startsWith("https://www.instagram.com/reel/"));
-        const head = data.find((post) => post.caption?.includes("#pin"));
-        const tail = data.filter((post) => post.id !== head?.id);
-
-        return { data: head ? [head, ...tail] : tail, success: true };
+        ({ data } = await response.json() as DataRes);
     } catch (error) {
-        return { error: "Internal Server Error", success: false };
+        return {
+            error: error instanceof Error ? error : new Error("Internal server error"),
+            success: false,
+        };
     }
+
+    data = data.filter((post) => !post.permalink.startsWith("https://www.instagram.com/reel/"));
+    const head = data.find((post) => post.caption?.includes("#pin"));
+    const tail = data.filter((post) => post.id !== head?.id);
+
+    return {
+        data: head ? [head, ...tail] : tail,
+        success: true,
+    };
 }

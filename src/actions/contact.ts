@@ -27,38 +27,48 @@ export async function contact({ content, email, name, subject }: FormSchema): Pr
     const safeParse = formSchema.safeParse({ content, email, name, subject });
 
     if (!safeParse.success)
-        return { error: safeParse.error.message, success: false };
+        return safeParse;
 
-    // Set up the transporter.
-    const transporter = nodemailer.createTransport({
-        auth: {
-            pass: process.env.EMAIL_AUTH_PASS,
-            user: process.env.EMAIL_AUTH_USER,
-        },
-        service: process.env.EMAIL_SERVICE,
-    });
+    try {
+        // Set up the transporter.
+        const transporter = nodemailer.createTransport({
+            auth: {
+                pass: process.env.EMAIL_AUTH_PASS,
+                user: process.env.EMAIL_AUTH_USER,
+            },
+            service: process.env.EMAIL_SERVICE,
+        });
 
-    // Set up the content of the email to be sent to me.
-    const text = `New message from ${name} (${email})\n\n${content}`;
+        // Set up the content of the email to be sent to me.
+        const text = `New message from ${name} (${email})\n\n${content}`;
 
-    // Send the email to me.
-    await transporter.sendMail({
-        from: process.env.EMAIL_AUTH_USER,
-        subject,
-        text,
-        to: process.env.EMAIL_AUTH_USER,
-    });
+        // Send the email to me.
+        await transporter.sendMail({
+            from: process.env.EMAIL_AUTH_USER,
+            subject,
+            text,
+            to: process.env.EMAIL_AUTH_USER,
+        });
 
-    // Send an email to the user.
-    await transporter.sendMail({
-        from: process.env.EMAIL_AUTH_USER,
-        subject: `RE: ${subject}`,
-        text: "Thank you for your message, I will get back to you shortly.\n\n" +
-            "If you did not attempt to contact me via https://oathompsonjones.co.uk/ " +
-            "then please ignore this email.\n\n" +
-            "Kind Regards,\nOliver Jones (oathompsonjones@gmail.com)",
-        to: email,
-    });
+        // Send an email to the user.
+        await transporter.sendMail({
+            from: process.env.EMAIL_AUTH_USER,
+            subject: `RE: ${subject}`,
+            text: "Thank you for your message, I will get back to you shortly.\n\n" +
+                "If you did not attempt to contact me via https://oathompsonjones.co.uk/ " +
+                "then please ignore this email.\n\n" +
+                "Kind Regards,\nOliver Jones (oathompsonjones@gmail.com)",
+            to: email,
+        });
+    } catch (error) {
+        return {
+            error: error instanceof Error ? error : new Error("Failed to send the email."),
+            success: false,
+        };
+    }
 
-    return { data: undefined, success: true };
+    return {
+        data: undefined,
+        success: true,
+    };
 }

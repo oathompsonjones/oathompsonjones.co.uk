@@ -14,7 +14,7 @@ export default async function Portfolio(): Promise<ReactNode> {
     const response = await getGithubRepos();
 
     if (!response.success)
-        throw new Error(response.error);
+        throw response.error;
 
     // Renders the portfolio page.
     return (

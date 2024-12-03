@@ -1,5 +1,5 @@
 export type ActionResponse<T> = {
-    error: string;
+    error: Error;
     success: false;
 } | {
     success: true;

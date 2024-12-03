@@ -93,9 +93,13 @@ function generateImage(arrayBuffer: ArrayBuffer): string {
  * @returns An array of all of my repositories.
  */
 export async function getGithubRepos(): Promise<ActionResponse<Repo[]>> {
+    let data: Repo[] = [];
+
+    // Fetch the repositories from GitHub.
     try {
         const graphqlWithAuth = graphql.defaults({ headers: { authorization: process.env.GITHUB_TOKEN } });
-        const { user: { repositories: { repos } } } = await graphqlWithAuth<APIResponse>(`{
+
+        ({ user: { repositories: { repos: data } } } = await graphqlWithAuth<APIResponse>(`{
             user(login: "oathompsonjones") {
                 repositories(first: 100, isFork: false, ownerAffiliations: OWNER) {
                     repos: nodes {
@@ -117,18 +121,25 @@ export async function getGithubRepos(): Promise<ActionResponse<Repo[]>> {
                     }
                 }
             }
-        }`);
-
-        const imageArrayBuffers: Array<Promise<ArrayBuffer>> = repos
-            .map(async (repo) => fetch(repo.openGraphImageUrl).then(async (res) => res.arrayBuffer()));
-
-        let i = 0;
-
-        for await (const arrayBuffer of imageArrayBuffers)
-            repos[i++]!.image = generateImage(arrayBuffer);
-
-        return { data: repos, success: true };
+        }`));
     } catch (error) {
-        return { error: "Internal Server Error", success: false };
+        return {
+            error: error instanceof Error ? error : new Error("Failed to fetch the repositories."),
+            success: false,
+        };
     }
+
+    // Fetch the images for the repositories.
+    const imageArrayBuffers: ArrayBuffer[] = await Promise.all(
+        data.map(async (repo) => fetch(repo.openGraphImageUrl).then(async (res) => res.arrayBuffer())),
+    );
+
+    for (let i = 0; i < imageArrayBuffers.length; i++)
+        data[i++]!.image = generateImage(imageArrayBuffers[i]!);
+
+    // Return the list of repositories.
+    return {
+        data,
+        success: true,
+    };
 }

@@ -14,7 +14,7 @@ export default async function Gallery(): Promise<ReactNode> {
     const response = await getInstagramPosts();
 
     if (!response.success)
-        throw new Error(response.error);
+        throw response.error;
 
     // Renders the gallery page.
     return (
