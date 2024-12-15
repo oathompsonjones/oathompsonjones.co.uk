@@ -135,7 +135,7 @@ export async function getGithubRepos(): Promise<ActionResponse<Repo[]>> {
     );
 
     for (let i = 0; i < imageArrayBuffers.length; i++)
-        data[i++]!.image = generateImage(imageArrayBuffers[i]!);
+        data[i]!.image = generateImage(imageArrayBuffers[i]!);
 
     // Return the list of repositories.
     return {
