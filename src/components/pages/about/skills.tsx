@@ -16,7 +16,7 @@ export function Skills(): ReactNode {
 
     return (
         <div>
-            <Typography variant="h3">Skills</Typography>
+            <Typography variant="h3" sx={{ textAlign: "center" }}>Skills</Typography>
             <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
                 {skills.map((skill, i) => (
                     <span key={i}>

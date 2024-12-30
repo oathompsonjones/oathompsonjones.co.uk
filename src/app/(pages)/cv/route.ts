@@ -5,9 +5,11 @@ import pdflatex from "node-pdflatex";
 
 export type CV = {
     Summary: string;
+    Experience: string[];
     Skills: string[];
     Qualifications: Record<string, Record<string, Record<string, string>> | { summary: string; grades: string[]; }>;
-    Experience: Record<string, string>;
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    "Work Experience": Record<string, string>;
     Volunteering: Record<string, string>;
 };
 

@@ -8,6 +8,7 @@ import { Skills } from "components/pages/about/skills";
 import Stack from "components/layout/stack";
 import { Typography } from "@mui/material";
 import { Volunteering } from "components/pages/about/volunteering";
+import { WorkExperience } from "components/pages/about/workExperience";
 
 /**
  * This page acts as an online CV.
@@ -32,9 +33,10 @@ export default function About(): ReactNode {
                 </DynamicButton>
             </Stack>
             <Bio />
+            <Experience />
             <Skills />
             <Qualifications />
-            <Experience />
+            <WorkExperience />
             <Volunteering />
         </>
     );
