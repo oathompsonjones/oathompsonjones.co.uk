@@ -5,7 +5,7 @@ import httpProxy from "http-proxy";
 import https from "https";
 
 // Configuration.
-const sslPath = "/etc/letsencrypt/live/oathompsonjones";
+const sslPath = "/etc/letsencrypt/live/oathompsonjones.co.uk";
 const domainPortMap = {
     "haskell-playground.co.uk": 3001,
     "oathompsonjones.co.uk": 3000,
