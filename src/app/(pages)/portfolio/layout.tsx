@@ -15,9 +15,7 @@ export default function Layout({ children }: { children: ReactNode; }): ReactNod
     return (
         <div className="full-width" style={{ display: "flex", flexDirection: "column", height: "100%" }}>
             <Typography variant="h2" sx={{ textAlign: "center" }}>Portfolio</Typography>
-            <div style={{ flex: 1, height: "100%" }}>
-                {children}
-            </div>
+            {children}
             <Typography variant="subtitle1" sx={{ textAlign: "right" }}>
                 Visit my <Link href="/github" prefetch={false}>GitHub</Link> profile.
             </Typography>
