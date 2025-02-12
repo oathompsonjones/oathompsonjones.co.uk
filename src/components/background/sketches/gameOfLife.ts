@@ -1,4 +1,3 @@
-
 import type { Sketch } from "@p5-wrapper/react";
 import type { Theme } from "@mui/material";
 import { hexToRgb } from "../background";
@@ -87,7 +86,7 @@ export function gameOfLife(theme: Theme): Sketch {
             p5.background(...bgColour);
             p5.fill(...mainColour, 25);
             p5.stroke(...mainColour);
-            p5.frameRate(1);
+            p5.frameRate(5);
             game = new Game();
         };
 
