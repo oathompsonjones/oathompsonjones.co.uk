@@ -1,5 +1,6 @@
 // @ts-check
 import { createTheme, responsiveFontSizes } from "@mui/material";
+import { next } from "@million/lint";
 import { withPigment } from "@pigment-css/nextjs-plugin";
 
 /** @type {import('next').NextConfig} */
@@ -69,5 +70,5 @@ const pigmentConfig = {
     transformLibraries: ["@mui/material"],
 };
 
-void withPigment(nextConfig, pigmentConfig);
-export default nextConfig;
+void next({ rsc: true })(withPigment(nextConfig, pigmentConfig));
+export default next({ rsc: true })(nextConfig);

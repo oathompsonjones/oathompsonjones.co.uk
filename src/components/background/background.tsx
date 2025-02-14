@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { NextReactP5Wrapper } from "@p5-wrapper/next";
 import type { ReactNode } from "react";
+import { ReactP5Wrapper } from "../../../react/src/main";
 import desk from "assets/images/desk.jpg";
 import { gameOfLife } from "./sketches/gameOfLife";
 import { matrix } from "./sketches/matrix";
@@ -34,7 +34,7 @@ export function Background(): ReactNode {
         gameOfLife(theme),
         metaballs(theme),
     ];
-    const sketch = sketches[Math.floor(Math.random() * sketches.length)];
+    const sketch = sketches[Math.floor(Math.random() * sketches.length)]!;
 
     // Reload the background when the window size changes
     useWindowSize();
@@ -60,7 +60,7 @@ export function Background(): ReactNode {
                 />
             );
         default:
-            return (
+            return !reducedMotion && (
                 <div style={{
                     filter: "blur(3px)",
                     height: "100vh",
@@ -71,7 +71,7 @@ export function Background(): ReactNode {
                     width: "100vw",
                     zIndex: -10,
                 }}>
-                    {!reducedMotion && <NextReactP5Wrapper sketch={sketch} />}
+                    <ReactP5Wrapper sketch={sketch} />
                 </div>
             );
     }

@@ -61,6 +61,8 @@ async function refreshToken(): Promise<void> {
                 `access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`,
             ].join("&")}`);
 
+            console.log(response);
+
             if (!response.ok)
                 throw new Error("Failed to refresh the access token.");
 
@@ -114,8 +116,19 @@ export async function getInstagramPosts(): Promise<ActionResponse<Post[]>> {
             "children{media_type, media_url}",
         ].join(",")}&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`);
 
-        if (!response.ok)
+        if (!response.ok) {
+            console.log(response, `https://graph.instagram.com/me/media?fields=${[
+                "caption",
+                "id",
+                "media_type",
+                "media_url",
+                "permalink",
+                "timestamp",
+                "username",
+                "children{media_type, media_url}",
+            ].join(",")}&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`);
             throw new Error("Failed to fetch the Instagram posts.");
+        }
 
         ({ data } = await response.json() as DataRes);
     } catch (error) {
