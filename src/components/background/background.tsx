@@ -1,9 +1,10 @@
 "use client";
 
+import type { NamedExoticComponent, ReactNode } from "react";
 import Image from "next/image";
-import type { ReactNode } from "react";
-import { ReactP5Wrapper } from "../../../react/src/main";
+import type { P5WrapperProps } from "../../../react/src/main";
 import desk from "assets/images/desk.jpg";
+import dynamic from "next/dynamic";
 import { gameOfLife } from "./sketches/gameOfLife";
 import { matrix } from "./sketches/matrix";
 import { metaballs } from "./sketches/metaballs";
@@ -11,6 +12,10 @@ import { useMediaQuery } from "@mui/system";
 import { usePathname } from "next/navigation";
 import { useThemeMode } from "hooks/useThemeMode";
 import { useWindowSize } from "hooks/useWindowSize";
+
+const ReactP5Wrapper = dynamic(async () => import("../../../react/src/main")
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-explicit-any
+    .then((mod) => mod.ReactP5Wrapper as any), { ssr: false }) as unknown as NamedExoticComponent<P5WrapperProps>;
 
 /**
  * Converts a hex colour to RGB.
@@ -29,11 +34,7 @@ export function hexToRgb(hex: string): [number, number, number] {
 export function Background(): ReactNode {
     const { themeColour, theme } = useThemeMode();
     const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
-    const sketches = [
-        matrix(theme, themeColour),
-        gameOfLife(theme),
-        metaballs(theme),
-    ];
+    const sketches = [matrix(theme, themeColour), gameOfLife(theme), metaballs(theme)];
     const sketch = sketches[Math.floor(Math.random() * sketches.length)]!;
 
     // Reload the background when the window size changes
