@@ -31,10 +31,10 @@ export function ThemeContextProvider({ children }: { children: ReactNode; }): Re
             MuiPaper: {
                 styleOverrides: {
                     root: { transition: "background-color 0.25s linear" },
-                    rounded: { borderRadius: "2vmin" },
+                    rounded: { borderRadius: "2rem" },
                 },
             },
-            MuiSkeleton: { styleOverrides: { root: { borderRadius: "2vmin" } } },
+            MuiSkeleton: { styleOverrides: { root: { borderRadius: "2rem" } } },
         },
         cssVariables: { colorSchemeSelector: "class" },
         defaultColorScheme: "dark",

@@ -11,8 +11,8 @@ import { socials } from "components/footer/socialLinks";
  * @returns My contact links, and an email form.
  */
 export default function Contact(): ReactNode {
-    const getSize = (size: "lg" | "md" | "sm" | "xl" | "xs", index: number): GridSize => {
-        const lineLength = { lg: 4, md: 3, sm: 2, xl: 5, xs: 1 }[size];
+    const getSize = (size: "lg" | "md" | "sm" | "xs", index: number): GridSize => {
+        const lineLength = { lg: 5, md: 4, sm: 3, xs: 2 }[size];
 
         return index >= socials.length - socials.length % lineLength
             ? "grow"
@@ -26,7 +26,7 @@ export default function Contact(): ReactNode {
             <ContactForm />
             <Grid container spacing={1} columns={socials.length}>
                 {socials.map(({ icon, label, link }, i) => (
-                    <Grid key={i} size={(["xs", "sm", "md", "lg", "xl"] as const).map((size) => getSize(size, i))}>
+                    <Grid key={i} size={(["xs", "sm", "md", "lg"] as const).map((size) => getSize(size, i))}>
                         <Button
                             LinkComponent={Link}
                             href={link}

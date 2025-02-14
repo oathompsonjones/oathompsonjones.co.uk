@@ -15,21 +15,23 @@ export type FormSchema = z.infer<typeof formSchema>;
 
 /**
  * Sends an email to me.
- * @param body - The body of the form, containing the content, email, name, and subject.
- * @param body.content - The content of the email.
- * @param body.email - The email of the sender.
- * @param body.name - The name of the sender.
- * @param body.subject - The subject of the email.
+ * @param _state - The previous state.
+ * @param formData - The form data to handle.
  * @returns An action response.
  */
-export async function contact({ content, email, name, subject }: FormSchema): Promise<ActionResponse<undefined>> {
-    // Check that the input is in the correct form.
-    const safeParse = formSchema.safeParse({ content, email, name, subject });
-
-    if (!safeParse.success)
-        return safeParse;
-
+export async function contact(
+    _state: ActionResponse<undefined>,
+    formData: FormData,
+): Promise<ActionResponse<undefined>> {
     try {
+        // Check that the input is in the correct form.
+        const { content, email, name, subject } = formSchema.parse({
+            content: formData.get("content"),
+            email: formData.get("email"),
+            name: formData.get("name"),
+            subject: formData.get("subject"),
+        });
+
         // Set up the transporter.
         const transporter = nodemailer.createTransport({
             auth: {
@@ -39,14 +41,11 @@ export async function contact({ content, email, name, subject }: FormSchema): Pr
             service: process.env.EMAIL_SERVICE,
         });
 
-        // Set up the content of the email to be sent to me.
-        const text = `New message from ${name} (${email})\n\n${content}`;
-
         // Send the email to me.
         await transporter.sendMail({
             from: process.env.EMAIL_AUTH_USER,
             subject,
-            text,
+            text: `New message from ${name} (${email})\n\n${content}`,
             to: process.env.EMAIL_AUTH_USER,
         });
 
@@ -61,14 +60,11 @@ export async function contact({ content, email, name, subject }: FormSchema): Pr
             to: email,
         });
     } catch (error) {
-        return {
-            error: error instanceof Error ? error : new Error("Failed to send the email."),
-            success: false,
-        };
+        if (error instanceof z.ZodError)
+            return { error: new Error("Invalid form data."), success: false };
+
+        return { error: error instanceof Error ? error : new Error("Failed to send the email."), success: false };
     }
 
-    return {
-        data: undefined,
-        success: true,
-    };
+    return { data: undefined, success: true };
 }
