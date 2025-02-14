@@ -16,7 +16,6 @@ import hljs from "highlight.js/lib/common";
  */
 export default function ProjectEuler(): ReactNode {
     const [problem, setProblem] = useState(1);
-    const [hasMounted, setHasMounted] = useState(false);
 
     const [{ description, title }, setDescription] = useState({ description: "Loading...", title: "Loading..." });
     const [solution, setSolution] = useState("Loading...");
@@ -27,35 +26,32 @@ export default function ProjectEuler(): ReactNode {
     const next = (): void => setProblem((p) => p + 1);
 
     useEffect(() => {
-        if (hasMounted) {
-            window.location.hash = problem.toString();
+        window.location.hash = problem.toString();
 
-            getProblem(problem)
-                .then((response) => {
-                    if (response.success) {
-                        setDescription(response.data);
-                    } else {
-                        setDescription({
-                            description: "Failed to fetch the description.",
-                            title: "Failed to fetch the title.",
-                        });
-                    }
-                })
-                .catch(() => undefined);
-            getSolution(problem)
-                .then((response) => setSolution(
-                    response.success
-                        ? response.data
-                        : "// The solution to this problem is not available." +
+        getProblem(problem)
+            .then((response) => {
+                if (response.success) {
+                    setDescription(response.data);
+                } else {
+                    setDescription({
+                        description: "Failed to fetch the description.",
+                        title: "Failed to fetch the title.",
+                    });
+                }
+            })
+            .catch(() => undefined);
+
+        getSolution(problem)
+            .then((response) => setSolution(
+                response.success
+                    ? response.data
+                    : "// The solution to this problem is not available." +
                     "I may not have solved it yet, or it may not exist.",
-                ))
-                .catch(() => undefined);
-        }
-    }, [problem, hasMounted]);
+            ))
+            .catch(() => undefined);
+    }, [problem]);
 
     useEffect(() => {
-        setHasMounted(true);
-
         if (window.location.hash !== "" && !isNaN(Number(window.location.hash.slice(1))))
             setProblem(Number(window.location.hash.slice(1)));
 
