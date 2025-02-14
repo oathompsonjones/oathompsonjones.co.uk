@@ -24,8 +24,8 @@ export function Floating({ pages, themeIcon, switchThemeMode }: {
     return (
         <Paper
             sx={{
-                backdropFilter: "blur(5px) saturate(200%) contrast(50%) brightness(100%)",
-                backgroundColor: "rgba(var(--mui-palette-background-default), 1)",
+                backdropFilter: "blur(3px) saturate(250%)",
+                backgroundColor: "rgba(var(--mui-palette-background-defaultChannel) / 0.25)",
                 borderRadius: "999px",
                 display: "flex",
                 left: "50%",
