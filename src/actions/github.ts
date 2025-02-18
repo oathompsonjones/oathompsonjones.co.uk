@@ -39,36 +39,58 @@ type APIResponse = {
 };
 
 /**
+ * Gets the average colour of an image.
+ * @param image - The image to get the average colour of.
+ * @returns The average colour of the image as a hex string.
+ */
+function getAverageImageColour(image: Image): `#${string}` {
+    const average = (l: Uint8ClampedArray): number => l.reduce((a, b) => a + b, 0) / l.length;
+
+    const canvas = new Canvas(image.width, image.height);
+    const context = canvas.getContext("2d");
+
+    try {
+        context.drawImage(image, 0, 0);
+    } catch {
+        return "#ffffff";
+    }
+
+    const { data } = context.getImageData(0, 0, image.width, image.height);
+
+    return `#${[
+        data.filter((_, j) => j % 4 === 0),
+        data.filter((_, j) => j % 4 === 1),
+        data.filter((_, j) => j % 4 === 2),
+    ].map(average).map((c) => Math.round(c).toString(16).padStart(2, "0")).join("")}`;
+}
+
+/**
+ * Converts an array buffer to an image.
+ * @param arrayBuffer - The array buffer to convert.
+ * @returns The image object.
+ */
+function bufferToImage(arrayBuffer: ArrayBuffer): Image {
+    const image = new Image();
+
+    image.src = Buffer.from(arrayBuffer);
+
+    return image;
+}
+
+/**
  * Generates an image from an image binary.
  * @param arrayBuffer - The binary data of the image.
  * @returns The resized image.
  */
 function generateImage(arrayBuffer: ArrayBuffer): string {
-    const average = (l: Uint8ClampedArray): number => l.reduce((a, b) => a + b, 0) / l.length;
-    const colourToHex = (c: number): string => Math.round(c).toString(16).padStart(2, "0");
-
-    const image: Image = new Image();
-
-    image.src = Buffer.from(arrayBuffer);
-
-    // Get the average colour of the image.
-    let canvas = new Canvas(image.width, image.height);
-    let context = canvas.getContext("2d");
-
-    context.drawImage(image, 0, 0);
-    const { data } = context.getImageData(0, 0, image.width, image.height);
-    const colour = {
-        b: average(data.filter((_, j) => j % 4 === 2)),
-        g: average(data.filter((_, j) => j % 4 === 1)),
-        r: average(data.filter((_, j) => j % 4 === 0)),
-    };
+    const image = bufferToImage(arrayBuffer);
 
     // Create a canvas in order to resize the image.
-    canvas = new Canvas(1280, 640);
-    context = canvas.getContext("2d");
+    const canvas = new Canvas(1280, 640);
+    const context = canvas.getContext("2d");
 
     // Fill the canvas background with the colour.
-    context.fillStyle = `#${colourToHex(colour.r)}${colourToHex(colour.g)}${colourToHex(colour.b)}`;
+    context.fillStyle = getAverageImageColour(image);
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     // Draw the image with the correct dimensions.
@@ -83,7 +105,11 @@ function generateImage(arrayBuffer: ArrayBuffer): string {
         dh = image.height / image.width * canvas.width;
     }
 
-    context.drawImage(image, dx, 0, dw, dh);
+    try {
+        context.drawImage(image, dx, 0, dw, dh);
+    } catch {
+        // If the image is invalid, draw nothing.
+    }
 
     return `data:image/png;base64,${canvas.toBuffer().toString("base64")}`;
 }
