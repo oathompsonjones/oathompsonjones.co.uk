@@ -1,7 +1,5 @@
 // TODO: Add linear interpolation to the vertices.
-
-/* eslint-disable jsdoc/convert-to-jsdoc-comments */
-import type { Sketch } from "../../../../react/src/main";
+import type { Sketch } from "@p5-wrapper/react";
 import type { Theme } from "@mui/material";
 import { hexToRgb } from "../background";
 import type p5 from "p5";
@@ -21,70 +19,70 @@ export function metaballs(theme: Theme): Sketch {
         const balls: Metaball[] = [];
         const gridSize = 15;
         const lines = [
-            // None
             (x: number, y: number): void => {
+                // None
                 void [x, y];
             },
-            // Top Right
             (x: number, y: number): void => {
+                // Top Right
                 p5.line(x + gridSize / 2, y, x + gridSize, y + gridSize / 2);
             },
-            // Bottom Right
             (x: number, y: number): void => {
+                // Bottom Right
                 p5.line(x + gridSize / 2, y + gridSize, x + gridSize, y + gridSize / 2);
             },
-            // Vertical
             (x: number, y: number): void => {
+                // Vertical
                 p5.line(x + gridSize / 2, y, x + gridSize / 2, y + gridSize);
             },
-            // Bottom Left
             (x: number, y: number): void => {
+                // Bottom Left
                 p5.line(x, y + gridSize / 2, x + gridSize / 2, y + gridSize);
             },
-            // Top Right & Bottom Left
             (x: number, y: number): void => {
+                // Top Right & Bottom Left
                 p5.line(x + gridSize / 2, y, x + gridSize, y + gridSize / 2);
                 p5.line(x, y + gridSize / 2, x + gridSize / 2, y + gridSize);
             },
-            // Horizontal
             (x: number, y: number): void => {
+                // Horizontal
                 p5.line(x, y + gridSize / 2, x + gridSize, y + gridSize / 2);
             },
-            // Top Left
             (x: number, y: number): void => {
+                // Top Left
                 p5.line(x, y + gridSize / 2, x + gridSize / 2, y);
             },
-            // Top Left
             (x: number, y: number): void => {
+                // Top Left
                 p5.line(x, y + gridSize / 2, x + gridSize / 2, y);
             },
-            // Horizontal
             (x: number, y: number): void => {
+                // Horizontal
                 p5.line(x, y + gridSize / 2, x + gridSize, y + gridSize / 2);
             },
-            // Top Left & Bottom Right
             (x: number, y: number): void => {
+                // Top Left & Bottom Right
                 p5.line(x, y + gridSize / 2, x + gridSize / 2, y);
                 p5.line(x + gridSize / 2, y + gridSize, x + gridSize, y + gridSize / 2);
             },
-            // Bottom Left
             (x: number, y: number): void => {
+                // Bottom Left
                 p5.line(x, y + gridSize / 2, x + gridSize / 2, y + gridSize);
             },
-            // Vertical
             (x: number, y: number): void => {
+                // Vertical
                 p5.line(x + gridSize / 2, y, x + gridSize / 2, y + gridSize);
             },
-            // Bottom Right
             (x: number, y: number): void => {
+                // Bottom Right
                 p5.line(x + gridSize / 2, y + gridSize, x + gridSize, y + gridSize / 2);
             },
-            // Top Right
             (x: number, y: number): void => {
+                // Top Right
                 p5.line(x + gridSize / 2, y, x + gridSize, y + gridSize / 2);
             },
-            // None
             (x: number, y: number): void => {
+                // None
                 void [x, y];
             },
         ];

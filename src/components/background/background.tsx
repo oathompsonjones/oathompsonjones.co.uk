@@ -2,7 +2,7 @@
 
 import type { NamedExoticComponent, ReactNode } from "react";
 import Image from "next/image";
-import type { P5WrapperProps } from "../../../react/src/main";
+import type { P5WrapperProps } from "@p5-wrapper/react";
 import desk from "assets/images/desk.jpg";
 import dynamic from "next/dynamic";
 import { gameOfLife } from "./sketches/gameOfLife";
@@ -13,7 +13,7 @@ import { usePathname } from "next/navigation";
 import { useThemeMode } from "hooks/useThemeMode";
 import { useWindowSize } from "hooks/useWindowSize";
 
-const ReactP5Wrapper = dynamic(async () => import("../../../react/src/main")
+const ReactP5Wrapper = dynamic(async () => import("@p5-wrapper/react")
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-explicit-any
     .then((mod) => mod.ReactP5Wrapper as any), { ssr: false }) as unknown as NamedExoticComponent<P5WrapperProps>;
 

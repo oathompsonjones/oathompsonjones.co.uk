@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import type { Sketch } from "../../../../react/src/main";
+import type { Sketch } from "@p5-wrapper/react";
 import type { Theme } from "@mui/material";
 import { hexToRgb } from "../background";
 import type p5 from "p5";
