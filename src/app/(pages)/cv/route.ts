@@ -3,6 +3,10 @@ import cv from "assets/cv.json";
 import fs from "fs/promises";
 import pdflatex from "node-pdflatex";
 
+// NOTE: Removed from cv.json to keep to 2 pages, may add back later.
+// "Senior Prefect — 2020-2021": "As a Senior Prefect, I was responsible for assisting the school's Sixth Form
+// Management Team throughout the year, and representing the school in various events such as open evenings.",
+
 export type CV = {
     Summary: string;
     Experience: string[];
@@ -87,12 +91,12 @@ async function generateTex(): Promise<string> {
                     } else if ("A-Levels" in subSectionData && "GCSEs" in subSectionData) {
                         subSectionContent = `${mapTable([
                             ["A-Levels"],
-                            [filterByValue(subSectionData["A-Levels"], "A*").join(", "), "A*"],
-                            [filterByValue(subSectionData["A-Levels"], "B").join(", "), "B"],
+                            [filterByValue(subSectionData["A-Levels"], "A*").join(" $\\bullet$ "), "A*"],
+                            [filterByValue(subSectionData["A-Levels"], "B").join(" $\\bullet$ "), "B"],
                         ])}\n${mapTable([
                             ["GCSEs"],
-                            [filterByValue(subSectionData.GCSEs, "8").join(", "), "8"],
-                            [filterByValue(subSectionData.GCSEs, "7").join(", "), "7"],
+                            [filterByValue(subSectionData.GCSEs, "8").join(" $\\bullet$ "), "8"],
+                            [filterByValue(subSectionData.GCSEs, "7").join(" $\\bullet$ "), "7"],
                         ])}`;
                     }
                 }

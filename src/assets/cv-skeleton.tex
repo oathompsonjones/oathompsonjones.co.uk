@@ -14,7 +14,7 @@
 \usepackage{biblatex}
 
 % Set up hyperlinks.
-\usepackage[hidelinks]{hyperref}
+\usepackage[colorlinks]{hyperref}
 
 % Allows the use of multiple columns.
 \usepackage{vwcol}
@@ -28,7 +28,7 @@
 % Styles the title.
 \usepackage{xcolor}
 \usepackage{titling}
-    \pretitle{\centering\normalfont\Huge\bfseries}
+    \pretitle{\vspace{-2.5cm}\centering\normalfont\Huge\bfseries}
     \posttitle{\par}
     \preauthor{\centering\large}
     \postauthor{\par}
@@ -55,13 +55,26 @@
     {} % sep
     {\filbreak} % before-code
     [{\color{lightgray}\titlerule[2pt]}] % after-code
+\titleformat
+    {\subsubsection} % command
+    [display] % shape
+    {\color{black}\normalfont\normalsize\bfseries} % format
+    {\thesubsubsection} % label
+    {} % sep
+    {\filbreak} % before-code
+    [{\color{lightgray}\titlerule[1pt]}] % after-code
 \titlespacing
     {\section} % command
     {0cm} % left
-    {0.75cm} % before-sep
+    {0.5cm} % before-sep
     {0.25cm} % after-sep
 \titlespacing
     {\subsection} % command
+    {0cm} % left
+    {0.25cm} % before-sep
+    {0.125cm} % after-sep
+\titlespacing
+    {\subsubsection} % command
     {0cm} % left
     {0.25cm} % before-sep
     {0.125cm} % after-sep
