@@ -11,45 +11,66 @@ const domainPortMap = {
     "oathompsonjones.co.uk": 3000,
 };
 
-// Setup proxy.
-const ssl = { cert: null, key: null };
+// Load SSL certificates.
+let ssl;
 
 try {
-    ssl.cert = await fs.readFile(`${sslPath}/fullchain.pem`);
-    ssl.key = await fs.readFile(`${sslPath}/privkey.pem`);
+    ssl = {
+        cert: await fs.readFile(`${sslPath}/fullchain.pem`),
+        key: await fs.readFile(`${sslPath}/privkey.pem`),
+    };
+    console.log("SSL certificates loaded successfully.");
 } catch (err) {
-    console.log(`Failed to read SSL certificates: ${err.message}`);
+    console.error(`Failed to read SSL certificates: ${err.message}`);
+    process.exit(1);
 }
 
-const proxy = httpProxy.createProxy({ ssl });
+// Setup proxy.
+const proxy = httpProxy.createProxy();
 
-// Setup HTTPS server to proxy requests.
+// Ensure `X-Forwarded-*` headers are set.
+proxy.on("proxyReq", (proxyReq, req) => {
+    proxyReq.setHeader("X-Forwarded-For", req.socket.remoteAddress ?? "");
+    proxyReq.setHeader("X-Forwarded-Proto", "https");
+    proxyReq.setHeader("X-Forwarded-Host", req.headers.host ?? "");
+});
+
+// Handle proxy errors.
+proxy.on("error", (err, _, res) => {
+    console.error(`Proxy error: ${err.message}`);
+    res.writeHead(502, { "Content-Type": "text/plain" });
+    res.end("Bad Gateway: Unable to connect to the backend service.");
+});
+
+// Setup HTTPS server.
 const httpsServer = https.createServer(ssl, (req, res) => {
-    if (req.headers.host !== undefined) {
-        for (const [domain, port] of Object.entries(domainPortMap)) {
-            if ((req.headers.host.startsWith("www.") ? req.headers.host.slice(4) : req.headers.host) === domain)
-                return proxy.web(req, res, { target: `http://localhost:${port}` });
-        }
-    }
+    const host = req.headers.host?.replace(/^www\./, "");
+    const port = domainPortMap[host];
 
-    return res.end();
+    if (port) {
+        proxy.web(req, res, { target: `http://localhost:${port}` });
+    } else {
+        res.writeHead(404, { "Content-Type": "text/plain" });
+        res.end("404 Not Found");
+    }
 });
 
 // Setup HTTP server to redirect to HTTPS.
 const httpServer = http.createServer((req, res) => {
-    if (req.headers.host !== undefined)
+    if (req.headers.host) {
         res.writeHead(301, { Location: `https://${req.headers.host}${req.url ?? ""}` });
-
-    return res.end();
+        res.end("<h1>301 Moved Permanently</h1>");
+    } else {
+        res.writeHead(400, { "Content-Type": "text/plain" });
+        res.end("Bad Request");
+    }
 });
 
-// Listen on ports 80 and 443.
+// Start servers.
 try {
-    httpsServer.listen(443);
-    console.log("Listening on port 443");
+    httpsServer.listen(443, () => console.log("HTTPS server listening on port 443"));
+    httpServer.listen(80, () => console.log("HTTP server listening on port 80"));
 } catch (err) {
-    console.log(`Failed to listen on port 443: ${err.message}`);
-} finally {
-    httpServer.listen(80);
-    console.log("Listening on port 80");
+    console.error(`Server startup error: ${err.message}`);
+    process.exit(1);
 }
