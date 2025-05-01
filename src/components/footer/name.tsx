@@ -1,7 +1,6 @@
-import type { Breakpoint } from "@mui/material";
+import type { Breakpoint, TypographyVariant } from "@mui/material";
 import { CollapsibleText } from "./collapsibleText";
 import type { ReactNode } from "react";
-import type { Variant } from "@mui/material/styles/createTypography";
 
 /**
  * Renders my name.
@@ -16,7 +15,7 @@ export function Name({ colour, id, minScreenSize, variant }: {
     colour?: boolean;
     id: string;
     minScreenSize?: Breakpoint;
-    variant?: Variant;
+    variant?: TypographyVariant;
 }): ReactNode {
     return (
         <CollapsibleText
