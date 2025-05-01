@@ -19,7 +19,7 @@ const nextConfig = {
             instagram: "https://instagram.com/oathompsonjones",
             linkedin: "https://linkedin.com/in/oathompsonjones",
             stackoverflow: "https://stackoverflow.com/users/11840092/oathompsonjones",
-            twitter: "https://twitter.com/oathompsonjones",
+            twitter: "https://x.com/oathompsonjones",
             x: "https://x.com/oathompsonjones",
         }).map(([source, destination]) => ({
             destination,
