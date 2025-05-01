@@ -21,8 +21,7 @@ export function Bio(): ReactNode {
                     <Stack direction="column" sx={{ height: "100%", justifyContent: "center" }}>
                         <Typography sx={{ whiteSpace: "pre-wrap" }}>
                             {[
-                                "Hi, I'm Ollie.",
-                                `I'm ${age()} years old, studying Computer Science at the University of Edinburgh.`,
+                                `Hi, I'm Ollie, ${age()}.`,
                                 jsonToJSDoc(cv.Summary),
                             ].join(" ").split("\n").join("\n\n")}
                         </Typography>

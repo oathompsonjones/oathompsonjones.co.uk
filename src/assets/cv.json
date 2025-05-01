@@ -1,66 +1,225 @@
 {
-    "Summary": "\nI am an ambitious, hard-working and enthusiastic individual, keen to work in software development. With a strong work ethic, I thrive in high-pressure environments, consistently delivering high quality results. I am a constructive team member with experience managing and leading teams, yet I also work effectively alone when needed. I take pride in delivering all tasks on time and to the highest possible standard.\nWith over a decade's experience in programming, I have gained a strong understanding of software development. I pick up new languages and technologies quickly, and I am always eager to learn more.",
-    "Experience": [
-        "TypeScript",
-        "Node.JS",
-        "Next.JS",
-        "Haskell",
-        "C/C++",
-        "Python",
-        "Java",
-        "C#",
-        "SQL",
-        "MongoDB",
-        "Git"
-    ],
-    "Skills": [
-        "Problem Solving",
-        "Numeracy",
-        "Public Speaking",
-        "Time Management",
-        "Teamwork",
-        "Customer Service"
-    ],
-    "Qualifications": {
-        "The University of Edinburgh — 2021-2025": {
-            "summary": "\nCurrently in my final year reading Computer Science, I am on track to receive a First Class Honours degree.\nWhile studying at Edinburgh, I have developed a strong understanding of a wide range of concepts and technologies, and I have completed a number of projects both individually and as part of a team. This has helped me to develop strong problem solving and analytical skills, good communication and teamwork abilities, and a strong work ethic, allowing me to work well under pressure and deliver high quality results.\\subsubsection{Relevant Coursework}\\begin{itemize}\\item \\textbf{Object Oriented Programming} (Java) — This was an individual coursework in my first year, which requried me to create a Connect 4 game using an MVC model. For the single player game mode, we were required to develop our own \"AI\" player. Following that, we were given some code, and asked to perform a code review. Finally, we were asked to build on pre-existing code to model a zoo, encompassing everything from animals and encolsures, to calculating a one-way route around all areas, to ticket machines. I achieved 85\\%. \\item \\textbf{Software Engineering and Professional Practice} (Java) — This was a group coursework in my second year, which required us to develop an event management system, where companies would register, then post events which users could sign up to, then later leaves reviews. Collectively, we achieved 62\\%. \\item \\textbf{[Informatics Large Practical](https://github.com/oathompsonjones/PizzaDronz)} (Java) — This was an individual coursework in my third year, which involved creating a system to manage drone delivery of pizzas. The system read data from a REST API, then calculated the most efficient route for the drone, whilst avoiding no-fly zones. I achieved 88\\%. \\end{itemize}",
+    "Summary": "Final-year Computer Science student at the University of Edinburgh, with over a decade of programming experience and a passion for software development. Based in the UK with homes in both London and Edinburgh, happy to relocate for the right opportunity. I bring an ambitious and proactive mindset, fast learning ability, and proven leadership experience. I am keen to apply my technical expertise and creativity in a professional software development environment.",
+    "Skills": {
+        "Languages": [
+            "JavaScript/TypeScript",
+            "Python",
+            "C/C++",
+            "Java",
+            "C#",
+            "Haskell",
+            "SQL",
+            "HTML/CSS",
+            "LaTeX"
+        ],
+        "Technologies": [
+            "Node.JS",
+            "Next.JS",
+            "MongoDB",
+            "Git",
+            "Docker",
+            "Bash",
+            "Unix"
+        ],
+        "Other": [
+            "Problem Solving",
+            "Teamwork",
+            "Public Speaking",
+            "Time Management",
+            "Customer Service"
+        ]
+    },
+    "Qualifications": [
+        {
+            "institution": "The University of Edinburgh",
+            "time": "2021-2025",
             "grades": [
                 "1",
                 "2:1",
                 "1",
                 "TBD",
                 "TBD"
+            ],
+            "summary": [
+                "Computer Science, BSc — Expected First Class Honours (Graduating July 2025)",
+                "Developed a strong understanding of core computer science concepts through both individual and team-based projects.",
+                "Built a variety of applications using different languages and frameworks, refining problem-solving, communication, and analytical skills.",
+                "Expanded workplace skills such as resilience, self-awareness, self-discipline, time management, productivity, and self-assertiveness."
+            ],
+            "projects": [
+                {
+                    "title": "Dissertation — A Graphical Playground for Haskell",
+                    "tools": [
+                        "Haskell",
+                        "Next.JS"
+                    ],
+                    "description": [
+                        "Designed and implemented a web-based Haskell editor with a custom graphics library.",
+                        "Enabled users to create 2D images and animations using Haskell, executed in-browser."
+                    ]
+                },
+                {
+                    "title": "Object Oriented Programming",
+                    "tools": [
+                        "Java"
+                    ],
+                    "description": [
+                        "Developed a Connect 4 game using an MVC model.",
+                        "Implemented a single-player mode with an AI opponent.",
+                        "Conducted code reviews and built on a pre-existing codebase to model a zoo."
+                    ]
+                },
+                {
+                    "title": "Informatics Large Practical",
+                    "tools": [
+                        "Java"
+                    ],
+                    "description": [
+                        "Created a system to manage drone delivery of pizzas.",
+                        "Read data from a REST API.",
+                        "Used A* search to calculate the most efficient route while avoiding no-fly zones."
+                    ]
+                },
+                {
+                    "title": "Machine Learning Systems",
+                    "tools": [
+                        "Python",
+                        "CuPy"
+                    ],
+                    "description": [
+                        "Worked as a team to implement a RAG system, using CuPy to leverage GPU acceleration."
+                    ]
+                }
             ]
         },
-        "The Bishop's Stortford High School — 2014-2021": {
-            "A-Levels": {
-                "Computer Science": "A*",
-                "Maths": "A*",
-                "Physics": "A*",
-                "Further Maths": "B"
-            },
-            "GCSEs": {
-                "Biology": "8",
-                "Computer Science": "8",
-                "English Language": "8",
-                "History": "8",
-                "Maths": "8",
-                "Physics": "8",
-                "Chemistry": "7",
-                "English Literature": "7",
-                "French": "7"
+        {
+            "institution": "The Bishop's Stortford High School",
+            "time": "2014-2021",
+            "grades": {
+                "A Levels": {
+                    "Computer Science": "A*",
+                    "Maths": "A*",
+                    "Physics": "A*",
+                    "Further Maths": "B"
+                },
+                "GCSEs": {
+                    "Biology": "8",
+                    "Computer Science": "8",
+                    "English Language": "8",
+                    "History": "8",
+                    "Maths": "8",
+                    "Physics": "8",
+                    "Chemistry": "7",
+                    "English Literature": "7",
+                    "French": "7"
+                }
             }
         }
-    },
-    "Work Experience": {
-        "Holiday Work Bar Tender — [The Three Tuns](https://www.facebook.com/thethreetunsbishopsstortford/) — 2021-2024": "As a bar tender, I am responsible for serving customers, restocking, and ensuring the bar is kept clean and tidy. For much of the time, this involves working alone, with sole responsibility over the pub, while at busier times, it requires working as a part of a team. This role has allowed me to develop excellent communication and customer service skills.",
-        "Work Experience — [ARM Holdings](https://www.arm.com) — December 2019": "During my time at ARM, I was shown how the company operates on a day-to-day basis, giving me a good sense of how industry leading companies work. I was also given the opportunity to work in a small team to solve problems, which helped me to develop my teamwork, communication, and problem solving skills.",
-        "Work Experience — [Bit Solutions](https://bitsolutions.net) — June 2018": "During my week at Bit Solutions, I experienced what it is like to work in the IT management sector, visiting clients' sites, and learning how to setup and manage various systems for those clients. This experience gave me a good insight into the operation of a small business, and the importance of good customer service and communication."
-    },
-    "Volunteering": {
-        "University Pool Society Secretary — 2024-2025": "As secretary, I play a key role in the organisation and management of events, social media promotion, and the overall governance of the society. This role has allowed me to develop strong organisational and leadership abilities, as well as good communication and time management skills.",
-        "Interact President — Member 2014-2021 — President 2020-2021": "Interact is a long-running fundraising organisation at [The Bishop's Stortford High School](https://tbshs.org), working closely with the [Rotary Club of Bishop's Stortford](http://bsrotary.org) to organise events and campaigns, raising money for local, national and global charities. My role as President entailed chairing our weekly meetings, and overseeing the organisation and running of events. Being an integral member for 7 years, I have developed strong teamwork and leadership skills, as well as good public speaking abilities.",
-        "Tutor in Paired Numeracy — 2021": "This involved weekly tutoring of younger students to help develop their maths skills at [The Bishop's Stortford High School](https://tbshs.org). This required patience and good communication skills to ensure the students understood the material.",
-        "School Librarian — Member 2014-2019 — Committee 2017-2019": "My role involved the management of other Library Helpers to ensure the smooth running of the system, as well as weekly meetings to discuss how things went that week, and any plans for the next week. This role helped to develop my communication, leadership and teamwork skills."
-    }
+    ],
+    "Projects": [
+        {
+            "title": "Haskell Playground",
+            "link": "https://haskell-playground.co.uk",
+            "tools": [
+                "Haskell",
+                "Next.JS"
+            ],
+            "description": "Web-based Haskell editor for generating 2D animations. (See dissertation project for more details.)"
+        },
+        {
+            "title": "Personal Website",
+            "link": "https://oathomsponjones.co.uk",
+            "tools": [
+                "Next.JS"
+            ],
+            "description": "Portfolio website showcasing my projects and abilities. Integrates the Instagram and GitHub APIs to display latest posts and repositories."
+        }
+    ],
+    "Experience": [
+        {
+            "role": "Bar Tender",
+            "organisation": "[The Three Tuns](https://www.facebook.com/thethreetunsbishopsstortford/), Bishop's Stortford",
+            "time": "Holiday Work 2021-2024",
+            "description": [
+                "Served customers, managed inventory, and maintained cleanliness and organisation.",
+                "Often operated solo as well as part of a team, requiring high levels of responsibility and reliability.",
+                "Developed excellent communication and customer service skills."
+            ]
+        },
+        {
+            "role": "Work Experience",
+            "organisation": "[ARM Holdings](https://www.arm.com)",
+            "time": "December 2019",
+            "description": [
+                "Observed day-to-day operations in a major tech company.",
+                "Worked on small group problem-solving tasks, enhancing teamwork and communication skills."
+            ]
+        },
+        {
+            "role": "Work Experience",
+            "organisation": "[Bit Solutions](https://bitsolutions.net)",
+            "time": "June 2018",
+            "description": [
+                "Shadowed IT professionals providing client services.",
+                "Gained experience in system setup, maintenance, and small business operations."
+            ]
+        }
+    ],
+    "Volunteering": [
+        {
+            "role": "Secretary",
+            "organisation": "University Pool Society",
+            "time": "2024-2025",
+            "description": [
+                "Managed event planning, communication, and social media promotion.",
+                "Developed organisational and time management skills."
+            ]
+        },
+        {
+            "role": "President",
+            "organisation": "Interact Junior Rotary Group",
+            "time": "2020-2021",
+            "description": [
+                "Chaired weekly meetings and oversaw charity event planning.",
+                "Built strong public speaking, leadership, and coordination skills.",
+                "Delivered interviews with public figures on a regular basis throughout the term."
+            ]
+        },
+        {
+            "role": "Committe Member",
+            "organisation": "Interact Junior Rotary Group",
+            "time": "2014-2020",
+            "description": [
+                "Coordinated and took the lead in annual charity fundraisers.",
+                "Promoted the organisation and its events throughout the local community."
+            ]
+        },
+        {
+            "role": "Senior Prefect",
+            "organisation": "",
+            "time": "2020-2021",
+            "description": [
+                "Assisted with school events and represented the school and Sixth Form.",
+                "Curated leadership and teamwork skills."
+            ]
+        },
+        {
+            "role": "Maths Tutor",
+            "organisation": "",
+            "time": "2020-2021",
+            "description": [
+                "Provided weekly one-to-one tutoring in maths for younger pupils.",
+                "Augmented patience, communication and teaching skills."
+            ]
+        },
+        {
+            "role": "School Librarian",
+            "organisation": "",
+            "time": "2014-2019 (Committee 2017-2019)",
+            "description": [
+                "Helped organise other student volunteers and weekly operations.",
+                "Participated in weekly forum to discuss library operations."
+            ]
+        }
+    ]
 }

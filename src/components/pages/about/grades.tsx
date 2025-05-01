@@ -35,7 +35,7 @@ export function Grades(props: {
             {props.children}
             <Divider />
             <Typography variant="caption">
-                From <Link href={props.institutionLink}>{props.institutionName}</Link>, {props.attainmentYear}.
+                <Link href={props.institutionLink}>{props.institutionName}</Link> ({props.attainmentYear})
             </Typography>
         </Box>
     );

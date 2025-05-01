@@ -1,7 +1,10 @@
+import type { CV } from "app/(pages)/cv/route";
 import { Grade } from "./grade";
 import { Grades } from "./grades";
 import type { ReactNode } from "react";
 import cv from "assets/cv.json";
+
+const data = cv as CV;
 
 /**
  * Contains the University segment for my CV page.
@@ -24,7 +27,11 @@ export function University(): ReactNode {
         <>4<sup>th</sup> Year</>,
         <>Final Grade</>,
     ];
-    const grades = cv.Qualifications["The University of Edinburgh — 2021-2025"].grades
+
+    if (!data.Qualifications[0] || !Array.isArray(data.Qualifications[0].grades))
+        return null;
+
+    const grades = data.Qualifications[0].grades
         .map((grade, i) => (<Grade grade={gradeMap[grade]} key={i} subject={order[i]} />));
 
     return (

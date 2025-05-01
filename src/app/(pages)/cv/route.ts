@@ -3,18 +3,37 @@ import cv from "assets/cv.json";
 import fs from "fs/promises";
 import pdflatex from "node-pdflatex";
 
-// NOTE: Removed from cv.json to keep to 2 pages, may add back later.
-// "Senior Prefect — 2020-2021": "As a Senior Prefect, I was responsible for assisting the school's Sixth Form
-// Management Team throughout the year, and representing the school in various events such as open evenings.",
+type Project = {
+    title: string;
+    link?: string;
+    tools: string[];
+    description: string[] | string;
+};
+
+type Experience = {
+    role: string;
+    organisation: string;
+    time: string;
+    description: string[];
+};
 
 export type CV = {
     Summary: string;
-    Experience: string[];
-    Skills: string[];
-    Qualifications: Record<string, Record<string, Record<string, string>> | { summary: string; grades: string[]; }>;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    "Work Experience": Record<string, string>;
-    Volunteering: Record<string, string>;
+    Skills: {
+        Languages: string[];
+        Technologies: string[];
+        Other: string[];
+    };
+    Qualifications: Array<{
+        institution: string;
+        time: string;
+        grades: Record<string, Record<string, string>> | string[];
+        summary?: string[];
+        projects?: Project[];
+    }>;
+    Projects: Project[];
+    Experience: Experience[];
+    Volunteering: Experience[];
 };
 
 const data = cv as CV;
@@ -31,7 +50,7 @@ function jsonToLaTeX(content: string): string {
 
     return content
         .replace(markdownLink, "\\href{$2}{$1}")
-        .replace(newLine, " \\paragraph{}")
+        .replace(newLine, "\n\n")
         .replace(escapeCharacters, "\\$1");
 }
 
@@ -49,14 +68,28 @@ function filterByValue<T>(object: Record<string, T>, value: T): string[] {
 /**
  * Maps a table to LaTeX.
  * @param table - The table to map.
+ * @param spacing - The spacing to use.
  * @returns The mapped table.
  */
-function mapTable(table: string[][]): string {
-    return `\\noindent\\begin{tabular}{ll}\n${[
-        table[0]!.map((h) => (h.length > 0 ? `\\bfseries{${jsonToLaTeX(h)}}` : "")),
-        ...table.slice(1),
-    ].map((row) => `${row.map((column) => jsonToLaTeX(column)).join(" & ")} \\\\`).join("\n")
-    }\n\\end{tabular}`;
+function mapTable(table: string[][], spacing: string): string {
+    return `\\noindent\\begin{tabularx}{\\linewidth}{${spacing}}\n${table
+        .map((row) => `${row.map((column) => jsonToLaTeX(column)).join(" & ")} \\\\`).join("\n")
+    }\n\\end{tabularx}`;
+}
+
+/**
+ * Maps a list to LaTeX.
+ * @param list - The list to map.
+ * @returns The mapped list.
+ */
+function mapList(list: string[]): string {
+    // Inline list if all items are short
+    if (list.every((item) => item.split(" ").length <= 2))
+        return list.map((item) => jsonToLaTeX(item)).join(" \\spacer ");
+
+    // Otherwise, use itemize
+    return `\\begin{itemize}[noitemsep]\n${list
+        .map((item) => `\\item ${jsonToLaTeX(item)}`).join("\n")}\n\\end{itemize}`;
 }
 
 /**
@@ -64,51 +97,79 @@ function mapTable(table: string[][]): string {
  * @returns The LaTeX document.
  */
 async function generateTex(): Promise<string> {
-    const content = Object.keys(data).map((section) => {
-        const sectionData = data[section as keyof CV];
-        const heading = `\\section*{${jsonToLaTeX(section)}}`;
-        let sectionContent = "";
+    const skeleton = await fs.readFile("src/assets/cv-skeleton.tex", "utf8");
+    let content = "";
 
-        if (typeof sectionData === "string") {
-            sectionContent = jsonToLaTeX(sectionData);
-        } else if (Array.isArray(sectionData)) {
-            sectionContent = `\\begin{center}\n${
-                sectionData.map((item) => typeof item === "string" && jsonToLaTeX(item)).join(" $\\bullet$ ")
-            }\n\\end{center}`;
-        } else {
-            sectionContent = Object.keys(sectionData).map((subSection) => {
-                const subSectionData = sectionData[subSection];
-                const subHeading = `\\subsection*{${jsonToLaTeX(subSection)}}`;
-                let subSectionContent = "";
+    // Helper functions
 
-                if (typeof sectionData === "string" || Array.isArray(sectionData)) {
-                    throw new Error("Sub section not found.");
-                } else if (typeof subSectionData === "string") {
-                    subSectionContent = jsonToLaTeX(subSectionData);
-                } else if (typeof subSectionData === "object") {
-                    if ("summary" in subSectionData && typeof subSectionData.summary === "string") {
-                        subSectionContent = jsonToLaTeX(subSectionData.summary);
-                    } else if ("A-Levels" in subSectionData && "GCSEs" in subSectionData) {
-                        subSectionContent = `${mapTable([
-                            ["A-Levels"],
-                            [filterByValue(subSectionData["A-Levels"], "A*").join(" $\\bullet$ "), "A*"],
-                            [filterByValue(subSectionData["A-Levels"], "B").join(" $\\bullet$ "), "B"],
-                        ])}\n${mapTable([
-                            ["GCSEs"],
-                            [filterByValue(subSectionData.GCSEs, "8").join(" $\\bullet$ "), "8"],
-                            [filterByValue(subSectionData.GCSEs, "7").join(" $\\bullet$ "), "7"],
-                        ])}`;
-                    }
-                }
+    const mapProject = (project: Project): string => {
+        const title = project.link === undefined
+            ? jsonToLaTeX(project.title)
+            : jsonToLaTeX(`[${project.title}](${project.link})`);
+        const tools = jsonToLaTeX(project.tools.join("/"));
+        const description = typeof project.description === "string"
+            ? ` — ${jsonToLaTeX(project.description)}`
+            : mapList(project.description);
 
-                return `${subHeading}\n${subSectionContent}`;
-            }).join("\n");
+        return `\\textbf{${title}} \\textit{[${tools}]}${description}`;
+    };
+
+    const mapExperience = (section: Experience): string => {
+        const role = jsonToLaTeX(section.role);
+        const organisation = section.organisation.length > 0 ? `, ${jsonToLaTeX(section.organisation)}` : "";
+        const time = jsonToLaTeX(section.time);
+        const description = mapList(section.description);
+
+        return `\\subsection*{${jsonToLaTeX(`${role}${organisation} — ${time}`)}}\n${jsonToLaTeX(description)}`;
+    };
+
+    // Add the summary
+    content += `\\section*{Summary}\n${jsonToLaTeX(data.Summary)}\n`;
+
+    // Add the skills
+    content += "\\section*{Skills}\n";
+    content += `\\paragraph*{Languages}\n${mapList(data.Skills.Languages)}\n`;
+    content += `\\paragraph*{Technologies}\n${mapList(data.Skills.Technologies)}\n`;
+    content += `\\paragraph*{Other}\n${mapList(data.Skills.Other)}\n`;
+
+    // Add the qualifications
+
+    content += "\\section*{Qualifications}\n";
+    for (const qualification of data.Qualifications) {
+        content += `\\subsection*{${jsonToLaTeX(qualification.institution)} — ${jsonToLaTeX(qualification.time)}}\n`;
+
+        // Add the summary if it exists
+        if ("summary" in qualification) {
+            content += `\\subsubsection*{${jsonToLaTeX(qualification.summary[0]!)}}\n`;
+            content += mapList(qualification.summary.slice(1));
         }
 
-        return `${heading}\n${sectionContent}`;
-    }).join("\n");
+        // Add the projects if they exist
+        if ("projects" in qualification)
+            content += `\\subsubsection*{Relevant Work}\n${mapList(qualification.projects.map(mapProject))}\n`;
 
-    const skeleton = await fs.readFile("src/assets/cv-skeleton.tex", "utf8");
+        // Otherwise, add the grades
+        if ("A Levels" in qualification.grades && "GCSEs" in qualification.grades) {
+            content += mapTable([
+                ["\\textbf{A Levels}"],
+                [mapList(filterByValue(qualification.grades["A Levels"], "A*")), "A*"],
+                [mapList(filterByValue(qualification.grades["A Levels"], "B")), "B"],
+                ["\\textbf{GCSEs}"],
+                [mapList(filterByValue(qualification.grades.GCSEs, "8")), "8"],
+                [mapList(filterByValue(qualification.grades.GCSEs, "7")), "7"],
+            ], "Xl");
+        }
+    }
+
+    // Add the projects
+    content += "\\section*{Projects}\n";
+    content += mapList(data.Projects.map(mapProject));
+
+    // Add the experience and volunteering
+    content += "\\section*{Experience}\n";
+    content += data.Experience.map(mapExperience).join("\n");
+    content += "\\section*{Volunteer Experience}\n";
+    content += data.Volunteering.map(mapExperience).join("\n");
 
     return skeleton.replace("%CONTENT%", content);
 }

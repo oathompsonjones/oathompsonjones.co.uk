@@ -1,5 +1,5 @@
 % Define the type of document.
-\documentclass[12pt, a4paper]{article}
+\documentclass[12pt,twoside,a4paper]{article}
 
 % Set a more sensible document size.
 \usepackage[margin=1cm]{geometry}
@@ -10,39 +10,40 @@
 % Prevent words from being split accross lines.
 \tolerance=1\emergencystretch=\maxdimen\hyphenpenalty=10000\hbadness=10000
 
-% Prevent error from biber.
-\usepackage{biblatex}
-
 % Set up hyperlinks.
-\usepackage[colorlinks]{hyperref}
-
-% Allows the use of multiple columns.
-\usepackage{vwcol}
-
-% Removes numbers from sections and the contents page.
-\setcounter{secnumdepth}{0}
+\usepackage[colorlinks=true,urlcolor=cyan]{hyperref}
 
 % Remove page numbers.
 \pagenumbering{gobble}
 
+% Prevent paragraphs from being indented.
+\setlength{\parindent}{0pt}
+
+% Recolour bullets.
+\newcommand{\spacer}{\textcolor{gray}{\space\textbullet\space}}
+
+% Better tables.
+\usepackage{tabularx}
+
+% Better lists.
+\usepackage{enumitem}
+
 % Styles the title.
 \usepackage{xcolor}
 \usepackage{titling}
-    \pretitle{\vspace{-2.5cm}\centering\normalfont\Huge\bfseries}
-    \posttitle{\par}
+    \pretitle{\vskip-2cm\centering\normalfont\Huge\bfseries}
+    \posttitle{\\\vskip-0.5cm\noindent{\color{lightgray}\titlerule[2pt]}\par}
     \preauthor{\centering\large}
-    \postauthor{\par}
-    \predate{}
-    \postdate{}
-    \renewcommand\maketitlehooka{\noindent{\color{lightgray}\titlerule[2pt]}\par}
-    \renewcommand\maketitlehookb{\noindent{\color{lightgray}\titlerule[2pt]}\par}
+    \postauthor{\\}
+    \predate{\centering\large}
+    \postdate{\\\vskip-0.25cm\noindent{\color{lightgray}\titlerule[2pt]}\par\vskip-0.5cm}
 
 % Style section sections.
 \usepackage[compact]{titlesec}
 \titleformat
     {\section} % command
     [display] % shape
-    {\color{black}\normalfont\LARGE\bfseries} % format
+    {\Large\bfseries} % format
     {\thesection} % label
     {} % sep
     {\filbreak} % before-code
@@ -50,50 +51,53 @@
 \titleformat
     {\subsection} % command
     [display] % shape
-    {\color{black}\normalfont\large\bfseries} % format
+    {\large\bfseries} % format
     {\thesubsection} % label
     {} % sep
     {\filbreak} % before-code
-    [{\color{lightgray}\titlerule[2pt]}] % after-code
+    [] % after-code
 \titleformat
     {\subsubsection} % command
     [display] % shape
-    {\color{black}\normalfont\normalsize\bfseries} % format
+    {\bfseries} % format
     {\thesubsubsection} % label
     {} % sep
     {\filbreak} % before-code
-    [{\color{lightgray}\titlerule[1pt]}] % after-code
+    [] % after-code
 \titlespacing
     {\section} % command
     {0cm} % left
-    {0.5cm} % before-sep
-    {0.25cm} % after-sep
+    {0.25cm} % before-sep
+    {0.125cm} % after-sep
 \titlespacing
     {\subsection} % command
     {0cm} % left
-    {0.25cm} % before-sep
-    {0.125cm} % after-sep
+    {0.125cm} % before-sep
+    {0cm} % after-sep
 \titlespacing
     {\subsubsection} % command
     {0cm} % left
-    {0.25cm} % before-sep
-    {0.125cm} % after-sep
+    {0cm} % before-sep
+    {0cm} % after-sep
 
 % Sets the title.
 \title{Oliver Jones}
 \author{
-    \href{mailto:oathompsonones@gmail.com}{oathompsonones@gmail.com}
-    $\bullet$
+    \href{mailto:oathompsonjones@gmail.com}{oathompsonjones@gmail.com}
+    \spacer
     07872 644095
-    $\bullet$
+    \spacer
     \href{https://oathompsonjones.co.uk}{oathompsonjones.co.uk}
 }
-\date{}
+\date{
+    GitHub: \href{https://github.com/oathompsonjones}{oathompsonjones}
+    \spacer
+    LinkedIn: \href{https://linkedin.com/in/oathompsonjones/}{oathompsonjones}
+}
 
 % Begin the document.
 \begin{document}
 \maketitle
-\color{black}
 
 %CONTENT%
 

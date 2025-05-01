@@ -12,19 +12,21 @@ const data = cv as CV;
  */
 export function Volunteering(): ReactNode {
     // Contains the data for the experience section of my CV.
-    const volunteering = Object.keys(data.Volunteering).map((volunteer) => ({
-        content: jsonToJSDoc(data.Volunteering[volunteer]!),
-        heading: jsonToJSDoc(volunteer),
+    const volunteering = data.Volunteering.map(({ role, organisation, time, description }) => ({
+        description,
+        heading: jsonToJSDoc(`${role}${organisation ? `, ${organisation}` : ""} — ${time}`),
     }));
 
     return (
         <div>
-            <Typography variant="h3">Volunteering</Typography>
-            {volunteering.map(({ content, heading }, i) => (
+            <Typography variant="h3">Volunteer Experience</Typography>
+            {volunteering.map(({ description, heading }, i) => (
                 <div key={i}>
                     <Divider />
                     <Typography variant="subtitle1">{heading}</Typography>
-                    <Typography variant="body2" sx={{ whiteSpace: "pre-wrap" }}>{content}</Typography>
+                    <Typography variant="body2" sx={{ whiteSpace: "pre-wrap" }} component="ul">
+                        {description.map((item, j) => <li key={j}>{item}</li>)}
+                    </Typography>
                 </div>
             ))}
         </div>
