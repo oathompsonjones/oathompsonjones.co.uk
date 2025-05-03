@@ -2,7 +2,6 @@ import { Button, Typography } from "@mui/material";
 import { ContactForm } from "components/pages/contact/contactForm";
 import Grid from "components/layout/grid";
 import type { GridSize } from "@mui/material";
-import Link from "next/link";
 import type { ReactNode } from "react";
 import { socials } from "components/footer/socialLinks";
 
@@ -27,14 +26,7 @@ export default function Contact(): ReactNode {
             <Grid container spacing={1} columns={socials.length}>
                 {socials.map(({ icon, label, link }, i) => (
                     <Grid key={i} size={(["xs", "sm", "md", "lg"] as const).map((size) => getSize(size, i))}>
-                        <Button
-                            LinkComponent={Link}
-                            href={link}
-                            startIcon={icon}
-                            color="inherit"
-                            variant="text"
-                            sx={{ display: "flex" }}
-                        >
+                        <Button href={link} startIcon={icon} color="inherit" variant="text" sx={{ display: "flex" }}>
                             {label}
                         </Button>
                     </Grid>
