@@ -20,7 +20,7 @@ export function ScrollToTop(): ReactNode {
                 size="small"
                 sx={{
                     bottom: 0,
-                    margin: "1rem",
+                    margin: "4rem",
                     position: "fixed",
                     right: 0,
                 }}
