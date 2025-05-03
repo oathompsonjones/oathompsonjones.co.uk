@@ -8,9 +8,9 @@ import { Background } from "components/background/background";
 import { Footer } from "components/footer";
 import { Header } from "components/header";
 import InitColorSchemeScript from "@mui/system/InitColorSchemeScript";
+import { Providers } from "contexts/providers";
 import type { ReactNode } from "react";
 import { ScrollToTop } from "components/scrollToTop";
-import { ThemeContextProvider } from "contexts/themeContext";
 import { gravatarURL } from "utils";
 
 // https://realfavicongenerator.net (remove the mask icon and msapplication stuff)
@@ -73,13 +73,13 @@ export default function Layout({ children }: { children: ReactNode; }): ReactNod
             <body>
                 <noscript>You need to enable JavaScript to run this app.</noscript>
                 <InitColorSchemeScript attribute="class" />
-                <ThemeContextProvider>
+                <Providers>
                     <Background />
                     <ScrollToTop />
                     <Header />
                     <main>{children}</main>
                     <Footer />
-                </ThemeContextProvider>
+                </Providers>
             </body>
         </html>
     );
