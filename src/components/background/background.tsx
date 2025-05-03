@@ -14,8 +14,7 @@ import { useThemeMode } from "hooks/useThemeMode";
 import { useWindowSize } from "hooks/useWindowSize";
 
 const ReactP5Wrapper = dynamic(async () => import("@p5-wrapper/react")
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-explicit-any
-    .then((mod) => mod.ReactP5Wrapper as any), { ssr: false }) as unknown as NamedExoticComponent<P5WrapperProps>;
+    .then((mod) => mod.ReactP5Wrapper), { ssr: false }) as unknown as NamedExoticComponent<P5WrapperProps>;
 
 /**
  * Converts a hex colour to RGB.
@@ -28,8 +27,8 @@ export function hexToRgb(hex: string): [number, number, number] {
 }
 
 /**
- * A div which will be used to either fade in or out.
- * @returns A div.
+ * Renders the background of the page.
+ * @returns The background of the page.
  */
 export function Background(): ReactNode {
     const { themeColour, theme } = useThemeMode();
