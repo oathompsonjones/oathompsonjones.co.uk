@@ -1,9 +1,9 @@
 "use client";
 
+import type { BeholdPost, Post } from "actions/instagram";
 import { Card, CardMedia, Zoom } from "@mui/material";
 import { Instagram } from "@mui/icons-material";
 import Link from "next/link";
-import type { Post } from "actions/instagram";
 import type { ReactNode } from "react";
 import { useState } from "react";
 
@@ -13,10 +13,18 @@ import { useState } from "react";
  * @param props.post - The Instagram post to render.
  * @returns An element which renders an Instagram post.
  */
-export function InstagramPost({ post }: { post: Post; }): ReactNode {
+export function InstagramPost({ post }: { post: BeholdPost | Post; }): ReactNode {
+    const isBeholdPost = (_post: BeholdPost | Post): _post is BeholdPost => "mediaType" in post;
+    const isBehold = isBeholdPost(post);
+
     // Posts with multiple images recursively call this element.
-    if (post.media_type === "CAROUSEL_ALBUM")
-        return post.children.data.map((image, i) => <InstagramPost key={i} post={{ ...post, ...image }} />);
+    if ((isBehold ? post.mediaType : post.media_type) === "CAROUSEL_ALBUM") {
+        if (!("children" in post))
+            return null;
+
+        return (isBehold ? post.children : post.children.data)
+            .map((image, i) => <InstagramPost key={i} post={{ ...post, ...image }} />);
+    }
 
     // The hover state is used to display the Instagram logo when the user hovers over the post.
     const [hover, setHover] = useState(false);
@@ -49,7 +57,7 @@ export function InstagramPost({ post }: { post: Post; }): ReactNode {
                         }}
                     />
                 </Link>
-                <CardMedia component="img" image={post.media_url} />
+                <CardMedia component="img" image={isBehold ? post.mediaUrl : post.media_url} />
             </Card>
         </Zoom>
     );

@@ -49,6 +49,24 @@ type DataRes = {
     };
 };
 
+type BeholdBasePost = Omit<Post, "media_url"> & {
+    mediaUrl: string;
+};
+
+type BeholdCarouselPost = BeholdBasePost & {
+    children: Array<{
+        mediaType: SINGLE_MEDIA_TYPE;
+        mediaUrl: string;
+    }>;
+    mediaType: MEDIA_TYPE;
+};
+
+type BeholdSinglePost = BeholdBasePost & {
+    mediaType: SINGLE_MEDIA_TYPE;
+};
+
+export type BeholdPost = BeholdCarouselPost | BeholdSinglePost;
+
 /**
  * Fetches the latest Instagram posts.
  * @returns The latest Instagram posts.
@@ -56,12 +74,10 @@ type DataRes = {
 async function refreshToken(): Promise<void> {
     if (Date.now() >= parseInt(process.env.INSTAGRAM_ACCESS_TOKEN_REFRESH_AT, 10)) {
         try {
-            const response = await fetch(`https://graph.instagram.com/refresh_access_token?${[
+            const response = await fetch(`https://graph.instagram.com/v22.0/refresh_access_token?${[
                 "grant_type=ig_refresh_token",
                 `access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`,
             ].join("&")}`);
-
-            console.log(response);
 
             if (!response.ok)
                 throw new Error("Failed to refresh the access token.");
@@ -116,19 +132,8 @@ export async function getInstagramPosts(): Promise<ActionResponse<Post[]>> {
             "children{media_type, media_url}",
         ].join(",")}&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`);
 
-        if (!response.ok) {
-            console.log(response, `https://graph.instagram.com/me/media?fields=${[
-                "caption",
-                "id",
-                "media_type",
-                "media_url",
-                "permalink",
-                "timestamp",
-                "username",
-                "children{media_type, media_url}",
-            ].join(",")}&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`);
+        if (!response.ok)
             throw new Error("Failed to fetch the Instagram posts.");
-        }
 
         ({ data } = await response.json() as DataRes);
     } catch (error) {
@@ -146,4 +151,26 @@ export async function getInstagramPosts(): Promise<ActionResponse<Post[]>> {
         data: head ? [head, ...tail] : tail,
         success: true,
     };
+}
+
+/**
+ * Uses the Behold API to get the latest Instagram posts.
+ * Temporary solution until I can get the Instagram API to work.
+ * Only the latest six posts are fetched, as I'm not paying for a temporary fix.
+ * @returns The latest Instagram posts.
+ */
+export async function behold(): Promise<ActionResponse<BeholdPost[]>> {
+    const url = "https://feeds.behold.so/waaIKjdqb9WsriY3BCih";
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json() as { posts: BeholdPost[]; };
+
+        return { data: data.posts, success: true };
+    } catch (error) {
+        return {
+            error: error instanceof Error ? error : new Error(String(error)),
+            success: false,
+        };
+    }
 }
