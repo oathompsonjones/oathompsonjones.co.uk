@@ -1,8 +1,9 @@
 "use client";
 
 import { useColorScheme, useTheme } from "@mui/material";
-import { useEffect, useState } from "react";
 import type { Theme } from "@mui/material";
+import { useEffect } from "react";
+import { useLocalStorage } from "./useLocalStorage";
 
 type ThemeColour = "dark" | "light";
 
@@ -20,7 +21,7 @@ export function useThemeMode(): {
 } {
     const theme = useTheme();
     const { mode, systemMode, setMode } = useColorScheme();
-    const [themeColour, setThemeColour] = useState<ThemeColour>((mode === "system" ? systemMode : mode) ?? "dark");
+    const [themeColour, setThemeColour] = useLocalStorage<ThemeColour>("mode", "dark");
     const getPreferredMode = (): ThemeColour => (window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light");
@@ -29,7 +30,7 @@ export function useThemeMode(): {
     useEffect(() => {
         if (mode === "system")
             setThemeColour(getPreferredMode());
-    }, [systemMode]);
+    }, [systemMode, mode]);
 
     /** Updates the theme mode and colour. */
     function switchThemeMode(): void {
