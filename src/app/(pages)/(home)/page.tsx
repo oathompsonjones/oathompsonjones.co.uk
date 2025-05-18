@@ -4,13 +4,15 @@ import { useEffect, useState } from "react";
 import { About } from "components/pages/home/about";
 import { Contact } from "components/pages/home/contact";
 import { FadingSections } from "components/pages/home/fadingSections";
+import Image from "next/image";
 import { Main } from "components/pages/home/main";
 // Import { ProfilePicture } from "components/pages/home/profilePicture";
 import type { ReactNode } from "react";
 import { Section } from "components/pages/home/section";
 import { Size } from "components/size";
+import desk from "assets/images/desk.jpg";
 import { useMediaQuery } from "@mui/system";
-// Import { useThemeMode } from "hooks/useThemeMode";
+import { useThemeMode } from "hooks/useThemeMode";
 import { useWindowSize } from "hooks/useWindowSize";
 
 /**
@@ -20,7 +22,7 @@ import { useWindowSize } from "hooks/useWindowSize";
 export default function Home(): ReactNode {
     const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
     const { height, width } = useWindowSize();
-    // Const { theme } = useThemeMode();
+    const { themeColour/* , theme */ } = useThemeMode();
     const [index, setIndex] = useState(0);
 
     const handleScroll = (): void => setIndex(window.scrollY / window.innerHeight);
@@ -61,6 +63,22 @@ export default function Home(): ReactNode {
 
     return (
         <>
+            <Image
+                alt="Picture of a computer desk."
+                src={desk}
+                style={{
+                    filter: `brightness(${themeColour === "dark" ? 50 : 60}%) blur(5px)`,
+                    left: "50%",
+                    minHeight: "100%",
+                    minWidth: "100%",
+                    objectFit: "cover",
+                    position: "fixed",
+                    top: "50%",
+                    transform: "translate(-50%, -50%) scale(1.1)",
+                    transition: "filter 0.5s",
+                    zIndex: -5,
+                }}
+            />
             <Size
                 xs={
                     <>
