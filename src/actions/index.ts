@@ -1,4 +1,4 @@
-export type ActionResponse<T> = {
+export type ActionResponse<T = undefined> = {
     error: Error | null;
     success: false;
 } | {
