@@ -1,7 +1,7 @@
 "use client";
 
-import { Accordion, AccordionDetails, AccordionSummary, Button, Typography } from "@mui/material";
 import type { ReactNode } from "react";
+import { Typography } from "@mui/material";
 
 /**
  * Handles errors for the page.
@@ -12,14 +12,12 @@ import type { ReactNode } from "react";
  */
 export function PageError({ error, reset }: { error: Error; reset: () => void; }): ReactNode {
     return (
-        <Accordion sx={{ background: "none", boxShadow: "none" }}>
-            <AccordionSummary>
-                <Typography variant="h4" sx={{ flex: 1 }}>An error occurred, please try again later.</Typography>
-                <Button onClick={reset} size="small" sx={{ alignSelf: "center" }}>Try Again</Button>
-            </AccordionSummary>
-            <AccordionDetails>
-                <Typography>{error.message}</Typography>
-            </AccordionDetails>
-        </Accordion>
+        <div>
+            <Typography variant="h4">
+                An error occurred, please <a style={{ color: "var(--mui-palette-secondary-main)" }} onClick={reset}>
+                    try again</a> later.
+            </Typography>
+            <Typography>{error.message}</Typography>
+        </div>
     );
 }
