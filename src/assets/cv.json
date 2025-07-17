@@ -1,5 +1,5 @@
 {
-    "Summary": "Final-year Computer Science student at the University of Edinburgh, with over a decade of programming experience and a passion for software development. Based in the UK with homes in both London and Edinburgh, happy to relocate for the right opportunity. I bring an ambitious and proactive mindset, fast learning ability, and proven leadership experience. I am keen to apply my technical expertise and creativity in a professional software development environment.",
+    "Summary": "Final-year Computer Science student at the University of Edinburgh, with over a decade of programming experience and a passion for software development. Based in the UK, looking for roles around London and Cambridge, but happy to relocate for the right opportunity. I bring an ambitious and proactive mindset, fast learning ability, and proven leadership experience. I am keen to apply my technical expertise and creativity in a professional software development environment.",
     "Skills": {
         "Languages": [
             "JavaScript/TypeScript",
@@ -14,6 +14,7 @@
         ],
         "Technologies": [
             "Node.JS",
+            "React",
             "Next.JS",
             "MongoDB",
             "Git",
@@ -37,11 +38,11 @@
                 "1",
                 "2:1",
                 "1",
-                "TBD",
-                "TBD"
+                "1",
+                "1"
             ],
             "summary": [
-                "Computer Science, BSc — Expected First Class Honours (Graduating July 2025)",
+                "Computer Science, BSc — First Class Honours",
                 "Developed a strong understanding of core computer science concepts through both individual and team-based projects.",
                 "Built a variety of applications using different languages and frameworks, refining problem-solving, communication, and analytical skills.",
                 "Expanded workplace skills such as resilience, self-awareness, self-discipline, time management, productivity, and self-assertiveness."
@@ -139,7 +140,7 @@
         {
             "role": "Bar Tender",
             "organisation": "[The Three Tuns](https://www.facebook.com/thethreetunsbishopsstortford/), Bishop's Stortford",
-            "time": "Holiday Work 2021-2024",
+            "time": "Holiday Work 2021-2025",
             "description": [
                 "Served customers, managed inventory, and maintained cleanliness and organisation.",
                 "Often operated solo as well as part of a team, requiring high levels of responsibility and reliability.",
