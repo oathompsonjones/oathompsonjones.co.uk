@@ -94,7 +94,7 @@ function generateImage(arrayBuffer: ArrayBuffer): string {
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     // Draw the image with the correct dimensions.
-    let [dw, dh, dx] = [image.width, image.height, 0];
+    let [dw, dh, dx, dy] = [image.width, image.height, 0, 0];
 
     if (image.height >= image.width) {
         dh = canvas.height;
@@ -103,10 +103,11 @@ function generateImage(arrayBuffer: ArrayBuffer): string {
     } else {
         dw = canvas.width;
         dh = image.height / image.width * canvas.width;
+        dy = (canvas.height - dh) / 2;
     }
 
     try {
-        context.drawImage(image, dx, 0, dw, dh);
+        context.drawImage(image, dx, dy, dw, dh);
     } catch {
         // If the image is invalid, draw nothing.
     }
