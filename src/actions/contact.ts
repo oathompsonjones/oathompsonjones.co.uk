@@ -46,18 +46,7 @@ export async function contact(
             from: process.env.EMAIL_AUTH_USER,
             subject,
             text: `New message from ${name} (${email})\n\n${content}`,
-            to: process.env.EMAIL_AUTH_USER,
-        });
-
-        // Send an email to the user.
-        await transporter.sendMail({
-            from: process.env.EMAIL_AUTH_USER,
-            subject: `RE: ${subject}`,
-            text: "Thank you for your message, I will get back to you shortly.\n\n" +
-                "If you did not attempt to contact me via https://oathompsonjones.co.uk/ " +
-                "then please ignore this email.\n\n" +
-                "Kind Regards,\nOliver Jones (oathompsonjones@gmail.com)",
-            to: email,
+            to: "oathompsonjones@icloud.com",
         });
     } catch (error) {
         if (error instanceof z.ZodError)
