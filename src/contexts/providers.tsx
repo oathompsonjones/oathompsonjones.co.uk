@@ -1,5 +1,6 @@
 "use client";
 
+import { AccessibilityContextProvider } from "./accessibility";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import type { ReactNode } from "react";
 import { ThemeContextProvider } from "./theme";
@@ -12,10 +13,12 @@ import { ThemeContextProvider } from "./theme";
  */
 export function Providers({ children }: { children: ReactNode; }): ReactNode {
     return (
-        <ThemeContextProvider>
-            <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTURE_KEY!}>
-                {children}
-            </GoogleReCaptchaProvider>
-        </ThemeContextProvider>
+        <AccessibilityContextProvider>
+            <ThemeContextProvider>
+                <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY}>
+                    {children}
+                </GoogleReCaptchaProvider>
+            </ThemeContextProvider>
+        </AccessibilityContextProvider>
     );
 }

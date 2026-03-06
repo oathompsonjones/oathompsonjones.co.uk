@@ -1,6 +1,6 @@
 import { Button, Typography } from "@mui/material";
 import { ContactForm } from "components/pages/contact/contactForm";
-import Grid from "components/layout/grid";
+import { Grid } from "@mui/system";
 import type { GridSize } from "@mui/material";
 import type { ReactNode } from "react";
 import { socials } from "components/footer/socialLinks";
@@ -21,8 +21,9 @@ export default function Contact(): ReactNode {
     // Renders the contact page.
     return (
         <>
-            <Typography variant="h2">Contact Me</Typography>
+            <Typography variant="h2" align="center" gutterBottom>Contact Me</Typography>
             <ContactForm />
+            <br />
             <Grid container spacing={1} columns={socials.length}>
                 {socials.map(({ icon, label, link }, i) => (
                     <Grid key={i} size={(["xs", "sm", "md", "lg"] as const).map((size) => getSize(size, i))}>

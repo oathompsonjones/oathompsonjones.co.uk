@@ -5,6 +5,7 @@ import { Card, CardMedia, Zoom } from "@mui/material";
 import { Instagram } from "@mui/icons-material";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { useGlass } from "hooks/useGlass";
 import { useState } from "react";
 
 /**
@@ -14,6 +15,8 @@ import { useState } from "react";
  * @returns An element which renders an Instagram post.
  */
 export function InstagramPost({ post }: { post: BeholdPost | Post; }): ReactNode {
+    const className = useGlass();
+
     const isBeholdPost = (_post: BeholdPost | Post): _post is BeholdPost => "mediaType" in post;
     const isBehold = isBeholdPost(post);
 
@@ -33,16 +36,23 @@ export function InstagramPost({ post }: { post: BeholdPost | Post; }): ReactNode
     // All other posts are displayed as a single image.
     return (
         <Zoom in timeout={500}>
-            <Card onMouseEnter={handleHover} onMouseLeave={handleHover} sx={{ position: "relative" }}>
+            <Card
+                className={className}
+                onMouseEnter={handleHover}
+                onMouseLeave={handleHover}
+                sx={{ position: "relative" }}
+            >
                 <Link
                     href={post.permalink}
                     style={{
                         background: "rgba(0, 0, 0, 0.25)",
-                        height: "100%",
+                        height: "calc(100% + 2rem)",
+                        left: "-1rem",
                         opacity: hover ? "100%" : "0%",
                         position: "absolute",
+                        top: "-1rem",
                         transition: "opacity 0.25s linear",
-                        width: "100%",
+                        width: "calc(100% + 2rem)",
                     }}
                 >
                     <Instagram
@@ -57,7 +67,11 @@ export function InstagramPost({ post }: { post: BeholdPost | Post; }): ReactNode
                         }}
                     />
                 </Link>
-                <CardMedia component="img" image={isBehold ? post.mediaUrl : post.media_url} />
+                <CardMedia
+                    component="img"
+                    image={isBehold ? post.mediaUrl : post.media_url}
+                    style={{ margin: "-1rem", width: "calc(100% + 2rem)" }}
+                />
             </Card>
         </Zoom>
     );

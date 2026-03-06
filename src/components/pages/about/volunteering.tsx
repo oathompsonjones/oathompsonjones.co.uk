@@ -1,5 +1,6 @@
 import { Divider, Typography } from "@mui/material";
 import type { CV } from "app/(pages)/cv/route";
+import { Glass } from "components/glass";
 import type { ReactNode } from "react";
 import cv from "assets/cv.json";
 import { jsonToJSDoc } from "app/(pages)/cv";
@@ -18,7 +19,7 @@ export function Volunteering(): ReactNode {
     }));
 
     return (
-        <div>
+        <Glass>
             <Typography variant="h3">Volunteer Experience</Typography>
             {volunteering.map(({ description, heading }, i) => (
                 <div key={i}>
@@ -29,6 +30,6 @@ export function Volunteering(): ReactNode {
                     </Typography>
                 </div>
             ))}
-        </div>
+        </Glass>
     );
 }

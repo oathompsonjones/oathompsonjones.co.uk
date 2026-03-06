@@ -18,6 +18,11 @@ export default function Privacy(): ReactNode {
                 <br />
                 This information will only be used to allow me to respond to enquiries.
             </Typography>
+            <Typography>
+                This site is protected by reCAPTCHA and the Google <Link href="https://policies.google.com/privacy">
+                    Privacy Policy</Link> and <Link href="https://policies.google.com/terms">
+                    Terms of Service</Link> apply.
+            </Typography>
         </div>
     );
 }

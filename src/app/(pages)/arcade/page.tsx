@@ -1,3 +1,5 @@
+import { Game } from "components/pages/arcade/game";
+import { Masonry } from "@mui/lab";
 import type { ReactNode } from "react";
 import { Typography } from "@mui/material";
 
@@ -7,33 +9,22 @@ import { Typography } from "@mui/material";
  */
 export default function Arcade(): ReactNode {
     return (
-        <>
-            <Typography variant="h2">Would you like to play a game?</Typography>
-            <div>
-                <Typography variant="h6">Upcoming Games</Typography>
-                <Typography variant="body1" component="ul">
-                    <li>Noughts and Crosses</li>
-                    <li>Connect 4</li>
-                    <li>Battleships</li>
-                    <li>Checkers</li>
-                    <li>Chess</li>
-                    <li>Pong</li>
-                    <li>Breakout</li>
-                    <li>Snake</li>
-                    <li>Space Invaders</li>
-                    <li>PacMan</li>
-                    <li>Tetris</li>
-                    <li>Solitaire</li>
-                </Typography>
-            </div>
-            <div>
-                <Typography variant="h6">Upcoming Game Modes</Typography>
-                <Typography variant="body1" component="ul">
-                    <li>2 players - user vs user <i>(where appropriate)</i></li>
-                    <li>1 player - user vs CPU <i>(or just user where appropriate)</i></li>
-                    <li>0 players - CPU vs CPU <i>(or just CPU where appropriate)</i></li>
-                </Typography>
-            </div>
-        </>
+        <div>
+            <Typography variant="h2" align="center" gutterBottom>Would you like to play a game?</Typography>
+            <Masonry columns={/* { lg: 4, md: 3, sm: 2, xl: 5, xs: 1 } */ 2}>
+                <Game title="Tic Tac Toe" />
+                <Game title="Connect 4" />
+                {/* <Game title="Battleships" disabled /> */}
+                {/* <Game title="Checkers" disabled /> */}
+                {/* <Game title="Chess" disabled /> */}
+                {/* <Game title="Pong" disabled /> */}
+                {/* <Game title="Breakout" disabled /> */}
+                {/* <Game title="Snake" disabled /> */}
+                {/* <Game title="Space Invaders" disabled /> */}
+                {/* <Game title="PacMan" disabled /> */}
+                {/* <Game title="Tetris" disabled /> */}
+                {/* <Game title="Solitaire" disabled /> */}
+            </Masonry>
+        </div>
     );
 }

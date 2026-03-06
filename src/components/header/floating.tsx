@@ -1,56 +1,48 @@
 "use client";
 
-import { IconButton, MenuItem, Paper, Typography, useScrollTrigger } from "@mui/material";
+import { MenuItem, Typography, useScrollTrigger } from "@mui/material";
+import { Glass } from "components/glass";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { usePathname } from "next/navigation";
+import { Stack } from "@mui/system";
 
 /**
  * Contains the floating nav bar for larger displays.
  * @param props - The component properties.
  * @param props.pages - The pages to display in the nav.
- * @param props.themeIcon - The icon to display for the theme switcher.
- * @param props.switchThemeMode - The function to switch the theme mode.
+ * @param props.contrastButton - The button to toggle the contrast effect.
  * @returns The floating nav bar.
  */
-export function Floating({ pages, themeIcon, switchThemeMode }: {
-    pages: Array<{ label: string; link: string; }>;
-    themeIcon: ReactNode;
-    switchThemeMode: () => void;
+export function Floating({ pages, contrastButton }: {
+    pages: Array<{ icon: ReactNode; label: string; link: string; }>;
+    contrastButton?: ReactNode;
 }): ReactNode {
-    const isHome: boolean = usePathname() === "/";
-    const isScrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 75 });
+    const isScrolling: boolean = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
+
+    const links = pages.map((page, i) => (
+        <MenuItem component={Link} href={page.link} key={i}>
+            <Stack direction="row" spacing={1} alignItems="center">
+                {page.icon}
+                <Typography>{page.label}</Typography>
+            </Stack>
+        </MenuItem>
+    ));
+
+    const styles = {
+        borderRadius: "100vh",
+        display: "flex",
+        left: "50%",
+        padding: "0 !important",
+        position: "fixed",
+        top: "1rem",
+        transform: "translateX(-50%)",
+        zIndex: 1,
+    };
 
     return (
-        <Paper
-            sx={{
-                backdropFilter: "blur(3px) saturate(250%)",
-                backgroundColor: "rgba(var(--mui-palette-background-defaultChannel) / 0.25)",
-                borderRadius: "999px",
-                display: "flex",
-                left: "50%",
-                position: "fixed",
-                top: "var(--top)",
-                transform: "translateX(-50%)",
-                transition: "top 0.25s ease",
-                zIndex: 1,
-            }}
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            style={{ "--top": isScrolling && !isHome ? "1rem" : "-50px" }}
-        >
-            {pages.map((page, i) => (
-                <MenuItem
-                    component={Link}
-                    href={page.link}
-                    key={i}
-                    sx={{ transition: "background-color 0.25s linear" }}
-                >
-                    <Typography variant="h5" color="inherit">{page.label}</Typography>
-                </MenuItem>
-            ))}
-            <IconButton onClick={switchThemeMode} sx={{ transition: "background-color 0.25s linear" }}>
-                {themeIcon}
-            </IconButton>
-        </Paper>
+        <Glass sx={styles} disabled={!isScrolling}>
+            {links}
+            {contrastButton}
+        </Glass>
     );
 }

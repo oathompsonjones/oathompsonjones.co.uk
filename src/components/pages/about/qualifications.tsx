@@ -1,7 +1,8 @@
 import { Divider, Typography } from "@mui/material";
 import { ALevels } from "./alevels";
 import { GCSEs } from "./gcses";
-import Grid from "components/layout/grid";
+import { Glass } from "components/glass";
+import { Grid } from "@mui/system";
 import type { ReactNode } from "react";
 import { University } from "./university";
 
@@ -11,7 +12,7 @@ import { University } from "./university";
  */
 export function Qualifications(): ReactNode {
     return (
-        <div>
+        <Glass>
             <Typography variant="h3">Qualifications</Typography>
             <Divider />
             <Grid container spacing={2}>
@@ -25,6 +26,6 @@ export function Qualifications(): ReactNode {
                     <University />
                 </Grid>
             </Grid>
-        </div>
+        </Glass>
     );
 }

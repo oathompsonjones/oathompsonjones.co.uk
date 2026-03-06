@@ -4,6 +4,7 @@ import { ButtonGroup, IconButton, Tooltip } from "@mui/material";
 import { CodeWrapper } from "./codeWrapper";
 import { ContentCopy } from "@mui/icons-material";
 import type { ReactNode } from "react";
+import type { SxProps } from "@mui/material";
 import hljs from "highlight.js/lib/common";
 import { useState } from "react";
 
@@ -11,18 +12,23 @@ import { useState } from "react";
  * Renders a code block.
  * @param props - An object containing the component props.
  * @param props.children - The code to render.
+ * @param props.sx - Optional styles to apply to the code block.
  * @returns The code block.
  */
-export function Code({ children }: { children: string; }): ReactNode {
+export function Code({ children, sx }: { children: string; sx?: SxProps; }): ReactNode {
     const [showButtons, setShowButtons] = useState(false);
     const [useLigatures, setUseLigatures] = useState(true);
-    const toggleUseLigatures = (): void => setUseLigatures((u) => !u);
+    const toggleUseLigatures = (): void => setUseLigatures((prev) => !prev);
     const copyCode = (): void => {
         void navigator.clipboard.writeText(children);
     };
 
     return (
-        <CodeWrapper onMouseEnter={(): void => setShowButtons(true)} onMouseLeave={(): void => setShowButtons(false)}>
+        <CodeWrapper
+            onMouseEnter={(): void => setShowButtons(true)}
+            onMouseLeave={(): void => setShowButtons(false)}
+            sx={sx ?? {}}
+        >
             <ButtonGroup
                 sx={{
                     opacity: showButtons ? 1 : 0,

@@ -1,7 +1,8 @@
+import { Divider, Typography } from "@mui/material";
 import type { CV } from "app/(pages)/cv/route";
+import { Glass } from "components/glass";
 import type { ReactNode } from "react";
-import Stack from "components/layout/stack";
-import { Typography } from "@mui/material";
+import { Stack } from "@mui/system";
 import cv from "assets/cv.json";
 import { jsonToJSDoc } from "app/(pages)/cv";
 
@@ -38,11 +39,12 @@ export function Skills(): ReactNode {
     const other = data.Skills.Other;
 
     return (
-        <div>
+        <Glass>
             <Typography variant="h3">Skills</Typography>
+            <Divider />
             <SkillList title="Languages" list={languages} />
             <SkillList title="Technologies" list={technologies} />
             <SkillList title="Other" list={other} />
-        </div>
+        </Glass>
     );
 }

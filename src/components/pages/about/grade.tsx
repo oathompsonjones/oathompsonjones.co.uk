@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Stack from "components/layout/stack";
+import { Stack } from "@mui/system";
 import { Typography } from "@mui/material";
 
 /**

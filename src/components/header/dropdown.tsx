@@ -1,5 +1,5 @@
+import { Box, Stack } from "@mui/system";
 import { MenuItem, Typography } from "@mui/material";
-import Box from "components/layout/box";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -11,7 +11,7 @@ import type { ReactNode } from "react";
  * @returns The drop down nav bar.
  */
 export function Dropdown({ pages, toggleNavOpen }: {
-    pages: Array<{ label: string; link: string; }>;
+    pages: Array<{ icon: ReactNode; label: string; link: string; }>;
     toggleNavOpen: () => void;
 }): ReactNode {
     return (
@@ -22,13 +22,12 @@ export function Dropdown({ pages, toggleNavOpen }: {
                     href={page.link}
                     key={i}
                     onClick={toggleNavOpen}
-                    sx={{
-                        justifyContent: "center",
-                        transition: "background-color 0.25s linear",
-                        width: "100%",
-                    }}
+                    sx={{ justifyContent: "center", width: "100%" }}
                 >
-                    <Typography>{page.label}</Typography>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                        {page.icon}
+                        <Typography>{page.label}</Typography>
+                    </Stack>
                 </MenuItem>
             ))}
         </Box>

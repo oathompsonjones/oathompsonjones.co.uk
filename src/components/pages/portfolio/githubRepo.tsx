@@ -1,3 +1,5 @@
+"use client";
+
 import {
     Accordion, AccordionDetails, AccordionSummary,
     Button,
@@ -9,7 +11,8 @@ import {
 import { ExpandMore } from "@mui/icons-material";
 import type { ReactNode } from "react";
 import type { Repo } from "actions/github";
-import Stack from "components/layout/stack";
+import { Stack } from "@mui/system";
+import { useGlass } from "hooks/useGlass";
 
 /**
  * Renders a GitHub repository.
@@ -18,6 +21,8 @@ import Stack from "components/layout/stack";
  * @returns An element which renders a GitHub repository.
  */
 export function GitHubRepo({ repo }: { repo: Repo; }): ReactNode {
+    const className = useGlass();
+
     // Maps the repository languages into a more readable format.
     const langs = repo.languages.nodes.map((lang) => lang.name).filter((name) => name !== repo.primaryLanguage?.name);
     const repoLanguages = (
@@ -34,12 +39,23 @@ export function GitHubRepo({ repo }: { repo: Repo; }): ReactNode {
     // Returns a Zoom element wrapping the repository to make it look nicer when loading in.
     return (
         <Zoom in timeout={500}>
-            <Card>
-                <CardMedia component="img" image={repo.image} />
+            <Card className={className}>
+                <CardMedia
+                    component="img"
+                    image={repo.image}
+                    style={{
+                        margin: "-1rem -1rem 0",
+                        width: "calc(100% + 2rem)",
+                    }}
+                />
                 <CardContent>
                     <Typography variant="h6">{repo.name}</Typography>
                 </CardContent>
-                <Accordion>
+                <Accordion style={{
+                    background: "transparent",
+                    margin: "0 -1rem -1rem",
+                    width: "calc(100% + 2rem)",
+                }}>
                     <AccordionSummary expandIcon={<ExpandMore />}>
                         <Typography>Learn More</Typography>
                     </AccordionSummary>

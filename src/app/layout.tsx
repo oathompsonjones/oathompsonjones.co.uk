@@ -1,8 +1,9 @@
 import "@mui/material-pigment-css/styles.css";
 import "styles/layout.css";
-import "styles/scrolling.css";
 import "styles/transitions.css";
 import "styles/typography.css";
+import "styles/background.css";
+import "styles/glass.css";
 import type { Metadata, Viewport } from "next";
 import { Footer } from "components/footer";
 import { Header } from "components/header";
@@ -11,6 +12,7 @@ import { Providers } from "contexts/providers";
 import type { ReactNode } from "react";
 import { ScrollToTop } from "components/scrollToTop";
 import { gravatarURL } from "utils";
+import keywords from "public/keywords.json";
 
 // https://realfavicongenerator.net (remove the mask icon and msapplication stuff)
 export const metadata: Metadata = {
@@ -20,37 +22,8 @@ export const metadata: Metadata = {
         icon: [gravatarURL(32), gravatarURL(16)],
         shortcut: gravatarURL(16),
     },
-    keywords: [
-        "oathompsonjones",
-        "Oliver Jones",
-        "Oliver Andrew Thompson Jones",
-        "Ollie Jones",
-        "Ollie Andrew Thompson Jones",
-        "Bishop's Stortford",
-        "Edinburgh",
-        "Edinburgh University",
-        "Programmer",
-        "Programming",
-        "Program",
-        "Coder",
-        "Coding",
-        "Code",
-        "Software",
-        "Software Engineer",
-        "Software Engineering",
-        "Software Developer",
-        "Software Development",
-        "Development",
-        "Developer",
-        "Computer Science",
-        "Computing",
-        "Computer Scientist",
-        "CS",
-        "Portfolio",
-        "CV",
-        "Contact",
-    ],
-    title: "Oliver Jones",
+    keywords: Array.isArray(keywords) ? keywords : [],
+    title: "Oliver Jones | Software Developer",
 };
 
 export const viewport: Viewport = {

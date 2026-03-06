@@ -188,5 +188,5 @@ export async function GET(): Promise<NextResponse> {
         void e;
     }
 
-    return new NextResponse(pdf, { headers: { contentType: "application/pdf" } });
+    return new NextResponse(pdf as BodyInit, { headers: { contentType: "application/pdf" } });
 }

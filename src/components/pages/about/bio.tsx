@@ -1,33 +1,25 @@
-import { Avatar, Typography } from "@mui/material";
-import { GRAVATAR_URL, age } from "utils";
-import Grid from "components/layout/grid";
+import { Glass } from "components/glass";
 import type { ReactNode } from "react";
-import Stack from "components/layout/stack";
+import { Typography } from "@mui/material";
+import { age } from "utils";
 import cv from "assets/cv.json";
 import { jsonToJSDoc } from "app/(pages)/cv";
 
 /**
  * Contains the bio segment for my CV page.
+ * @param props - The props for the Bio component.
+ * @param props.large - Whether the bio should be large or not.
  * @returns The Bio element.
  */
-export function Bio(): ReactNode {
+export function Bio({ large = false }: { large?: boolean; }): ReactNode {
     return (
-        <div>
-            <Grid container spacing={2}>
-                <Grid size={{ md: 4, sm: 5, xs: 12 }}>
-                    <Avatar src={GRAVATAR_URL} sx={{ height: "auto", width: "100%" }} />
-                </Grid>
-                <Grid size={{ md: 8, sm: 7, xs: 12 }}>
-                    <Stack direction="column" sx={{ height: "100%", justifyContent: "center" }}>
-                        <Typography sx={{ whiteSpace: "pre-wrap" }}>
-                            {[
-                                `Hi, I'm Ollie, ${age()}.`,
-                                jsonToJSDoc(cv.Summary),
-                            ].join(" ").split("\n").join("\n\n")}
-                        </Typography>
-                    </Stack>
-                </Grid>
-            </Grid>
-        </div>
+        <Glass>
+            <Typography sx={{ whiteSpace: "pre-wrap" }} variant={large ? "h4" : "h6"} color="white">
+                {[
+                    `Hi, I'm Ollie. I'm a ${age()} year old`,
+                    jsonToJSDoc(cv.Summary),
+                ].join(" ").split("\n").join("\n\n")}
+            </Typography>
+        </Glass>
     );
 }

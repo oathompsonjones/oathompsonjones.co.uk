@@ -1,14 +1,33 @@
 "use client";
 
 import type { ReactNode } from "react";
-import StackOverflowLogo from "assets/images/stackOverflow.svg";
 import SvgIcon from "@mui/material/SvgIcon";
+
+/**
+ * Renders a Stack Overflow logo.
+ * @returns An SVG of the Stack Overflow logo.
+ */
+function StackOverflowLogo(): ReactNode {
+    return (
+        <svg viewBox="0 0 169.61 200">
+            <g opacity="1">
+                {/* eslint-disable-next-line max-len */}
+                <path d="M140.44 178.38L140.44 129.73L162.05 129.73L162.05 200L0 200L0 129.73L21.61 129.73L21.61 178.38L140.44 178.38Z" />
+                {/* eslint-disable-next-line max-len */}
+                <path d="M124.24 140.54L128.56 124.32L41.59 106.49L37.81 124.32L124.24 140.54ZM49.7 82.16L130.72 120L138.28 103.78L57.26 65.95L49.7 82.16ZM72.38 42.16L140.44 99.46L151.79 85.95L83.19 28.65L71.84 42.16L72.38 42.16ZM116.14 0L101.55 10.81L155.03 82.7L169.61 71.89L116.14 0ZM37.81 162.16L124.24 162.16L124.24 145.95L37.81 145.95L37.81 162.16Z" />
+            </g>
+        </svg>
+    );
+}
 
 /**
  * Renders a Stack Overflow logo.
  * @returns The Stack Overflow logo.
  */
 export function StackOverflow(): ReactNode {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    return (<SvgIcon component={StackOverflowLogo} inheritViewBox />);
+    return (
+        <SvgIcon inheritViewBox>
+            <StackOverflowLogo />
+        </SvgIcon>
+    );
 }

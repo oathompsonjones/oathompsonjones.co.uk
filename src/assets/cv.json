@@ -1,5 +1,5 @@
 {
-    "Summary": "Computer Science graduate from the University of Edinburgh, with over a decade of programming experience and a passion for software development. Based in the UK, looking for roles around London and Cambridge, but happy to relocate for the right opportunity. I bring an ambitious and proactive mindset, fast learning ability, and proven leadership experience. I am keen to apply my technical expertise and creativity in a professional software development environment.",
+    "Summary": "Software Developer with over a decade of programming experience and a passion for writing robust, scalable software, based in London, UK. I bring an ambitious and proactive mindset, fast learning ability, and proven leadership experience. I am always keen to apply my technical expertise and creativity in professional environments.",
     "Skills": {
         "Languages": [
             "JavaScript/TypeScript",
@@ -137,6 +137,16 @@
         }
     ],
     "Experience": [
+        {
+            "role": "Software Developer",
+            "organisation": "[Park Place Technologies](https://www.parkplacetechnologies.com), London",
+            "time": "September 2025-Present",
+            "description": [
+                "Full stack software development in a fast-paced environment.",
+                "Working with a range of technologies including TypeScript, Java and C/C++.",
+                "Collaborating with a team of developers to design and implement new features, fix bugs, and improve performance."
+            ]
+        },
         {
             "role": "Bar Tender",
             "organisation": "[The Three Tuns](https://www.facebook.com/thethreetunsbishopsstortford/), Bishop's Stortford",

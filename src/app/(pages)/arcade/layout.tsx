@@ -1,14 +1,6 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
+import { layout } from "components/layout";
 
 export const metadata: Metadata = { title: "Oliver Jones | Arcade" };
 
-/**
- * Sets the title of the page.
- * @param props - The component properties.
- * @param props.children - The children of the page.
- * @returns The children of the page.
- */
-export default function Layout({ children }: { children: ReactNode; }): ReactNode {
-    return children;
-}
+export default layout();

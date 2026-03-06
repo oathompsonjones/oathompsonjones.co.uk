@@ -9,6 +9,8 @@ const nextConfig = {
         emotion: true,
         styledComponents: true,
     },
+    images: { remotePatterns: [{ hostname: "www.gravatar.com", protocol: "https" }] },
+    reactStrictMode: true,
     // eslint-disable-next-line require-await
     async redirects() {
         return Object.entries({
@@ -27,12 +29,13 @@ const nextConfig = {
             source: `/${source}`,
         }));
     },
-    typescript: { ignoreBuildErrors: true },
-    webpack(config) {
-        config.module.rules.push({
-            test: /\.svg$/u,
-            use: ["@svgr/webpack"],
-        });
+    webpack: (config, { isServer }) => {
+        if (!isServer) {
+            config.resolve.fallback = {
+                ...config.resolve.fallback,
+                "readline/promises": false,
+            };
+        }
 
         return config;
     },

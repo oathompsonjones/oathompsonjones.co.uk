@@ -1,12 +1,13 @@
-import { Bio } from "components/pages/about/bio";
-import { DynamicButton } from "components/dynamicButton";
+"use client";
+
+import { Button, Typography } from "@mui/material";
 import { Experience } from "components/pages/about/experience";
 import { FileDownload } from "@mui/icons-material";
 import { Qualifications } from "components/pages/about/qualifications";
 import type { ReactNode } from "react";
 import { Skills } from "components/pages/about/skills";
-import Stack from "components/layout/stack";
-import { Typography } from "@mui/material";
+import { Stack } from "@mui/system";
+import { Summary } from "components/pages/about/summary";
 import { Volunteering } from "components/pages/about/volunteering";
 
 /**
@@ -15,27 +16,18 @@ import { Volunteering } from "components/pages/about/volunteering";
  */
 export default function About(): ReactNode {
     return (
-        <>
-            <Stack direction="row">
-                <Typography variant="h2" sx={{ flex: 1 }}>About Me</Typography>
-                <DynamicButton
-                    LinkComponent="a"
-                    href="/cv"
-                    startIcon={<FileDownload />}
-                    sx={{
-                        alignSelf: "center",
-                        float: "right",
-                        m: "1%",
-                    }}
-                >
-                    Download CV
-                </DynamicButton>
-            </Stack>
-            <Bio />
+        <Stack gap={2}>
+            <Typography variant="h2" align="center" sx={{ flex: 1 }}>
+                About Me
+            </Typography>
+            <Button size="small" LinkComponent="a" href="/cv" startIcon={<FileDownload />} sx={{ alignSelf: "center" }}>
+                Download CV
+            </Button>
+            <Summary />
             <Skills />
             <Qualifications />
             <Experience />
             <Volunteering />
-        </>
+        </Stack>
     );
 }

@@ -1,7 +1,7 @@
 "use client";
 
+import { Button, IconButton, Typography } from "@mui/material";
 import type { ChangeEvent, ReactNode } from "react";
-import { IconButton, Typography } from "@mui/material";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { getProblem, getSolution, getUtils } from "actions/projectEuler";
 import { useEffect, useState } from "react";
@@ -15,59 +15,84 @@ import hljs from "highlight.js/lib/common";
  * @returns An element displaying my project euler solutions.
  */
 export default function ProjectEuler(): ReactNode {
+    const [loading, setLoading] = useState(true);
     const [problem, setProblem] = useState(1);
-
     const [{ description, title }, setDescription] = useState({ description: "Loading...", title: "Loading..." });
     const [solution, setSolution] = useState("Loading...");
+    const [showUtils, setShowUtils] = useState(false);
     const [utils, setUtils] = useState("Loading...");
 
     const inputHandler = (e: ChangeEvent<HTMLInputElement>): void => setProblem(Math.max(1, Number(e.target.value)));
-    const prev = (): void => setProblem((p) => Math.max(1, p - 1));
-    const next = (): void => setProblem((p) => p + 1);
+    const prev = (): void => {
+        setLoading(true);
+        setProblem((p) => Math.max(1, p - 1));
+    };
+    const next = (): void => {
+        setLoading(true);
+        setProblem((p) => p + 1);
+    };
 
+    // Handle loading state.
     useEffect(() => {
-        window.location.hash = problem.toString();
+        if (loading) {
+            setDescription({ description: "Loading...", title: "Loading..." });
+            setSolution("Loading...");
+        }
+    }, [loading]);
 
-        getProblem(problem)
-            .then((response) => {
-                if (response.success) {
-                    setDescription(response.data);
-                } else {
-                    setDescription({
-                        description: "Failed to fetch the description.",
-                        title: "Failed to fetch the title.",
-                    });
-                }
-            })
-            .catch(() => undefined);
+    // Handle changes to the problem number, with debounce to prevent excessive API calls when input changes rapidly.
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            window.location.hash = problem.toString();
 
-        getSolution(problem)
-            .then((response) => setSolution(
-                response.success
+            const failedProblem = {
+                description: "Failed to fetch the description.",
+                title: "Failed to fetch the title.",
+            };
+
+            getProblem(problem)
+                .then((response) => setDescription(response.success ? response.data : failedProblem))
+                .catch(() => setDescription(failedProblem));
+
+            const failedSolution = "// The solution to this problem is not available. I may not have solved it yet.";
+
+            getSolution(problem)
+                .then((response) => setSolution(response.success && response.data !== "404: Not Found"
                     ? response.data
-                    : "// The solution to this problem is not available." +
-                    "I may not have solved it yet, or it may not exist.",
-            ))
-            .catch(() => undefined);
+                    : failedSolution))
+                .catch(() => setSolution(failedSolution));
+
+            setLoading(false);
+        }, 300);
+
+        return (): void => clearTimeout(timeout);
     }, [problem]);
 
+    // Handle initial load and highlight code blocks with highlight.js.
     useEffect(() => {
         if (window.location.hash !== "" && !isNaN(Number(window.location.hash.slice(1))))
             setProblem(Number(window.location.hash.slice(1)));
 
+        const failedUtils = "// Something went wrong while fetching the utils file, please try again later.";
+
         getUtils()
-            .then((response) => setUtils(
-                response.success
-                    ? response.data
-                    : "// Something went wrong while fetching the utils file, please try again later.",
-            ))
-            .catch(() => undefined);
+            .then((response) => setUtils(response.success ? response.data : failedUtils))
+            .catch(() => setUtils(failedUtils));
 
         hljs.highlightAll();
     }, []);
 
     return (
         <>
+            {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+            <link
+                href="https://fonts.googleapis.com/css?family=Fira Code&display=optional"
+                rel="stylesheet"
+            />
+            <link
+                href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+                rel="stylesheet"
+            />
             <style>{/* CSS */`
                 .plain-input {
                     background: none;
@@ -89,30 +114,39 @@ export default function ProjectEuler(): ReactNode {
                     -moz-appearance: textfield;
                 }
             `}</style>
-            <Typography textAlign="center" variant="h4" color="inherit">
-                <IconButton onClick={prev} className="monospace">
-                    <strong>&lt;|</strong>
-                </IconButton>
-                <Link className="monospace" href={`https://projecteuler.net/problem=${problem}`}>
-                    Problem
-                </Link>
-                <input className="monospace plain-input" type="number" value={problem} onChange={inputHandler} />
-                <IconButton onClick={next} className="monospace">
-                    <strong>|&gt;</strong>
-                </IconButton>
+            <Typography
+                className="monospace"
+                align="center"
+                variant="h2"
+                color="inherit"
+                // eslint-disable-next-line @typescript-eslint/naming-convention
+                sx={{ ":after": { content: { md: "'||===>>'" } }, ":before": { content: { md: "'<<===||'" } } }}
+            >
+                Project Euler
             </Typography>
-            <CodeWrapper>
-                <div style={{ overflow: "auto", padding: "1rem" }}>
+            <div>
+                <Typography align="center" variant="h4" color="inherit">
+                    <IconButton onClick={prev} className="monospace" disabled={problem === 1}>
+                        <strong>&lt;|</strong>
+                    </IconButton>
+                    <Link className="monospace" href={`https://projecteuler.net/problem=${problem}`}>
+                    Problem
+                    </Link>
+                    <input className="monospace plain-input" type="number" value={problem} onChange={inputHandler} />
+                    <IconButton onClick={next} className="monospace">
+                        <strong>|&gt;</strong>
+                    </IconButton>
+                </Typography>
+                <CodeWrapper sx={{ overflow: "auto", padding: "1rem" }}>
                     <MathJaxContext config={{ options: { enableMenu: false } }}>
                         <MathJax dynamic>
                             <Typography
                                 className="monospace"
-                                textAlign="center"
+                                align="center"
                                 color="secondary"
                                 variant="h5"
-                                /* eslint-disable @typescript-eslint/naming-convention */
+                                // eslint-disable-next-line @typescript-eslint/naming-convention
                                 dangerouslySetInnerHTML={{ __html: title }}
-                                /* eslint-enable @typescript-eslint/naming-convention */
                             />
                             <Typography
                                 className="monospace"
@@ -124,8 +158,8 @@ export default function ProjectEuler(): ReactNode {
                             />
                         </MathJax>
                     </MathJaxContext>
-                </div>
-            </CodeWrapper>
+                </CodeWrapper>
+            </div>
             <div>
                 <Typography className="monospace" textAlign="center" variant="h4" color="inherit">
                     Solution
@@ -135,8 +169,11 @@ export default function ProjectEuler(): ReactNode {
             <div>
                 <Typography className="monospace" textAlign="center" variant="h4" color="inherit">
                     Utils
+                    <Button onClick={(): void => setShowUtils((s) => !s)} variant="text" color="primary">
+                        ({showUtils ? "Hide" : "Show"})
+                    </Button>
                 </Typography>
-                <Code>{utils}</Code>
+                <Code sx={showUtils ? {} : { display: "none" }}>{utils}</Code>
             </div>
         </>
     );

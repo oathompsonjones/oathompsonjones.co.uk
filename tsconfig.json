@@ -46,6 +46,12 @@
             "utils": [
                 "./src/utils"
             ],
+            "public/*": [
+                "./public/*"
+            ],
+            "MiniGames/*": [
+                "./MiniGames/*"
+            ],
         },
         "isolatedModules": true,
         "preserveConstEnums": true,

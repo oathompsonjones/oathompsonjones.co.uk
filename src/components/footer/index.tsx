@@ -1,14 +1,13 @@
 "use client";
 
-import { Avatar, Paper, Typography } from "@mui/material";
-import Box from "components/layout/stack";
+import { Avatar, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/system";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
 import { Name } from "./name";
 import type { ReactNode } from "react";
 import { Size } from "components/size";
 import { SocialLinks } from "./socialLinks";
-import Stack from "components/layout/stack";
 
 /**
  * Contains the footer element.
@@ -16,10 +15,7 @@ import Stack from "components/layout/stack";
  */
 export function Footer(): ReactNode {
     return (
-        <Paper
-            component="footer" square
-            sx={{ borderTop: "1px solid var(--mui-palette-primary-main)", p: "0.75rem", zIndex: 1 }}
-        >
+        <Box component="footer" sx={{ p: "0.75rem", zIndex: 1 }}>
             <Stack
                 direction="row" gap={2}
                 sx={{ display: { md: "flex", xs: "none" }, left: "0.75rem", position: "absolute" }}>
@@ -40,6 +36,6 @@ export function Footer(): ReactNode {
             <Box sx={{ display: { md: "block", xs: "none" }, position: "absolute", right: "0.75rem" }}>
                 <SocialLinks />
             </Box>
-        </Paper>
+        </Box>
     );
 }

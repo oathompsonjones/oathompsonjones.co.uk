@@ -9,6 +9,7 @@ const formSchema = z.object({
     email: z.string().email(),
     name: z.string(),
     subject: z.string(),
+    token: z.string(),
 });
 
 export type FormSchema = z.infer<typeof formSchema>;
@@ -19,18 +20,30 @@ export type FormSchema = z.infer<typeof formSchema>;
  * @param formData - The form data to handle.
  * @returns An action response.
  */
-export async function contact(
-    _state: ActionResponse<undefined>,
-    formData: FormData,
-): Promise<ActionResponse<undefined>> {
+export async function contact(_state: ActionResponse, formData: FormData): Promise<ActionResponse> {
     try {
         // Check that the input is in the correct form.
-        const { content, email, name, subject } = formSchema.parse({
+        const { content, email, name, subject, token } = formSchema.parse({
             content: formData.get("content"),
             email: formData.get("email"),
             name: formData.get("name"),
             subject: formData.get("subject"),
+            token: formData.get("token"),
         });
+
+        // Check the recapture token.
+        const data = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+            body: new URLSearchParams({
+                response: token,
+                secret: process.env.RECAPTCHA_SECRET,
+            }),
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            method: "POST",
+        }).then(async (response) => response.json()) as Record<PropertyKey, unknown>;
+
+        if (!("success" in data) || data.success !== true)
+            return { error: new Error("Recapture failed."), success: false };
 
         // Set up the transporter.
         const transporter = nodemailer.createTransport({
