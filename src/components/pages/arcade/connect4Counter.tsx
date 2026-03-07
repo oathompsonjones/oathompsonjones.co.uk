@@ -15,7 +15,7 @@ export function Connect4Counter({ red, yellow }: {
     yellow: true;
 }): ReactNode {
     return (
-        <svg viewBox="0 0 100 100" width="1em" height="1em">
+        <svg viewBox="0 0 100 100" width="90%" height="90%">
             {red && <circle cx="50" cy="50" r="45" fill="red" />}
             {yellow && <circle cx="50" cy="50" r="45" fill="yellow" />}
         </svg>

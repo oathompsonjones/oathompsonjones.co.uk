@@ -53,7 +53,7 @@ export default function Connect4Game(): ReactNode {
             );
         }
 
-        void gameRef.current.play("alphabeta");
+        void gameRef.current.play();
     }, []);
 
     const onClick = (event: MouseEvent<HTMLDivElement>): void => {
@@ -76,7 +76,7 @@ export default function Connect4Game(): ReactNode {
     return (
         <div>
             <Typography variant="h2" align="center">Connect 4</Typography>
-            <Grid height={6} width={7} onClick={onClick} renderCell={renderCell} />
+            <Grid height={6} width={7} onClick={onClick} renderCell={renderCell} closed />
             {statusText !== "" && <Typography variant="h3" align="center" color="secondary">
                 {statusText} <Button onClick={() => window.location.reload()}>Play Again</Button>
             </Typography>}

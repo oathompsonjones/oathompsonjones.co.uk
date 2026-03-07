@@ -32,7 +32,7 @@
         "@mui/material-nextjs": "^7.3.9",
         "@mui/material-pigment-css": "^7.3.9",
         "@mui/system": "^7.3.9",
-        "@oathompsonjones/mini-games": "^1.0.14",
+        "@oathompsonjones/mini-games": "^1.0.18",
         "@octokit/graphql": "^9.0.3",
         "better-react-mathjax": "3.0.0",
         "canvas": "^3.2.1",

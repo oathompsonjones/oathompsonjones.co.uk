@@ -13,3 +13,9 @@ export const age = (): number => {
         ? today.getFullYear() - birthDate.getFullYear() - 1
         : today.getFullYear() - birthDate.getFullYear();
 };
+
+export const title = (pageTitle: string): string => {
+    const devPrefix = process.env.NODE_ENV === "production" ? "" : "[DEV] ";
+
+    return `${devPrefix}Oliver Jones | ${pageTitle}`;
+};

@@ -9,10 +9,10 @@ import type { ReactNode } from "react";
  */
 export function TicTacToeCounter({ O, X }: { O: true; X?: never; } | { O?: never; X: true; }): ReactNode {
     return (
-        <svg viewBox="0 0 100 100" width="1em" height="1em">
-            {O && <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="10" fill="none" />}
-            {X && <line x1="10" y1="10" x2="90" y2="90" stroke="currentColor" strokeWidth="10" />}
-            {X && <line x1="90" y1="10" x2="10" y2="90" stroke="currentColor" strokeWidth="10" />}
+        <svg viewBox="0 0 100 100" width="90%" height="90%">
+            {O && <circle cx="50" cy="50" r="40" stroke="yellow" strokeWidth="10" fill="none" />}
+            {X && <line x1="10" y1="10" x2="90" y2="90" stroke="red" strokeWidth="10" />}
+            {X && <line x1="90" y1="10" x2="10" y2="90" stroke="red" strokeWidth="10" />}
         </svg>
     );
 }

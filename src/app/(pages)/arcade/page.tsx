@@ -11,7 +11,7 @@ export default function Arcade(): ReactNode {
     return (
         <div>
             <Typography variant="h2" align="center" gutterBottom>Would you like to play a game?</Typography>
-            <Masonry columns={/* { lg: 4, md: 3, sm: 2, xl: 5, xs: 1 } */ 2}>
+            <Masonry columns={{ /* xl: 5, lg: 4, md: 3, */ sm: 2, xs: 1 }}>
                 <Game title="Tic Tac Toe" />
                 <Game title="Connect 4" />
                 {/* <Game title="Battleships" disabled /> */}

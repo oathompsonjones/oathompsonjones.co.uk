@@ -5,13 +5,13 @@ import "styles/typography.css";
 import "styles/background.css";
 import "styles/glass.css";
 import type { Metadata, Viewport } from "next";
+import { gravatarURL, title } from "utils";
 import { Footer } from "components/footer";
 import { Header } from "components/header";
 import InitColorSchemeScript from "@mui/system/InitColorSchemeScript";
 import { Providers } from "contexts/providers";
 import type { ReactNode } from "react";
 import { ScrollToTop } from "components/scrollToTop";
-import { gravatarURL } from "utils";
 import keywords from "public/keywords.json";
 
 // https://realfavicongenerator.net (remove the mask icon and msapplication stuff)
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         shortcut: gravatarURL(16),
     },
     keywords: Array.isArray(keywords) ? keywords : [],
-    title: "Oliver Jones | Software Developer",
+    title: title("Software Developer"),
 };
 
 export const viewport: Viewport = {

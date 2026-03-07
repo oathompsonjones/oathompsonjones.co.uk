@@ -53,7 +53,7 @@ export default function TicTacToeGame(): ReactNode {
             );
         }
 
-        void gameRef.current.play("alphabeta");
+        void gameRef.current.play();
     }, []);
 
     const onClick = (event: MouseEvent<HTMLDivElement>): void => {

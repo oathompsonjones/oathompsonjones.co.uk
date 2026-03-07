@@ -2,8 +2,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Typography } from "@mui/material";
 import { layout } from "components/layout";
+import { title } from "utils";
 
-export const metadata: Metadata = { title: "Oliver Jones | Gallery" };
+export const metadata: Metadata = { title: title("Gallery") };
 
 export default layout({
     className: "full-width",

@@ -11,7 +11,7 @@ export default function Articles(): ReactNode {
     return (
         <div>
             <Typography variant="h2" align="center" gutterBottom>Articles</Typography>
-            <Masonry columns={/* { lg: 4, md: 3, sm: 2, xl: 5, xs: 1 } */ 2}>
+            <Masonry columns={{ /* xl: 5, lg: 4, md: 3, */ sm: 2, xs: 1 }}>
                 <Article
                     title="Project Euler"
                     summary="A collection of solutions to Project Euler problems."

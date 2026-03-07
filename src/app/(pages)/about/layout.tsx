@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { layout } from "components/layout";
+import { title } from "utils";
 
-export const metadata: Metadata = { title: "Oliver Jones | About Me" };
+export const metadata: Metadata = { title: title("About Me") };
 
 export default layout();

@@ -39,8 +39,8 @@ importers:
         specifier: ^7.3.9
         version: 7.3.9(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4)
       '@oathompsonjones/mini-games':
-        specifier: ^1.0.14
-        version: 1.0.14
+        specifier: ^1.0.18
+        version: 1.0.18
       '@octokit/graphql':
         specifier: ^9.0.3
         version: 9.0.3
@@ -1071,8 +1071,8 @@ packages:
   '@oathompsonjones/eslint-config@1.5.5':
     resolution: {integrity: sha512-cc53+uzwccw56Mqwwa3jEzgLc9G+8f4WFFOensgbB9pmL0D9QGexYGjtigksQjTNONV4lvbjNT6wTjyBQfc5Zg==}
 
-  '@oathompsonjones/mini-games@1.0.14':
-    resolution: {integrity: sha512-NW89hNNHuXoodJjYCQXy92xjtOZqAT6qrmBO6qqbmrvu9QzqhWPwNLFc4SYH0z97yAsdF+nNiL8Fst5h6b0RbQ==}
+  '@oathompsonjones/mini-games@1.0.18':
+    resolution: {integrity: sha512-MLOe5hsfcsk9V4Zdh+2L8A/ZP4lfCI4kLRFUZBE+UedQybajVIg5IDutElPy1q7Qlwg1PPvA63ypjB+0kyNWog==}
 
   '@oathompsonjones/ts-config@0.0.35':
     resolution: {integrity: sha512-euh5l8qwsqjh7XuOCoW0ej+On8WVEWj7xtJTPP5zOh2hKzFflNawPE7Oqyy8DFFpS1g+L6OIgGkFiUdwVL9VnA==}
@@ -4213,7 +4213,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@oathompsonjones/mini-games@1.0.14':
+  '@oathompsonjones/mini-games@1.0.18':
     dependencies:
       eventemitter3: 5.0.4
 
