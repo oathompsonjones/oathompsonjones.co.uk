@@ -1,7 +1,7 @@
+import { behold, getInstagramPosts } from "actions/instagram";
 import { InstagramPost } from "components/pages/gallery/instagramPost";
 import { Masonry } from "@mui/lab";
 import type { ReactNode } from "react";
-import { behold } from "actions/instagram";
 
 export const dynamic = "force-dynamic";
 
@@ -12,7 +12,17 @@ export const dynamic = "force-dynamic";
  */
 export default async function Gallery(): Promise<ReactNode> {
     // Calls the backend API to access the posts from Instagram.
-    const response = await behold();
+    let response;
+
+    try {
+        response = await getInstagramPosts();
+    } catch (error1) {
+        try {
+            response = await behold();
+        } catch (error2) {
+            throw new Error("Failed to fetch Instagram posts");
+        }
+    }
 
     if (!response.success) {
         throw response.error instanceof Error

@@ -68,45 +68,69 @@ type BeholdSinglePost = BeholdBasePost & {
 export type BeholdPost = BeholdCarouselPost | BeholdSinglePost;
 
 /**
+ * Updates an environment variable in an .env file body.
+ * @param fileData - Existing .env file contents.
+ * @param key - Environment variable key.
+ * @param value - Environment variable value.
+ * @returns Updated .env file contents.
+ */
+function upsertEnvVar(fileData: string, key: string, value: string): string {
+    const regex = new RegExp(`^${key}=.*$`, "m");
+    const line = `${key}=${value}`;
+
+    if (regex.test(fileData))
+        return fileData.replace(regex, line);
+
+    return `${fileData.trimEnd()}\n${line}\n`;
+}
+
+/**
  * Fetches the latest Instagram posts.
  * @returns The latest Instagram posts.
  */
 async function refreshToken(): Promise<void> {
-    if (Date.now() >= parseInt(process.env.INSTAGRAM_ACCESS_TOKEN_REFRESH_AT, 10)) {
+    const refreshAt = Number.parseInt(process.env.INSTAGRAM_ACCESS_TOKEN_REFRESH_AT || "0", 10);
+
+    if (!Number.isNaN(refreshAt) && Date.now() < refreshAt)
+        return;
+
+    if (!process.env.INSTAGRAM_ACCESS_TOKEN)
+        return;
+
+    try {
+        const response = await fetch(`https://graph.instagram.com/refresh_access_token?${[
+            "grant_type=ig_refresh_token",
+            `access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`,
+        ].join("&")}`);
+
+        if (!response.ok) {
+            const body = await response.text();
+
+            throw new Error(`Failed to refresh the access token (${response.status}): ${body}`);
+        }
+
+        const { access_token: accessToken } = await response.json() as TokenRes;
+        const nextRefreshAt = Date.now() + 24 * 60 * 60 * 1000;
+
+        /* eslint-disable require-atomic-updates */
+        process.env.INSTAGRAM_ACCESS_TOKEN = accessToken;
+        // eslint-disable-next-line id-length
+        process.env.INSTAGRAM_ACCESS_TOKEN_REFRESH_AT = String(nextRefreshAt);
+        /* eslint-enable require-atomic-updates */
+
         try {
-            const response = await fetch(`https://graph.instagram.com/v22.0/refresh_access_token?${[
-                "grant_type=ig_refresh_token",
-                `access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`,
-            ].join("&")}`);
-
-            if (!response.ok)
-                throw new Error("Failed to refresh the access token.");
-
-            const { access_token: accessToken } = await response.json() as TokenRes;
-            const refreshAt = Date.now() + 24 * 60 * 60 * 1000;
-
-            /* eslint-disable require-atomic-updates */
-            process.env.INSTAGRAM_ACCESS_TOKEN = accessToken;
-            // eslint-disable-next-line id-length
-            process.env.INSTAGRAM_ACCESS_TOKEN_REFRESH_AT = String(refreshAt);
-            /* eslint-enable require-atomic-updates */
-
             let fileData = await readFile("./.env", "utf8");
 
-            fileData = fileData.replace(
-                /INSTAGRAM_ACCESS_TOKEN=.*\n/,
-                `INSTAGRAM_ACCESS_TOKEN=${accessToken}\n`,
-            );
-            fileData = fileData.replace(
-                /INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=.*\n/,
-                `INSTAGRAM_ACCESS_TOKEN_REFRESH_AT=${refreshAt}\n`,
-            );
+            fileData = upsertEnvVar(fileData, "INSTAGRAM_ACCESS_TOKEN", accessToken);
+            fileData = upsertEnvVar(fileData, "INSTAGRAM_ACCESS_TOKEN_REFRESH_AT", String(nextRefreshAt));
 
             await writeFile("./.env", fileData);
-        } catch (err) {
-            // eslint-disable-next-line no-console
-            console.error(err instanceof Error ? `${err.name}: ${err.message}\n${err.stack ?? ""}` : String(err));
+        } catch {
+            // Ignore filesystem persistence failures in read-only environments.
         }
+    } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error(err instanceof Error ? `${err.name}: ${err.message}\n${err.stack ?? ""}` : String(err));
     }
 }
 
@@ -119,23 +143,57 @@ export async function getInstagramPosts(): Promise<ActionResponse<Post[]>> {
     await refreshToken();
 
     let data: Post[] = [];
+    const fields = [
+        "caption",
+        "id",
+        "media_type",
+        "media_url",
+        "permalink",
+        "timestamp",
+        "username",
+        "children{media_type, media_url}",
+    ].join(",");
+
+    const query = `fields=${fields}&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`;
+    const endpoints = [
+        process.env.INSTAGRAM_USER_ID
+            ? `https://graph.instagram.com/v22.0/${process.env.INSTAGRAM_USER_ID}/media?${query}`
+            : null,
+        `https://graph.instagram.com/v22.0/me/media?${query}`,
+        `https://graph.instagram.com/me/media?${query}`,
+    ].filter((endpoint): endpoint is string => endpoint !== null);
+
+    let lastError: Error | null = null;
 
     try {
-        const response = await fetch(`https://graph.instagram.com/me/media?fields=${[
-            "caption",
-            "id",
-            "media_type",
-            "media_url",
-            "permalink",
-            "timestamp",
-            "username",
-            "children{media_type, media_url}",
-        ].join(",")}&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`);
+        const attempts = await Promise.all(endpoints.map(async (endpoint) => {
+            const response = await fetch(endpoint, { cache: "no-store" });
 
-        if (!response.ok)
-            throw new Error("Failed to fetch the Instagram posts.");
+            if (!response.ok) {
+                const body = await response.text();
 
-        ({ data } = await response.json() as DataRes);
+                return {
+                    data: null,
+                    error: new Error(`Failed to fetch Instagram posts (${response.status}): ${body}`),
+                };
+            }
+
+            const payload = await response.json() as DataRes;
+
+            return { data: payload.data, error: null };
+        }));
+
+        const firstSuccess = attempts.find(
+            (attempt): attempt is { data: Post[]; error: null; } => attempt.data !== null,
+        );
+
+        if (firstSuccess)
+            ({ data } = firstSuccess);
+
+        lastError = attempts.find((attempt) => attempt.error !== null)?.error ?? null;
+
+        if (!data.length && lastError)
+            throw lastError;
     } catch (error) {
         return {
             error: error instanceof Error ? error : new Error("Internal server error"),
