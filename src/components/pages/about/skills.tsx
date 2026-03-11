@@ -19,9 +19,24 @@ const divider = <Typography sx={{ color: "gray" }}>•</Typography>;
  */
 function SkillList({ title, list }: { title: string; list: string[]; }): ReactNode {
     return (
-        <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+        <Stack
+            direction={{ sm: "row", xs: "column" }}
+            spacing={2}
+            useFlexGap
+            sx={{
+                alignItems: { sm: "center", xs: "flex-start" },
+                flexWrap: { sm: "wrap", xs: "nowrap" },
+                rowGap: 1,
+            }}
+        >
             <Typography variant="h6" sx={{ color: "var(--mui-palette-secondary-main)" }}>{title}:</Typography>
-            <Stack direction="row" spacing={1} sx={{ alignItems: "center" }} divider={divider}>
+            <Stack
+                direction="row"
+                spacing={1}
+                useFlexGap
+                sx={{ alignItems: "center", flexWrap: "wrap", rowGap: 1 }}
+                divider={divider}
+            >
                 {list.map(jsonToJSDoc).map((skill, i) => <span key={i}>{skill}</span>)}
             </Stack>
         </Stack>
