@@ -1,4 +1,4 @@
-import { Divider, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import type { ReactNode } from "react";
 import { RepositoryArchive } from "components/pages/portfolio/repositoryArchive";
 import { getGithubReposPage } from "actions/github";
@@ -18,7 +18,7 @@ export default async function Portfolio(): Promise<ReactNode> {
 
     return (
         <Stack gap={3}>
-            <Stack gap={2}>
+            {/* <Stack gap={2}>
                 <Typography variant="h4">Featured Projects</Typography>
                 <Typography color="text.secondary">
                     A curated view of projects that best represent my engineering strengths.
@@ -28,7 +28,7 @@ export default async function Portfolio(): Promise<ReactNode> {
                 </Stack>
             </Stack>
 
-            <Divider />
+            <Divider /> */}
 
             <Stack gap={2}>
                 <Typography variant="h4">Repository Archive</Typography>
