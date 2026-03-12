@@ -33,6 +33,10 @@ export function InstagramPost({ post }: { post: BeholdPost | Post; }): ReactNode
     const [hover, setHover] = useState(false);
     const handleHover = (): void => setHover((prev) => !prev);
 
+    // Reserve a 1:1 space before the image loads so Masonry can compute column heights correctly.
+    const [loaded, setLoaded] = useState(false);
+    const handleLoad = (): void => setLoaded(true);
+
     // All other posts are displayed as a single image.
     return (
         <Zoom in timeout={500}>
@@ -68,9 +72,17 @@ export function InstagramPost({ post }: { post: BeholdPost | Post; }): ReactNode
                     />
                 </Link>
                 <CardMedia
+                    alt={post.caption ?? "Instagram post"}
                     component="img"
                     image={isBehold ? post.mediaUrl : post.media_url}
-                    style={{ margin: "-1rem", width: "calc(100% + 2rem)" }}
+                    loading="lazy"
+                    onLoad={handleLoad}
+                    style={{
+                        aspectRatio: loaded ? undefined : "1 / 1",
+                        margin: "-1rem",
+                        objectFit: loaded ? undefined : "cover",
+                        width: "calc(100% + 2rem)",
+                    }}
                 />
             </Card>
         </Zoom>

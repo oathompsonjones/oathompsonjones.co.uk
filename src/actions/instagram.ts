@@ -41,11 +41,13 @@ type TokenRes = {
 
 type DataRes = {
     data: Post[];
-    paging: {
-        cursors: {
-            after: string;
-            before: string;
+    paging?: {
+        cursors?: {
+            after?: string;
+            before?: string;
         };
+        next?: string;
+        previous?: string;
     };
 };
 
@@ -66,6 +68,157 @@ type BeholdSinglePost = BeholdBasePost & {
 };
 
 export type BeholdPost = BeholdCarouselPost | BeholdSinglePost;
+
+export type InstagramPage = {
+    pageInfo: {
+        endCursor: string | null;
+        hasNextPage: boolean;
+    };
+    posts: Array<BeholdPost | Post>;
+};
+
+const DEFAULT_PAGE_SIZE = 6;
+const MAX_PAGE_SIZE = 20;
+
+/**
+ * Returns a safe Instagram page size.
+ * @param size - Requested page size.
+ * @returns Clamped page size.
+ */
+function getSafePageSize(size: number): number {
+    if (!Number.isFinite(size) || size <= 0)
+        return DEFAULT_PAGE_SIZE;
+
+    return Math.min(Math.floor(size), MAX_PAGE_SIZE);
+}
+
+/**
+ * Fetches one cursor-based page of Instagram posts.
+ * Falls back to Behold only for the first page.
+ * @param params - Cursor pagination parameters.
+ * @param params.after - Fetches records after this cursor.
+ * @param params.size - Number of posts to fetch.
+ * @returns A page of Instagram posts.
+ */
+export async function getInstagramPostsPage({ after = null, size = DEFAULT_PAGE_SIZE }: {
+    after?: string | null;
+    size?: number;
+} = {}): Promise<ActionResponse<InstagramPage>> {
+    await refreshToken();
+
+    const pageSize = getSafePageSize(size);
+    const fields = [
+        "caption",
+        "id",
+        "media_type",
+        "media_url",
+        "permalink",
+        "timestamp",
+        "username",
+        "children{media_type, media_url}",
+    ].join(",");
+
+    const query = new URLSearchParams({
+        access_token: process.env.INSTAGRAM_ACCESS_TOKEN,
+        fields,
+        limit: String(pageSize),
+    });
+
+    if (after !== null)
+        query.set("after", after);
+
+    const endpoints = [
+        process.env.INSTAGRAM_USER_ID
+            ? `https://graph.instagram.com/v22.0/${process.env.INSTAGRAM_USER_ID}/media?${query.toString()}`
+            : null,
+        `https://graph.instagram.com/v22.0/me/media?${query.toString()}`,
+        `https://graph.instagram.com/me/media?${query.toString()}`,
+    ].filter((endpoint): endpoint is string => endpoint !== null);
+
+    let lastError: Error | null = null;
+
+    try {
+        const attempts = await Promise.all(endpoints.map(async (endpoint) => {
+            const response = await fetch(endpoint, { cache: "no-store" });
+
+            if (!response.ok) {
+                const body = await response.text();
+
+                return {
+                    data: null,
+                    error: new Error(`Failed to fetch Instagram posts (${response.status}): ${body}`),
+                    pageInfo: null,
+                };
+            }
+
+            const payload = await response.json() as DataRes;
+            const endCursor = payload.paging?.cursors?.after ?? null;
+
+            return {
+                data: payload.data,
+                error: null,
+                pageInfo: {
+                    endCursor,
+                    hasNextPage: payload.paging?.next !== undefined || endCursor !== null,
+                },
+            };
+        }));
+
+        const firstSuccess = attempts.find(
+            (attempt): attempt is {
+                data: Post[];
+                error: null;
+                pageInfo: { endCursor: string | null; hasNextPage: boolean; };
+            } => attempt.data !== null,
+        );
+
+        if (firstSuccess) {
+            const filtered = firstSuccess.data
+                .filter((post) => !post.permalink.startsWith("https://www.instagram.com/reel/"));
+
+            return {
+                data: {
+                    pageInfo: firstSuccess.pageInfo,
+                    posts: filtered,
+                },
+                success: true,
+            };
+        }
+
+        lastError = attempts.find((attempt) => attempt.error !== null)?.error ?? null;
+    } catch (error) {
+        lastError = error instanceof Error ? error : new Error("Internal server error");
+    }
+
+    if (after !== null) {
+        return {
+            error: lastError ?? new Error("Failed to fetch Instagram posts."),
+            success: false,
+        };
+    }
+
+    const fallback = await behold();
+
+    if (!fallback.success) {
+        return {
+            error: fallback.error instanceof Error
+                ? fallback.error
+                : lastError ?? new Error("Failed to fetch Instagram posts."),
+            success: false,
+        };
+    }
+
+    return {
+        data: {
+            pageInfo: {
+                endCursor: null,
+                hasNextPage: false,
+            },
+            posts: fallback.data.slice(0, pageSize),
+        },
+        success: true,
+    };
+}
 
 /**
  * Updates an environment variable in an .env file body.
@@ -201,20 +354,16 @@ export async function getInstagramPosts(): Promise<ActionResponse<Post[]>> {
         };
     }
 
-    data = data.filter((post) => !post.permalink.startsWith("https://www.instagram.com/reel/"));
-    const head = data.find((post) => post.caption?.includes("#pin"));
-    const tail = data.filter((post) => post.id !== head?.id);
-
     return {
-        data: head ? [head, ...tail] : tail,
+        data: data.filter((post) => !post.permalink.startsWith("https://www.instagram.com/reel/")),
         success: true,
     };
 }
 
 /**
  * Uses the Behold API to get the latest Instagram posts.
- * Temporary solution until I can get the Instagram API to work.
- * Only the latest six posts are fetched, as I'm not paying for a temporary fix.
+ * Acts as a fallback when the official API fails.
+ * Only the latest six posts are fetched, as I'm not paying for a fallback.
  * @returns The latest Instagram posts.
  */
 export async function behold(): Promise<ActionResponse<BeholdPost[]>> {
