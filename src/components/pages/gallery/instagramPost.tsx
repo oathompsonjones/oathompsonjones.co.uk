@@ -1,8 +1,8 @@
 "use client";
 
 import type { BeholdPost, Post } from "actions/instagram";
-import { Card, CardMedia, Zoom } from "@mui/material";
-import { Instagram } from "@mui/icons-material";
+import { Card, CardMedia, Stack, Typography, Zoom } from "@mui/material";
+import { ChatBubble, Favorite, Instagram } from "@mui/icons-material";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { useGlass } from "hooks/useGlass";
@@ -46,10 +46,15 @@ export function InstagramPost({ post }: { post: BeholdPost | Post; }): ReactNode
                 onMouseLeave={handleHover}
                 sx={{ position: "relative" }}
             >
-                <Link
+                <Stack
+                    alignItems="center"
+                    justifyContent="center"
+                    gap={2}
+                    component={Link}
                     href={post.permalink}
                     style={{
                         background: "rgba(0, 0, 0, 0.25)",
+                        color: "white",
                         height: "calc(100% + 2rem)",
                         left: "-1rem",
                         opacity: hover ? "100%" : "0%",
@@ -59,18 +64,26 @@ export function InstagramPost({ post }: { post: BeholdPost | Post; }): ReactNode
                         width: "calc(100% + 2rem)",
                     }}
                 >
-                    <Instagram
-                        sx={{
-                            color: "white",
-                            height: "50%",
-                            left: "50%",
-                            position: "absolute",
-                            top: "50%",
-                            transform: "translate(-50%, -50%)",
-                            width: "50%",
-                        }}
-                    />
-                </Link>
+                    <Instagram sx={{ height: "50%", width: "50%" }} />
+                    <div>
+                        {post.like_count !== undefined && (
+                            <Stack direction="row" alignItems="center" justifyContent="center" gap={2}>
+                                <Favorite fontSize="large" />
+                                <Typography variant="h3" color="white">
+                                    {post.like_count}
+                                </Typography>
+                            </Stack>
+                        )}
+                        {post.comments_count !== undefined && (
+                            <Stack direction="row" alignItems="center" justifyContent="center" gap={2}>
+                                <ChatBubble fontSize="large" />
+                                <Typography variant="h3" color="white">
+                                    {post.comments_count}
+                                </Typography>
+                            </Stack>
+                        )}
+                    </div>
+                </Stack>
                 <CardMedia
                     alt={post.caption ?? "Instagram post"}
                     component="img"

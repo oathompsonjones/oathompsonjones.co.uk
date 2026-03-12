@@ -6,7 +6,9 @@ import type { ActionResponse } from ".";
 
 type BasePost = {
     caption?: string;
+    comments_count?: number;
     id: string;
+    like_count?: number;
     media_url: string;
     permalink: string;
     timestamp: string;
@@ -109,7 +111,9 @@ export async function getInstagramPostsPage({ after = null, size = DEFAULT_PAGE_
     const pageSize = getSafePageSize(size);
     const fields = [
         "caption",
+        "comments_count",
         "id",
+        "like_count",
         "media_type",
         "media_url",
         "permalink",
@@ -298,7 +302,9 @@ export async function getInstagramPosts(): Promise<ActionResponse<Post[]>> {
     let data: Post[] = [];
     const fields = [
         "caption",
+        "comments_count",
         "id",
+        "like_count",
         "media_type",
         "media_url",
         "permalink",
