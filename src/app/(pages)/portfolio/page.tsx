@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Divider, Stack, Typography } from "@mui/material";
 import type { ReactNode } from "react";
 import { RepositoryArchive } from "components/pages/portfolio/repositoryArchive";
 import { getGithubReposPage } from "actions/github";
@@ -18,42 +18,17 @@ export default async function Portfolio(): Promise<ReactNode> {
 
     return (
         <Stack gap={3}>
-            {/* TODO: Come back to this */}
-            {/* <Stack gap={2}>
+            <Stack gap={2}>
                 <Typography variant="h4">Featured Projects</Typography>
                 <Typography color="text.secondary">
                     A curated view of projects that best represent my engineering strengths.
                 </Typography>
                 <Stack direction={{ md: "row", xs: "column" }} gap={2}>
-                    {data.Projects.map((project, i) => (
-                        <Card key={i} sx={{ display: "flex", flex: 1, flexDirection: "column" }}>
-                            <CardContent sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
-                                <Typography variant="h5">{project.title}</Typography>
-                                <Stack direction="row" flexWrap="wrap" gap={1}>
-                                    {project.tools.map((tool, j) => <Chip key={j} label={tool} size="small" />)}
-                                </Stack>
-                                <Typography>{project.description}</Typography>
-                            </CardContent>
-                            {project.link === undefined
-                                ? undefined
-                                : (
-                                    <CardActions sx={{ mt: "auto" }}>
-                                        <Chip
-                                            clickable
-                                            component="a"
-                                            href={project.link}
-                                            label="View Project"
-                                            size="small"
-                                            variant="outlined"
-                                        />
-                                    </CardActions>
-                                )}
-                        </Card>
-                    ))}
+
                 </Stack>
             </Stack>
 
-            <Divider /> */}
+            <Divider />
 
             <Stack gap={2}>
                 <Typography variant="h4">Repository Archive</Typography>

@@ -7,8 +7,9 @@ import type { ReactNode } from "react";
 import { Typography } from "@mui/material";
 
 /**
- * Renders a card for an article.
- * @returns An element which renders an article card.
+ * Renders the Project Euler page, which provides a summary taken from projecteuler.net.
+ * @returns A React component representing the Project Euler page.
+ * @see https://projecteuler.net/ for more details on Project Euler.
  */
 export default function ProjectEuler(): ReactNode {
     const [url, setURL] = useState("");

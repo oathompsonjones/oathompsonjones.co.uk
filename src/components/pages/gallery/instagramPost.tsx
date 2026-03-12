@@ -1,11 +1,11 @@
 "use client";
 
 import type { BeholdPost, Post } from "actions/instagram";
-import { Card, CardMedia, Stack, Typography, Zoom } from "@mui/material";
 import { ChatBubble, Favorite, Instagram } from "@mui/icons-material";
+import { Stack, Typography, Zoom } from "@mui/material";
+import { Card } from "components/card";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { useGlass } from "hooks/useGlass";
 import { useState } from "react";
 
 /**
@@ -15,8 +15,6 @@ import { useState } from "react";
  * @returns An element which renders an Instagram post.
  */
 export function InstagramPost({ post }: { post: BeholdPost | Post; }): ReactNode {
-    const className = useGlass();
-
     const isBeholdPost = (_post: BeholdPost | Post): _post is BeholdPost => "mediaType" in post;
     const isBehold = isBeholdPost(post);
 
@@ -40,55 +38,48 @@ export function InstagramPost({ post }: { post: BeholdPost | Post; }): ReactNode
     // All other posts are displayed as a single image.
     return (
         <Zoom in timeout={500}>
-            <Card
-                className={className}
-                onMouseEnter={handleHover}
-                onMouseLeave={handleHover}
-                sx={{ position: "relative" }}
-            >
-                <Stack
-                    alignItems="center"
-                    justifyContent="center"
-                    gap={2}
-                    component={Link}
-                    href={post.permalink}
-                    style={{
-                        background: "rgba(0, 0, 0, 0.25)",
-                        color: "white",
+            <Card onMouseEnter={handleHover} onMouseLeave={handleHover} sx={{ position: "relative" }}>
+                <Card.ActionArea
+                    centerRipple sx={{
                         height: "calc(100% + 2rem)",
                         left: "-1rem",
-                        opacity: hover ? "100%" : "0%",
                         position: "absolute",
                         top: "-1rem",
                         transition: "opacity 0.25s linear",
                         width: "calc(100% + 2rem)",
-                    }}
-                >
-                    <Instagram sx={{ height: "50%", width: "50%" }} />
-                    <div>
-                        {post.like_count !== undefined && (
-                            <Stack direction="row" alignItems="center" justifyContent="center" gap={2}>
-                                <Favorite fontSize="large" />
-                                <Typography variant="h3" color="white">
-                                    {post.like_count}
-                                </Typography>
-                            </Stack>
-                        )}
-                        {post.comments_count !== undefined && (
-                            <Stack direction="row" alignItems="center" justifyContent="center" gap={2}>
-                                <ChatBubble fontSize="large" />
-                                <Typography variant="h3" color="white">
-                                    {post.comments_count}
-                                </Typography>
-                            </Stack>
-                        )}
-                    </div>
-                </Stack>
-                <CardMedia
-                    alt={post.caption ?? "Instagram post"}
+                    }}>
+                    <Stack
+                        alignItems="center"
+                        justifyContent="center"
+                        gap={2}
+                        component={Link}
+                        href={post.permalink}
+                        style={{ color: "white", opacity: hover ? "100%" : "0%", transition: "opacity 0.25s linear" }}
+                    >
+                        <Instagram sx={{ height: "50%", width: "50%" }} />
+                        <div>
+                            {post.like_count !== undefined && (
+                                <Stack direction="row" alignItems="center" justifyContent="center" gap={2}>
+                                    <Favorite fontSize="large" />
+                                    <Typography variant="h3" color="white">
+                                        {post.like_count}
+                                    </Typography>
+                                </Stack>
+                            )}
+                            {post.comments_count !== undefined && (
+                                <Stack direction="row" alignItems="center" justifyContent="center" gap={2}>
+                                    <ChatBubble fontSize="large" />
+                                    <Typography variant="h3" color="white">
+                                        {post.comments_count}
+                                    </Typography>
+                                </Stack>
+                            )}
+                        </div>
+                    </Stack>
+                </Card.ActionArea>
+                <Card.Media
                     component="img"
                     image={isBehold ? post.mediaUrl : post.media_url}
-                    loading="lazy"
                     onLoad={handleLoad}
                     style={{
                         aspectRatio: loaded ? undefined : "1 / 1",

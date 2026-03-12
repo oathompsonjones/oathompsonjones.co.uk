@@ -1,18 +1,8 @@
-"use client";
-
-import {
-    Accordion, AccordionDetails, AccordionSummary,
-    Button,
-    Card, CardActions, CardContent, CardMedia,
-    Chip,
-    Typography,
-    Zoom,
-} from "@mui/material";
-import { ExpandMore } from "@mui/icons-material";
+import { Button, Chip, Typography, Zoom } from "@mui/material";
+import { Card } from "components/card";
 import type { ReactNode } from "react";
 import type { Repo } from "actions/github";
 import { Stack } from "@mui/system";
-import { useGlass } from "hooks/useGlass";
 
 /**
  * Renders a GitHub repository.
@@ -21,8 +11,6 @@ import { useGlass } from "hooks/useGlass";
  * @returns An element which renders a GitHub repository.
  */
 export function GitHubRepo({ repo }: { repo: Repo; }): ReactNode {
-    const className = useGlass();
-
     // Maps the repository languages into a more readable format.
     const langs = repo.languages.nodes.map((lang) => lang.name).filter((name) => name !== repo.primaryLanguage?.name);
     const repoLanguages = (
@@ -39,27 +27,11 @@ export function GitHubRepo({ repo }: { repo: Repo; }): ReactNode {
     // Returns a Zoom element wrapping the repository to make it look nicer when loading in.
     return (
         <Zoom in timeout={500}>
-            <Card className={className}>
-                <CardMedia
-                    component="img"
-                    image={repo.image}
-                    style={{
-                        margin: "-1rem -1rem 0",
-                        width: "calc(100% + 2rem)",
-                    }}
-                />
-                <CardContent>
-                    <Typography variant="h6">{repo.name}</Typography>
-                </CardContent>
-                <Accordion style={{
-                    background: "transparent",
-                    margin: "0 -1rem -1rem",
-                    width: "calc(100% + 2rem)",
-                }}>
-                    <AccordionSummary expandIcon={<ExpandMore />}>
-                        <Typography>Learn More</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
+            <Card>
+                <Card.Media component="img" image={repo.image} />
+                <Card.Header title={repo.name} subheader={repo.primaryLanguage?.name} />
+                <Card.Accordion>
+                    <Card.Content>
                         {repo.nameWithOwner.split("/")[0] === "oathompsonjones"
                             ? ""
                             : (
@@ -69,26 +41,26 @@ export function GitHubRepo({ repo }: { repo: Repo; }): ReactNode {
                                 </>
                             )}
                         <Typography>{repo.description}</Typography>
-                        <CardActions>
-                            <Stack
-                                direction="row"
-                                sx={{
-                                    alignItems: "center",
-                                    justifyContent: "space-evenly",
-                                    width: "100%",
-                                }}>
-                                {repo.isPrivate
-                                    ? undefined
-                                    : <Button href={repo.url} size="small" variant="text">View Code</Button>}
-                                {repo.isPrivate
-                                    ? undefined
-                                    : (<Button href={homepageURL} size="small" variant="text">View Site</Button>)}
-                            </Stack>
-                        </CardActions>
-                        <br />
-                        {repo.primaryLanguage === null ? undefined : repoLanguages}
-                    </AccordionDetails>
-                </Accordion>
+                    </Card.Content>
+                    <Card.Actions>
+                        <Stack
+                            direction="row"
+                            sx={{
+                                alignItems: "center",
+                                justifyContent: "space-evenly",
+                                width: "100%",
+                            }}>
+                            {repo.isPrivate
+                                ? undefined
+                                : <Button href={repo.url} size="small" variant="text">View Code</Button>}
+                            {repo.isPrivate
+                                ? undefined
+                                : (<Button href={homepageURL} size="small" variant="text">View Site</Button>)}
+                        </Stack>
+                    </Card.Actions>
+                    <br />
+                    {repo.primaryLanguage === null ? undefined : repoLanguages}
+                </Card.Accordion>
             </Card>
         </Zoom>
     );

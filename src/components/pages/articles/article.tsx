@@ -1,11 +1,7 @@
 "use client";
 
-import {
-    Button,
-    Card, CardActions, CardContent, CardMedia,
-    Typography,
-    Zoom,
-} from "@mui/material";
+import { Button, Typography, Zoom } from "@mui/material";
+import { Card } from "components/card";
 import type { ReactNode } from "react";
 import { useGlass } from "hooks/useGlass";
 
@@ -23,7 +19,7 @@ export function Article({ title, summary, image }: { title: string; summary: str
     return (
         <Zoom in timeout={500}>
             <Card className={className}>
-                {image !== undefined && <CardMedia
+                {image !== undefined && <Card.Media
                     component="img"
                     image={image}
                     style={{
@@ -31,11 +27,11 @@ export function Article({ title, summary, image }: { title: string; summary: str
                         width: "calc(100% + 2rem)",
                     }}
                 />}
-                <CardContent>
+                <Card.Content>
                     <Typography variant="h6">{title}</Typography>
                     <Typography variant="body1">{summary}</Typography>
-                </CardContent>
-                <CardActions>
+                </Card.Content>
+                <Card.Actions>
                     <Button
                         color="primary"
                         variant="text"
@@ -43,7 +39,7 @@ export function Article({ title, summary, image }: { title: string; summary: str
                     >
                         Read more
                     </Button>
-                </CardActions>
+                </Card.Actions>
             </Card>
         </Zoom>
     );

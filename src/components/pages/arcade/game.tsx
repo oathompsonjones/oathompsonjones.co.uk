@@ -2,15 +2,14 @@
 
 import {
     Button,
-    Card, CardActions, CardContent,
     MenuItem,
     Stack,
     TextField,
-    Typography,
     Zoom,
 } from "@mui/material";
-import { type ReactNode, useState } from "react";
-import { useGlass } from "hooks/useGlass";
+import { Card } from "components/card";
+import type { ReactNode } from "react";
+import { useState } from "react";
 
 /**
  * Renders a card for a game.
@@ -20,8 +19,6 @@ import { useGlass } from "hooks/useGlass";
  * @returns An element which renders a game card.
  */
 export function Game({ title, disabled = false }: { title: string; disabled?: boolean; }): ReactNode {
-    const className = useGlass();
-
     type PlayerCount = 0 | 1 | 2;
     const [playerCount, setPlayerCount] = useState<PlayerCount>(1);
 
@@ -36,11 +33,9 @@ export function Game({ title, disabled = false }: { title: string; disabled?: bo
 
     return (
         <Zoom in timeout={500}>
-            <Card className={className}>
-                <CardContent>
-                    <Typography variant="h6">{title}</Typography>
-                </CardContent>
-                <CardActions>
+            <Card>
+                <Card.Header title={title} />
+                <Card.Actions>
                     {disabled
                         ? "Coming Soon"
                         : <Stack component="form" gap={1} width="100%">
@@ -69,7 +64,7 @@ export function Game({ title, disabled = false }: { title: string; disabled?: bo
                             </TextField>
                             <Button type="submit" href={href()}>Play</Button>
                         </Stack>}
-                </CardActions>
+                </Card.Actions>
             </Card>
         </Zoom>
     );
