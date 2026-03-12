@@ -66,9 +66,9 @@ export default function ProjectEuler(): ReactNode {
                 Aside from the language limitations, many of my solutions are not as algorithmically efficient as they
                 could be, however, they do all run in a reasonable time frame on my laptop.
                 <br /><br />
-                All of my solutions can be found here: <Link href="/project-euler#1">{url}/project-euler</Link>.
-                For specific solutions, add the problem number to the end of the URL after a hash,
-                e.g. <Link href="/project-euler#1">{url}/project-euler#1</Link>.
+                All of my solutions can be found here: <Link href="/project-euler">{url}/project-euler</Link>.
+                For specific solutions, you can search for the problem number,
+                e.g. <Link href="/project-euler?problem=59">{url}/project-euler?problem=59</Link>.
                 <br /><br />
                 You can also find my solutions on <Link href="https://github.com/oathompsonjones/project-euler">
                     GitHub</Link>.
