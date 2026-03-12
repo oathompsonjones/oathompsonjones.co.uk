@@ -88,7 +88,7 @@ export default function Connect4Game(): ReactNode {
         <div>
             <Typography variant="h2" align="center">Connect 4</Typography>
             <Grid height={6} width={7} onClick={onClick} renderCell={renderCell} closed />
-            {statusText !== "" && <Typography variant="h3" align="center" color="secondary">
+            {statusText !== "" && <Typography variant="h3" align="center" color="text.secondary">
                 {statusText} <Button onClick={startGame}>Play Again</Button>
             </Typography>}
         </div>

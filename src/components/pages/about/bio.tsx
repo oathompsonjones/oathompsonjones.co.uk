@@ -13,8 +13,8 @@ import { jsonToJSDoc } from "app/(pages)/cv";
  */
 export function Bio({ large = false }: { large?: boolean; }): ReactNode {
     return (
-        <Glass>
-            <Typography sx={{ whiteSpace: "pre-wrap" }} variant={large ? "h4" : "h6"} color="white">
+        <Glass sx={{ m: "auto" }}>
+            <Typography variant={large ? "h4" : "h6"} color="white">
                 {[
                     `Hi, I'm Ollie. I'm a ${age()} year old`,
                     jsonToJSDoc(cv.Summary),

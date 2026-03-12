@@ -15,7 +15,6 @@ export function ThemeContextProvider({ children }: { children: ReactNode; }): Re
     const basePalette = {
         common: { black: "#121212", white: "#efefef" },
         primary: { main: "#1c7eea" },
-        secondary: { main: "#ea881c" },
     };
     const theme = responsiveFontSizes(createTheme({
         colorSchemes: {
@@ -42,7 +41,7 @@ export function ThemeContextProvider({ children }: { children: ReactNode; }): Re
             ...Object.fromEntries(["h1", "h2", "h3", "h4", "h5", "h6"]
                 .map((key) => [key, { color: palette.primary.main }])),
             ...Object.fromEntries(["caption", "subtitle1", "subtitle2"]
-                .map((key) => [key, { color: palette.secondary.main }])),
+                .map((key) => [key, { color: palette.text.secondary }])),
         }),
         zIndex: { appBar: 10, fab: 10 },
     }), { breakpoints: ["xs", "sm", "md", "lg", "xl"] });
@@ -54,7 +53,7 @@ export function ThemeContextProvider({ children }: { children: ReactNode; }): Re
                 <DefaultPropsProvider value={{
                     MuiButton: { variant: "contained" },
                     MuiDivider: { variant: "middle" },
-                    MuiFab: { color: "secondary" },
+                    MuiFab: { color: "primary" },
                     MuiPaper: { elevation: 5 },
                     MuiTextField: { fullWidth: true, required: true, variant: "filled" },
                 }}>

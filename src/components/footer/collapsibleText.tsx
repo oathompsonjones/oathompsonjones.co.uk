@@ -27,7 +27,7 @@ export function CollapsibleText({ beginningText, collapsibleText, endingText, id
     const [expandName, setExpandName] = useState(false);
     const showAnimation = useMediaQuery((theme: Theme) => theme.breakpoints.up(minScreenSize ?? "xs"));
     const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
-    const { palette: { secondary: { main } } } = useTheme();
+    const { palette: { text: { secondary } } } = useTheme();
 
     const spanCount = beginningText.length + collapsibleText.length + endingText.length;
 
@@ -42,7 +42,7 @@ export function CollapsibleText({ beginningText, collapsibleText, endingText, id
                 });
             document.querySelectorAll<HTMLElement>(`#${id} .colour`)
                 .forEach((element: HTMLElement) => {
-                    element.style.color = main;
+                    element.style.color = secondary;
                 });
             document.querySelectorAll<HTMLElement>(`#${id}`)
                 .forEach((element: HTMLElement) => {

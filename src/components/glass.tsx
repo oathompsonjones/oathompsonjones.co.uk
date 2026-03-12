@@ -1,8 +1,8 @@
 "use client";
 
 import { Paper } from "@mui/material";
+import type { PaperProps } from "@mui/material";
 import type { ReactNode } from "react";
-import type { SxProps } from "@mui/material";
 import { useGlass } from "hooks/useGlass";
 
 /**
@@ -14,15 +14,14 @@ import { useGlass } from "hooks/useGlass";
  * @param props.sx - Additional styles to apply to the Paper component.
  * @returns The Glass component with the children rendered inside.
  */
-export function Glass({ children, disabled = false, sx }: {
+export function Glass({ children, disabled = false, ...props }: PaperProps & {
     children: ReactNode;
     disabled?: boolean;
-    sx?: SxProps;
 }): ReactNode {
     const className = useGlass(disabled);
 
     return (
-        <Paper sx={sx ?? {}} className={className}>
+        <Paper className={className} {...props}>
             {children}
         </Paper>
     );

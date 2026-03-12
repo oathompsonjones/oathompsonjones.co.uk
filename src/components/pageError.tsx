@@ -13,9 +13,8 @@ import { Typography } from "@mui/material";
 export function PageError({ error, reset }: { error: Error; reset: () => void; }): ReactNode {
     return (
         <div>
-            <Typography variant="h4">
-                An error occurred, please <a style={{ color: "var(--mui-palette-secondary-main)" }} onClick={reset}>
-                    try again</a> later.
+            <Typography variant="h4" color="text.secondary">
+                An error occurred, please <a onClick={reset}>try again</a> later.
             </Typography>
             <Typography>{error.message}</Typography>
         </div>

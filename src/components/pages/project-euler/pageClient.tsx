@@ -147,7 +147,7 @@ export function ProjectEulerClient({ initialProblem }: { initialProblem: number;
                             <Typography
                                 align="center"
                                 className="monospace"
-                                color="secondary"
+                                color="text.secondary"
                                 // eslint-disable-next-line @typescript-eslint/naming-convention
                                 dangerouslySetInnerHTML={{ __html: title }}
                                 variant="h5"

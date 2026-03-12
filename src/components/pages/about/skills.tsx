@@ -29,7 +29,7 @@ function SkillList({ title, list }: { title: string; list: string[]; }): ReactNo
                 rowGap: 1,
             }}
         >
-            <Typography variant="h6" sx={{ color: "var(--mui-palette-secondary-main)" }}>{title}:</Typography>
+            <Typography variant="h6" color="text.secondary">{title}:</Typography>
             <Stack
                 direction="row"
                 spacing={1}

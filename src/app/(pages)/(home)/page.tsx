@@ -27,7 +27,7 @@ export default function Home(): ReactNode {
                     preload
                 />
                 <Typography align="center" variant="h1">Oliver Jones</Typography>
-                <Typography align="center" variant="h3" sx={{ color: "secondary.main" }}>
+                <Typography align="center" variant="h3" color="text.secondary">
                         Software Developer
                 </Typography>
             </Stack>
