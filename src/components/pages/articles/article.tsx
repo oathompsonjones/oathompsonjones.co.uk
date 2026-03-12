@@ -1,9 +1,6 @@
-"use client";
-
 import { Button, Typography, Zoom } from "@mui/material";
 import { Card } from "components/card";
 import type { ReactNode } from "react";
-import { useGlass } from "hooks/useGlass";
 
 /**
  * Renders a card for an article.
@@ -14,11 +11,9 @@ import { useGlass } from "hooks/useGlass";
  * @returns An element which renders an article card.
  */
 export function Article({ title, summary, image }: { title: string; summary: string; image?: string; }): ReactNode {
-    const className = useGlass();
-
     return (
         <Zoom in timeout={500}>
-            <Card className={className}>
+            <Card>
                 {image !== undefined && <Card.Media
                     component="img"
                     image={image}
