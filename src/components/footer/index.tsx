@@ -26,7 +26,7 @@ export function Footer(): ReactNode {
                 direction="row" alignItems="center" sx={{ m: "auto", width: "max-content" }}
                 divider={<Typography sx={{ color: "gray", mx: "1rem" }}>•</Typography>}
             >
-                <Typography component={Link} href="/privacy">
+                <Typography variant="caption" component={Link} href="/privacy" color="primary">
                     Privacy <Size sm="Policy" />
                 </Typography>
                 <Typography variant="caption">

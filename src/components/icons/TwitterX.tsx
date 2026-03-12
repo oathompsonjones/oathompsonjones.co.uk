@@ -19,6 +19,7 @@ export function TwitterX(): ReactNode {
             onMouseLeave={(): void => setUseOldLogo(false)}
             inheritViewBox
         >
+            <rect width="24" height="24" fillOpacity="0" />
             {useOldLogo ? <Twitter /> : <X />}
         </SvgIcon>
     );
