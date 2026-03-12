@@ -1,7 +1,7 @@
-import { GitHubRepo } from "components/pages/portfolio/githubRepo";
-import { Masonry } from "@mui/lab";
+import { Stack, Typography } from "@mui/material";
 import type { ReactNode } from "react";
-import { getGithubRepos } from "actions/github";
+import { RepositoryArchive } from "components/pages/portfolio/repositoryArchive";
+import { getGithubReposPage } from "actions/github";
 
 export const dynamic = "force-dynamic";
 
@@ -10,16 +10,55 @@ export const dynamic = "force-dynamic";
  * @returns My portfolio, accessed from my GitHub profile.
  */
 export default async function Portfolio(): Promise<ReactNode> {
-    // Calls the backend API to access the repositories from GitHub.
-    const response = await getGithubRepos();
+    // Server-render the first page so the archive has content immediately.
+    const response = await getGithubReposPage();
 
     if (!response.success)
         throw response.error!;
 
-    // Renders the portfolio page.
     return (
-        <Masonry columns={{ lg: 4, md: 3, sm: 2, xl: 5, xs: 1 }}>
-            {response.data.map((repo, i) => <GitHubRepo key={i} repo={repo} />)}
-        </Masonry>
+        <Stack gap={3}>
+            {/* TODO: Come back to this */}
+            {/* <Stack gap={2}>
+                <Typography variant="h4">Featured Projects</Typography>
+                <Typography color="text.secondary">
+                    A curated view of projects that best represent my engineering strengths.
+                </Typography>
+                <Stack direction={{ md: "row", xs: "column" }} gap={2}>
+                    {data.Projects.map((project, i) => (
+                        <Card key={i} sx={{ display: "flex", flex: 1, flexDirection: "column" }}>
+                            <CardContent sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
+                                <Typography variant="h5">{project.title}</Typography>
+                                <Stack direction="row" flexWrap="wrap" gap={1}>
+                                    {project.tools.map((tool, j) => <Chip key={j} label={tool} size="small" />)}
+                                </Stack>
+                                <Typography>{project.description}</Typography>
+                            </CardContent>
+                            {project.link === undefined
+                                ? undefined
+                                : (
+                                    <CardActions sx={{ mt: "auto" }}>
+                                        <Chip
+                                            clickable
+                                            component="a"
+                                            href={project.link}
+                                            label="View Project"
+                                            size="small"
+                                            variant="outlined"
+                                        />
+                                    </CardActions>
+                                )}
+                        </Card>
+                    ))}
+                </Stack>
+            </Stack>
+
+            <Divider /> */}
+
+            <Stack gap={2}>
+                <Typography variant="h4">Repository Archive</Typography>
+                <RepositoryArchive initialPage={response.data} />
+            </Stack>
+        </Stack>
     );
 }

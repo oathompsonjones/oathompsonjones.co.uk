@@ -4,6 +4,8 @@ import { Canvas, Image } from "canvas";
 import type { ActionResponse } from ".";
 import { graphql } from "@octokit/graphql";
 
+type RawRepo = Omit<Repo, "image">;
+
 export type Repo = {
     description: string;
     homepageUrl: string | null;
@@ -23,20 +25,44 @@ export type Repo = {
     url: string;
 };
 
-type APIResponse = {
+export type RepoPage = {
+    pageInfo: {
+        endCursor: string | null;
+        hasNextPage: boolean;
+        hasPreviousPage: boolean;
+        startCursor: string | null;
+    };
+    repos: Repo[];
+    totalCount: number;
+};
+
+type RepoPageAPIResponse = {
     user: {
-        organizations: {
-            orgs: Array<{
-                repositories: {
-                    repos: Repo[];
-                };
-            }>;
-        };
         repositories: {
-            repos: Repo[];
+            pageInfo: RepoPage["pageInfo"];
+            repos: RawRepo[];
+            totalCount: number;
         };
     };
 };
+
+const REPO_FIELDS = `
+    description
+    homepageUrl
+    isPrivate
+    languages(first: 10) {
+        nodes {
+            name
+        }
+    }
+    name
+    nameWithOwner
+    openGraphImageUrl
+    primaryLanguage {
+        name
+    }
+    url
+`;
 
 /**
  * Gets the average colour of an image.
@@ -116,57 +142,104 @@ function generateImage(arrayBuffer: ArrayBuffer): string {
 }
 
 /**
- * Fetches all of my repositories from GitHub.
- * @returns An array of all of my repositories.
+ * Gets a GitHub GraphQL client with auth preconfigured.
+ * @returns An authenticated GraphQL client.
  */
-export async function getGithubRepos(): Promise<ActionResponse<Repo[]>> {
-    let data: Repo[] = [];
+function graphqlWithAuth(): typeof graphql {
+    return graphql.defaults({ headers: { authorization: process.env.GITHUB_TOKEN } });
+}
 
-    // Fetch the repositories from GitHub.
+/**
+ * Generates portfolio card images for repositories.
+ * @param repos - The repositories to process.
+ * @returns The repositories with generated images.
+ */
+async function withRepoImages(repos: RawRepo[]): Promise<Repo[]> {
+    const images = await Promise.all(repos.map(async (repo) => {
+        try {
+            const response = await fetch(repo.openGraphImageUrl, {
+                cache: "force-cache",
+                next: { revalidate: 86400 },
+            });
+
+            if (!response.ok)
+                return repo.openGraphImageUrl;
+
+            return generateImage(await response.arrayBuffer());
+        } catch {
+            return repo.openGraphImageUrl;
+        }
+    }));
+
+    return repos.map((repo, i) => ({ ...repo, image: images[i]! }));
+}
+
+/**
+ * Fetches one page of repositories from GitHub.
+ * @param params - Cursor pagination parameters.
+ * @param params.after - Fetches records after this cursor.
+ * @param params.before - Fetches records before this cursor.
+ * @param params.size - Number of repositories to fetch.
+ * @returns A page of repositories.
+ */
+export async function getGithubReposPage({ after = null, before = null, size = 10 }: {
+    after?: string | null;
+    before?: string | null;
+    size?: number;
+} = {}): Promise<ActionResponse<RepoPage>> {
+    if (after !== null && before !== null) {
+        return {
+            error: new Error("'after' and 'before' cannot be used together."),
+            success: false,
+        };
+    }
+
+    const first = before === null ? size : null;
+    const last = before === null ? null : size;
+
     try {
-        const graphqlWithAuth = graphql.defaults({ headers: { authorization: process.env.GITHUB_TOKEN } });
-
-        ({ user: { repositories: { repos: data } } } = await graphqlWithAuth<APIResponse>(`{
-            user(login: "oathompsonjones") {
-                repositories(first: 100, isFork: false, ownerAffiliations: OWNER) {
-                    repos: nodes {
-                        description
-                        homepageUrl
-                        isPrivate
-                        languages(first: 10) {
-                            nodes {
-                                name
-                            }
+        const response = await graphqlWithAuth()<RepoPageAPIResponse>(`
+            query PortfolioRepos($after: String, $before: String, $first: Int, $last: Int) {
+                user(login: "oathompsonjones") {
+                    repositories(
+                        after: $after,
+                        before: $before,
+                        first: $first,
+                        isFork: false,
+                        last: $last,
+                        orderBy: { direction: DESC, field: PUSHED_AT },
+                        privacy: PUBLIC,
+                        ownerAffiliations: OWNER
+                    ) {
+                        repos: nodes {
+                            ${REPO_FIELDS}
                         }
-                        name
-                        nameWithOwner
-                        openGraphImageUrl
-                        primaryLanguage {
-                            name
+                        totalCount
+                        pageInfo {
+                            endCursor
+                            hasNextPage
+                            hasPreviousPage
+                            startCursor
                         }
-                        url
                     }
                 }
             }
-        }`));
+        `, { after, before, first, last });
+
+        const repos = await withRepoImages(response.user.repositories.repos);
+
+        return {
+            data: {
+                pageInfo: response.user.repositories.pageInfo,
+                repos,
+                totalCount: response.user.repositories.totalCount,
+            },
+            success: true,
+        };
     } catch (error) {
         return {
             error: error instanceof Error ? error : new Error("Failed to fetch the repositories."),
             success: false,
         };
     }
-
-    // Fetch the images for the repositories.
-    const imageArrayBuffers: ArrayBuffer[] = await Promise.all(
-        data.map(async (repo) => fetch(repo.openGraphImageUrl).then(async (res) => res.arrayBuffer())),
-    );
-
-    for (let i = 0; i < imageArrayBuffers.length; i++)
-        data[i]!.image = generateImage(imageArrayBuffers[i]!);
-
-    // Return the list of repositories.
-    return {
-        data,
-        success: true,
-    };
 }
