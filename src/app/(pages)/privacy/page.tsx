@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { Recaptcha } from "components/pages/privacy/recaptcha";
 import { Typography } from "@mui/material";
 
 /**
@@ -18,11 +19,7 @@ export default function Privacy(): ReactNode {
                 <br />
                 This information will only be used to allow me to respond to enquiries.
             </Typography>
-            <Typography>
-                This site is protected by reCAPTCHA and the Google <Link href="https://policies.google.com/privacy">
-                    Privacy Policy</Link> and <Link href="https://policies.google.com/terms">
-                    Terms of Service</Link> apply.
-            </Typography>
+            <Recaptcha />
         </div>
     );
 }
