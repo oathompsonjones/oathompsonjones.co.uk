@@ -45,11 +45,19 @@ export function CardRoot({ children, ...props }: CardProps): ReactNode {
 /**
  * CardMedia component that serves as a container for media content such as images or videos.
  * @param props - The props for the CardMedia component.
+ * @param props.sx - The sx prop for the CardMedia component to allow for custom styling.
  * @returns A ReactNode representing the CardMedia component.
  * @see https://mui.com/material-ui/react-card/#complex-interaction for more details on the CardMedia component.
  */
-export function CardMedia(props: CardMediaProps): ReactNode {
-    return (<MuiCardMedia sx={{ m: "-1rem -1rem 0", width: "calc(100% + 2rem)" }} {...props} />);
+export function CardMedia({ sx, ...props }: CardMediaProps): ReactNode {
+    return (
+        <MuiCardMedia
+            sx={{
+                m: "-1rem -1rem 0",
+                width: "calc(100% + 2rem)",
+                ...sx,
+            }} {...props} />
+    );
 }
 
 /**
@@ -96,12 +104,18 @@ export function CardActions({ children, ...props }: CardActionsProps): ReactNode
  * CardActionArea component that serves as a container for the action area of the card.
  * @param props - The props for the CardActionArea component.
  * @param props.children - The content of the CardActionArea component.
+ * @param props.sx - The sx prop for the CardActionArea component to allow for custom styling.
  * @returns A ReactNode representing the CardActionArea component.
  * @see https://mui.com/material-ui/react-card/#complex-interaction for more details on the CardActionArea component.
  */
-export function CardActionArea({ children, ...props }: CardActionAreaProps): ReactNode {
+export function CardActionArea({ children, sx, ...props }: CardActionAreaProps): ReactNode {
     return (
-        <MuiCardActionArea {...props}>
+        <MuiCardActionArea
+            sx={{
+                m: "-1rem -1rem 0",
+                width: "calc(100% + 2rem)",
+                ...sx,
+            }} {...props}>
             {children}
         </MuiCardActionArea>
     );
@@ -112,10 +126,11 @@ export function CardActionArea({ children, ...props }: CardActionAreaProps): Rea
  * @param props - The props for the CardAccordion component.
  * @param props.header - The header text for the accordion.
  * @param props.children - The content of the CardAccordion component.
+ * @param props.sx - The sx prop for the CardAccordion component to allow for custom styling.
  * @returns A ReactNode representing the CardAccordion component.
  * @see https://mui.com/material-ui/react-accordion/ for more details on the Accordion component.
  */
-export function CardAccordion({ header = "Learn More", children, ...props }: AccordionProps & {
+export function CardAccordion({ header = "Learn More", children, sx, ...props }: AccordionProps & {
     header?: string;
 }): ReactNode {
     return (
@@ -126,6 +141,7 @@ export function CardAccordion({ header = "Learn More", children, ...props }: Acc
                 m: "0 -1rem -1rem !important",
                 py: "0.5rem",
                 width: "calc(100% + 2rem)",
+                ...sx,
             }} {...props}>
             <AccordionSummary expandIcon={<ExpandMore />}>
                 <Typography>{header}</Typography>
