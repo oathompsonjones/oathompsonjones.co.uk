@@ -41,12 +41,10 @@ export function InstagramPost({ post }: { post: BeholdPost | Post; }): ReactNode
             <Card onMouseEnter={handleHover} onMouseLeave={handleHover} sx={{ position: "relative" }}>
                 <Card.ActionArea
                     centerRipple sx={{
-                        height: "calc(100% + 2rem)",
-                        left: "-1rem",
+                        height: "100%",
                         position: "absolute",
-                        top: "-1rem",
                         transition: "opacity 0.25s linear",
-                        width: "calc(100% + 2rem)",
+                        width: "100%",
                     }}>
                     <Stack
                         alignItems="center"
@@ -54,7 +52,12 @@ export function InstagramPost({ post }: { post: BeholdPost | Post; }): ReactNode
                         gap={2}
                         component={Link}
                         href={post.permalink}
-                        style={{ color: "white", opacity: hover ? "100%" : "0%", transition: "opacity 0.25s linear" }}
+                        style={{
+                            color: "white",
+                            height: "100%",
+                            opacity: hover ? "100%" : "0%",
+                            transition: "opacity 0.25s linear",
+                        }}
                     >
                         <Instagram sx={{ height: "50%", width: "50%" }} />
                         <div>
