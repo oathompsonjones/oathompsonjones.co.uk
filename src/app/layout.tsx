@@ -4,6 +4,7 @@ import "styles/transitions.css";
 import "styles/typography.css";
 import "styles/background.css";
 import "styles/glass.css";
+import "styles/recaptcha.css";
 import type { Metadata, Viewport } from "next";
 import { gravatarURL, title } from "utils";
 import { Footer } from "components/footer";
