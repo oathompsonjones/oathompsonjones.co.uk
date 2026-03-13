@@ -5,6 +5,7 @@ import { Box, Stack } from "@mui/system";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
 import { Name } from "./name";
+import { Recaptcha } from "components/pages/privacy/recaptcha";
 import type { ReactNode } from "react";
 import { Size } from "components/size";
 import { SocialLinks } from "./socialLinks";
@@ -26,6 +27,7 @@ export function Footer(): ReactNode {
                 direction="row" alignItems="center" sx={{ m: "auto", width: "max-content" }}
                 divider={<Typography sx={{ color: "gray", mx: "1rem" }}>•</Typography>}
             >
+                <Recaptcha variant="caption" />
                 <Typography variant="caption" component={Link} href="/privacy" color="primary">
                     Privacy <Size sm="Policy" />
                 </Typography>
