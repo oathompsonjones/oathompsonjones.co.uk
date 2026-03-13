@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 import type { TypographyProps } from "@mui/material";
 import { Typography } from "@mui/material";
