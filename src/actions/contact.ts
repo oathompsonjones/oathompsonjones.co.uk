@@ -59,7 +59,6 @@ export async function contact(_state: ActionResponse, formData: FormData): Promi
         // Send the email to me.
         await transporter.sendMail({
             from: "noreply@oathompsonjones.co.uk",
-            sender: email,
             subject,
             text: `New message from ${name} (${email})\n\n${content}`,
             to: "enquiries@oathompsonjones.co.uk",
