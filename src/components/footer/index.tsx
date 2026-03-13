@@ -5,8 +5,8 @@ import { Box, Stack } from "@mui/system";
 import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
 import { Name } from "./name";
-import { Recaptcha } from "components/pages/privacy/recaptcha";
 import type { ReactNode } from "react";
+import { Recaptcha } from "components/pages/privacy/recaptcha";
 import { Size } from "components/size";
 import { SocialLinks } from "./socialLinks";
 
