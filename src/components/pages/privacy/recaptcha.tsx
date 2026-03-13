@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import type { TypographyProps } from "@mui/material";
 import { Typography } from "@mui/material";
+import type { TypographyProps } from "@mui/material";
 
 /**
  * Contains the legal text from Google about Recaptcha Ts and Cs.
