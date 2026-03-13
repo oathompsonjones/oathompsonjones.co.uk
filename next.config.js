@@ -13,7 +13,7 @@ const nextConfig = {
     async redirects() {
         return Object.entries({
             discord: "https://discord.com/users/310145094684639235",
-            email: "mailto:oathompsonjones@gmail.com",
+            email: "mailto:enquiries@oathompsonjones.co.uk",
             facebook: "https://facebook.com/oathompsonjones",
             github: "https://github.com/oathompsonjones",
             instagram: "https://instagram.com/oathompsonjones",

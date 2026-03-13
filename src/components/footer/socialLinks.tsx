@@ -25,7 +25,7 @@ const socials: SocialLink[] = [
         icon: <Email />,
         label: "Email",
         link: "/email",
-        username: "oathompsonjones@gmail.com",
+        username: "enquiries@oathompsonjones.co.uk",
     },
     {
         hoverColor: "#333",
