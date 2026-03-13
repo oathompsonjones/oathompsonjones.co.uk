@@ -24,7 +24,7 @@ export function Footer(): ReactNode {
                 <Name id="footer" variant="h6" />
             </Stack>
             <Stack
-                direction={{ md: "row", xs: "reverse-column" }} alignItems="center" sx={{ m: "auto" }}
+                direction={{ md: "row", xs: "column-reverse" }} alignItems="center" sx={{ m: "auto" }}
                 divider={<Typography sx={{
                     color: "gray",
                     display: { md: "inline-block", xs: "none" },
