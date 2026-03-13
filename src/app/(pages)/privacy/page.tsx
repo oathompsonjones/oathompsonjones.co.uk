@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Typography } from "@mui/material";
 import { Recaptcha } from "components/pages/privacy/recaptcha";
+import { Typography } from "@mui/material";
 
 /**
  * This is the privacy policy.
