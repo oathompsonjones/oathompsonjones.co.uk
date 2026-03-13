@@ -6,7 +6,6 @@ import { GRAVATAR_URL } from "utils";
 import Link from "next/link";
 import { Name } from "./name";
 import type { ReactNode } from "react";
-import { Recaptcha } from "components/pages/privacy/recaptcha";
 import { Size } from "components/size";
 import { SocialLinks } from "./socialLinks";
 
@@ -31,7 +30,6 @@ export function Footer(): ReactNode {
                     mx: "1rem",
                 }}>•</Typography>}
             >
-                <Recaptcha variant="caption" />
                 <Typography variant="caption" component={Link} href="/privacy" color="primary">
                     Privacy <Size sm="Policy" />
                 </Typography>

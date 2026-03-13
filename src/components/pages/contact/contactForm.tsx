@@ -4,6 +4,7 @@ import { Alert, Button, FormControl, TextField } from "@mui/material";
 import type { ActionResponse } from "actions/index";
 import { Glass } from "components/glass";
 import type { ReactNode } from "react";
+import { Recaptcha } from "../privacy/recaptcha";
 import { Send } from "@mui/icons-material";
 import { Stack } from "@mui/system";
 import { contact } from "actions/contact";
@@ -43,6 +44,7 @@ export function ContactForm(): ReactNode {
                 </Stack>
                 <TextField label="Subject" name="subject" />
                 <TextField label="Content" name="content" multiline minRows={15} maxRows={30} />
+                <Recaptcha variant="caption" align="center" />
                 <Button endIcon={<Send />} type="submit" disabled={pending}>Send</Button>
             </FormControl>
         </Glass>
