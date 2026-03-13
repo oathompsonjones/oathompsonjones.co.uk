@@ -24,8 +24,8 @@ export function Footer(): ReactNode {
                 <Name id="footer" variant="h6" />
             </Stack>
             <Stack
-                direction="row" alignItems="center" sx={{ m: "auto" }}
-                divider={<Typography sx={{ color: "gray", mx: "1rem" }}>•</Typography>}
+                direction={{ md: "row" }} alignItems="center" sx={{ m: "auto" }}
+                divider={{ md: <Typography sx={{ color: "gray", mx: "1rem" }}>•</Typography> }}
             >
                 <Recaptcha variant="caption" />
                 <Typography variant="caption" component={Link} href="/privacy" color="primary">
