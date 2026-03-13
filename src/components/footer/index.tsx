@@ -25,7 +25,11 @@ export function Footer(): ReactNode {
             </Stack>
             <Stack
                 direction={{ md: "row", xs: "reverse-column" }} alignItems="center" sx={{ m: "auto" }}
-                divider={<Typography sx={{ color: "gray", display: { md: "inline-block", xs: "none" }, mx: "1rem" }}>•</Typography>}
+                divider={<Typography sx={{
+                    color: "gray",
+                    display: { md: "inline-block", xs: "none" },
+                    mx: "1rem",
+                }}>•</Typography>}
             >
                 <Recaptcha variant="caption" />
                 <Typography variant="caption" component={Link} href="/privacy" color="primary">
