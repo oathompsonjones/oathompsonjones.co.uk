@@ -7,7 +7,7 @@ import { Typography } from "@mui/material";
  * @param props - The props from the MUI Typography component.
  * @returns The legal text from Google.
  */
-export default function Recaptcha(props: TypographyProps): ReactNode {
+export function Recaptcha(props: TypographyProps): ReactNode {
     return (
         <Typography {...props}>
             This site is protected by reCAPTCHA and the Google <Link href="https://policies.google.com/privacy">
