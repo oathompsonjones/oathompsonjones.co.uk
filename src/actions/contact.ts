@@ -49,17 +49,32 @@ export async function contact(_state: ActionResponse, formData: FormData): Promi
         const transporter = nodemailer.createTransport({
             auth: {
                 pass: process.env.EMAIL_AUTH_PASS,
-                user: process.env.EMAIL_AUTH_USER,
+                user: "noreply@oathompsonjones.co.uk",
             },
-            service: process.env.EMAIL_SERVICE,
+            host: "mail.oathompsonjones.co.uk",
+            port: 587,
+            secure: false,
         });
 
         // Send the email to me.
         await transporter.sendMail({
-            from: process.env.EMAIL_AUTH_USER,
+            from: "noreply@oathompsonjones.co.uk",
+            sender: email,
             subject,
             text: `New message from ${name} (${email})\n\n${content}`,
-            to: "oathompsonjones@icloud.com",
+            to: "enquiries@oathompsonjones.co.uk",
+        });
+
+        // Send a confirmation email to the user.
+        await transporter.sendMail({
+            from: "noreply@oathompsonjones.co.uk",
+            subject: "Thanks for contacting me!",
+            text: [
+                `Hi ${name},`,
+                "Thanks for reaching out to me! I'll get back to you as soon as I can.",
+                "Kind Regards,\nOllie",
+            ].join("\n\n"),
+            to: email,
         });
     } catch (error) {
         if (error instanceof z.ZodError)
