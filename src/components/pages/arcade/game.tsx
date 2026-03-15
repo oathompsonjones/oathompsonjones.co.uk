@@ -56,6 +56,7 @@ export function Game({ title, disabled = false }: { title: string; disabled?: bo
                                 value={difficulty}
                                 onChange={(e) => setDifficulty(e.target.value as Difficulty)}
                                 select
+                                sx={{ display: playerCount === 2 ? "none" : "block" }}
                             >
                                 <MenuItem value="easy">Easy</MenuItem>
                                 <MenuItem value="medium">Medium</MenuItem>
