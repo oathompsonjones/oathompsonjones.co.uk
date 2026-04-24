@@ -1,17 +1,14 @@
 import { NextResponse } from "next/server";
 import { getInstagramPostsPage } from "actions/instagram";
 
-const DEFAULT_PAGE_SIZE = 6;
+export const DEFAULT_PAGE_SIZE = 3;
 
 /**
  * Parses a page size value from the request query.
  * @param value - The query value.
  * @returns A safe page size.
  */
-function getPageSize(value: string | null): number {
-    if (value === null)
-        return DEFAULT_PAGE_SIZE;
-
+function getPageSize(value: string): number {
     const parsed = Number.parseInt(value, 10);
 
     if (Number.isNaN(parsed) || parsed <= 0)
@@ -28,7 +25,7 @@ function getPageSize(value: string | null): number {
 export async function GET(request: Request): Promise<NextResponse> {
     const { searchParams } = new URL(request.url);
     const after = searchParams.get("after");
-    const size = getPageSize(searchParams.get("size"));
+    const size = getPageSize(searchParams.get("size") ?? DEFAULT_PAGE_SIZE.toString());
 
     const response = await getInstagramPostsPage({ after, size });
 
