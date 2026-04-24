@@ -16,7 +16,7 @@ export default function Loading(): ReactNode {
     const heights = Array(skeletonCount).fill(0).map(() => (Math.random() / 2 + 0.5) * width);
 
     return (
-        <Masonry columns={{ lg: 6, sm: 3, xs: 1 }}>
+        <Masonry columns={{ lg: 5, md: 4, sm: 3, xl: 6, xs: 1 }}>
             {Array(skeletonCount).fill(0).map((_, i) => (
                 <Skeleton
                     key={i}

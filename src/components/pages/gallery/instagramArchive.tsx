@@ -113,7 +113,7 @@ export function InstagramArchive({ initialPage }: { initialPage: InstagramPage; 
 
     return (
         <Stack gap={2}>
-            <Masonry columns={{ lg: 6, sm: 3, xs: 1 }}>{images}</Masonry>
+            <Masonry columns={{ lg: 5, md: 4, sm: 3, xl: 6, xs: 1 }}>{images}</Masonry>
 
             <Box
                 ref={sentinelRef}
