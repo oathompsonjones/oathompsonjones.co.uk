@@ -1,8 +1,15 @@
 "use client";
 
-import { CssBaseline, StyledEngineProvider, ThemeProvider, createTheme, responsiveFontSizes } from "@mui/material";
-import DefaultPropsProvider from "@mui/material/DefaultPropsProvider";
 import type { ReactNode } from "react";
+import {
+    CssBaseline, StyledEngineProvider, ThemeProvider,
+    createTheme, responsiveFontSizes, useTheme as useMuiTheme,
+} from "@mui/material";
+import DefaultPropsProvider from "@mui/material/DefaultPropsProvider";
+import type { Theme } from "@mui/material";
+import { Tartan, colours } from "components/tartan";
+
+export const useTheme = (): Theme => useMuiTheme<Theme>();
 
 /**
  * Provides the theme to the application.
@@ -11,25 +18,46 @@ import type { ReactNode } from "react";
  * @returns The theme provider to wrap the application in.
  */
 export function ThemeContextProvider({ children }: { children: ReactNode; }): ReactNode {
-    // Create the full theme.
-    const basePalette = {
-        common: { black: "#121212", white: "#efefef" },
-        primary: { main: "#1c7eea" },
+    const colorSchemes = {
+        dark: {
+            palette: {
+                background: {
+                    default: colours.cream,
+                    paper: colours.grey,
+                },
+                common: {
+                    black: colours.black,
+                    white: colours.cream,
+                },
+                divider: colours.cream,
+                primary: { main: colours.cream },
+                secondary: { main: colours.maroon },
+            },
+        },
     };
     const theme = responsiveFontSizes(createTheme({
-        colorSchemes: {
-            dark: { palette: { background: { default: basePalette.common.black }, ...basePalette } },
-            light: { palette: { background: { default: basePalette.common.white }, ...basePalette } },
-        },
+        colorSchemes,
         components: {
-            MuiButton: { styleOverrides: { root: { borderRadius: "100vh" } } },
+            MuiButton: {
+                styleOverrides: {
+                    root: {
+                        backgroundColor: colorSchemes.dark.palette.secondary.main,
+                        borderRadius: "100vh",
+                        color: colorSchemes.dark.palette.common.white,
+                    }
+                }
+            },
             MuiContainer: { styleOverrides: { root: { padding: "0" } } },
             MuiDivider: { styleOverrides: { root: { margin: "1.25% 0" } } },
             MuiInputBase: { styleOverrides: { root: { borderRadius: "1rem 1rem 0 0 !important" } } },
             MuiMenuItem: { styleOverrides: { root: { borderRadius: "100vh" } } },
             MuiPaper: {
                 styleOverrides: {
-                    root: { transition: "background-color 0.25s linear" },
+                    root: {
+                        background: "none",
+                        backgroundColor: colorSchemes.dark.palette.background.paper,
+                        transition: "background-color 0.25s linear",
+                    },
                     rounded: { borderRadius: "2rem" },
                 },
             },
@@ -58,6 +86,7 @@ export function ThemeContextProvider({ children }: { children: ReactNode; }): Re
                     MuiTextField: { fullWidth: true, required: true, variant: "filled" },
                 }}>
                     <CssBaseline enableColorScheme />
+                    <Tartan />
                     {children}
                 </DefaultPropsProvider>
             </ThemeProvider>

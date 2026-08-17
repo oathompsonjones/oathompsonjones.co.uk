@@ -145,8 +145,8 @@ function generateImage(arrayBuffer: ArrayBuffer): string {
  * Gets a GitHub GraphQL client with auth preconfigured.
  * @returns An authenticated GraphQL client.
  */
-function graphqlWithAuth(): typeof graphql {
-    return graphql.defaults({ headers: { authorization: process.env.GITHUB_TOKEN } });
+export async function graphqlWithAuth(): Promise<typeof graphql> {
+    return Promise.resolve(graphql.defaults({ headers: { authorization: process.env.GITHUB_TOKEN } }));
 }
 
 /**
@@ -198,7 +198,8 @@ export async function getGithubReposPage({ after = null, before = null, size = 1
     const last = before === null ? null : size;
 
     try {
-        const response = await graphqlWithAuth()<RepoPageAPIResponse>(`
+        const gql = await graphqlWithAuth();
+        const response = await gql<RepoPageAPIResponse>(`
             query PortfolioRepos($after: String, $before: String, $first: Int, $last: Int) {
                 user(login: "oathompsonjones") {
                     repositories(

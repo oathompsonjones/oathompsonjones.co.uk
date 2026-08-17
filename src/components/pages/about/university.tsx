@@ -17,31 +17,47 @@ export function University(): ReactNode {
         "2:1": <>Upper 2<sup>nd</sup></>,
         "2:2": <>Lower 2<sup>nd</sup></>,
         3: <>3<sup>rd</sup></>,
-        TBD: "TBD",
     };
     /* eslint-enable @typescript-eslint/naming-convention */
-    const order = [
-        <>1<sup>st</sup> Year</>,
-        <>2<sup>nd</sup> Year</>,
-        <>3<sup>rd</sup> Year</>,
-        <>4<sup>th</sup> Year</>,
-        <>Final Grade</>,
-    ];
+    const qualification = data.Qualifications[0];
 
-    if (!data.Qualifications[0] || !Array.isArray(data.Qualifications[0].grades))
+    if (!qualification || !Array.isArray(qualification.grades))
         return null;
 
-    const grades = data.Qualifications[0].grades
-        .map((grade, i) => (<Grade grade={gradeMap[grade]} key={i} subject={order[i]} />));
+    const suffix = (value: number): string => {
+        if (value % 100 >= 11 && value % 100 <= 13)
+            return "th";
+
+        if (value % 10 === 1)
+            return "st";
+
+        if (value % 10 === 2)
+            return "nd";
+
+        if (value % 10 === 3)
+            return "rd";
+
+        return "th";
+    };
+    const numericYear = Number.parseInt(qualification.time.split("-").at(-1) ?? "", 10);
+    const maxAvailableGrade = gradeMap["1"];
+    const minAvailableGrade = gradeMap["3"];
+    const grades = qualification.grades.map((grade, i, allGrades) => {
+        const subject = i === allGrades.length - 1
+            ? <>Final Grade</>
+            : <>{i + 1}<sup>{suffix(i + 1)}</sup> Year</>;
+
+        return <Grade grade={gradeMap[grade] ?? grade} key={i} subject={subject} />;
+    });
 
     return (
         <Grades
-            attainmentYear={2025}
-            educationLevel="Further Education"
+            attainmentYear={Number.isNaN(numericYear) ? 2025 : numericYear}
+            educationLevel="University"
             institutionLink="https://www.ed.ac.uk"
-            institutionName="The University of Edinburgh"
-            maxGrade={<>1<sup>st</sup></>}
-            minGrade={<>3<sup>rd</sup></>}
+            institutionName={qualification.institution}
+            maxGrade={maxAvailableGrade}
+            minGrade={minAvailableGrade}
         >
             {grades}
         </Grades>

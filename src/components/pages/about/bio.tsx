@@ -7,14 +7,12 @@ import { jsonToJSDoc } from "app/(pages)/cv";
 
 /**
  * Contains the bio segment for my CV page.
- * @param props - The props for the Bio component.
- * @param props.large - Whether the bio should be large or not.
  * @returns The Bio element.
  */
-export function Bio({ large = false }: { large?: boolean; }): ReactNode {
+export function Bio(): ReactNode {
     return (
         <Glass sx={{ m: "auto" }}>
-            <Typography variant={large ? "h4" : "h6"} color="white">
+            <Typography variant="h6" color="white">
                 {[
                     `Hi, I'm Ollie. I'm a ${age()} year old`,
                     jsonToJSDoc(cv.Summary),

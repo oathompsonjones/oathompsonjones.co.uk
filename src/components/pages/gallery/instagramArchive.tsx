@@ -30,6 +30,7 @@ export function InstagramArchive({ initialPage }: { initialPage: InstagramPage; 
     const [error, setError] = useState<string | null>(null);
 
     const sentinelRef = useRef<HTMLDivElement | null>(null);
+    const lastUserInteractionRef = useRef<number>(0);
 
     const loadMore = useCallback(async (): Promise<void> => {
         if (!hasNextPage || isLoading || endCursor === null)
@@ -62,6 +63,22 @@ export function InstagramArchive({ initialPage }: { initialPage: InstagramPage; 
         }
     }, [endCursor, hasNextPage, isLoading]);
 
+    useEffect(() => {
+        const mark = (): void => { lastUserInteractionRef.current = Date.now(); };
+
+        window.addEventListener("scroll", mark, { passive: true });
+        window.addEventListener("wheel", mark, { passive: true });
+        window.addEventListener("touchstart", mark, { passive: true });
+        window.addEventListener("keydown", mark, { passive: true });
+
+        return (): void => {
+            window.removeEventListener("scroll", mark);
+            window.removeEventListener("wheel", mark);
+            window.removeEventListener("touchstart", mark);
+            window.removeEventListener("keydown", mark);
+        };
+    }, []);
+
     const retryLoad = useCallback((): void => {
         loadMore().catch(() => undefined);
     }, [loadMore]);
@@ -72,7 +89,7 @@ export function InstagramArchive({ initialPage }: { initialPage: InstagramPage; 
      */
     const hasReachedPageBottom = useCallback((): boolean => {
         const root = document.documentElement;
-        const threshold = 100;
+        const threshold = 300;
 
         return window.scrollY + window.innerHeight >= root.scrollHeight - threshold;
     }, []);
@@ -88,15 +105,48 @@ export function InstagramArchive({ initialPage }: { initialPage: InstagramPage; 
             observer = new IntersectionObserver((entries) => {
                 const [entry] = entries;
 
-                if (entry?.isIntersecting === true && hasReachedPageBottom())
+                if (entry?.isIntersecting !== true)
+                    return;
+
+                const root = document.documentElement;
+                const pageNotFilled = root.scrollHeight <= window.innerHeight + 1;
+
+                if (pageNotFilled) {
                     retryLoad();
-            }, { root: null, rootMargin: "0px", threshold: 1 });
+                    return;
+                }
+
+                const now = Date.now();
+                if (now - lastUserInteractionRef.current < 1500)
+                    retryLoad();
+            }, { root: null, rootMargin: "200px", threshold: 0 });
 
             observer.observe(sentinel);
         }
 
         return (): void => observer?.disconnect();
     }, [hasNextPage, hasReachedPageBottom, retryLoad]);
+
+    // Fallback: if intersection observer doesn't fire for small scrolls, use a scroll
+    // listener to trigger loading when the sentinel is near the viewport and the user
+    // has recently interacted.
+    useEffect(() => {
+        const onScroll = (): void => {
+            const sentinel = sentinelRef.current;
+            if (!sentinel || !hasNextPage || isLoading)
+                return;
+
+            const rect = sentinel.getBoundingClientRect();
+            const nearViewport = rect.top <= window.innerHeight + 250;
+            const now = Date.now();
+
+            if (nearViewport && now - lastUserInteractionRef.current < 3000)
+                retryLoad();
+        };
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return (): void => window.removeEventListener("scroll", onScroll);
+    }, [hasNextPage, isLoading, retryLoad]);
 
     const images = posts.map((post) => <InstagramPost key={post.id} post={post} />);
 
@@ -112,7 +162,7 @@ export function InstagramArchive({ initialPage }: { initialPage: InstagramPage; 
     }, 0);
 
     return (
-        <Stack gap={2}>
+        <Stack sx={{ gap: 2 }}>
             <Masonry columns={{ lg: 5, md: 4, sm: 3, xl: 6, xs: 1 }}>{images}</Masonry>
 
             <Box
@@ -132,7 +182,7 @@ export function InstagramArchive({ initialPage }: { initialPage: InstagramPage; 
             </Box>
 
             {error !== null && (
-                <Stack alignItems="center" direction="row" justifyContent="center" spacing={1.5}>
+                <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", justifyContent: "center" }}>
                     <Typography color="error" variant="caption">{error}</Typography>
                     <Button onClick={retryLoad} size="small" variant="text">Retry</Button>
                 </Stack>

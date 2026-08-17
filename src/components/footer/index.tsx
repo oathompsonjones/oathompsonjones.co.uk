@@ -17,13 +17,13 @@ export function Footer(): ReactNode {
     return (
         <Box component="footer" sx={{ p: "0.75rem", zIndex: 1 }}>
             <Stack
-                direction="row" gap={2}
-                sx={{ display: { md: "flex", xs: "none" }, left: "0.75rem", position: "absolute" }}>
+                direction="row"
+                sx={{ display: { md: "flex", xs: "none" }, gap: 2, left: "0.75rem", position: "absolute" }}>
                 <Avatar src={GRAVATAR_URL} sx={{ float: "left", height: "2rem", width: "2rem" }} />
                 <Name id="footer" variant="h6" />
             </Stack>
             <Stack
-                direction={{ md: "row", xs: "column-reverse" }} alignItems="center" sx={{ m: "auto" }}
+                direction={{ md: "row", xs: "column-reverse" }} sx={{ alignItems: "center", m: "auto" }}
                 divider={<Typography sx={{
                     color: "gray",
                     display: { md: "inline-block", xs: "none" },

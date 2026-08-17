@@ -42,56 +42,22 @@
                 "1"
             ],
             "summary": [
-                "Computer Science, BSc — First Class Honours — Dissertation Grade: 89\\%",
+                "Computer Science, BSc — First Class Honours",
                 "Developed a strong understanding of core computer science concepts through both individual and team-based projects.",
                 "Built a variety of applications using different languages and frameworks, refining problem-solving, communication, and analytical skills.",
                 "Expanded workplace skills such as resilience, self-awareness, self-discipline, time management, productivity, and self-assertiveness."
             ],
-            "projects": [
-                {
-                    "title": "Dissertation — A Graphical Playground for Haskell",
-                    "tools": [
-                        "Haskell",
-                        "Next.JS"
-                    ],
-                    "description": [
-                        "Designed and implemented a web-based Haskell editor with a custom graphics library.",
-                        "Enabled users to create 2D images and animations using Haskell, executed in-browser."
-                    ]
-                },
-                {
-                    "title": "Object Oriented Programming",
-                    "tools": [
-                        "Java"
-                    ],
-                    "description": [
-                        "Developed a Connect 4 game using an MVC model.",
-                        "Implemented a single-player mode with an AI opponent.",
-                        "Conducted code reviews and built on a pre-existing codebase to model a zoo."
-                    ]
-                },
-                {
-                    "title": "Informatics Large Practical",
-                    "tools": [
-                        "Java"
-                    ],
-                    "description": [
-                        "Created a system to manage drone delivery of pizzas.",
-                        "Read data from a REST API.",
-                        "Used A* search to calculate the most efficient route while avoiding no-fly zones."
-                    ]
-                },
-                {
-                    "title": "Machine Learning Systems",
-                    "tools": [
-                        "Python",
-                        "CuPy"
-                    ],
-                    "description": [
-                        "Worked as a team to implement a RAG system, using CuPy to leverage GPU acceleration."
-                    ]
-                }
-            ]
+            "dissertation": {
+                "title": "[A Graphical Playground for Haskell](https://haskell-playground.co.uk) — Grade: 89\\%",
+                "tools": [
+                    "Haskell",
+                    "Next.JS"
+                ],
+                "description": [
+                    "Designed and implemented a web-based Haskell editor with a custom graphics library.",
+                    "Enabled users to create 2D images and animations using Haskell, executed in-browser."
+                ]
+            }
         },
         {
             "institution": "The Bishop's Stortford High School",
@@ -117,25 +83,6 @@
             }
         }
     ],
-    "Projects": [
-        {
-            "title": "Haskell Playground",
-            "link": "https://haskell-playground.co.uk",
-            "tools": [
-                "Haskell",
-                "Next.JS"
-            ],
-            "description": "Web-based Haskell editor for generating 2D animations. (See dissertation project for more details.)"
-        },
-        {
-            "title": "Personal Website",
-            "link": "https://oathompsonjones.co.uk",
-            "tools": [
-                "Next.JS"
-            ],
-            "description": "Portfolio website showcasing my projects and abilities. Integrates the Instagram and GitHub APIs to display latest posts and repositories."
-        }
-    ],
     "Experience": [
         {
             "role": "Software Developer",
@@ -144,7 +91,19 @@
             "description": [
                 "Full stack software development in a fast-paced environment.",
                 "Working with a range of technologies including TypeScript, Java and C/C++.",
-                "Collaborating with a team of developers to design and implement new features, fix bugs, and improve performance."
+                "Collaborating with a team of developers to design and implement new features, fix bugs, and improve performance.",
+                "Led a major upgrade of a 30,000-line TypeScript codebase from TypeScript 2.7 to 6.0, enabling strict mode and improving type safety, maintainability, and developer tooling."
+            ]
+        },
+        {
+            "role": "Software Developer (Self-Employed)",
+            "organisation": "[Bean Sync](https://beansync.co.uk), Remote",
+            "time": "August 2026-Present",
+            "description": [
+                "Full stack software development for an inventory and order management platform for coffee wholesalers.",
+                "Developing and maintaining a React-based web application, with Supabase providing backend services and Netlify hosting the platform.",
+                "Working directly with the startup to design and implement new features, improve existing functionality, and resolve bugs.",
+                "Contributing across the full development lifecycle, from requirements and system design through to implementation and deployment."
             ]
         },
         {
@@ -155,7 +114,8 @@
                 "Served customers, managed inventory, and maintained cleanliness and organisation.",
                 "Often operated solo as well as part of a team, requiring high levels of responsibility and reliability.",
                 "Developed excellent communication and customer service skills."
-            ]
+            ],
+            "ignoreOnSinglePage": true
         },
         {
             "role": "Work Experience",
@@ -178,8 +138,18 @@
     ],
     "Volunteering": [
         {
+            "role": "Club Volunteer",
+            "organisation": "[Bishop's Stortford Rugby Football Club](https://bsrfc.co.uk)",
+            "time": "2025-Present",
+            "description": [
+                "Produce weekly match-day slides featuring sponsorship information and details about the day's fixtures.",
+                "Set up and operate the speaker system in the marquee for 1st XV match-day lunches.",
+                "Regularly manage and maintain the clubhouse TV and speaker systems outside of match days."
+            ]
+        },
+        {
             "role": "Secretary",
-            "organisation": "University Pool Society",
+            "organisation": "[Edinburgh University Pool Society](https://www.eusa.ed.ac.uk/activities/view/PoolAndPints)",
             "time": "2024-2025",
             "description": [
                 "Managed event planning, communication, and social media promotion.",
@@ -188,7 +158,7 @@
         },
         {
             "role": "President",
-            "organisation": "Interact Junior Rotary Group",
+            "organisation": "[TBSHS Interact — Junior Rotary Group](https://www.rotary.org/get-involved/youth-programs/interact-clubs)",
             "time": "2020-2021",
             "description": [
                 "Chaired weekly meetings and oversaw charity event planning.",
@@ -198,7 +168,7 @@
         },
         {
             "role": "Committe Member",
-            "organisation": "Interact Junior Rotary Group",
+            "organisation": "[TBSHS Interact — Junior Rotary Group](https://www.rotary.org/get-involved/youth-programs/interact-clubs)",
             "time": "2014-2020",
             "description": [
                 "Coordinated and took the lead in annual charity fundraisers.",
@@ -207,7 +177,7 @@
         },
         {
             "role": "Senior Prefect",
-            "organisation": "",
+            "organisation": "[The Bishop's Stortford High School](https://tbshs.org)",
             "time": "2020-2021",
             "description": [
                 "Assisted with school events and represented the school and Sixth Form.",
@@ -216,7 +186,7 @@
         },
         {
             "role": "Maths Tutor",
-            "organisation": "",
+            "organisation": "[The Bishop's Stortford High School](https://tbshs.org)",
             "time": "2020-2021",
             "description": [
                 "Provided weekly one-to-one tutoring in maths for younger pupils.",
@@ -225,7 +195,7 @@
         },
         {
             "role": "School Librarian",
-            "organisation": "",
+            "organisation": "[The Bishop's Stortford High School](https://tbshs.org)",
             "time": "2014-2019 (Committee 2017-2019)",
             "description": [
                 "Helped organise other student volunteers and weekly operations.",

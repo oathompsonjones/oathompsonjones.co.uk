@@ -19,17 +19,20 @@ export function Experience(): ReactNode {
     }));
 
     return (
-        <Glass>
-            <Typography variant="h3">Experience</Typography>
-            {experiences.map(({ description, heading }, i) => (
-                <div key={i}>
-                    <Divider />
-                    <Typography variant="subtitle1">{heading}</Typography>
-                    <Typography variant="body2" sx={{ whiteSpace: "pre-wrap" }} component="ul">
-                        {description.map((item, j) => <li key={j}>{item}</li>)}
-                    </Typography>
-                </div>
-            ))}
-        </Glass>
+        <div>
+            <Typography variant="h3" align="center">Experience</Typography>
+            <Divider />
+            <Glass>
+                {experiences.map(({ description, heading }, i) => (
+                    <div key={i}>
+                        {i > 0 && <Divider />}
+                        <Typography variant="subtitle1">{heading}</Typography>
+                        <Typography variant="body2" sx={{ whiteSpace: "pre-wrap" }} component="ul">
+                            {description.map((item, j) => <li key={j}>{item}</li>)}
+                        </Typography>
+                    </div>
+                ))}
+            </Glass>
+        </div>
     );
 }

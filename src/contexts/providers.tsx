@@ -11,9 +11,9 @@ import { ThemeContextProvider } from "./theme";
  * @param props.children - The children to render.
  * @returns The context providers.
  */
-export function Providers({ children }: { children: ReactNode; }): ReactNode {
+export function Providers({ children, initialReduceTransparency }: { children: ReactNode; initialReduceTransparency: boolean; }): ReactNode {
     return (
-        <AccessibilityContextProvider>
+        <AccessibilityContextProvider initialReduceTransparency={initialReduceTransparency}>
             <ThemeContextProvider>
                 <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY}>
                     {children}

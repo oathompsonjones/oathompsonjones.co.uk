@@ -165,13 +165,13 @@ export function ProjectEulerClient({ initialProblem }: { initialProblem: number;
                 </CodeWrapper>
             </div>
             <div>
-                <Typography className="monospace" color="inherit" textAlign="center" variant="h4">
+                <Typography className="monospace" sx={{ color: "inherit", textAlign: "center" }} variant="h4">
                     Solution
                 </Typography>
                 <Code>{solution}</Code>
             </div>
             <div>
-                <Typography className="monospace" color="inherit" textAlign="center" variant="h4">
+                <Typography className="monospace" sx={{ color: "inherit", textAlign: "center" }} variant="h4">
                     Utils
                     <Button color="primary" onClick={(): void => setShowUtils((s) => !s)} variant="text">
                         ({showUtils ? "Hide" : "Show"})

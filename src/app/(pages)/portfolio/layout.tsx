@@ -14,8 +14,18 @@ export default layout({
         </Typography>
     ),
     header: (
-        <Typography variant="h2" align="center" gutterBottom>
-            Portfolio
-        </Typography>
+        <>
+            <Typography variant="h2" align="center" gutterBottom>
+                Portfolio
+            </Typography>
+
+            <Typography
+                variant="subtitle1"
+                align="center"
+                sx={{ fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", mb: 1 }}
+            >
+                COMING SOON: FEATURED PROJECTS
+            </Typography>
+        </>
     ),
 });

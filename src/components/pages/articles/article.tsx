@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, Typography, Zoom } from "@mui/material";
 import { Card } from "components/card";
 import type { ReactNode } from "react";
@@ -10,7 +12,7 @@ import type { ReactNode } from "react";
  * @param props.image - An image to display for the article.
  * @returns An element which renders an article card.
  */
-export function Article({ title, summary, image }: { title: string; summary: string; image?: string; }): ReactNode {
+export function Article({ title, summary, image }: { title: string; summary: ReactNode; image?: string; }): ReactNode {
     return (
         <Zoom in timeout={500}>
             <Card>
@@ -24,7 +26,7 @@ export function Article({ title, summary, image }: { title: string; summary: str
                 />}
                 <Card.Content>
                     <Typography variant="h6">{title}</Typography>
-                    <Typography variant="body1">{summary}</Typography>
+                    {typeof summary === "string" ? <Typography variant="body1">{summary}</Typography> : summary}
                 </Card.Content>
                 <Card.Actions>
                     <Button

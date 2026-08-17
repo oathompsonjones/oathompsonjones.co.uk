@@ -16,7 +16,7 @@ import { Volunteering } from "components/pages/about/volunteering";
  */
 export default function About(): ReactNode {
     return (
-        <Stack gap={2}>
+        <Stack sx={{ gap: 2 }}>
             <Typography variant="h2" align="center" sx={{ flex: 1 }}>
                 About Me
             </Typography>

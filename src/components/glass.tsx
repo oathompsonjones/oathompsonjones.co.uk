@@ -1,6 +1,8 @@
 "use client";
 
+import { AccessibilityContext } from "contexts/accessibility";
 import { Paper } from "@mui/material";
+import { useContext } from "react";
 import type { PaperProps } from "@mui/material";
 import type { ReactNode } from "react";
 import { useGlass } from "hooks/useGlass";
@@ -15,13 +17,29 @@ import { useGlass } from "hooks/useGlass";
  * @returns The Glass component with the children rendered inside.
  */
 export function Glass({ children, disabled = false, ...props }: PaperProps & {
-    children: ReactNode;
+    children?: ReactNode;
     disabled?: boolean;
 }): ReactNode {
+    const { reduceTransparency } = useContext(AccessibilityContext);
     const className = useGlass(disabled);
+    const glassEnabled = !disabled && !reduceTransparency;
+    const { sx, style, ...paperProps } = props;
 
     return (
-        <Paper className={className} {...props}>
+        <Paper
+            {...paperProps}
+            className={className}
+            sx={sx}
+            style={{
+                backgroundColor: glassEnabled ? "rgba(255, 255, 255, 0.05)" : undefined,
+                backdropFilter: glassEnabled ? "blur(5px) saturate(180%)" : "none",
+                WebkitBackdropFilter: glassEnabled ? "blur(5px) saturate(180%)" : "none",
+                isolation: glassEnabled ? "isolate" : "auto",
+                overflow: glassEnabled ? "hidden" : "visible",
+                position: glassEnabled ? "relative" : "static",
+                ...style,
+            }}
+        >
             {children}
         </Paper>
     );

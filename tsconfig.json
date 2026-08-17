@@ -3,7 +3,6 @@
     "compilerOptions": {
         "module": "esnext",
         "moduleResolution": "Bundler",
-        "target": "es5",
         "skipLibCheck": true,
         "noEmit": true,
         "incremental": true,
@@ -53,8 +52,6 @@
                 "./MiniGames/*"
             ],
         },
-        "isolatedModules": true,
-        "preserveConstEnums": true,
     },
     "include": [
         "next-env.d.ts",

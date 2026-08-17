@@ -47,32 +47,35 @@ export function InstagramPost({ post }: { post: BeholdPost | Post; }): ReactNode
                         width: "100%",
                     }}>
                     <Stack
-                        alignItems="center"
-                        justifyContent="center"
-                        gap={2}
                         component={Link}
                         href={post.permalink}
-                        style={{
+                        sx={{
+                            alignItems: "center",
                             color: "white",
+                            gap: 1.5,
                             height: "100%",
+                            justifyContent: "center",
                             opacity: hover ? "100%" : "0%",
                             transition: "opacity 0.25s linear",
+                            // Ensure overlay content scales to fit small images
+                            boxSizing: "border-box",
+                            padding: 1,
                         }}
                     >
-                        <Instagram sx={{ height: "50%", width: "50%" }} />
-                        <div>
+                        <Instagram sx={{ fontSize: "clamp(28px, 6vw, 64px)" }} />
+                        <div style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "center", justifyContent: "center", maxHeight: "80%", overflow: "visible", padding: "0.25rem 0" }}>
                             {post.like_count !== undefined && (
-                                <Stack direction="row" alignItems="center" justifyContent="center" gap={2}>
-                                    <Favorite fontSize="large" />
-                                    <Typography variant="h3" color="white">
+                                <Stack direction="row" sx={{ alignItems: "center", gap: 1.25, justifyContent: "center", lineHeight: 1 }}>
+                                    <Favorite sx={{ fontSize: "clamp(16px, 3.5vw, 28px)", lineHeight: 1 }} />
+                                    <Typography sx={{ fontSize: "clamp(14px, 4vw, 24px)", lineHeight: 1, m: 0 }} color="white">
                                         {post.like_count}
                                     </Typography>
                                 </Stack>
                             )}
                             {post.comments_count !== undefined && (
-                                <Stack direction="row" alignItems="center" justifyContent="center" gap={2}>
-                                    <ChatBubble fontSize="large" />
-                                    <Typography variant="h3" color="white">
+                                <Stack direction="row" sx={{ alignItems: "center", gap: 1.25, justifyContent: "center", lineHeight: 1 }}>
+                                    <ChatBubble sx={{ fontSize: "clamp(16px, 3.5vw, 28px)", lineHeight: 1 }} />
+                                    <Typography sx={{ fontSize: "clamp(14px, 4vw, 24px)", lineHeight: 1, m: 0 }} color="white">
                                         {post.comments_count}
                                     </Typography>
                                 </Stack>

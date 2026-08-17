@@ -3,14 +3,22 @@
 import type { Dispatch, SetStateAction } from "react";
 import { useEffect, useState } from "react";
 
+type UseLocalStorageOptions = {
+    hydrateFromStorage?: boolean;
+};
+
 /**
  * Provides the same behaviour as `useState`, but also stores data using localStorage.
  * @template T - The type of the value to store.
  * @param key - The name of the variable to store in localStorage.
  * @param initialValue - The initial value to store for that variable.
+ * @param options - Optional behaviour flags.
+ * @param options.hydrateFromStorage - Whether to read from localStorage during the initial client render. Defaults to true.
  * @returns The value stored in localStorage, a function to update that value, and a function to remove that value.
  */
-export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<SetStateAction<T>>] {
+export function useLocalStorage<T>(key: string, initialValue: T, options: UseLocalStorageOptions = {}): [T, Dispatch<SetStateAction<T>>] {
+    const { hydrateFromStorage = true } = options;
+
     const parse = (value: string): T => {
         if (value === "undefined")
             return undefined as unknown as T;
@@ -39,7 +47,7 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<S
         }
     };
 
-    const [storedValue, setStoredValue] = useState(readValue);
+    const [storedValue, setStoredValue] = useState(() => (hydrateFromStorage ? readValue() : initialValue));
 
     const setValue: Dispatch<SetStateAction<T>> = (value) => {
         if (typeof window !== "undefined") {
@@ -52,7 +60,10 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<S
         }
     };
 
-    useEffect(() => setStoredValue(readValue()), [key]);
+    useEffect(() => {
+        if (hydrateFromStorage)
+            setStoredValue(readValue());
+    }, [hydrateFromStorage, key]);
 
     return [storedValue, setValue];
 }

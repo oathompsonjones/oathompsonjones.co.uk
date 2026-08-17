@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { readFile, writeFile } from "fs/promises";
 import type { ActionResponse } from ".";
+import { DEFAULT_PAGE_SIZE } from "app/api/instagram/posts/route";
 
 type BasePost = {
     caption?: string;
@@ -79,9 +80,6 @@ export type InstagramPage = {
     posts: Array<BeholdPost | Post>;
 };
 
-const DEFAULT_PAGE_SIZE = 6;
-const MAX_PAGE_SIZE = 20;
-
 /**
  * Returns a safe Instagram page size.
  * @param size - Requested page size.
@@ -91,7 +89,7 @@ function getSafePageSize(size: number): number {
     if (!Number.isFinite(size) || size <= 0)
         return DEFAULT_PAGE_SIZE;
 
-    return Math.min(Math.floor(size), MAX_PAGE_SIZE);
+    return Math.min(Math.floor(size), 20);
 }
 
 /**

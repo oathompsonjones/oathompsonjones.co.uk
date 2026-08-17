@@ -120,8 +120,9 @@ export function SocialLinks({ large = false }: { large?: boolean; }): ReactNode 
                                 color="inherit"
                                 variant="text"
                                 sx={{
-                                // eslint-disable-next-line @typescript-eslint/naming-convention
-                                    "&:hover": { backgroundColor: hoverColor ?? "inherit" },
+                                    // eslint-disable-next-line @typescript-eslint/naming-convention
+                                    "&:hover": { backgroundColor: hoverColor },
+                                    backgroundColor: "transparent",
                                     display: "flex",
                                 }}>
                                 {title}

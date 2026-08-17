@@ -19,17 +19,20 @@ export function Volunteering(): ReactNode {
     }));
 
     return (
-        <Glass>
-            <Typography variant="h3">Volunteer Experience</Typography>
-            {volunteering.map(({ description, heading }, i) => (
-                <div key={i}>
-                    <Divider />
-                    <Typography variant="subtitle1">{heading}</Typography>
-                    <Typography variant="body2" sx={{ whiteSpace: "pre-wrap" }} component="ul">
-                        {description.map((item, j) => <li key={j}>{item}</li>)}
-                    </Typography>
-                </div>
-            ))}
-        </Glass>
+        <div>
+            <Typography variant="h3" align="center">Volunteer Experience</Typography>
+            <Divider />
+            <Glass>
+                {volunteering.map(({ description, heading }, i) => (
+                    <div key={i}>
+                        {i > 0 && <Divider />}
+                        <Typography variant="subtitle1">{heading}</Typography>
+                        <Typography variant="body2" sx={{ whiteSpace: "pre-wrap" }} component="ul">
+                            {description.map((item, j) => <li key={j}>{item}</li>)}
+                        </Typography>
+                    </div>
+                ))}
+            </Glass>
+        </div>
     );
 }

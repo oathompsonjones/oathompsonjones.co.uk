@@ -1,5 +1,6 @@
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import cv from "assets/cv.json";
+import cv from "assets/cv.json" with { type: "json" };
 import fs from "fs/promises";
 import pdflatex from "node-pdflatex";
 
@@ -15,6 +16,7 @@ type Experience = {
     organisation: string;
     time: string;
     description: string[];
+    ignoreOnSinglePage?: boolean;
 };
 
 export type CV = {
@@ -29,9 +31,8 @@ export type CV = {
         time: string;
         grades: Record<string, Record<string, string>> | string[];
         summary?: string[];
-        projects?: Project[];
+        dissertation?: Project;
     }>;
-    Projects: Project[];
     Experience: Experience[];
     Volunteering: Experience[];
 };
@@ -93,100 +94,116 @@ function mapList(list: string[]): string {
 }
 
 /**
+ * Maps a project to LaTeX.
+ * @param project - The project to map.
+ * @returns The mapped project.
+ */
+function mapProject(project: Project): string {
+    const title = project.link === undefined
+        ? jsonToLaTeX(project.title)
+        : jsonToLaTeX(`[${project.title}](${project.link})`);
+    const tools = jsonToLaTeX(project.tools.join("/"));
+    const description = typeof project.description === "string"
+        ? ` — ${jsonToLaTeX(project.description)}`
+        : mapList(project.description);
+
+    return `\\textbf{${title}} \\textit{[${tools}]}${description}`;
+}
+
+/**
+ * Maps an experience section to LaTeX.
+ * @param section - The experience section to map.
+ * @param singlePage - Whether to generate the CV as a single page.
+ * @returns The mapped experience section.
+ */
+function mapExperience(section: Experience, singlePage: boolean): string {
+    if (singlePage && (section.ignoreOnSinglePage ?? false))
+        return "";
+
+    const role = jsonToLaTeX(section.role);
+    const organisation = section.organisation.length > 0 ? `, ${jsonToLaTeX(section.organisation)}` : "";
+    const time = jsonToLaTeX(section.time);
+    const description = mapList(section.description);
+
+    return `\\subsection*{${jsonToLaTeX(`${role}${organisation} — ${time}`)}}\n${jsonToLaTeX(description)}`;
+}
+
+/**
  * Generates a LaTeX document from the CV data.
+ * @param singlePage - Whether to generate the CV as a single page.
  * @returns The LaTeX document.
  */
-async function generateTex(): Promise<string> {
+// eslint-disable-next-line max-statements
+async function generateTex(singlePage: boolean = false): Promise<string> {
     const skeleton = await fs.readFile("src/assets/cv-skeleton.tex", "utf8");
     let content = "";
-
-    // Helper functions
-
-    const mapProject = (project: Project): string => {
-        const title = project.link === undefined
-            ? jsonToLaTeX(project.title)
-            : jsonToLaTeX(`[${project.title}](${project.link})`);
-        const tools = jsonToLaTeX(project.tools.join("/"));
-        const description = typeof project.description === "string"
-            ? ` — ${jsonToLaTeX(project.description)}`
-            : mapList(project.description);
-
-        return `\\textbf{${title}} \\textit{[${tools}]}${description}`;
-    };
-
-    const mapExperience = (section: Experience): string => {
-        const role = jsonToLaTeX(section.role);
-        const organisation = section.organisation.length > 0 ? `, ${jsonToLaTeX(section.organisation)}` : "";
-        const time = jsonToLaTeX(section.time);
-        const description = mapList(section.description);
-
-        return `\\subsection*{${jsonToLaTeX(`${role}${organisation} — ${time}`)}}\n${jsonToLaTeX(description)}`;
-    };
 
     // Add the summary
     content += `\\section*{Summary}\n${jsonToLaTeX(data.Summary)}\n`;
 
     // Add the skills
     content += "\\section*{Skills}\n";
-    content += `\\paragraph*{Languages}\n${mapList(data.Skills.Languages)}\n`;
-    content += `\\paragraph*{Technologies}\n${mapList(data.Skills.Technologies)}\n`;
-    content += `\\paragraph*{Other}\n${mapList(data.Skills.Other)}\n`;
+    for (const skill of Object.keys(data.Skills)) {
+        if (data.Skills[skill as keyof typeof data.Skills].length > 0)
+            content += `\\paragraph*{${skill}}\n${mapList(data.Skills[skill as keyof typeof data.Skills])}\n`;
+    }
+
+    // Add the experience
+    content += "\\section*{Experience}\n";
+    content += data.Experience.map((exp) => mapExperience(exp, singlePage)).join("\n");
 
     // Add the qualifications
-
     content += "\\section*{Qualifications}\n";
-    for (const qualification of data.Qualifications) {
-        content += `\\subsection*{${jsonToLaTeX(qualification.institution)} — ${jsonToLaTeX(qualification.time)}}\n`;
+    for (const qualification of singlePage ? data.Qualifications.slice(0, 1) : data.Qualifications) {
+    content += `\\subsection*{${jsonToLaTeX(qualification.institution)} — ${jsonToLaTeX(qualification.time)}}\n`;
+
+        if (singlePage && "summary" in qualification && qualification.summary[0] !== undefined)
+            content += `${jsonToLaTeX(qualification.summary[0])}\n`;
 
         // Add the summary if it exists
-        if ("summary" in qualification) {
+        if (!singlePage && "summary" in qualification) {
             content += `\\subsubsection*{${jsonToLaTeX(qualification.summary[0]!)}}\n`;
             content += mapList(qualification.summary.slice(1));
         }
 
-        // Add the projects if they exist
-        if ("projects" in qualification)
-            content += `\\subsubsection*{Relevant Work}\n${mapList(qualification.projects.map(mapProject))}\n`;
+        // Add the dissertation if it exists
+        if (!singlePage && "dissertation" in qualification)
+            content += `\\subsubsection*{Dissertation}\n${[qualification.dissertation].map(mapProject)}\n`;
 
         // Otherwise, add the grades
-        if ("A Levels" in qualification.grades && "GCSEs" in qualification.grades) {
-            content += mapTable([
-                ["\\textbf{A Levels}"],
-                [mapList(filterByValue(qualification.grades["A Levels"], "A*")), "A*"],
-                [mapList(filterByValue(qualification.grades["A Levels"], "B")), "B"],
-                ["\\textbf{GCSEs}"],
-                [mapList(filterByValue(qualification.grades.GCSEs, "8")), "8"],
-                [mapList(filterByValue(qualification.grades.GCSEs, "7")), "7"],
-            ], "Xl");
+        if (!(qualification.grades instanceof Array)) {
+            const table: string[][] = [];
+
+            for (const type of Object.keys(qualification.grades)) {
+                table.push([`\\textbf{${type}}`]);
+                const grades = qualification.grades[type]!;
+
+                for (const grade of Array.from(new Set(Object.values(grades))))
+                    table.push([mapList(filterByValue(grades, grade)), grade]);
+            }
+
+            content += mapTable(table, "Xl");
         }
     }
 
-    // Add the projects
-    content += "\\section*{Projects}\n";
-    content += mapList(data.Projects.map(mapProject));
-
-    // Add the experience and volunteering
-    content += "\\section*{Experience}\n";
-    content += data.Experience.map(mapExperience).join("\n");
-    content += "\\section*{Volunteer Experience}\n";
-    content += data.Volunteering.map(mapExperience).join("\n");
+    // Add the volunterring
+    if (!singlePage) {
+        content += "\\section*{Volunteer Experience}\n";
+        content += data.Volunteering.map((vol) => mapExperience(vol, singlePage)).join("\n");
+    }
 
     return skeleton.replace("%CONTENT%", content);
 }
 
 /**
  * Gets the CV in PDF format.
+ * @param req - The request object.
  * @returns The CV in PDF format.
  */
-export async function GET(): Promise<NextResponse> {
-    const tex = await generateTex();
-    let pdf: Buffer | null = null;
-
-    try {
-        pdf = await pdflatex(tex);
-    } catch (e: unknown) {
-        void e;
-    }
+export async function GET(req: NextRequest): Promise<NextResponse> {
+    const singlePage = req.nextUrl.searchParams.get("singlePage") !== null;
+    const tex = await generateTex(singlePage);
+    const pdf = await pdflatex(tex, { texInputs: ["src/assets/"] });
 
     return new NextResponse(pdf as BodyInit, { headers: { contentType: "application/pdf" } });
 }

@@ -17,20 +17,20 @@ export default async function Portfolio(): Promise<ReactNode> {
         throw response.error!;
 
     return (
-        <Stack gap={3}>
-            {/* <Stack gap={2}>
+        <Stack sx={{ gap: 3 }}>
+            {/* <Stack {{ gap: 2 }}>
                 <Typography variant="h4">Featured Projects</Typography>
                 <Typography color="text.secondary">
                     A curated view of projects that best represent my engineering strengths.
                 </Typography>
-                <Stack direction={{ md: "row", xs: "column" }} gap={2}>
+                <Stack direction={{ gap: 2, md: "row", xs: "column" }}>
 
                 </Stack>
             </Stack>
 
             <Divider /> */}
 
-            <Stack gap={2}>
+            <Stack sx={{ gap: 2 }}>
                 <Typography variant="h4">Repository Archive</Typography>
                 <RepositoryArchive initialPage={response.data} />
             </Stack>

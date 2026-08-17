@@ -12,20 +12,22 @@ import { University } from "./university";
  */
 export function Qualifications(): ReactNode {
     return (
-        <Glass>
-            <Typography variant="h3">Qualifications</Typography>
+        <div>
+            <Typography variant="h3" align="center">Qualifications</Typography>
             <Divider />
-            <Grid container spacing={2}>
-                <Grid size={{ md: 4, xs: 12 }}>
-                    <GCSEs />
+            <Glass>
+                <Grid container spacing={2}>
+                    <Grid size={{ md: 4, xs: 12 }}>
+                        <GCSEs />
+                    </Grid>
+                    <Grid size={{ md: 4, xs: 12 }}>
+                        <ALevels />
+                    </Grid>
+                    <Grid size={{ md: 4, xs: 12 }}>
+                        <University />
+                    </Grid>
                 </Grid>
-                <Grid size={{ md: 4, xs: 12 }}>
-                    <ALevels />
-                </Grid>
-                <Grid size={{ md: 4, xs: 12 }}>
-                    <University />
-                </Grid>
-            </Grid>
-        </Glass>
+            </Glass>
+        </div>
     );
 }

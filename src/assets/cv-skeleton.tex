@@ -11,7 +11,7 @@
 \tolerance=1\emergencystretch=\maxdimen\hyphenpenalty=10000\hbadness=10000
 
 % Set up hyperlinks.
-\usepackage[colorlinks=true,urlcolor=cyan]{hyperref}
+\usepackage[colorlinks=true]{hyperref}
 
 % Remove page numbers.
 \pagenumbering{gobble}
@@ -28,15 +28,24 @@
 % Better lists.
 \usepackage{enumitem}
 
+% Draw a tartan strip in a fixed page position.
+\usepackage{tikz}
+\usepackage{eso-pic}
+\usepackage{graphicx}
+
 % Styles the title.
 \usepackage{xcolor}
+\definecolor{linkcolor}{HTML}{7D2B32}
+\definecolor{headingline}{HTML}{676767}
+\definecolor{textcolor}{HTML}{121212}
+\hypersetup{urlcolor=linkcolor,linkcolor=linkcolor,citecolor=linkcolor}
 \usepackage{titling}
     \pretitle{\vskip-2cm\centering\normalfont\Huge\bfseries}
-    \posttitle{\\\vskip-0.5cm\noindent{\color{lightgray}\titlerule[2pt]}\par}
+    \posttitle{\\\vskip-0.5cm\noindent{\color{headingline}\titlerule[1.5pt]}\par}
     \preauthor{\centering\large}
     \postauthor{\\}
     \predate{\centering\large}
-    \postdate{\\\vskip-0.25cm\noindent{\color{lightgray}\titlerule[2pt]}\par\vskip-0.5cm}
+    \postdate{\\\vskip-0.25cm\noindent{\color{headingline}\titlerule[1.5pt]}\par\vskip-0.5cm}
 
 % Style section sections.
 \usepackage[compact]{titlesec}
@@ -46,15 +55,15 @@
     {\Large\bfseries} % format
     {\thesection} % label
     {} % sep
-    {\filbreak} % before-code
-    [{\color{lightgray}\titlerule[3pt]}] % after-code
+    {} % before-code
+    [{\color{headingline}\titlerule[1.5pt]}] % after-code
 \titleformat
     {\subsection} % command
     [display] % shape
     {\large\bfseries} % format
     {\thesubsection} % label
     {} % sep
-    {\filbreak} % before-code
+    {} % before-code
     [] % after-code
 \titleformat
     {\subsubsection} % command
@@ -62,7 +71,7 @@
     {\bfseries} % format
     {\thesubsubsection} % label
     {} % sep
-    {\filbreak} % before-code
+    {} % before-code
     [] % after-code
 \titlespacing
     {\section} % command
@@ -97,6 +106,15 @@
 
 % Begin the document.
 \begin{document}
+\color{textcolor}
+\AddToShipoutPictureFG*{
+    \begin{tikzpicture}[remember picture,overlay]
+        % Top-right tartan strip from PNG: 1.5cm tall, 1cm wide, 0.5cm from right edge.
+        \node[anchor=north east,inner sep=0pt] at ([xshift=-0.5cm]current page.north east) {
+        \includegraphics[width=1cm,height=1.5cm]{tartan.png}
+            };
+    \end{tikzpicture}
+}
 \maketitle
 
 %CONTENT%

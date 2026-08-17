@@ -38,7 +38,7 @@ export function Game({ title, disabled = false }: { title: string; disabled?: bo
                 <Card.Actions>
                     {disabled
                         ? "Coming Soon"
-                        : <Stack component="form" gap={1} width="100%">
+                        : <Stack component="form" sx={{ gap: 1, width: "100%" }}>
                             <TextField
                                 label="Player Count"
                                 name="playerCount"
