@@ -44,7 +44,8 @@ export function ThemeContextProvider({ children }: { children: ReactNode; }): Re
                         backgroundColor: colorSchemes.dark.palette.secondary.main,
                         borderRadius: "100vh",
                         color: colorSchemes.dark.palette.common.white,
-                    }
+                    },
+                    text: { backgroundColor: "transparent" },
                 }
             },
             MuiContainer: { styleOverrides: { root: { padding: "0" } } },

@@ -14,6 +14,7 @@ export function CodeWrapper({ children, sx, ...props }: DOMAttributes<HTMLDivEle
     return (
         <Paper
             sx={{
+                backgroundColor: "#212121",
                 border: "3px solid gray",
                 overflow: "hidden",
                 position: "relative",
