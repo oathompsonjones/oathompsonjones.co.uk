@@ -1,6 +1,6 @@
 "use client";
 
-import { AppBar, BottomNavigation, BottomNavigationAction, Toolbar, useTheme } from "@mui/material";
+import { AppBar, BottomNavigation, BottomNavigationAction, Toolbar, useMediaQuery, useTheme } from "@mui/material";
 import { Apps, Article, Collections, ContactPage, Contrast, Home, Info, Science, VideogameAsset } from "@mui/icons-material";
 import { MouseEventHandler, useContext, type ReactNode } from "react";
 import { useGlass } from "hooks/useGlass";
@@ -16,6 +16,7 @@ export function Header(): ReactNode {
     const className = useGlass();
     const currentPath = usePathname();
     const { setReduceTransparency } = useContext(AccessibilityContext);
+    const isMobile = useMediaQuery("(max-width: 700px)");
 
     const nbsp = "\u00A0";
     const pages: Array<{ 
@@ -56,19 +57,49 @@ export function Header(): ReactNode {
                     showLabels
                     sx={{
                         left: "50%",
-                        maxWidth: "100%",
+                        width: "calc(100vw - 1rem)",
+                        maxWidth: "max-content",
                         padding: "0 !important",
                         position: "fixed",
                         top: "1rem",
                         transform: "translateX(-50%)",
                         zIndex: 1,
+                        gap: "0.5rem",
+                        "& .MuiBottomNavigationAction-root": {
+                            minWidth: "5rem",
+                            padding: "0.5rem 0.75rem",
+                            "@media (max-width: 900px)": {
+                                minWidth: "4rem",
+                                padding: "0.5rem 0.5rem",
+                            },
+                            "@media (max-width: 700px)": {
+                                minWidth: "3.25rem",
+                                padding: "0.4rem 0.25rem",
+                                "& .MuiBottomNavigationAction-label": {
+                                    fontSize: "0.65rem",
+                                },
+                                "& .MuiSvgIcon-root": {
+                                    fontSize: "1.25rem",
+                                },
+                            },
+                            "@media (max-width: 500px)": {
+                                minWidth: "2.75rem",
+                                padding: "0.35rem 0.1rem",
+                                "& .MuiBottomNavigationAction-label": {
+                                    fontSize: "0.55rem",
+                                },
+                                "& .MuiSvgIcon-root": {
+                                    fontSize: "1.1rem",
+                                },
+                            },
+                        },
                     }}>
                     {pages.map((page, i) => (
                         <BottomNavigationAction
                             key={i}
-                            value={page.link ?? ""}
+                            value={page.link}
                             href={page.link ?? ""}
-                            label={page.label ?? ""}
+                            label={isMobile ? undefined : page.label}
                             icon={page.icon}
                             onClick={page.onClick}
                             sx={{
