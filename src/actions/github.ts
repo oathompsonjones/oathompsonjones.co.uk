@@ -44,24 +44,31 @@ type RepoPageAPIResponse = {
             totalCount: number;
         };
     };
+    search: {
+        pageInfo: RepoPage["pageInfo"];
+        repos: RawRepo[];
+        repositoryCount: number;
+    };
 };
 
 const REPO_FIELDS = `
-    description
-    homepageUrl
-    isPrivate
-    languages(first: 10) {
-        nodes {
+    ... on Repository {
+        description
+        homepageUrl
+        isPrivate
+        languages(first: 10) {
+            nodes {
+                name
+            }
+        }
+        name
+        nameWithOwner
+        openGraphImageUrl
+        primaryLanguage {
             name
         }
+        url
     }
-    name
-    nameWithOwner
-    openGraphImageUrl
-    primaryLanguage {
-        name
-    }
-    url
 `;
 
 /**
@@ -146,7 +153,13 @@ function generateImage(arrayBuffer: ArrayBuffer): string {
  * @returns An authenticated GraphQL client.
  */
 export async function graphqlWithAuth(): Promise<typeof graphql> {
-    return Promise.resolve(graphql.defaults({ headers: { authorization: process.env.GITHUB_TOKEN } }));
+    return Promise.resolve(
+        graphql.defaults({
+            headers: {
+                authorization: process.env.GITHUB_TOKEN,
+            },
+        }),
+    );
 }
 
 /**
@@ -176,13 +189,26 @@ async function withRepoImages(repos: RawRepo[]): Promise<Repo[]> {
 
 /**
  * Fetches one page of repositories from GitHub.
- * @param params - Cursor pagination parameters.
+ *
+ * When `search` is empty, this uses the user's repository connection so
+ * repositories retain the normal pushed-at ordering.
+ *
+ * When `search` is provided, GitHub's repository search API is used.
+ *
+ * @param params - Pagination and search parameters.
+ * @param params.search - Search query for filtering repositories.
  * @param params.after - Fetches records after this cursor.
  * @param params.before - Fetches records before this cursor.
  * @param params.size - Number of repositories to fetch.
  * @returns A page of repositories.
  */
-export async function getGithubReposPage({ after = null, before = null, size = 10 }: {
+export async function getGithubReposPage({
+    search = "",
+    after = null,
+    before = null,
+    size = 10,
+}: {
+    search?: string;
     after?: string | null;
     before?: string | null;
     size?: number;
@@ -199,35 +225,115 @@ export async function getGithubReposPage({ after = null, before = null, size = 1
 
     try {
         const gql = await graphqlWithAuth();
-        const response = await gql<RepoPageAPIResponse>(`
-            query PortfolioRepos($after: String, $before: String, $first: Int, $last: Int) {
-                user(login: "oathompsonjones") {
-                    repositories(
-                        after: $after,
-                        before: $before,
-                        first: $first,
-                        isFork: false,
-                        last: $last,
-                        orderBy: { direction: DESC, field: PUSHED_AT },
-                        privacy: PUBLIC,
-                        ownerAffiliations: OWNER
+
+        if (search.trim() !== "") {
+            const searchQuery = [
+                `user:oathompsonjones`,
+                "is:public",
+                "fork:false",
+                search.trim(),
+            ].join(" ");
+
+            const response = await gql<RepoPageAPIResponse>(
+                `
+                    query PortfolioRepoSearch(
+                        $searchQuery: String!
+                        $after: String
+                        $before: String
+                        $first: Int
+                        $last: Int
                     ) {
-                        repos: nodes {
-                            ${REPO_FIELDS}
+                        search(
+                            query: $searchQuery
+                            type: REPOSITORY
+                            after: $after
+                            before: $before
+                            first: $first
+                            last: $last
+                        ) {
+                            repos: nodes {
+                                ${REPO_FIELDS}
+                            }
+                            repositoryCount
+                            pageInfo {
+                                endCursor
+                                hasNextPage
+                                hasPreviousPage
+                                startCursor
+                            }
                         }
-                        totalCount
-                        pageInfo {
-                            endCursor
-                            hasNextPage
-                            hasPreviousPage
-                            startCursor
+                    }
+                `,
+                {
+                    searchQuery,
+                    after,
+                    before,
+                    first,
+                    last,
+                },
+            );
+
+            const repos = await withRepoImages(
+                response.search.repos,
+            );
+
+            return {
+                data: {
+                    pageInfo: response.search.pageInfo,
+                    repos,
+                    totalCount: response.search.repositoryCount,
+                },
+                success: true,
+            };
+        }
+
+        const response = await gql<RepoPageAPIResponse>(
+            `
+                query PortfolioRepos(
+                    $after: String
+                    $before: String
+                    $first: Int
+                    $last: Int
+                ) {
+                    user(login: "oathompsonjones") {
+                        repositories(
+                            after: $after
+                            before: $before
+                            first: $first
+                            isFork: false
+                            last: $last
+                            orderBy: {
+                                direction: DESC
+                                field: PUSHED_AT
+                            }
+                            privacy: PUBLIC
+                            ownerAffiliations: OWNER
+                        ) {
+                            repos: nodes {
+                                ${REPO_FIELDS}
+                            }
+                            totalCount
+                            pageInfo {
+                                endCursor
+                                hasNextPage
+                                hasPreviousPage
+                                startCursor
+                            }
                         }
                     }
                 }
-            }
-        `, { after, before, first, last });
+            `,
+            {
+                after,
+                before,
+                first,
+                last,
+            },
+        );
 
-        const repos = await withRepoImages(response.user.repositories.repos);
+        const repos = await withRepoImages(
+            response.user.repositories.repos,
+        );
 
         return {
             data: {
@@ -239,7 +345,9 @@ export async function getGithubReposPage({ after = null, before = null, size = 1
         };
     } catch (error) {
         return {
-            error: error instanceof Error ? error : new Error("Failed to fetch the repositories."),
+            error: error instanceof Error
+                ? error
+                : new Error("Failed to fetch the repositories."),
             success: false,
         };
     }

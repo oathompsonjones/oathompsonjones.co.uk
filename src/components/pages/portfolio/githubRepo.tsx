@@ -20,9 +20,7 @@ export function GitHubRepo({ repo }: { repo: Repo; }): ReactNode {
         </>
     );
 
-    const homepageURL = repo.homepageUrl !== null && repo.homepageUrl.length > 0
-        ? repo.homepageUrl
-        : `https://oathompsonjones.github.io/${repo.name}`;
+    const homepageURL = repo.homepageUrl?.trim() || null;
 
     // Returns a Zoom element wrapping the repository to make it look nicer when loading in.
     return (
@@ -50,12 +48,8 @@ export function GitHubRepo({ repo }: { repo: Repo; }): ReactNode {
                                 justifyContent: "space-evenly",
                                 width: "100%",
                             }}>
-                            {repo.isPrivate
-                                ? undefined
-                                : <Button href={repo.url} size="small" variant="text">View Code</Button>}
-                            {repo.isPrivate
-                                ? undefined
-                                : (<Button href={homepageURL} size="small" variant="text">View Site</Button>)}
+                            <Button href={repo.url} size="small" variant="text">View Code</Button>
+                            {homepageURL !== null && <Button href={homepageURL} size="small" variant="text">View Site</Button>}
                         </Stack>
                     </Card.Actions>
                     <br />

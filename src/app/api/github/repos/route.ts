@@ -27,10 +27,18 @@ function getPageSize(value: string | null): number {
  */
 export async function GET(request: Request): Promise<NextResponse> {
     const { searchParams } = new URL(request.url);
+
+    const search = searchParams.get("search") ?? "";
     const after = searchParams.get("after");
+    const before = searchParams.get("before");
     const size = getPageSize(searchParams.get("size"));
 
-    const response = await getGithubReposPage({ after, size });
+    const response = await getGithubReposPage({
+        search,
+        after,
+        before,
+        size,
+    });
 
     if (!response.success) {
         return NextResponse.json(
