@@ -50,7 +50,7 @@ export function ThemeContextProvider({ children }: { children: ReactNode; }): Re
             },
             MuiContainer: { styleOverrides: { root: { padding: "0" } } },
             MuiDivider: { styleOverrides: { root: { margin: "1.25% 0" } } },
-            MuiInputBase: { styleOverrides: { root: { borderRadius: "1rem 1rem 0 0 !important" } } },
+            MuiInputBase: { styleOverrides: { root: { borderRadius: "1rem !important" } } },
             MuiMenuItem: { styleOverrides: { root: { borderRadius: "100vh" } } },
             MuiPaper: {
                 styleOverrides: {
@@ -84,7 +84,7 @@ export function ThemeContextProvider({ children }: { children: ReactNode; }): Re
                     MuiDivider: { variant: "middle" },
                     MuiFab: { color: "primary" },
                     MuiPaper: { elevation: 5 },
-                    MuiTextField: { fullWidth: true, required: true, variant: "filled" },
+                    MuiTextField: { slotProps: { input: { disableUnderline: true } }, variant: "filled" },
                 }}>
                     <CssBaseline enableColorScheme />
                     <Tartan />

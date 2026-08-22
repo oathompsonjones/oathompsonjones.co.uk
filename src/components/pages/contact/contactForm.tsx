@@ -39,11 +39,11 @@ export function ContactForm(): ReactNode {
                 : state.error !== null && <Alert severity="error">Message failed to send.</Alert>}
             <FormControl component="form" action={action} sx={{ display: "contents" }}>
                 <Stack spacing={2} direction={{ md: "row", xs: "column" }}>
-                    <TextField label="Name" name="name" />
-                    <TextField label="Email" name="email" type="email" />
+                    <TextField label="Name" name="name" fullWidth required />
+                    <TextField label="Email" name="email" type="email" fullWidth required />
                 </Stack>
-                <TextField label="Subject" name="subject" />
-                <TextField label="Content" name="content" multiline minRows={15} maxRows={30} />
+                <TextField label="Subject" name="subject" required />
+                <TextField label="Content" name="content" multiline minRows={15} maxRows={30} required />
                 <Recaptcha variant="caption" align="center" />
                 <Button endIcon={<Send />} type="submit" disabled={pending}>Send</Button>
             </FormControl>
