@@ -1,14 +1,58 @@
 "use client";
 
-import { Search } from "@mui/icons-material";
+import { FilterList, Search } from "@mui/icons-material";
 import { Masonry } from "@mui/lab";
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import { useCallback, useEffect, useState } from "react";
+import { Badge, Box, Button, Chip, IconButton, Popover, Stack, TextField, Typography } from "@mui/material";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import type { Repo, RepoPage } from "actions/github";
 import { GitHubRepo } from "components/pages/portfolio/githubRepo";
 import { useInfinitePagination } from "hooks/useInfinitePagination";
 import type { InfinitePaginationPage } from "hooks/useInfinitePagination";
+
+type RepoFilters = {
+    language: string;
+    topic: string;
+};
+
+const EMPTY_FILTERS: RepoFilters = { language: "", topic: "" };
+
+const FILTER_LABELS: Record<keyof RepoFilters, string> = {
+    language: "Language",
+    topic: "Topic",
+};
+
+/**
+ * Wraps a GitHub search qualifier value in quotes if it contains whitespace.
+ * @param value - The qualifier value.
+ * @returns The value, quoted if necessary.
+ */
+function quoteQualifierValue(value: string): string {
+    return value.includes(" ") ? `"${value}"` : value;
+}
+
+/**
+ * Builds a GitHub search query from a free-text search term and a set of
+ * filters, without mutating what is shown in the search bar itself.
+ *
+ * @param term - The free-text search term.
+ * @param filters - The active filters.
+ * @returns The combined GitHub search query.
+ */
+function buildSearchQuery(term: string, filters: RepoFilters): string {
+    const parts = [];
+
+    if (term.trim() !== "")
+        parts.push(term.trim());
+
+    if (filters.language.trim() !== "")
+        parts.push(`language:${quoteQualifierValue(filters.language.trim())}`);
+
+    if (filters.topic.trim() !== "")
+        parts.push(`topic:${quoteQualifierValue(filters.topic.trim())}`);
+
+    return parts.join(" ");
+}
 
 type RepoPageResponse =
     | {
@@ -43,7 +87,20 @@ function toPaginationPage(page: RepoPage): InfinitePaginationPage<Repo> {
  */
 export function RepositoryArchive({ initialPage }: { initialPage: RepoPage; }): ReactNode {
     const [searchTerm, setSearchTerm] = useState("");
+    const [filters, setFilters] = useState<RepoFilters>(EMPTY_FILTERS);
     const [activeSearch, setActiveSearch] = useState("");
+    const [filterAnchor, setFilterAnchor] = useState<HTMLButtonElement | null>(null);
+
+    const activeFilters = useMemo(
+        () => (Object.entries(filters) as Array<[keyof RepoFilters, string]>)
+            .filter(([, value]) => value.trim() !== ""),
+        [filters],
+    );
+
+    // Removes a single filter, keeping the rest of the active filters intact.
+    const removeFilter = useCallback((key: keyof RepoFilters) => {
+        setFilters((prev) => ({ ...prev, [key]: "" }));
+    }, []);
 
     // Fetches a page of repositories from the GitHub API.
     const fetchPage = useCallback(async ({ cursor }: { cursor: string | null; }): Promise<InfinitePaginationPage<Repo>> => {
@@ -73,13 +130,15 @@ export function RepositoryArchive({ initialPage }: { initialPage: RepoPage; }): 
     /**
      * Applies the search after a short debounce.
      *
+     * The search bar only ever reflects `searchTerm`; filters are merged
+     * into the underlying GitHub search query without being shown there.
      * The hook itself remains completely unaware of searching; changing
-     * the search simply causes this component to fetch a new first page
+     * the query simply causes this component to fetch a new first page
      * and reset the pagination state.
      */
     useEffect(() => {
         const timeout = window.setTimeout(async () => {
-            const search = searchTerm.trim();
+            const search = buildSearchQuery(searchTerm, filters);
 
             if (search === activeSearch)
                 return;
@@ -103,21 +162,70 @@ export function RepositoryArchive({ initialPage }: { initialPage: RepoPage; }): 
         }, 300);
 
         return (): void => clearTimeout(timeout);
-    }, [activeSearch, reset, searchTerm]);
+    }, [activeSearch, filters, reset, searchTerm]);
 
     return (
         <Stack sx={{ gap: 2 }}>
-            <TextField
-                label="Search"
-                variant="outlined"
-                value={searchTerm}
-                onChange={(event) => setSearchTerm(event.target.value)}
-                sx={{
-                    m: "0 0 0 auto",
-                    width: { md: 400, xs: "100%" },
-                }}
-                slotProps={{ input: { endAdornment: (<Search fontSize="small" sx={{ color: "text.secondary" }} />) } }}
-            />
+            <Stack direction="row" sx={{ alignItems: "center", gap: 1, m: "0 0 0 auto" }}>
+                {activeFilters.map(([key, value]) => (
+                    <Chip
+                        key={key}
+                        label={`${FILTER_LABELS[key]}: ${value}`}
+                        onDelete={() => removeFilter(key)}
+                        size="small"
+                    />
+                ))}
+
+                <Badge badgeContent={activeFilters.length} color="primary">
+                    <IconButton
+                        aria-label="Filter repositories"
+                        onClick={(event) => setFilterAnchor(event.currentTarget)}
+                    >
+                        <FilterList fontSize="small" />
+                    </IconButton>
+                </Badge>
+
+                <Popover
+                    anchorEl={filterAnchor}
+                    anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                    onClose={() => setFilterAnchor(null)}
+                    open={filterAnchor !== null}
+                    transformOrigin={{ horizontal: "right", vertical: "top" }}
+                >
+                    <Stack sx={{ gap: 2, minWidth: 250, p: 2 }}>
+                        <TextField
+                            label="Language"
+                            onChange={(event) => setFilters((prev) => ({ ...prev, language: event.target.value }))}
+                            size="small"
+                            value={filters.language}
+                            variant="outlined"
+                        />
+                        <TextField
+                            label="Topic"
+                            onChange={(event) => setFilters((prev) => ({ ...prev, topic: event.target.value }))}
+                            size="small"
+                            value={filters.topic}
+                            variant="outlined"
+                        />
+                        <Button
+                            disabled={activeFilters.length === 0}
+                            onClick={() => setFilters(EMPTY_FILTERS)}
+                            size="small"
+                        >
+                            Clear filters
+                        </Button>
+                    </Stack>
+                </Popover>
+
+                <TextField
+                    label="Search"
+                    variant="outlined"
+                    value={searchTerm}
+                    onChange={(event) => setSearchTerm(event.target.value)}
+                    sx={{ width: { md: 400, xs: "100%" } }}
+                    slotProps={{ input: { endAdornment: (<Search fontSize="small" sx={{ color: "text.secondary" }} />) } }}
+                />
+            </Stack>
 
             {repos.length === 0 && !isLoading && error === null && (
                 <Typography color="text.secondary" variant="caption">
