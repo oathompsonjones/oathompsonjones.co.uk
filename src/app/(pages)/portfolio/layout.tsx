@@ -19,13 +19,6 @@ export default layout({
                 Portfolio
             </Typography>
 
-            <Typography
-                variant="subtitle1"
-                align="center"
-                sx={{ fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", mb: 1 }}
-            >
-                COMING SOON: FEATURED PROJECTS
-            </Typography>
         </>
     ),
 });

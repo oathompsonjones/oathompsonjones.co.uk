@@ -1,3 +1,4 @@
+import { GitHub, OpenInNew } from "@mui/icons-material";
 import { Button, Chip, Typography, Zoom } from "@mui/material";
 import { Card } from "components/card";
 import type { ReactNode } from "react";
@@ -48,8 +49,8 @@ export function GitHubRepo({ repo }: { repo: Repo; }): ReactNode {
                                 justifyContent: "space-evenly",
                                 width: "100%",
                             }}>
-                            <Button href={repo.url} size="small" variant="text">View Code</Button>
-                            {homepageURL !== null && <Button href={homepageURL} size="small" variant="text">View Site</Button>}
+                            <Button href={repo.url} size="small" startIcon={<GitHub />} variant="text">View Code</Button>
+                            {homepageURL !== null && <Button href={homepageURL} size="small" startIcon={<OpenInNew />} variant="text">View Site</Button>}
                         </Stack>
                     </Card.Actions>
                     <br />

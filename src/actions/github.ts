@@ -51,6 +51,8 @@ type RepoPageAPIResponse = {
     };
 };
 
+type FeaturedReposAPIResponse = Record<string, RawRepo | null>;
+
 const REPO_FIELDS = `
     ... on Repository {
         description
@@ -185,6 +187,33 @@ async function withRepoImages(repos: RawRepo[]): Promise<Repo[]> {
     }));
 
     return repos.map((repo, i) => ({ ...repo, image: images[i]! }));
+}
+
+/**
+ * Fetches exact repositories for the curated portfolio section.
+ * @param names - Repository names owned by the portfolio account.
+ * @returns The repositories in the same order as the requested names.
+ */
+export async function getGithubReposByName(names: string[]): Promise<ActionResponse<Repo[]>> {
+    try {
+        const gql = await graphqlWithAuth();
+        const aliases = names.map((name, index) => `repo${index}: repository(owner: "oathompsonjones", name: "${name}") {
+            ${REPO_FIELDS}
+        }`).join("\n");
+        const response = await gql<FeaturedReposAPIResponse>(`query FeaturedPortfolioRepos {
+            ${aliases}
+        }`);
+        const repos = names.map((_, index) => response[`repo${index}`]).filter((repo): repo is RawRepo => repo !== null && repo !== undefined);
+
+        return { data: await withRepoImages(repos), success: true };
+    } catch (error) {
+        return {
+            error: error instanceof Error
+                ? error
+                : new Error("Failed to fetch featured repositories."),
+            success: false,
+        };
+    }
 }
 
 /**
