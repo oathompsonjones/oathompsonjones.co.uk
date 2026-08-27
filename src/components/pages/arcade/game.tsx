@@ -45,7 +45,8 @@ export function Game({ title, disabled = false }: { title: string; disabled?: bo
                                 value={playerCount}
                                 onChange={(e) => setPlayerCount(parseInt(e.target.value, 10) as PlayerCount)}
                                 select
-                            >
+                                fullWidth
+                                >
                                 <MenuItem value={0}>0 (CPU vs CPU)</MenuItem>
                                 <MenuItem value={1}>1 (User vs CPU)</MenuItem>
                                 <MenuItem value={2}>2 (User vs User)</MenuItem>
@@ -56,6 +57,7 @@ export function Game({ title, disabled = false }: { title: string; disabled?: bo
                                 value={difficulty}
                                 onChange={(e) => setDifficulty(e.target.value as Difficulty)}
                                 select
+                                fullWidth
                                 sx={{ display: playerCount === 2 ? "none" : "block" }}
                             >
                                 <MenuItem value="easy">Easy</MenuItem>
