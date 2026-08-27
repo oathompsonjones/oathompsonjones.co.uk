@@ -30,7 +30,7 @@ export function Footer(): ReactNode {
                     mx: "1rem",
                 }}>•</Typography>}
             >
-                <Typography variant="caption" component={Link} href="/privacy" color="primary">
+                <Typography variant="caption" component={Link} href="/privacy" color="primary" sx={{ textDecoration: "none" }}>
                     Privacy <Size sm="Policy" />
                 </Typography>
                 <Typography variant="caption">

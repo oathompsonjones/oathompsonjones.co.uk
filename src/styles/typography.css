@@ -1,7 +1,7 @@
 a {
-    color: var(--mui-palette-secondary-main);
+    color: var(--mui-palette-primary-main);
     cursor: pointer;
-    text-decoration: none;
+    /* text-decoration: none; */
 }
 
 .monospace {
