@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import type { ReactNode } from "react";
 import { RepositoryArchive } from "components/pages/portfolio/repositoryArchive";
 import { getGithubReposPage } from "actions/github";
