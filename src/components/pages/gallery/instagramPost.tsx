@@ -57,6 +57,7 @@ export function InstagramPost({ post }: { post: BeholdPost | Post; }): ReactNode
                             justifyContent: "center",
                             opacity: hover ? "100%" : "0%",
                             transition: "opacity 0.25s linear",
+                            textDecoration: "none",
                             // Ensure overlay content scales to fit small images
                             boxSizing: "border-box",
                             padding: 1,
