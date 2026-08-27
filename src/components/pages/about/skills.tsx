@@ -57,9 +57,11 @@ export function Skills(): ReactNode {
             <Typography variant="h3" align="center">Skills</Typography>
             <Divider />
             <Glass>
-                <SkillList title="Languages" list={languages} />
-                <SkillList title="Technologies" list={technologies} />
-                <SkillList title="Other" list={other} />
+                <Stack spacing={3}>
+                    <SkillList title="Languages" list={languages} />
+                    <SkillList title="Technologies" list={technologies} />
+                    <SkillList title="Other" list={other} />
+                </Stack>
             </Glass>
         </div>
     );

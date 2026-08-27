@@ -60,7 +60,17 @@ export function Header(): ReactNode {
                     value={currentPath}
                     showLabels
                     sx={{
-                        left: "50%",
+                        left: {
+                            xs: "0.5rem",
+                            sm: "0.75rem",
+                            md: "0.5rem",
+                        },
+                        right: {
+                            xs: "0.5rem",
+                            sm: "0.75rem",
+                            md: "0.5rem",
+                        },
+                        margin: "0 auto",
                         padding: "0 !important",
                         position: "fixed",
                         top: {
@@ -72,16 +82,10 @@ export function Header(): ReactNode {
                             xs: "auto",
                             md: 56,
                         },
-                        transform: "translateX(-50%)",
                         zIndex: 1,
-                        width: {
-                            xs: "calc(100vw - 1rem)",
-                            sm: "calc(100vw - 1.5rem)",
-                            md: "calc(100vw - 1rem)",
-                        },
                         maxWidth: {
-                            xs: "calc(100vw - 1rem)",
-                            sm: "calc(100vw - 1.5rem)",
+                            xs: "none",
+                            sm: "none",
                             md: "max-content",
                         },
                         gap: {
