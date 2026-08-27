@@ -6,6 +6,7 @@ import "styles/glass.css";
 import "styles/recaptcha.css";
 import type { Metadata, Viewport } from "next";
 import { gravatarURL, title } from "utils";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
 import { Footer } from "components/footer";
 import { Header } from "components/header";
 import InitColorSchemeScript from "@mui/system/InitColorSchemeScript";
@@ -49,12 +50,14 @@ export default async function Layout({ children }: { children: ReactNode; }): Pr
             <body>
                 <noscript>You need to enable JavaScript to run this app.</noscript>
                 <InitColorSchemeScript attribute="class" />
-                <Providers initialReduceTransparency={initialReduceTransparency}>
-                    <ScrollToTop />
-                    <Header />
-                    <main>{children}</main>
-                    <Footer />
-                </Providers>
+                <AppRouterCacheProvider>
+                    <Providers initialReduceTransparency={initialReduceTransparency}>
+                        <ScrollToTop />
+                        <Header />
+                        <main>{children}</main>
+                        <Footer />
+                    </Providers>
+                </AppRouterCacheProvider>
             </body>
         </html>
     );
