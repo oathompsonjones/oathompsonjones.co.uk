@@ -47,7 +47,11 @@ export function Header(): ReactNode {
                 backgroundImage: "none",
                 boxShadow: "none",
                 color: white,
-                height: "4.5rem",
+                height: {
+                    xs: "3.25rem",
+                    sm: "3.75rem",
+                    md: "4.5rem",
+                },
             }}
         >
             <Toolbar className="full-width">
@@ -57,39 +61,62 @@ export function Header(): ReactNode {
                     showLabels
                     sx={{
                         left: "50%",
-                        width: "calc(100vw - 1rem)",
-                        maxWidth: "max-content",
                         padding: "0 !important",
                         position: "fixed",
-                        top: "1rem",
+                        top: {
+                            xs: "0.6rem",
+                            sm: "0.75rem",
+                            md: "1rem",
+                        },
+                        height: {
+                            xs: "auto",
+                            md: 56,
+                        },
                         transform: "translateX(-50%)",
                         zIndex: 1,
-                        gap: "0.5rem",
+                        width: {
+                            xs: "calc(100vw - 1rem)",
+                            sm: "calc(100vw - 1.5rem)",
+                            md: "calc(100vw - 1rem)",
+                        },
+                        maxWidth: {
+                            xs: "calc(100vw - 1rem)",
+                            sm: "calc(100vw - 1.5rem)",
+                            md: "max-content",
+                        },
+                        gap: {
+                            xs: 0,
+                            sm: "0.15rem",
+                            md: "0.5rem",
+                        },
                         "& .MuiBottomNavigationAction-root": {
-                            minWidth: "5rem",
-                            padding: "0.5rem 0.75rem",
-                            "@media (max-width: 900px)": {
-                                minWidth: "4rem",
-                                padding: "0.5rem 0.5rem",
+                            minWidth: {
+                                xs: 0,
+                                md: "4rem",
+                                lg: "5rem",
                             },
-                            "@media (max-width: 700px)": {
-                                minWidth: "3.25rem",
-                                padding: "0.4rem 0.25rem",
-                                "& .MuiBottomNavigationAction-label": {
-                                    fontSize: "0.65rem",
-                                },
-                                "& .MuiSvgIcon-root": {
-                                    fontSize: "1.25rem",
+                            flex: {
+                                xs: "1 1 0",
+                                md: "0 1 auto",
+                            },
+                            padding: {
+                                xs: "0.35rem 0.05rem",
+                                sm: "0.4rem 0.15rem",
+                                md: "0.5rem 0.5rem",
+                                lg: "0.5rem 0.75rem",
+                            },
+                            "& .MuiBottomNavigationAction-label": {
+                                fontSize: {
+                                    xs: "0.55rem",
+                                    sm: "0.65rem",
+                                    md: "0.75rem",
                                 },
                             },
-                            "@media (max-width: 500px)": {
-                                minWidth: "2.75rem",
-                                padding: "0.35rem 0.1rem",
-                                "& .MuiBottomNavigationAction-label": {
-                                    fontSize: "0.55rem",
-                                },
-                                "& .MuiSvgIcon-root": {
-                                    fontSize: "1.1rem",
+                            "& .MuiSvgIcon-root": {
+                                fontSize: {
+                                    xs: "1.1rem",
+                                    sm: "1.25rem",
+                                    md: "1.5rem",
                                 },
                             },
                         },
