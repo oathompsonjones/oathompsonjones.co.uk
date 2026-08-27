@@ -166,65 +166,72 @@ export function RepositoryArchive({ initialPage }: { initialPage: RepoPage; }): 
 
     return (
         <Stack sx={{ gap: 2 }}>
-            <Stack direction="row" sx={{ alignItems: "center", gap: 1, m: "0 0 0 auto" }}>
-                {activeFilters.map(([key, value]) => (
-                    <Chip
-                        key={key}
-                        label={`${FILTER_LABELS[key]}: ${value}`}
-                        onDelete={() => removeFilter(key)}
-                        size="small"
-                    />
-                ))}
+            <Stack
+                direction="row"
+                sx={{ alignItems: "center", flexWrap: "wrap", gap: 2, justifyContent: "space-between" }}
+            >
+                <Typography variant="h4">Repository Archive</Typography>
 
-                <Badge badgeContent={activeFilters.length} color="primary">
-                    <IconButton
-                        aria-label="Filter repositories"
-                        onClick={(event) => setFilterAnchor(event.currentTarget)}
-                    >
-                        <FilterList fontSize="small" />
-                    </IconButton>
-                </Badge>
+                <Stack direction="row" sx={{ alignItems: "center", flexWrap: "wrap", gap: 1 }}>
+                    {activeFilters.map(([key, value]) => (
+                        <Chip
+                            key={key}
+                            label={`${FILTER_LABELS[key]}: ${value}`}
+                            onDelete={() => removeFilter(key)}
+                            size="small"
+                        />
+                    ))}
 
-                <Popover
-                    anchorEl={filterAnchor}
-                    anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-                    onClose={() => setFilterAnchor(null)}
-                    open={filterAnchor !== null}
-                    transformOrigin={{ horizontal: "right", vertical: "top" }}
-                >
-                    <Stack sx={{ gap: 2, minWidth: 250, p: 2 }}>
-                        <TextField
-                            label="Language"
-                            onChange={(event) => setFilters((prev) => ({ ...prev, language: event.target.value }))}
-                            size="small"
-                            value={filters.language}
-                            variant="outlined"
-                        />
-                        <TextField
-                            label="Topic"
-                            onChange={(event) => setFilters((prev) => ({ ...prev, topic: event.target.value }))}
-                            size="small"
-                            value={filters.topic}
-                            variant="outlined"
-                        />
-                        <Button
-                            disabled={activeFilters.length === 0}
-                            onClick={() => setFilters(EMPTY_FILTERS)}
-                            size="small"
+                    <Badge badgeContent={activeFilters.length} color="primary">
+                        <IconButton
+                            aria-label="Filter repositories"
+                            onClick={(event) => setFilterAnchor(event.currentTarget)}
                         >
-                            Clear filters
-                        </Button>
-                    </Stack>
-                </Popover>
+                            <FilterList fontSize="small" />
+                        </IconButton>
+                    </Badge>
 
-                <TextField
-                    label="Search"
-                    variant="outlined"
-                    value={searchTerm}
-                    onChange={(event) => setSearchTerm(event.target.value)}
-                    sx={{ width: { md: 400, xs: "100%" } }}
-                    slotProps={{ input: { endAdornment: (<Search fontSize="small" sx={{ color: "text.secondary" }} />) } }}
-                />
+                    <Popover
+                        anchorEl={filterAnchor}
+                        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                        onClose={() => setFilterAnchor(null)}
+                        open={filterAnchor !== null}
+                        transformOrigin={{ horizontal: "right", vertical: "top" }}
+                    >
+                        <Stack sx={{ gap: 2, minWidth: 250, p: 2 }}>
+                            <TextField
+                                label="Language"
+                                onChange={(event) => setFilters((prev) => ({ ...prev, language: event.target.value }))}
+                                size="small"
+                                value={filters.language}
+                                variant="outlined"
+                            />
+                            <TextField
+                                label="Topic"
+                                onChange={(event) => setFilters((prev) => ({ ...prev, topic: event.target.value }))}
+                                size="small"
+                                value={filters.topic}
+                                variant="outlined"
+                            />
+                            <Button
+                                disabled={activeFilters.length === 0}
+                                onClick={() => setFilters(EMPTY_FILTERS)}
+                                size="small"
+                            >
+                                Clear filters
+                            </Button>
+                        </Stack>
+                    </Popover>
+
+                    <TextField
+                        label="Search"
+                        variant="outlined"
+                        value={searchTerm}
+                        onChange={(event) => setSearchTerm(event.target.value)}
+                        sx={{ width: { md: 400, xs: "100%" } }}
+                        slotProps={{ input: { endAdornment: (<Search fontSize="small" sx={{ color: "text.secondary" }} />) } }}
+                    />
+                </Stack>
             </Stack>
 
             {repos.length === 0 && !isLoading && error === null && (

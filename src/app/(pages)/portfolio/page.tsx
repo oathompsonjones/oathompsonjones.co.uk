@@ -31,7 +31,6 @@ export default async function Portfolio(): Promise<ReactNode> {
             <Divider /> */}
 
             <Stack sx={{ gap: 2 }}>
-                <Typography variant="h4">Repository Archive</Typography>
                 <RepositoryArchive initialPage={response.data} />
             </Stack>
         </Stack>
