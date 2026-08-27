@@ -15,6 +15,7 @@ import type { ReactNode } from "react";
 import { ScrollToTop } from "components/scrollToTop";
 import { cookies } from "next/headers";
 import keywords from "public/keywords.json";
+import { colours } from "components/tartan";
 
 // https://realfavicongenerator.net (remove the mask icon and msapplication stuff)
 export const metadata: Metadata = {
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
     initialScale: 1,
-    themeColor: "#1c7eea",
+    themeColor: colours.maroon,
     viewportFit: "cover",
     width: "device-width",
 };
