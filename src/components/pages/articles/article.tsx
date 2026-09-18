@@ -12,18 +12,24 @@ import type { ReactNode } from "react";
  * @param props.image - An image to display for the article.
  * @returns An element which renders an article card.
  */
-export function Article({ title, summary, image }: { title: string; summary: ReactNode; image?: string; }): ReactNode {
+export function Article({ title, summary, image }: {
+    readonly title: string;
+    readonly summary: ReactNode;
+    readonly image?: string;
+}): ReactNode {
     return (
         <Zoom in timeout={500}>
             <Card>
-                {image !== undefined && <Card.Media
-                    component="img"
-                    image={image}
-                    style={{
-                        margin: "-1rem -1rem 0",
-                        width: "calc(100% + 2rem)",
-                    }}
-                />}
+                {image !== undefined && (
+                    <Card.Media
+                        component="img"
+                        image={image}
+                        style={{
+                            margin: "-1rem -1rem 0",
+                            width: "calc(100% + 2rem)",
+                        }}
+                    />
+                )}
                 <Card.Content>
                     <Typography variant="h6">{title}</Typography>
                     {typeof summary === "string" ? <Typography variant="body1">{summary}</Typography> : summary}
@@ -31,8 +37,8 @@ export function Article({ title, summary, image }: { title: string; summary: Rea
                 <Card.Actions>
                     <Button
                         color="primary"
-                        variant="text"
                         href={`/articles/${title.toLowerCase().replace(/\s+/g, "-")}`}
+                        variant="text"
                     >
                         Read more
                     </Button>

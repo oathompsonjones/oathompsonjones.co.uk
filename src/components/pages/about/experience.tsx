@@ -20,14 +20,14 @@ export function Experience(): ReactNode {
 
     return (
         <div>
-            <Typography variant="h3" align="center">Experience</Typography>
+            <Typography align="center" variant="h3">Experience</Typography>
             <Divider />
             <Glass>
                 {experiences.map(({ description, heading }, i) => (
                     <div key={i}>
                         {i > 0 && <Divider />}
                         <Typography variant="subtitle1">{heading}</Typography>
-                        <Typography variant="body2" sx={{ whiteSpace: "pre-wrap" }} component="ul">
+                        <Typography component="ul" sx={{ whiteSpace: "pre-wrap" }} variant="body2">
                             {description.map((item, j) => <li key={j}>{item}</li>)}
                         </Typography>
                     </div>

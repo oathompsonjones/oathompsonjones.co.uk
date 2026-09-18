@@ -17,6 +17,8 @@ export default function Loading(): ReactNode {
             {Array(20).fill(0).map((_, i) => (
                 <Skeleton
                     key={i}
+                    // eslint-disable-next-line @typescript-eslint/naming-convention -- CSS custom property.
+                    style={{ "--width": `${width}px` }}
                     sx={{
                         height: {
                             lg: "calc(var(--width) / 8)",
@@ -26,8 +28,6 @@ export default function Loading(): ReactNode {
                             xs: "calc(var(--width) / 2)",
                         },
                     }}
-                    // eslint-disable-next-line @typescript-eslint/naming-convention
-                    style={{ "--width": `${width}px` }}
                     variant="rounded"
                 />
             ))}

@@ -9,16 +9,13 @@ export const metadata: Metadata = { title: title("Portfolio") };
 export default layout({
     className: "full-width",
     footer: (
-        <Typography variant="subtitle1" align="right">
-                Visit my <Link href="/github" prefetch={false}>GitHub</Link> profile.
+        <Typography align="right" variant="subtitle1">
+            Visit my <Link href="/github" prefetch={false}>GitHub</Link> profile.
         </Typography>
     ),
     header: (
-        <>
-            <Typography variant="h2" align="center" gutterBottom>
-                Portfolio
-            </Typography>
-
-        </>
+        <Typography align="center" gutterBottom variant="h2">
+            Portfolio
+        </Typography>
     ),
 });

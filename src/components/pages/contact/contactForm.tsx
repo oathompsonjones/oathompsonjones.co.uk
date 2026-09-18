@@ -37,15 +37,15 @@ export function ContactForm(): ReactNode {
             {state.success
                 ? <Alert severity="success">Message sent!</Alert>
                 : state.error !== null && <Alert severity="error">Message failed to send.</Alert>}
-            <FormControl component="form" action={action} sx={{ display: "contents" }}>
-                <Stack spacing={2} direction={{ md: "row", xs: "column" }}>
-                    <TextField label="Name" name="name" fullWidth required />
-                    <TextField label="Email" name="email" type="email" fullWidth required />
+            <FormControl action={action} component="form" sx={{ display: "contents" }}>
+                <Stack direction={{ md: "row", xs: "column" }} spacing={2}>
+                    <TextField fullWidth label="Name" name="name" required />
+                    <TextField fullWidth label="Email" name="email" required type="email" />
                 </Stack>
                 <TextField label="Subject" name="subject" required />
-                <TextField label="Content" name="content" multiline minRows={15} maxRows={30} required />
-                <Recaptcha variant="caption" align="center" />
-                <Button endIcon={<Send />} type="submit" disabled={pending}>Send</Button>
+                <TextField label="Content" maxRows={30} minRows={15} multiline name="content" required />
+                <Recaptcha align="center" variant="caption" />
+                <Button disabled={pending} endIcon={<Send />} type="submit">Send</Button>
             </FormControl>
         </Glass>
     );

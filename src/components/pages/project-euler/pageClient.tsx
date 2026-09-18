@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, IconButton, Typography } from "@mui/material";
-import { type ChangeEvent, type ReactNode, useEffect, useState } from "react";
+import { type ChangeEvent, type ReactNode, useCallback, useEffect, useState } from "react";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { getProblem, getSolution, getUtils } from "actions/projectEuler";
 import { Code } from "components/pages/project-euler/code";
@@ -9,13 +9,28 @@ import { CodeWrapper } from "components/pages/project-euler/codeWrapper";
 import Link from "next/link";
 import hljs from "highlight.js/lib/common";
 
+const AFTER = ":after";
+const BEFORE = ":before";
+const CENTER = ".center";
+const DANGEROUSLY_SET_INNER_HTML = "dangerouslySetInnerHTML";
+const HTML = "__html";
+const RED = ".red";
+const TITLE_SX = {
+    [AFTER]: { content: { md: "'||===>>'" } },
+    [BEFORE]: { content: { md: "'<<===||'" } },
+};
+const DESCRIPTION_SX = {
+    [CENTER]: { textAlign: "center" },
+    [RED]: { color: "red" },
+};
+
 /**
  * Renders the interactive Project Euler experience.
  * @param props - The component properties.
  * @param props.initialProblem - Initial problem id from Next.js search params.
  * @returns A Project Euler page view.
  */
-export function ProjectEulerClient({ initialProblem }: { initialProblem: number; }): ReactNode {
+export function ProjectEulerClient({ initialProblem }: { readonly initialProblem: number; }): ReactNode {
     const [loading, setLoading] = useState(true);
     const [problem, setProblem] = useState(initialProblem);
     const [{ description, title }, setDescription] = useState({ description: "Loading...", title: "Loading..." });
@@ -23,18 +38,21 @@ export function ProjectEulerClient({ initialProblem }: { initialProblem: number;
     const [showUtils, setShowUtils] = useState(false);
     const [utils, setUtils] = useState("Loading...");
 
-    const inputHandler = (e: ChangeEvent<HTMLInputElement>): void => {
+    const inputHandler = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
         setLoading(true);
         setProblem(Math.max(1, Number(e.target.value)));
-    };
-    const prev = (): void => {
+    }, []);
+    const prev = useCallback((): void => {
         setLoading(true);
         setProblem((p) => Math.max(1, p - 1));
-    };
-    const next = (): void => {
+    }, []);
+    const next = useCallback((): void => {
         setLoading(true);
         setProblem((p) => p + 1);
-    };
+    }, []);
+    const toggleUtils = useCallback((): void => setShowUtils((visible) => !visible), []);
+    const titleHtml = { [DANGEROUSLY_SET_INNER_HTML]: { [HTML]: title } };
+    const descriptionHtml = { [DANGEROUSLY_SET_INNER_HTML]: { [HTML]: description } };
 
     // Handle loading state.
     useEffect(() => {
@@ -117,13 +135,13 @@ export function ProjectEulerClient({ initialProblem }: { initialProblem: number;
                     appearance: textfield;
                     -moz-appearance: textfield;
                 }
-            `}</style>
+            `}
+            </style>
             <Typography
                 align="center"
                 className="monospace"
                 color="inherit"
-                // eslint-disable-next-line @typescript-eslint/naming-convention
-                sx={{ ":after": { content: { md: "'||===>>'" } }, ":before": { content: { md: "'<<===||'" } } }}
+                sx={TITLE_SX}
                 variant="h2"
             >
                 Project Euler
@@ -148,17 +166,14 @@ export function ProjectEulerClient({ initialProblem }: { initialProblem: number;
                                 align="center"
                                 className="monospace"
                                 color="text.secondary"
-                                // eslint-disable-next-line @typescript-eslint/naming-convention
-                                dangerouslySetInnerHTML={{ __html: title }}
                                 variant="h5"
+                                {...titleHtml}
                             />
                             <Typography
                                 className="monospace"
-                                /* eslint-disable @typescript-eslint/naming-convention */
-                                dangerouslySetInnerHTML={{ __html: description }}
-                                sx={{ ".center": { textAlign: "center" }, ".red": { color: "red" } }}
-                                /* eslint-enable @typescript-eslint/naming-convention */
+                                sx={DESCRIPTION_SX}
                                 variant="body1"
+                                {...descriptionHtml}
                             />
                         </MathJax>
                     </MathJaxContext>
@@ -173,7 +188,7 @@ export function ProjectEulerClient({ initialProblem }: { initialProblem: number;
             <div>
                 <Typography className="monospace" sx={{ color: "inherit", textAlign: "center" }} variant="h4">
                     Utils
-                    <Button color="primary" onClick={(): void => setShowUtils((s) => !s)} variant="text">
+                    <Button color="primary" onClick={toggleUtils} variant="text">
                         ({showUtils ? "Hide" : "Show"})
                     </Button>
                 </Typography>

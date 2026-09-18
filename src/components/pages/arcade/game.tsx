@@ -7,9 +7,8 @@ import {
     TextField,
     Zoom,
 } from "@mui/material";
+import { type ChangeEvent, type ReactNode, useCallback, useState } from "react";
 import { Card } from "components/card";
-import type { ReactNode } from "react";
-import { useState } from "react";
 
 /**
  * Renders a card for a game.
@@ -18,7 +17,7 @@ import { useState } from "react";
  * @param props.disabled - Whether the game is disabled (not implemented yet).
  * @returns An element which renders a game card.
  */
-export function Game({ title, disabled = false }: { title: string; disabled?: boolean; }): ReactNode {
+export function Game({ title, disabled = false }: { readonly title: string; readonly disabled?: boolean; }): ReactNode {
     type PlayerCount = 0 | 1 | 2;
     const [playerCount, setPlayerCount] = useState<PlayerCount>(1);
 
@@ -30,44 +29,52 @@ export function Game({ title, disabled = false }: { title: string; disabled?: bo
 
         return `/arcade/${page}?playerCount=${playerCount}&difficulty=${difficulty}`;
     };
+    const handlePlayerCountChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+        setPlayerCount(parseInt(event.target.value, 10) as PlayerCount);
+    }, []);
+    const handleDifficultyChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+        setDifficulty(event.target.value as Difficulty);
+    }, []);
+
+    const controls = disabled
+        ? "Coming Soon"
+        : (
+            <Stack component="form" sx={{ gap: 1, width: "100%" }}>
+                <TextField
+                    fullWidth
+                    label="Player Count"
+                    name="playerCount"
+                    onChange={handlePlayerCountChange}
+                    select
+                    value={playerCount}
+                >
+                    <MenuItem value={0}>0 (CPU vs CPU)</MenuItem>
+                    <MenuItem value={1}>1 (User vs CPU)</MenuItem>
+                    <MenuItem value={2}>2 (User vs User)</MenuItem>
+                </TextField>
+                <TextField
+                    fullWidth
+                    label="Difficulty"
+                    name="difficulty"
+                    onChange={handleDifficultyChange}
+                    select
+                    sx={{ display: playerCount === 2 ? "none" : "block" }}
+                    value={difficulty}
+                >
+                    <MenuItem value="easy">Easy</MenuItem>
+                    <MenuItem value="medium">Medium</MenuItem>
+                    <MenuItem value="hard">Hard</MenuItem>
+                    <MenuItem value="impossible">Impossible</MenuItem>
+                </TextField>
+                <Button href={href()} type="submit">Play</Button>
+            </Stack>
+        );
 
     return (
         <Zoom in timeout={500}>
             <Card>
                 <Card.Header title={title} />
-                <Card.Actions>
-                    {disabled
-                        ? "Coming Soon"
-                        : <Stack component="form" sx={{ gap: 1, width: "100%" }}>
-                            <TextField
-                                label="Player Count"
-                                name="playerCount"
-                                value={playerCount}
-                                onChange={(e) => setPlayerCount(parseInt(e.target.value, 10) as PlayerCount)}
-                                select
-                                fullWidth
-                                >
-                                <MenuItem value={0}>0 (CPU vs CPU)</MenuItem>
-                                <MenuItem value={1}>1 (User vs CPU)</MenuItem>
-                                <MenuItem value={2}>2 (User vs User)</MenuItem>
-                            </TextField>
-                            <TextField
-                                label="Difficulty"
-                                name="difficulty"
-                                value={difficulty}
-                                onChange={(e) => setDifficulty(e.target.value as Difficulty)}
-                                select
-                                fullWidth
-                                sx={{ display: playerCount === 2 ? "none" : "block" }}
-                            >
-                                <MenuItem value="easy">Easy</MenuItem>
-                                <MenuItem value="medium">Medium</MenuItem>
-                                <MenuItem value="hard">Hard</MenuItem>
-                                <MenuItem value="impossible">Impossible</MenuItem>
-                            </TextField>
-                            <Button type="submit" href={href()}>Play</Button>
-                        </Stack>}
-                </Card.Actions>
+                <Card.Actions>{controls}</Card.Actions>
             </Card>
         </Zoom>
     );

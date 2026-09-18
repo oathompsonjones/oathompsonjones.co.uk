@@ -17,21 +17,21 @@ function promiseWrapper<T = unknown>(promise: Promise<T>): () => T {
             status = "success";
             result = value;
         },
-        (error: Error) => {
+        (error: unknown) => {
             status = "error";
-            result = error;
+            result = error instanceof Error ? error : new Error(String(error));
         },
     );
 
     return (): T => {
         switch (status) {
             case "pending":
-                // eslint-disable-next-line @typescript-eslint/no-throw-literal, @typescript-eslint/only-throw-error
+                // eslint-disable-next-line @typescript-eslint/only-throw-error
                 throw s;
             case "success":
                 return result as T;
             case "error":
-                throw result as Error;
+                throw result instanceof Error ? result : new Error(String(result));
             default:
                 throw new Error("Unknown status");
         }

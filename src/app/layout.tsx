@@ -13,9 +13,9 @@ import InitColorSchemeScript from "@mui/system/InitColorSchemeScript";
 import { Providers } from "contexts/providers";
 import type { ReactNode } from "react";
 import { ScrollToTop } from "components/scrollToTop";
+import { colours } from "components/tartan";
 import { cookies } from "next/headers";
 import keywords from "public/keywords.json";
-import { colours } from "components/tartan";
 
 // https://realfavicongenerator.net (remove the mask icon and msapplication stuff)
 export const metadata: Metadata = {
@@ -42,7 +42,7 @@ export const viewport: Viewport = {
  * @param props.children - The children to render.
  * @returns A page wrapper.
  */
-export default async function Layout({ children }: { children: ReactNode; }): Promise<ReactNode> {
+export default async function Layout({ children }: { readonly children: ReactNode; }): Promise<ReactNode> {
     const cookieStore = await cookies();
     const initialReduceTransparency = cookieStore.get("reduceTransparency")?.value === "true";
 

@@ -10,7 +10,7 @@ import { Typography } from "@mui/material";
  * @param props.reset - The function to reset the application.
  * @returns An error page.
  */
-export default function Error({ error, reset }: { error: Error; reset: () => void; }): ReactNode {
+export default function Error({ error, reset }: { readonly error: Error; readonly reset: () => void; }): ReactNode {
     return (
         <html lang="en" suppressHydrationWarning>
             <body>

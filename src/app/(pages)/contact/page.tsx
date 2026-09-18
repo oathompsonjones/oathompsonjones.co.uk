@@ -10,7 +10,7 @@ import { Typography } from "@mui/material";
 export default function Contact(): ReactNode {
     return (
         <>
-            <Typography variant="h2" align="center" gutterBottom>Contact Me</Typography>
+            <Typography align="center" gutterBottom variant="h2">Contact Me</Typography>
             <ContactForm />
             <br />
             <SocialLinks large />

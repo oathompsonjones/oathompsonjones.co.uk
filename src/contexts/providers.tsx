@@ -9,9 +9,13 @@ import { ThemeContextProvider } from "./theme";
  * Contains any context providers.
  * @param props - The props to pass to the layout.
  * @param props.children - The children to render.
+ * @param props.initialReduceTransparency - The initial transparency preference.
  * @returns The context providers.
  */
-export function Providers({ children, initialReduceTransparency }: { children: ReactNode; initialReduceTransparency: boolean; }): ReactNode {
+export function Providers({ children, initialReduceTransparency }: {
+    readonly children: ReactNode;
+    readonly initialReduceTransparency: boolean;
+}): ReactNode {
     return (
         <AccessibilityContextProvider initialReduceTransparency={initialReduceTransparency}>
             <ThemeContextProvider>

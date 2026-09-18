@@ -19,12 +19,20 @@ export function Size({ lg, md, sm, xl, xs }: Partial<Record<"lg" | "md" | "sm" |
     const isLg = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"));
     const isXl = useMediaQuery((theme: Theme) => theme.breakpoints.up("xl"));
 
-    switch (true) {
-        case isXl: return xl ?? lg ?? md ?? sm ?? xs;
-        case isLg: return lg ?? md ?? sm ?? xs;
-        case isMd: return md ?? sm ?? xs;
-        case isSm: return sm ?? xs;
-        case isXs: return xs;
-        default: return xs;
-    }
+    if (isXl)
+        return xl ?? lg ?? md ?? sm ?? xs;
+
+    if (isLg)
+        return lg ?? md ?? sm ?? xs;
+
+    if (isMd)
+        return md ?? sm ?? xs;
+
+    if (isSm)
+        return sm ?? xs;
+
+    if (isXs)
+        return xs;
+
+    return xs;
 }

@@ -34,9 +34,9 @@ export async function GET(request: Request): Promise<NextResponse> {
     const size = getPageSize(searchParams.get("size"));
 
     const response = await getGithubReposPage({
-        search,
         after,
         before,
+        search,
         size,
     });
 

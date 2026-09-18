@@ -2,8 +2,7 @@ import type { AriaAttributes, DOMAttributes } from "react";
 
 /* eslint-disable
     @typescript-eslint/consistent-type-definitions,
-    @typescript-eslint/consistent-indexed-object-style,
-    @typescript-eslint/ban-types */
+    @typescript-eslint/consistent-indexed-object-style */
 declare global {
     namespace React {
         // Allows the use of the sx prop on any HTML element.
@@ -27,7 +26,7 @@ declare global {
             | "edge"
             | "full-width"
             | "wrapper"
-            | (string & {});
+            | string & {};
 
         // Allows for autocompletion of the className prop with the defined layout classes.
         interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {

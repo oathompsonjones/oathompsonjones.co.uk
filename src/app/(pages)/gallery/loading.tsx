@@ -20,6 +20,8 @@ export default function Loading(): ReactNode {
             {Array(skeletonCount).fill(0).map((_, i) => (
                 <Skeleton
                     key={i}
+                    // eslint-disable-next-line @typescript-eslint/naming-convention -- CSS custom property.
+                    style={{ "--height": `${heights[i]!}px` }}
                     sx={{
                         height: {
                             lg: "calc(var(--height) / 6)",
@@ -27,8 +29,6 @@ export default function Loading(): ReactNode {
                             xs: "var(--height)",
                         },
                     }}
-                    // eslint-disable-next-line @typescript-eslint/naming-convention
-                    style={{ "--height": `${heights[i]!}px` }}
                     variant="rectangular"
                 />
             ))}

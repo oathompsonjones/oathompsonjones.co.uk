@@ -10,7 +10,9 @@ import type { SxProps } from "@mui/material";
  * @param props.sx - Optional styles to apply to the Paper component.
  * @returns The wrapped children.
  */
-export function CodeWrapper({ children, sx, ...props }: DOMAttributes<HTMLDivElement> & { sx?: SxProps; }): ReactNode {
+export function CodeWrapper(
+    { children, sx, ...props }: DOMAttributes<HTMLDivElement> & { readonly sx?: SxProps; },
+): ReactNode {
     return (
         <Paper
             sx={{

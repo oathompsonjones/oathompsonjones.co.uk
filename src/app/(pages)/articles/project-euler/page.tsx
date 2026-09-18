@@ -24,8 +24,9 @@ export default function ProjectEuler(): ReactNode {
                     Project Euler
                 </Typography>
                 <Typography variant="caption">
-                    The following 3 sections were taken from the <Link href="https://projecteuler.net/">Project Euler
-                        website</Link> in March 2026.
+                    The following 3 sections were taken from the
+                    {" "}<Link href="https://projecteuler.net/">Project Euler website</Link>{" "}
+                    in March 2026.
                 </Typography>
                 <Typography variant="h3">
                     What is Project Euler?
@@ -77,8 +78,8 @@ export default function ProjectEuler(): ReactNode {
                     For specific solutions, you can search for the problem number,
                     e.g. <Link href="/project-euler?problem=59">{url}/project-euler?problem=59</Link>.
                     <br /><br />
-                    You can also find my solutions on <Link href="https://github.com/oathompsonjones/project-euler">
-                        GitHub</Link>.
+                    You can also find my solutions on
+                    {" "}<Link href="https://github.com/oathompsonjones/project-euler">GitHub</Link>.
                 </Typography>
             </Glass>
         </article>

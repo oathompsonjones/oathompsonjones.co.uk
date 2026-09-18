@@ -6,61 +6,47 @@ import cv from "assets/cv.json";
 import { jsonToJSDoc } from "app/(pages)/cv";
 
 const data = cv as CV;
-
 const divider = <Typography sx={{ color: "gray" }}>•</Typography>;
-
-/**
- * Renders a list of skills.
- * @param props - The component properties.
- * @param props.title - The title to render left of the list.
- * @param props.list - The list of skills to render.
- * @returns A list of skills.
- */
-function SkillList({ title, list }: { title: string; list: string[]; }): ReactNode {
-    return (
-        <Stack
-            direction={{ sm: "row", xs: "column" }}
-            spacing={2}
-            useFlexGap
-            sx={{
-                alignItems: { sm: "center", xs: "flex-start" },
-                flexWrap: { sm: "wrap", xs: "nowrap" },
-                rowGap: 1,
-            }}
-        >
-            <Typography variant="h6" color="text.secondary">{title}:</Typography>
-            <Stack
-                direction="row"
-                spacing={1}
-                useFlexGap
-                sx={{ alignItems: "center", flexWrap: "wrap", rowGap: 1 }}
-                divider={divider}
-            >
-                {list.map(jsonToJSDoc).map((skill, i) => <span key={i}>{skill}</span>)}
-            </Stack>
-        </Stack>
-    );
-}
 
 /**
  * Contains the skills segment for my CV page.
  * @returns The Skills element.
  */
 export function Skills(): ReactNode {
-    // Contains the data for the skills section of my CV.
     const languages = data.Skills.Languages;
     const technologies = data.Skills.Technologies;
     const other = data.Skills.Other;
 
+    const renderSkillList = (title: string, list: string[]): ReactNode => (
+        <Stack
+            direction={{ sm: "row", xs: "column" }}
+            key={title}
+            spacing={2}
+            sx={{ alignItems: { sm: "center", xs: "flex-start" }, flexWrap: { sm: "wrap", xs: "nowrap" }, rowGap: 1 }}
+            useFlexGap
+        >
+            <Typography color="text.secondary" variant="h6">{title}:</Typography>
+            <Stack
+                direction="row"
+                divider={divider}
+                spacing={1}
+                sx={{ alignItems: "center", flexWrap: "wrap", rowGap: 1 }}
+                useFlexGap
+            >
+                {list.map((skill, index) => <span key={`${title}-${skill}-${index}`}>{jsonToJSDoc(skill)}</span>)}
+            </Stack>
+        </Stack>
+    );
+
     return (
         <div>
-            <Typography variant="h3" align="center">Skills</Typography>
+            <Typography align="center" variant="h3">Skills</Typography>
             <Divider />
             <Glass>
                 <Stack spacing={3}>
-                    <SkillList title="Languages" list={languages} />
-                    <SkillList title="Technologies" list={technologies} />
-                    <SkillList title="Other" list={other} />
+                    {renderSkillList("Languages", languages)}
+                    {renderSkillList("Technologies", technologies)}
+                    {renderSkillList("Other", other)}
                 </Stack>
             </Glass>
         </div>

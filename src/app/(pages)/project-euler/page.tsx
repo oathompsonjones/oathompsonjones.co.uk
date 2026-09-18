@@ -9,7 +9,7 @@ import { getParam } from "utils";
  * @returns An element displaying my project euler solutions.
  */
 export default async function ProjectEuler({ searchParams }: {
-    searchParams: Promise<Record<string, string[] | string | undefined>>;
+    readonly searchParams: Promise<Record<string, string[] | string | undefined>>;
 }): Promise<ReactNode> {
     const params = await searchParams;
     const rawProblem = getParam(params.problem);

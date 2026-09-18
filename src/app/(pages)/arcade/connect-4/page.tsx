@@ -67,30 +67,32 @@ export default function Connect4Game(): ReactNode {
         startGame();
     }, [startGame]);
 
-    const onClick = (event: MouseEvent<HTMLDivElement>): void => {
+    const onClick = useCallback((event: MouseEvent<HTMLDivElement>): void => {
         if (boardRef.current?.winner === false) {
             const id = event.currentTarget.id.split("-").map(Number);
 
             gameRef.current?.emit("input", { x: id[0], y: 0 });
         }
-    };
+    }, []);
 
-    const renderCell = (x: number, y: number): ReactNode => {
+    const renderCell = useCallback((x: number, y: number): ReactNode => {
         if (!boardRef.current)
             return "";
 
         const cellValue = boardRef.current.cellOccupier({ x, y }) ?? -1;
 
-        return [<Connect4Counter red />, <Connect4Counter yellow />][cellValue] ?? "";
-    };
+        return [<Connect4Counter key="red" red />, <Connect4Counter key="yellow" yellow />][cellValue] ?? "";
+    }, []);
 
     return (
         <div>
-            <Typography variant="h2" align="center">Connect 4</Typography>
-            <Grid height={6} width={7} onClick={onClick} renderCell={renderCell} closed />
-            {statusText !== "" && <Typography variant="h3" align="center" color="text.secondary">
-                {statusText} <Button onClick={startGame}>Play Again</Button>
-            </Typography>}
+            <Typography align="center" variant="h2">Connect 4</Typography>
+            <Grid closed height={6} onClick={onClick} renderCell={renderCell} width={7} />
+            {statusText !== "" && (
+                <Typography align="center" color="text.secondary" variant="h3">
+                    {statusText} <Button onClick={startGame}>Play Again</Button>
+                </Typography>
+            )}
         </div>
     );
 }

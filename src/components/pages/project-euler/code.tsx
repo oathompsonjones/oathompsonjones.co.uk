@@ -1,12 +1,13 @@
 "use client";
 
-import { ButtonGroup, IconButton, Tooltip } from "@mui/material";
+import { ButtonGroup, IconButton, type SxProps, Tooltip } from "@mui/material";
+import { type ReactNode, useCallback, useState } from "react";
 import { CodeWrapper } from "./codeWrapper";
 import { ContentCopy } from "@mui/icons-material";
-import type { ReactNode } from "react";
-import type { SxProps } from "@mui/material";
 import hljs from "highlight.js/lib/common";
-import { useState } from "react";
+
+const DANGEROUSLY_SET_INNER_HTML = "dangerouslySetInnerHTML";
+const HTML = "__html";
 
 /**
  * Renders a code block.
@@ -15,21 +16,26 @@ import { useState } from "react";
  * @param props.sx - Optional styles to apply to the code block.
  * @returns The code block.
  */
-export function Code({ children, sx }: { children: string; sx?: SxProps; }): ReactNode {
+export function Code({ children, sx }: { readonly children: string; readonly sx?: SxProps; }): ReactNode {
     const [showButtons, setShowButtons] = useState(false);
     const [useLigatures, setUseLigatures] = useState(true);
-    const toggleUseLigatures = (): void => setUseLigatures((prev) => !prev);
-    const copyCode = (): void => {
+    const toggleUseLigatures = useCallback((): void => setUseLigatures((prev) => !prev), []);
+    const showControls = useCallback((): void => setShowButtons(true), []);
+    const hideControls = useCallback((): void => setShowButtons(false), []);
+    const copyCode = useCallback((): void => {
         void navigator.clipboard.writeText(children);
-    };
+    }, [children]);
+    const highlightedHtml = hljs.highlight(children, { language: "typescript" }).value;
+    const highlightedCode = { [DANGEROUSLY_SET_INNER_HTML]: { [HTML]: highlightedHtml } };
 
     return (
         <CodeWrapper
-            onMouseEnter={(): void => setShowButtons(true)}
-            onMouseLeave={(): void => setShowButtons(false)}
+            onMouseEnter={showControls}
+            onMouseLeave={hideControls}
             sx={sx ?? {}}
         >
             <ButtonGroup
+                size="small"
                 sx={{
                     opacity: showButtons ? 1 : 0,
                     position: "absolute",
@@ -37,14 +43,13 @@ export function Code({ children, sx }: { children: string; sx?: SxProps; }): Rea
                     top: 0,
                     transition: "opacity 0.5s",
                 }}
-                size="small"
             >
-                <Tooltip title="Copy to Clipboard" placement="top" arrow>
+                <Tooltip arrow placement="top" title="Copy to Clipboard">
                     <IconButton onClick={copyCode} sx={{ borderRadius: "inherit" }}>
                         <ContentCopy />
                     </IconButton>
                 </Tooltip>
-                <Tooltip title="Toggle font ligatures" placement="top" arrow>
+                <Tooltip arrow placement="top" title="Toggle font ligatures">
                     <IconButton
                         className="monospace"
                         onClick={toggleUseLigatures}
@@ -57,17 +62,18 @@ export function Code({ children, sx }: { children: string; sx?: SxProps; }): Rea
                     </IconButton>
                 </Tooltip>
             </ButtonGroup>
-            <pre style={{ margin: 0 }}><code
-                className="monospace language-typescript"
-                style={{
-                    background: "none",
-                    fontVariantLigatures: useLigatures ? "contextual" : "none",
-                    overflow: "auto",
-                    padding: "1rem",
-                }}
-                // eslint-disable-next-line @typescript-eslint/naming-convention
-                dangerouslySetInnerHTML={{ __html: hljs.highlight(children, { language: "typescript" }).value }}
-            /></pre>
+            <pre style={{ margin: 0 }}>
+                <code
+                    className="monospace language-typescript"
+                    style={{
+                        background: "none",
+                        fontVariantLigatures: useLigatures ? "contextual" : "none",
+                        overflow: "auto",
+                        padding: "1rem",
+                    }}
+                    {...highlightedCode}
+                />
+            </pre>
         </CodeWrapper>
     );
 }

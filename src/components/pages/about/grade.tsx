@@ -9,7 +9,7 @@ import { Typography } from "@mui/material";
  * @param props.subject - The subject to display.
  * @returns The formatted grade.
  */
-export function Grade({ grade, subject }: { grade: ReactNode; subject: ReactNode; }): ReactNode {
+export function Grade({ grade, subject }: { readonly grade: ReactNode; readonly subject: ReactNode; }): ReactNode {
     return (
         <Stack direction="row" sx={{ alignItems: "center", flex: 1, px: "2%" }}>
             <Typography sx={{ flex: 1 }}>{subject}</Typography>

@@ -28,13 +28,13 @@ export default async function Articles(): Promise<ReactNode> {
 
     return (
         <div>
-            <Typography variant="h2" align="center" gutterBottom>Articles</Typography>
+            <Typography align="center" gutterBottom variant="h2">Articles</Typography>
             <Masonry columns={columns}>
                 {[...localArticles, ...remoteArticles].map((article) => (
                     <Article
                         key={article.path}
-                        title={article.name}
                         summary={<Markdown>{article.content.split("\n").slice(1).join("\n")}</Markdown>}
+                        title={article.name}
                     />
                 ))}
             </Masonry>

@@ -11,15 +11,14 @@ const data = cv as CV;
  * @returns The University element.
  */
 export function University(): ReactNode {
-    /* eslint-disable @typescript-eslint/naming-convention */
-    const gradeMap: Record<string, ReactNode> = {
-        1: <>1<sup>st</sup></>,
-        "2:1": <>Upper 2<sup>nd</sup></>,
-        "2:2": <>Lower 2<sup>nd</sup></>,
-        3: <>3<sup>rd</sup></>,
-    };
-    /* eslint-enable @typescript-eslint/naming-convention */
-    const qualification = data.Qualifications[0];
+    const gradeMap = new Map<string, ReactNode>([
+        ["1", <>1<sup>st</sup></>],
+        ["2:1", <>Upper 2<sup>nd</sup></>],
+        ["2:2", <>Lower 2<sup>nd</sup></>],
+        ["3", <>3<sup>rd</sup></>],
+    ]);
+
+    const [qualification] = data.Qualifications;
 
     if (!qualification || !Array.isArray(qualification.grades))
         return null;
@@ -40,14 +39,20 @@ export function University(): ReactNode {
         return "th";
     };
     const numericYear = Number.parseInt(qualification.time.split("-").at(-1) ?? "", 10);
-    const maxAvailableGrade = gradeMap["1"];
-    const minAvailableGrade = gradeMap["3"];
+    const maxAvailableGrade = gradeMap.get("1");
+    const minAvailableGrade = gradeMap.get("3");
     const grades = qualification.grades.map((grade, i, allGrades) => {
         const subject = i === allGrades.length - 1
             ? <>Final Grade</>
             : <>{i + 1}<sup>{suffix(i + 1)}</sup> Year</>;
 
-        return <Grade grade={gradeMap[grade] ?? grade} key={i} subject={subject} />;
+        return (
+            <Grade
+                grade={gradeMap.get(grade) ?? grade}
+                key={`${qualification.institution}-${i}`}
+                subject={subject}
+            />
+        );
     });
 
     return (

@@ -1,8 +1,8 @@
 import { Divider, Stack } from "@mui/material";
-import type { ReactNode } from "react";
-import { FeaturedProjects, FEATURED_REPOSITORIES } from "components/pages/portfolio/featuredProjects";
-import { RepositoryArchive } from "components/pages/portfolio/repositoryArchive";
+import { FEATURED_REPOSITORIES, FeaturedProjects } from "components/pages/portfolio/featuredProjects";
 import { getGithubReposByName, getGithubReposPage } from "actions/github";
+import type { ReactNode } from "react";
+import { RepositoryArchive } from "components/pages/portfolio/repositoryArchive";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +23,7 @@ export default async function Portfolio(): Promise<ReactNode> {
     const featuredProjects = featuredResponse.success
         ? featuredResponse.data.map((repo, index) => ({
             description: FEATURED_REPOSITORIES[index]!.description,
+            links: "links" in FEATURED_REPOSITORIES[index]! ? FEATURED_REPOSITORIES[index].links : [],
             name: FEATURED_REPOSITORIES[index]!.name,
             repo,
         }))

@@ -155,7 +155,7 @@ async function generateTex(singlePage: boolean = false): Promise<string> {
     // Add the qualifications
     content += "\\section*{Qualifications}\n";
     for (const qualification of singlePage ? data.Qualifications.slice(0, 1) : data.Qualifications) {
-    content += `\\subsection*{${jsonToLaTeX(qualification.institution)} — ${jsonToLaTeX(qualification.time)}}\n`;
+        content += `\\subsection*{${jsonToLaTeX(qualification.institution)} — ${jsonToLaTeX(qualification.time)}}\n`;
 
         if (singlePage && "summary" in qualification && qualification.summary[0] !== undefined)
             content += `${jsonToLaTeX(qualification.summary[0])}\n`;
@@ -167,8 +167,11 @@ async function generateTex(singlePage: boolean = false): Promise<string> {
         }
 
         // Add the dissertation if it exists
-        if (!singlePage && "dissertation" in qualification)
-            content += `\\subsubsection*{Dissertation}\n${[qualification.dissertation].map(mapProject)}\n`;
+        if (!singlePage && "dissertation" in qualification) {
+            const dissertation = [qualification.dissertation].map((project) => mapProject(project)).join("\n");
+
+            content += `\\subsubsection*{Dissertation}\n${dissertation}\n`;
+        }
 
         // Otherwise, add the grades
         if (!(qualification.grades instanceof Array)) {

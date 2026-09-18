@@ -8,7 +8,9 @@ import { getGithubArticleFile } from "actions/articles";
  * @param props.params - The page params.
  * @returns An articles page.
  */
-export default async function Articles({ params }: { params: Promise<{ article: string; }>; }): Promise<ReactNode> {
+export default async function Articles(
+    { params }: { readonly params: Promise<{ article: string; }>; },
+): Promise<ReactNode> {
     const { article } = await params;
 
     if (typeof article !== "string")

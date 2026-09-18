@@ -40,7 +40,7 @@ export async function contact(_state: ActionResponse, formData: FormData): Promi
             // eslint-disable-next-line @typescript-eslint/naming-convention
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             method: "POST",
-        }).then(async (response) => response.json()) as Record<PropertyKey, unknown>;
+        }).then(async (response) => await response.json() as unknown) as Record<PropertyKey, unknown>;
 
         if (!("success" in data) || data.success !== true)
             return { error: new Error("Recapture failed."), success: false };

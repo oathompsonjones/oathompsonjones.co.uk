@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export const colours = {
     black: "#121212",
@@ -63,32 +63,32 @@ function generateTartanSvg(tartan: Array<{ fill: string; size: number; }>): stri
 }
 
 /**
- * A tartan pattern background.
- * @param options - The options for the background.
- * @param options.theme - The theme to use for the background. If not provided, the theme from context will be used.
- * @param options.position - The position to use for the background. If not provided, "fixed" will be used.
+ * Renders a tartan-pattern background.
  * @returns The tartan pattern background.
  */
-export const Tartan = (): ReactNode => (
-    <div style={{
-        height: "100vh",
-        left: 0,
-        position: "fixed",
-        top: 0,
-        width: "100vw",
-        zIndex: -1000,
-        backgroundImage: `url("data:image/svg+xml;base64,${Buffer.from(generateTartanSvg([
-            { fill: colours.black, size: 40 },
-            { fill: colours.cream, size: 35 },
-            { fill: colours.black, size: 20 },
-            { fill: colours.grey, size: 50 },
-            { fill: colours.maroon, size: 10 },
-            { fill: colours.grey, size: 50 },
-            { fill: colours.black, size: 20 },
-            { fill: colours.cream, size: 35 },
-            { fill: colours.black, size: 40 },
-            { fill: colours.maroon, size: 10 },
-        ])).toString("base64")}")`,
-        filter: "blur(1px) brightness(0.3)",
-    }}/>
-);
+export function Tartan(): ReactNode {
+    return (
+        <div style={{
+            backgroundImage: `url("data:image/svg+xml;base64,${Buffer.from(generateTartanSvg([
+                { fill: colours.black, size: 40 },
+                { fill: colours.cream, size: 35 },
+                { fill: colours.black, size: 20 },
+                { fill: colours.grey, size: 50 },
+                { fill: colours.maroon, size: 10 },
+                { fill: colours.grey, size: 50 },
+                { fill: colours.black, size: 20 },
+                { fill: colours.cream, size: 35 },
+                { fill: colours.black, size: 40 },
+                { fill: colours.maroon, size: 10 },
+            ])).toString("base64")}")`,
+            filter: "blur(1px) brightness(0.3)",
+            height: "100vh",
+            left: 0,
+            position: "fixed",
+            top: 0,
+            width: "100vw",
+            zIndex: -1000,
+        }}
+        />
+    );
+}

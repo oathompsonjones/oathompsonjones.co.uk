@@ -15,26 +15,34 @@ import type { ReactNode } from "react";
  * @param props.minGrade - The minimum grade.
  * @returns The Grades element.
  */
-export function Grades(props: {
-    attainmentYear: number;
-    children: ReactNode;
-    educationLevel: ReactNode;
-    institutionLink: string;
-    institutionName: string;
-    maxGrade: ReactNode;
-    minGrade: ReactNode;
+export function Grades({
+    attainmentYear,
+    children,
+    educationLevel,
+    institutionLink,
+    institutionName,
+    maxGrade,
+    minGrade,
+}: {
+    readonly attainmentYear: number;
+    readonly children: ReactNode;
+    readonly educationLevel: ReactNode;
+    readonly institutionLink: string;
+    readonly institutionName: string;
+    readonly maxGrade: ReactNode;
+    readonly minGrade: ReactNode;
 }): ReactNode {
     return (
         <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
             <Stack direction="row" sx={{ alignItems: "center" }}>
-                <Typography variant="h4" sx={{ flex: 1 }}>{props.educationLevel}</Typography>
-                <Typography variant="h6">({props.minGrade} – {props.maxGrade})</Typography>
+                <Typography sx={{ flex: 1 }} variant="h4">{educationLevel}</Typography>
+                <Typography variant="h6">({minGrade} – {maxGrade})</Typography>
             </Stack>
             <Divider />
-            {props.children}
+            {children}
             <Divider />
             <Typography variant="caption">
-                <Link href={props.institutionLink}>{props.institutionName}</Link> ({props.attainmentYear})
+                <Link href={institutionLink}>{institutionName}</Link> ({attainmentYear})
             </Typography>
         </Box>
     );

@@ -13,10 +13,15 @@ type UseLocalStorageOptions = {
  * @param key - The name of the variable to store in localStorage.
  * @param initialValue - The initial value to store for that variable.
  * @param options - Optional behaviour flags.
- * @param options.hydrateFromStorage - Whether to read from localStorage during the initial client render. Defaults to true.
+ * @param options.hydrateFromStorage - Whether to read from localStorage during the initial client render.
+ * Defaults to true.
  * @returns The value stored in localStorage, a function to update that value, and a function to remove that value.
  */
-export function useLocalStorage<T>(key: string, initialValue: T, options: UseLocalStorageOptions = {}): [T, Dispatch<SetStateAction<T>>] {
+export function useLocalStorage<T>(
+    key: string,
+    initialValue: T,
+    options: UseLocalStorageOptions = {},
+): [T, Dispatch<SetStateAction<T>>] {
     const { hydrateFromStorage = true } = options;
 
     const parse = (value: string): T => {
@@ -42,7 +47,7 @@ export function useLocalStorage<T>(key: string, initialValue: T, options: UseLoc
             const raw = localStorage.getItem(key);
 
             return raw === null ? initialValue : parse(raw);
-        } catch (error) {
+        } catch {
             return initialValue;
         }
     };

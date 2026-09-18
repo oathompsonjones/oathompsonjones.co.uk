@@ -67,30 +67,35 @@ export default function TicTacToeGame(): ReactNode {
         startGame();
     }, [startGame]);
 
-    const onClick = (event: MouseEvent<HTMLDivElement>): void => {
+    const onClick = useCallback((event: MouseEvent<HTMLDivElement>): void => {
         if (boardRef.current?.winner === false) {
             const id = event.currentTarget.id.split("-").map(Number);
 
             gameRef.current?.emit("input", { x: id[0], y: id[1] });
         }
-    };
+    }, []);
 
-    const renderCell = (x: number, y: number): ReactNode => {
+    const renderCell = useCallback((x: number, y: number): ReactNode => {
         if (!boardRef.current)
             return "";
 
         const cellValue = boardRef.current.cellOccupier({ x, y }) ?? -1;
 
-        return [<TicTacToeCounter X />, <TicTacToeCounter O />][cellValue] ?? "";
-    };
+        return [
+            <TicTacToeCounter X key={`x-${x}-${y}`} />,
+            <TicTacToeCounter O key={`o-${x}-${y}`} />,
+        ][cellValue] ?? "";
+    }, []);
 
     return (
         <div>
-            <Typography variant="h2" align="center">Tic Tac Toe</Typography>
-            <Grid height={3} width={3} onClick={onClick} renderCell={renderCell} />
-            {statusText !== "" && <Typography variant="h3" align="center" color="text.secondary">
-                {statusText} <Button onClick={startGame}>Play Again</Button>
-            </Typography>}
+            <Typography align="center" variant="h2">Tic Tac Toe</Typography>
+            <Grid height={3} onClick={onClick} renderCell={renderCell} width={3} />
+            {statusText !== "" && (
+                <Typography align="center" color="text.secondary" variant="h3">
+                    {statusText} <Button onClick={startGame}>Play Again</Button>
+                </Typography>
+            )}
         </div>
     );
 }

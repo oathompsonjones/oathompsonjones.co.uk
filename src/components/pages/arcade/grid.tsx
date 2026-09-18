@@ -12,11 +12,11 @@ import { Glass } from "components/glass";
  * @returns A React component representing a grid.
  */
 export function Grid({ height, width, closed = false, onClick, renderCell }: {
-    height: number;
-    width: number;
-    closed?: boolean;
-    onClick: (event: MouseEvent<HTMLDivElement>) => void;
-    renderCell: (x: number, y: number) => ReactNode;
+    readonly height: number;
+    readonly width: number;
+    readonly closed?: boolean;
+    readonly onClick: (event: MouseEvent<HTMLDivElement>) => void;
+    readonly renderCell: (x: number, y: number) => ReactNode;
 }): ReactNode {
     return (
         <div style={{ alignItems: "center", display: "flex", justifyContent: "center" }}>
@@ -27,11 +27,12 @@ export function Grid({ height, width, closed = false, onClick, renderCell }: {
                 gridTemplate: `repeat(${height}, 1fr) / repeat(${width}, 1fr)`,
                 maxHeight: "750px",
                 maxWidth: "min(750px, 100% - 2rem)",
-            }}>
+            }}
+            >
                 {Array(height * width).fill(null).map((_, i) => (
                     <div
-                        key={i}
                         id={`${i % width}-${Math.floor(i / width)}`}
+                        key={i}
                         onClick={onClick}
                         style={{
                             alignItems: "center",
@@ -48,7 +49,8 @@ export function Grid({ height, width, closed = false, onClick, renderCell }: {
                             gridColumn: "auto",
                             gridRow: "auto",
                             justifyContent: "center",
-                        }}>
+                        }}
+                    >
                         {renderCell(i % width, Math.floor(i / width))}
                     </div>
                 ))}

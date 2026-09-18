@@ -10,7 +10,7 @@ import { Typography } from "@mui/material";
 export default function Arcade(): ReactNode {
     return (
         <div>
-            <Typography variant="h2" align="center" gutterBottom>Would you like to play a game?</Typography>
+            <Typography align="center" gutterBottom variant="h2">Would you like to play a game?</Typography>
             <Masonry columns={{ /* xl: 5, lg: 4, md: 3, */ sm: 2, xs: 1 }}>
                 <Game title="Tic Tac Toe" />
                 <Game title="Connect 4" />

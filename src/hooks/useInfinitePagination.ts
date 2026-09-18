@@ -34,14 +34,18 @@ export type UseInfinitePaginationResult<T> = {
  * Pages are automatically loaded while the current page does not fill
  * the viewport. Once the page extends beyond the viewport, another page
  * is loaded when the user reaches the bottom.
- *
+ * @template T - The type of the items being paginated.
  * @param options - Pagination configuration.
  * @param options.initialPage - The first page of results.
  * @param options.fetchPage - Function used to fetch subsequent pages.
  * @param options.getItemKey - Optional function used to remove duplicates.
  * @returns Infinite pagination state and controls.
  */
-export function useInfinitePagination<T>({ initialPage, fetchPage, getItemKey }: UseInfinitePaginationOptions<T>): UseInfinitePaginationResult<T> {
+export function useInfinitePagination<T>({
+    initialPage,
+    fetchPage,
+    getItemKey,
+}: UseInfinitePaginationOptions<T>): UseInfinitePaginationResult<T> {
     const [items, setItems] = useState<T[]>(initialPage.items);
     const [hasNextPage, setHasNextPage] = useState(initialPage.hasNextPage);
     const [isLoading, setIsLoading] = useState(false);
@@ -92,49 +96,55 @@ export function useInfinitePagination<T>({ initialPage, fetchPage, getItemKey }:
      */
     const fetchNextPage = useCallback(async (): Promise<boolean> => {
         if (loadingRef.current || !hasNextPageRef.current || cursorRef.current === null)
-            return false;
+            return Promise.resolve(false);
 
         loadingRef.current = true;
+        const cursor = cursorRef.current;
 
         if (mountedRef.current) {
             setIsLoading(true);
             setError(null);
         }
 
-        try {
-            const page = await fetchPage({ cursor: cursorRef.current });
+        return fetchPage({ cursor })
+            .then(async (page): Promise<boolean> => {
+                if (!mountedRef.current)
+                    return false;
 
-            if (!mountedRef.current)
+                setItems((current) => {
+                    if (getItemKey === undefined)
+                        return [...current, ...page.items];
+
+                    const existing = new Set(current.map(getItemKey));
+
+                    return [...current, ...page.items.filter((item) => !existing.has(getItemKey(item)))];
+                });
+
+                cursorRef.current = page.endCursor;
+                hasNextPageRef.current = page.hasNextPage;
+
+                setHasNextPage(page.hasNextPage);
+
+                await Promise.resolve();
+
+                return true;
+            })
+            .catch(async (caught: unknown): Promise<boolean> => {
+                if (!mountedRef.current)
+                    return false;
+
+                setError(caught instanceof Error ? caught.message : "Failed to load more items.");
+
+                await Promise.resolve();
+
                 return false;
+            })
+            .finally(() => {
+                loadingRef.current = false;
 
-            setItems((current) => {
-                if (getItemKey === undefined)
-                    return [...current, ...page.items];
-
-                const existing = new Set(current.map(getItemKey));
-
-                return [...current, ...page.items.filter((item) => !existing.has(getItemKey(item)))];
+                if (mountedRef.current)
+                    setIsLoading(false);
             });
-
-            cursorRef.current = page.endCursor;
-            hasNextPageRef.current = page.hasNextPage;
-
-            setHasNextPage(page.hasNextPage);
-
-            return true;
-        } catch (caught) {
-            if (!mountedRef.current)
-                return false;
-
-            setError(caught instanceof Error ? caught.message : "Failed to load more items.");
-
-            return false;
-        } finally {
-            loadingRef.current = false;
-
-            if (mountedRef.current)
-                setIsLoading(false);
-        }
     }, [fetchPage, getItemKey]);
 
     /**
@@ -143,25 +153,28 @@ export function useInfinitePagination<T>({ initialPage, fetchPage, getItemKey }:
      */
     const fillViewport = useCallback(async (): Promise<void> => {
         if (fillingRef.current)
-            return;
+            return Promise.resolve();
 
         fillingRef.current = true;
 
-        try {
-            while (mountedRef.current && hasNextPageRef.current && cursorRef.current !== null) {
-                await waitForRender();
+        const loadUntilViewportFilled = async (): Promise<void> => {
+            if (!mountedRef.current || !hasNextPageRef.current || cursorRef.current === null)
+                return Promise.resolve();
 
-                if (!isAtBottom())
-                    break;
+            return waitForRender().then(async (): Promise<void> => {
+                if (!mountedRef.current || !isAtBottom())
+                    return;
 
                 const loaded = await fetchNextPage();
 
-                if (!loaded)
-                    break;
-            }
-        } finally {
+                if (loaded)
+                    await loadUntilViewportFilled();
+            });
+        };
+
+        return loadUntilViewportFilled().finally(() => {
             fillingRef.current = false;
-        }
+        });
     }, [fetchNextPage, isAtBottom, waitForRender]);
 
     /**
@@ -236,5 +249,13 @@ export function useInfinitePagination<T>({ initialPage, fetchPage, getItemKey }:
         return (): void => window.removeEventListener("resize", onResize);
     }, [isAtBottom, loadMore]);
 
-    return { items, hasNextPage, isLoading, error, loadMore, retry, reset };
+    return {
+        error,
+        hasNextPage,
+        isLoading,
+        items,
+        loadMore,
+        reset,
+        retry,
+    };
 }

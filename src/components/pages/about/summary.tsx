@@ -17,7 +17,8 @@ export function Summary(): ReactNode {
                         alignItems: "center",
                         display: "flex",
                         justifyContent: "center",
-                    }}>
+                    }}
+                >
                     <Avatar src={GRAVATAR_URL} sx={{ height: "auto", width: "100%" }} />
                 </Grid>
                 <Grid size={{ md: 10, xs: 12 }}>

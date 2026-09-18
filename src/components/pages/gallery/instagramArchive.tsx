@@ -1,13 +1,13 @@
 "use client";
 
-import { Masonry } from "@mui/lab";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import { useCallback } from "react";
-import type { ReactNode } from "react";
+import type { InfinitePaginationPage } from "hooks/useInfinitePagination";
 import type { InstagramPage } from "actions/instagram";
 import { InstagramPost } from "components/pages/gallery/instagramPost";
+import { Masonry } from "@mui/lab";
+import type { ReactNode } from "react";
+import { useCallback } from "react";
 import { useInfinitePagination } from "hooks/useInfinitePagination";
-import type { InfinitePaginationPage } from "hooks/useInfinitePagination";
 
 type InstagramPageResponse =
     | {
@@ -22,7 +22,6 @@ type InstagramPageResponse =
 /**
  * Converts an Instagram page into the generic page format expected by the
  * infinite pagination hook.
- *
  * @param page - The Instagram page.
  * @returns A generic pagination page.
  */
@@ -30,9 +29,9 @@ function toPaginationPage(
     page: InstagramPage,
 ): InfinitePaginationPage<InstagramPage["posts"][number]> {
     return {
-        items: page.posts,
         endCursor: page.pageInfo.endCursor,
         hasNextPage: page.pageInfo.hasNextPage,
+        items: page.posts,
     };
 }
 
@@ -42,11 +41,15 @@ function toPaginationPage(
  * @param props.initialPage - The first server-rendered page of posts.
  * @returns A client-side archive with incremental loading.
  */
-export function InstagramArchive({ initialPage }: { initialPage: InstagramPage; }): ReactNode {
+export function InstagramArchive({ initialPage }: {
+    readonly initialPage: InstagramPage;
+}): ReactNode {
     type Post = InstagramPage["posts"][number];
 
     // Fetches the next page of Instagram posts.
-    const fetchPage = useCallback(async ({ cursor }: { cursor: string | null; }): Promise<InfinitePaginationPage<Post>> => {
+    const fetchPage = useCallback(async ({ cursor }: {
+        cursor: string | null;
+    }): Promise<InfinitePaginationPage<Post>> => {
         if (cursor === null)
             return toPaginationPage(initialPage);
 
@@ -62,9 +65,9 @@ export function InstagramArchive({ initialPage }: { initialPage: InstagramPage; 
     }, [initialPage]);
 
     const { items: posts, hasNextPage, isLoading, error, retry } = useInfinitePagination<Post>({
-        initialPage: toPaginationPage(initialPage),
         fetchPage,
         getItemKey: (post) => post.id,
+        initialPage: toPaginationPage(initialPage),
     });
 
     const imageCount = posts.reduce((count, post) => {
@@ -100,7 +103,11 @@ export function InstagramArchive({ initialPage }: { initialPage: InstagramPage; 
             </Box>
 
             {error !== null && (
-                <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", justifyContent: "center" }}>
+                <Stack
+                    direction="row"
+                    spacing={1.5}
+                    sx={{ alignItems: "center", justifyContent: "center" }}
+                >
                     <Typography color="error" variant="caption">{error}</Typography>
                     <Button onClick={retry} size="small" variant="text">Retry</Button>
                 </Stack>

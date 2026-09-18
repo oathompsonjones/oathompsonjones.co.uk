@@ -10,13 +10,12 @@ import { jsonToJSDoc } from "app/(pages)/cv";
  * @returns The Bio element.
  */
 export function Bio(): ReactNode {
+    const summary = cv.Summary.split("\n").join("\n\n");
+
     return (
         <Glass sx={{ m: "auto" }}>
-            <Typography variant="h6" color="white">
-                {[
-                    `Hi, I'm Ollie. I'm a ${age()} year old`,
-                    jsonToJSDoc(cv.Summary),
-                ].join(" ").split("\n").join("\n\n")}
+            <Typography color="white" variant="h6">
+                {`Hi, I'm Ollie. I'm a ${age()} year old`} {jsonToJSDoc(summary)}
             </Typography>
         </Glass>
     );

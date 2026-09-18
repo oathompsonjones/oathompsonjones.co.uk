@@ -2,7 +2,7 @@
 
 import type { Breakpoint, Theme, TypographyVariant } from "@mui/material";
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 
 /**
@@ -17,12 +17,12 @@ import type { ReactNode } from "react";
  * @returns An element which renders a collapsible text element.
  */
 export function CollapsibleText({ beginningText, collapsibleText, endingText, id, minScreenSize, variant }: {
-    beginningText: Array<ReactNode | string>;
-    collapsibleText: Array<ReactNode | string>;
-    endingText: Array<ReactNode | string>;
-    id: string;
-    minScreenSize?: Breakpoint;
-    variant?: TypographyVariant;
+    readonly beginningText: Array<ReactNode | string>;
+    readonly collapsibleText: Array<ReactNode | string>;
+    readonly endingText: Array<ReactNode | string>;
+    readonly id: string;
+    readonly minScreenSize?: Breakpoint;
+    readonly variant?: TypographyVariant;
 }): ReactNode {
     const [expandName, setExpandName] = useState(false);
     const showAnimation = useMediaQuery((theme: Theme) => theme.breakpoints.up(minScreenSize ?? "xs"));
@@ -30,6 +30,20 @@ export function CollapsibleText({ beginningText, collapsibleText, endingText, id
     const { palette: { text: { secondary } } } = useTheme();
 
     const spanCount = beginningText.length + collapsibleText.length + endingText.length;
+    const handleMouseEnter = useCallback((): void => setExpandName(true), []);
+    const handleMouseLeave = useCallback((): void => setExpandName(false), []);
+    const renderSection = (text: ReactNode | string, index: number): ReactNode => (
+        <span className="section" key={index}>{text}</span>
+    );
+    const renderCollapsibleSection = (text: ReactNode | string, index: number): ReactNode => (
+        <span className="section collapsible" key={index}>{text}</span>
+    );
+    const cssVariables = Object.fromEntries([["--span-count", spanCount.toString()]]);
+
+    const sectionStyles = Object.fromEntries([
+        [".collapsible", { width: 0 }],
+        [".section", { overflow: "hidden", transition: "width 0.25s linear" }],
+    ]);
 
     useEffect(() => {
         if (reducedMotion)
@@ -70,24 +84,20 @@ export function CollapsibleText({ beginningText, collapsibleText, endingText, id
     return (
         <Typography
             id={id}
-            onMouseEnter={(): void => setExpandName(true)}
-            onMouseLeave={(): void => setExpandName(false)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            style={cssVariables}
             sx={{
-                /* eslint-disable @typescript-eslint/naming-convention */
-                ".collapsible": { width: 0 },
-                ".section": { overflow: "hidden", transition: "width 0.25s linear" },
-                /* eslint-enable @typescript-eslint/naming-convention */
+                ...sectionStyles,
                 display: "inline-flex",
                 gap: "calc(0.25 / var(--span-count))em",
                 transition: "gap 0.25s linear",
             }}
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            style={{ "--span-count": spanCount.toString() }}
             variant={variant ?? "body1"}
         >
-            {beginningText.map((text, i) => (<span className="section" key={i}>{text}</span>))}
-            {collapsibleText.map((text, i) => (<span className="section collapsible" key={i}>{text}</span>))}
-            {endingText.map((text, i) => (<span className="section" key={i}>{text}</span>))}
+            {beginningText.map(renderSection)}
+            {collapsibleText.map(renderCollapsibleSection)}
+            {endingText.map(renderSection)}
         </Typography>
     );
 }

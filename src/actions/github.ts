@@ -156,11 +156,7 @@ function generateImage(arrayBuffer: ArrayBuffer): string {
  */
 export async function graphqlWithAuth(): Promise<typeof graphql> {
     return Promise.resolve(
-        graphql.defaults({
-            headers: {
-                authorization: process.env.GITHUB_TOKEN,
-            },
-        }),
+        graphql.defaults({ headers: { authorization: process.env.GITHUB_TOKEN } }),
     );
 }
 
@@ -197,13 +193,16 @@ async function withRepoImages(repos: RawRepo[]): Promise<Repo[]> {
 export async function getGithubReposByName(names: string[]): Promise<ActionResponse<Repo[]>> {
     try {
         const gql = await graphqlWithAuth();
-        const aliases = names.map((name, index) => `repo${index}: repository(owner: "oathompsonjones", name: "${name}") {
-            ${REPO_FIELDS}
-        }`).join("\n");
+        const aliases = names
+            .map((name, index) => `repo${index}: repository(owner: "oathompsonjones", name: "${name}") {
+                ${REPO_FIELDS}
+            }`).join("\n");
         const response = await gql<FeaturedReposAPIResponse>(`query FeaturedPortfolioRepos {
             ${aliases}
         }`);
-        const repos = names.map((_, index) => response[`repo${index}`]).filter((repo): repo is RawRepo => repo !== null && repo !== undefined);
+        const repos = names
+            .map((_, index) => response[`repo${index}`])
+            .filter((repo): repo is RawRepo => repo !== null && repo !== undefined);
 
         return { data: await withRepoImages(repos), success: true };
     } catch (error) {
@@ -223,7 +222,6 @@ export async function getGithubReposByName(names: string[]): Promise<ActionRespo
  * repositories retain the normal pushed-at ordering.
  *
  * When `search` is provided, GitHub's repository search API is used.
- *
  * @param params - Pagination and search parameters.
  * @param params.search - Search query for filtering repositories.
  * @param params.after - Fetches records after this cursor.
@@ -257,7 +255,7 @@ export async function getGithubReposPage({
 
         if (search.trim() !== "") {
             const searchQuery = [
-                `user:oathompsonjones`,
+                "user:oathompsonjones",
                 "is:public",
                 "fork:false",
                 search.trim(),
@@ -294,11 +292,11 @@ export async function getGithubReposPage({
                     }
                 `,
                 {
-                    searchQuery,
                     after,
                     before,
                     first,
                     last,
+                    searchQuery,
                 },
             );
 

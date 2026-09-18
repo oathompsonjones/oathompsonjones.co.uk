@@ -1,15 +1,15 @@
 "use client";
 
-import type { ReactNode } from "react";
 import {
     CssBaseline, StyledEngineProvider, ThemeProvider,
     createTheme, responsiveFontSizes, useTheme as useMuiTheme,
 } from "@mui/material";
-import DefaultPropsProvider from "@mui/material/DefaultPropsProvider";
-import type { Theme } from "@mui/material";
 import { Tartan, colours } from "components/tartan";
+import DefaultPropsProvider from "@mui/material/DefaultPropsProvider";
+import type { ReactNode } from "react";
+import type { Theme } from "@mui/material";
 
-export const useTheme = (): Theme => useMuiTheme<Theme>();
+export const useTheme = (): Theme => useMuiTheme();
 
 /**
  * Provides the theme to the application.
@@ -17,7 +17,7 @@ export const useTheme = (): Theme => useMuiTheme<Theme>();
  * @param props.children - The children to render.
  * @returns The theme provider to wrap the application in.
  */
-export function ThemeContextProvider({ children }: { children: ReactNode; }): ReactNode {
+export function ThemeContextProvider({ children }: { readonly children: ReactNode; }): ReactNode {
     const colorSchemes = {
         dark: {
             palette: {
@@ -46,7 +46,7 @@ export function ThemeContextProvider({ children }: { children: ReactNode; }): Re
                         color: colorSchemes.dark.palette.common.white,
                     },
                     text: { backgroundColor: "transparent" },
-                }
+                },
             },
             MuiContainer: { styleOverrides: { root: { padding: "0" } } },
             MuiDivider: { styleOverrides: { root: { margin: "1.25% 0" } } },
@@ -85,7 +85,8 @@ export function ThemeContextProvider({ children }: { children: ReactNode; }): Re
                     MuiFab: { color: "primary" },
                     MuiPaper: { elevation: 5 },
                     MuiTextField: { slotProps: { input: { disableUnderline: true } }, variant: "filled" },
-                }}>
+                }}
+                >
                     <CssBaseline enableColorScheme />
                     <Tartan />
                     {children}

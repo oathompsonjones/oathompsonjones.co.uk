@@ -13,7 +13,7 @@ import { University } from "./university";
 export function Qualifications(): ReactNode {
     return (
         <div>
-            <Typography variant="h3" align="center">Qualifications</Typography>
+            <Typography align="center" variant="h3">Qualifications</Typography>
             <Divider />
             <Glass>
                 <Grid container spacing={2}>

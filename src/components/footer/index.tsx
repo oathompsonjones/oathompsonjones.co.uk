@@ -18,19 +18,33 @@ export function Footer(): ReactNode {
         <Box component="footer" sx={{ p: "0.75rem", zIndex: 1 }}>
             <Stack
                 direction="row"
-                sx={{ display: { md: "flex", xs: "none" }, gap: 2, left: "0.75rem", position: "absolute" }}>
+                sx={{ display: { md: "flex", xs: "none" }, gap: 2, left: "0.75rem", position: "absolute" }}
+            >
                 <Avatar src={GRAVATAR_URL} sx={{ float: "left", height: "2rem", width: "2rem" }} />
                 <Name id="footer" variant="h6" />
             </Stack>
             <Stack
-                direction={{ md: "row", xs: "column-reverse" }} sx={{ alignItems: "center", m: "auto" }}
-                divider={<Typography sx={{
-                    color: "gray",
-                    display: { md: "inline-block", xs: "none" },
-                    mx: "1rem",
-                }}>•</Typography>}
+                direction={{ md: "row", xs: "column-reverse" }}
+                divider={(
+                    <Typography
+                        sx={{
+                            color: "gray",
+                            display: { md: "inline-block", xs: "none" },
+                            mx: "1rem",
+                        }}
+                    >
+                        •
+                    </Typography>
+                )}
+                sx={{ alignItems: "center", m: "auto" }}
             >
-                <Typography variant="caption" component={Link} href="/privacy" color="primary" sx={{ textDecoration: "none" }}>
+                <Typography
+                    color="primary"
+                    component={Link}
+                    href="/privacy"
+                    sx={{ textDecoration: "none" }}
+                    variant="caption"
+                >
                     Privacy <Size sm="Policy" />
                 </Typography>
                 <Typography variant="caption">

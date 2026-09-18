@@ -10,10 +10,10 @@ import { Typography } from "@mui/material";
  * @param props.reset - The function to reset the application.
  * @returns An error element.
  */
-export function PageError({ error, reset }: { error: Error; reset: () => void; }): ReactNode {
+export function PageError({ error, reset }: { readonly error: Error; readonly reset: () => void; }): ReactNode {
     return (
         <div>
-            <Typography variant="h4" color="text.secondary">
+            <Typography color="text.secondary" variant="h4">
                 An error occurred, please <a onClick={reset}>try again</a> later.
             </Typography>
             <Typography>{error.message}</Typography>

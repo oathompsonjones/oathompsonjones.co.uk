@@ -19,22 +19,22 @@ type BasePost = {
 type CarouselPost = BasePost & {
     children: {
         data: Array<{
-            media_type: SINGLE_MEDIA_TYPE;
+            media_type: SingleMediaType;
             media_url: string;
         }>;
     };
-    media_type: MEDIA_TYPE;
+    media_type: MediaType;
 };
 
 type SinglePost = BasePost & {
-    media_type: SINGLE_MEDIA_TYPE;
+    media_type: SingleMediaType;
 };
 
 export type Post = CarouselPost | SinglePost;
 
-type SINGLE_MEDIA_TYPE = "IMAGE" | "VIDEO";
+type SingleMediaType = "IMAGE" | "VIDEO";
 
-type MEDIA_TYPE = SINGLE_MEDIA_TYPE | "CAROUSEL_ALBUM";
+type MediaType = SingleMediaType | "CAROUSEL_ALBUM";
 
 type TokenRes = {
     access_token: string;
@@ -60,14 +60,14 @@ type BeholdBasePost = Omit<Post, "media_url"> & {
 
 type BeholdCarouselPost = BeholdBasePost & {
     children: Array<{
-        mediaType: SINGLE_MEDIA_TYPE;
+        mediaType: SingleMediaType;
         mediaUrl: string;
     }>;
-    mediaType: MEDIA_TYPE;
+    mediaType: MediaType;
 };
 
 type BeholdSinglePost = BeholdBasePost & {
-    mediaType: SINGLE_MEDIA_TYPE;
+    mediaType: SingleMediaType;
 };
 
 export type BeholdPost = BeholdCarouselPost | BeholdSinglePost;
@@ -244,18 +244,20 @@ function upsertEnvVar(fileData: string, key: string, value: string): string {
  * @returns The latest Instagram posts.
  */
 async function refreshToken(): Promise<void> {
+    const refreshAtEnvKey = "INSTAGRAM_ACCESS_TOKEN_REFRESH_AT";
     const refreshAt = Number.parseInt(process.env.INSTAGRAM_ACCESS_TOKEN_REFRESH_AT || "0", 10);
+    const currentAccessToken = process.env.INSTAGRAM_ACCESS_TOKEN;
 
     if (!Number.isNaN(refreshAt) && Date.now() < refreshAt)
         return;
 
-    if (!process.env.INSTAGRAM_ACCESS_TOKEN)
+    if (!currentAccessToken)
         return;
 
     try {
         const response = await fetch(`https://graph.instagram.com/refresh_access_token?${[
             "grant_type=ig_refresh_token",
-            `access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`,
+            `access_token=${currentAccessToken}`,
         ].join("&")}`);
 
         if (!response.ok) {
@@ -267,11 +269,13 @@ async function refreshToken(): Promise<void> {
         const { access_token: accessToken } = await response.json() as TokenRes;
         const nextRefreshAt = Date.now() + 24 * 60 * 60 * 1000;
 
-        /* eslint-disable require-atomic-updates */
-        process.env.INSTAGRAM_ACCESS_TOKEN = accessToken;
-        // eslint-disable-next-line id-length
-        process.env.INSTAGRAM_ACCESS_TOKEN_REFRESH_AT = String(nextRefreshAt);
-        /* eslint-enable require-atomic-updates */
+        if (process.env.INSTAGRAM_ACCESS_TOKEN !== currentAccessToken)
+            return;
+
+        Object.assign(process.env, {
+            INSTAGRAM_ACCESS_TOKEN: accessToken,
+            [refreshAtEnvKey]: String(nextRefreshAt),
+        });
 
         try {
             let fileData = await readFile("./.env", "utf8");

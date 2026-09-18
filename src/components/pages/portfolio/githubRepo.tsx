@@ -1,5 +1,5 @@
-import { GitHub, OpenInNew } from "@mui/icons-material";
 import { Button, Chip, Typography, Zoom } from "@mui/material";
+import { GitHub, OpenInNew } from "@mui/icons-material";
 import { Card } from "components/card";
 import type { ReactNode } from "react";
 import type { Repo } from "actions/github";
@@ -11,32 +11,36 @@ import { Stack } from "@mui/system";
  * @param props.repo - The repository to render.
  * @returns An element which renders a GitHub repository.
  */
-export function GitHubRepo({ repo }: { repo: Repo; }): ReactNode {
-    // Maps the repository languages into a more readable format.
-    const langs = repo.languages.nodes.map((lang) => lang.name).filter((name) => name !== repo.primaryLanguage?.name);
+export function GitHubRepo({ repo }: { readonly repo: Repo; }): ReactNode {
+    const langs = repo.languages.nodes
+        .map((lang) => lang.name)
+        .filter((name) => name !== repo.primaryLanguage?.name);
     const repoLanguages = (
         <>
             <Chip label={repo.primaryLanguage?.name} />
-            {langs.map((lang, i) => (<Chip key={i} label={lang} variant="outlined" />))}
+            {langs.map((lang, index) => (
+                <Chip key={`${repo.nameWithOwner}-${lang}-${index}`} label={lang} variant="outlined" />
+            ))}
         </>
     );
 
-    const homepageURL = repo.homepageUrl?.trim() || null;
+    const homepageURL = repo.homepageUrl?.trim() ?? null;
+    const hasHomepage = homepageURL !== null && homepageURL !== "";
+    const [owner] = repo.nameWithOwner.split("/");
 
-    // Returns a Zoom element wrapping the repository to make it look nicer when loading in.
     return (
         <Zoom in timeout={500}>
             <Card>
                 <Card.Media component="img" image={repo.image} />
-                <Card.Header title={repo.name} subheader={repo.primaryLanguage?.name} />
+                <Card.Header subheader={repo.primaryLanguage?.name} title={repo.name} />
                 <Card.Accordion>
                     <Card.Content>
-                        {repo.nameWithOwner.split("/")[0] === "oathompsonjones"
+                        {owner === "oathompsonjones"
                             ? ""
                             : (
                                 <>
                                     <Typography variant="h6">Team</Typography>
-                                    <Typography>{repo.nameWithOwner.split("/")[0]}</Typography>
+                                    <Typography>{owner}</Typography>
                                 </>
                             )}
                         <Typography>{repo.description}</Typography>
@@ -48,9 +52,18 @@ export function GitHubRepo({ repo }: { repo: Repo; }): ReactNode {
                                 alignItems: "center",
                                 justifyContent: "space-evenly",
                                 width: "100%",
-                            }}>
-                            <Button href={repo.url} size="small" startIcon={<GitHub />} variant="text">View Code</Button>
-                            {homepageURL !== null && <Button href={homepageURL} size="small" startIcon={<OpenInNew />} variant="text">View Site</Button>}
+                            }}
+                        >
+                            <Button href={repo.url} size="small" startIcon={<GitHub />} variant="text">
+                                View Code
+                            </Button>
+                            {hasHomepage
+                                ? (
+                                    <Button href={homepageURL} size="small" startIcon={<OpenInNew />} variant="text">
+                                        View Site
+                                    </Button>
+                                )
+                                : null}
                         </Stack>
                     </Card.Actions>
                     <br />

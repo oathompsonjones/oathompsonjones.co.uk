@@ -19,6 +19,12 @@ type SocialLink = {
     username?: string;
 };
 
+type HoverBackgroundStyle = { backgroundColor: string | undefined; };
+
+type HoverColorStyle = { color: string; };
+
+type HoverStyles<Style> = (hoverColor: string | undefined) => Record<string, Style>;
+
 const socials: SocialLink[] = [
     {
         hoverColor: "#D14836",
@@ -99,12 +105,20 @@ function voidFn(): void {
  * @param props.large - Whether to render the large version of the icons.
  * @returns A list of social media links.
  */
-export function SocialLinks({ large = false }: { large?: boolean; }): ReactNode {
+export function SocialLinks({ large = false }: { readonly large?: boolean; }): ReactNode {
     const [useAlternate, setUseAlternate] = useState<boolean>(false);
+    const handleUseAlternate = (): void => setUseAlternate(true);
+    const handleUsePrimary = (): void => setUseAlternate(false);
+    const hoverBackgroundStyles: HoverStyles<HoverBackgroundStyle> = (hoverColor) => Object.fromEntries(
+        [["&:hover", { backgroundColor: hoverColor }]],
+    );
+    const hoverColorStyles: HoverStyles<HoverColorStyle> = (hoverColor) => Object.fromEntries(
+        [["&:hover", { color: hoverColor ?? "inherit" }]],
+    );
 
     if (large) {
         return (
-            <Grid container spacing={1} columns={socials.length}>
+            <Grid columns={socials.length} container spacing={1}>
                 {socials.map(({ alternateIcon, alternateLabel, hoverColor, icon, label, link }, i) => {
                     const logo = useAlternate && alternateIcon !== undefined ? alternateIcon : icon;
                     const title = useAlternate && alternateLabel !== undefined ? alternateLabel : label;
@@ -112,19 +126,20 @@ export function SocialLinks({ large = false }: { large?: boolean; }): ReactNode 
                     return (
                         <Grid key={i} size={(["xs", "sm", "md", "lg"] as const).map((size) => getSize(size, i))}>
                             <Button
-                                onMouseEnter={alternateIcon === undefined ? voidFn : (): void => setUseAlternate(true)}
-                                onMouseLeave={alternateIcon === undefined ? voidFn : (): void => setUseAlternate(false)}
                                 LinkComponent={Link}
-                                href={link}
-                                startIcon={logo}
                                 color="inherit"
-                                variant="text"
+                                href={link}
+                                onMouseEnter={alternateIcon === undefined ? voidFn : handleUseAlternate}
+                                onMouseLeave={alternateIcon === undefined ? voidFn : handleUsePrimary}
+                                startIcon={logo}
                                 sx={{
-                                    // eslint-disable-next-line @typescript-eslint/naming-convention
-                                    "&:hover": { backgroundColor: hoverColor },
+
+                                    ...hoverBackgroundStyles(hoverColor),
                                     backgroundColor: "transparent",
                                     display: "flex",
-                                }}>
+                                }}
+                                variant="text"
+                            >
                                 {title}
                             </Button>
                         </Grid>
@@ -143,19 +158,21 @@ export function SocialLinks({ large = false }: { large?: boolean; }): ReactNode 
                 const logo = useAlternate && alternateIcon !== undefined ? alternateIcon : icon;
 
                 return (
-                    <Tooltip key={i} title={title} arrow>
+                    <Tooltip arrow key={i} title={title}>
                         <IconButton
-                            onMouseEnter={alternateIcon === undefined ? voidFn : (): void => setUseAlternate(true)}
-                            onMouseLeave={alternateIcon === undefined ? voidFn : (): void => setUseAlternate(false)}
+                            color="inherit"
                             component={Link}
                             href={link}
+                            onMouseEnter={alternateIcon === undefined ? voidFn : handleUseAlternate}
+                            onMouseLeave={alternateIcon === undefined ? voidFn : handleUsePrimary}
                             prefetch={false}
-                            color="inherit"
                             sx={{
-                            // eslint-disable-next-line @typescript-eslint/naming-convention
-                                "&:hover": { color: hoverColor ?? "inherit" },
+
+                                ...hoverColorStyles(hoverColor),
                                 padding: 0.5,
-                            }}>{logo}</IconButton>
+                            }}
+                        >{logo}
+                        </IconButton>
                     </Tooltip>
                 );
             })}

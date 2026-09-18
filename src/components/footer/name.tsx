@@ -12,10 +12,10 @@ import type { ReactNode } from "react";
  * @returns The rendered component.
  */
 export function Name({ colour, id, minScreenSize, variant }: {
-    colour?: boolean;
-    id: string;
-    minScreenSize?: Breakpoint;
-    variant?: TypographyVariant;
+    readonly colour?: boolean;
+    readonly id: string;
+    readonly minScreenSize?: Breakpoint;
+    readonly variant?: TypographyVariant;
 }): ReactNode {
     return (
         <CollapsibleText
