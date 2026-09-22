@@ -7,6 +7,7 @@ import https from "https";
 // Configuration.
 const sslPath = "/etc/letsencrypt/live/oathompsonjones.co.uk";
 const domainPortMap = {
+    "bsrfc-video.oathompsonjones.co.uk": 3002,
     "haskell-playground.co.uk": 3001,
     "oathompsonjones.co.uk": 3000,
 };
