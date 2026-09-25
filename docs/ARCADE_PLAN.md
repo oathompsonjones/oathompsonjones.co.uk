@@ -303,6 +303,120 @@ The solver can use the mathematical structure of Lights Out rather than generic 
 - Provide a solver based on an appropriate search strategy, such as A* with an admissible heuristic.
 - Return a reproducible solution path that the UI can animate.
 
+## Mini-Games Architecture and Implementation
+
+The mini-games package should remain a reusable game-engine library. The existing OOP/MVC-style Controller/Board structure for Tic-Tac-Toe and Connect Four should be evolved rather than replaced, while avoiding a requirement that fundamentally different puzzle games inherit competitive-board concepts.
+
+### Architecture Goals
+
+- Keep controllers responsible for game-session orchestration and event delivery rather than embedding reusable algorithms.
+- Keep game state/models, rules, move generation, validation, and solvers independently usable without a live controller.
+- Keep game-specific APIs strongly typed. Do not force every game into an artificial universal solver interface.
+- Share genuinely reusable algorithms and infrastructure rather than making unrelated games conform to the same model.
+- Preserve the existing Tic-Tac-Toe and Connect Four website APIs where practical while refactoring their internals.
+
+### Game-Tree Solver Refactor
+
+Before adding the new games, extract the existing minimax/negamax, alpha-beta pruning, move ordering, and transposition-table machinery from the base controller into reusable game-tree solver infrastructure.
+
+- Introduce reusable game-tree search components under the package's algorithm/infrastructure layer.
+- Add dedicated Tic-Tac-Toe and Connect Four solver classes or modules that use that infrastructure.
+- Keep the existing controllers as orchestration layers that invoke their solvers.
+- Preserve the current website behaviour while making the solver independently callable by other consumers.
+- Ensure solver results are structured rather than UI-specific.
+- Investigate the current synchronous CPU-search blocking during this refactor and establish whether yielding or worker-based execution is needed at the consumer layer.
+
+### State and Serialisation
+
+- Define clean, serialisable representations for game states that can be constructed from API input and converted back to package state.
+- Allow Tools API consumers to submit a complete game state without constructing a controller.
+- Keep serialisation separate from presentation.
+- Provide deterministic, validated conversion boundaries for boards/states where external input is supported.
+
+### Randomness
+
+- Replace hidden use of global randomness in reusable game logic with injectable random sources where randomness affects game generation.
+- Support deterministic seeded random sources for tests, debugging, benchmarks, and reproducible games.
+- Keep seeds optional for normal play.
+
+### Solver Contract
+
+Expose game-specific solver APIs that operate on supplied state rather than requiring a controller instance.
+
+Examples include:
+
+- Connect Four: find a best move and return evaluation/search metadata.
+- Tic-Tac-Toe: analyse or find the best move.
+- Sudoku: solve, count solutions, and obtain a useful next move/hint.
+- Wordle: evaluate guesses and filter/analyse candidates.
+- Boggle: find words and return their board paths.
+- Minesweeper: analyse logically guaranteed safe cells and mines.
+- Lights Out: solve and return a move sequence.
+- 15-Puzzle: solve and return a reproducible move path.
+- Countdown Numbers: find the closest result, using operation count to break ties.
+- Countdown Letters: find the longest valid words.
+- 2048: expose move simulation/state evaluation, leaving a full automated player for later.
+
+Solver results should contain structured data such as moves, paths, scores, distances, operation counts, deductions, or evaluation metadata where relevant. UI text should be produced by consumers rather than embedded in the package.
+
+### Asynchronous Solvers and Cancellation
+
+- Keep solver algorithms independent of React, Next.js, Web Workers, or other website infrastructure.
+- Support cancellation for potentially expensive asynchronous solver operations, using an AbortSignal-style mechanism where appropriate.
+- Prevent stale results from a previous game from being applied to a newer game.
+- Decide at the website/API layer whether a solver runs directly, in a Web Worker, or through another execution mechanism after profiling.
+- Do not introduce arbitrary delays to disguise synchronous blocking.
+
+### Reusable Algorithm Infrastructure
+
+Add shared algorithmic infrastructure where multiple games genuinely benefit from it, for example:
+
+- Game-tree search: minimax/negamax, alpha-beta pruning, move ordering, transposition tables.
+- General search: A*, heuristic search, and reusable traversal primitives.
+- Constraint solving/backtracking where appropriate.
+- Word/dictionary structures such as efficient lookup and trie-style traversal where useful.
+- Random number generation and seeded sources.
+- Common validation and result types only where they represent genuinely shared semantics.
+
+Avoid a universal GameController/GameSolver abstraction that obscures important differences between games.
+
+### Game-Specific Engine Structure
+
+Use game-specific models and solvers where appropriate, following the existing reusable-code philosophy.
+
+- **Sudoku:** board/state, rules/validator, generator, solver, hint/next-move analysis, controller.
+- **Wordle:** game state, dictionary/evaluation logic, candidate analysis, controller.
+- **Boggle:** board, dice/distribution generation, word search, path validation, scoring, controller.
+- **Minesweeper:** hidden board/state, visible player state, rules, deduction solver, controller.
+- **2048:** state, move simulation, tile generation, game-over detection, evaluator, controller; automated search can be added later.
+- **Lights Out:** board/state, move rules, puzzle generator, mathematical solver, controller.
+- **15-Puzzle:** state, legal moves, solvable shuffle generation, heuristic solver, controller.
+- **Countdown:** shared shell/controller support with separate Numbers and Letters models, validators, and solvers.
+- **Tic-Tac-Toe and Connect Four:** retain their existing models/controllers while moving reusable game-tree search out of the controllers.
+
+The package should not contain React components, website routing, API handlers, or Web Worker-specific orchestration.
+
+### Testing and Performance
+
+- Unit-test game rules, validators, generators, move generation, and solvers independently of controllers.
+- Add deterministic fixtures using seeded random sources.
+- Add solver correctness tests against known positions/puzzles.
+- Add performance benchmarks for expensive searches and generators.
+- Profile worst-case cases before introducing workers or other asynchronous execution mechanisms.
+- Test cancellation and stale-result handling at the appropriate integration boundary.
+
+## Dictionary Strategy
+
+Countdown Letters, Boggle, and Wordle require shared word-list infrastructure. The exact dictionary remains an open decision.
+
+The mini-games package should define the dictionary interface and word-processing behaviour needed by those games, while the actual word-list packaging/licensing decision is made separately. The same dictionary infrastructure should be usable by the Arcade and the Wordle Solver tool.
+
+The dictionary layer should support efficient lookup, length filtering, active word-rule filtering, and solver-friendly iteration/traversal.
+
+## Seeds and Reproducible Games
+
+Generated games should accept optional deterministic random sources or seeds. This should be implemented in the package so tests, benchmarks, debugging, and future shareable game URLs can reproduce the same state without introducing server-side game sessions.
+
 ## Timing
 
 The preferred initial design is for the UI to own timers:
