@@ -1,12 +1,18 @@
 # Arcade Expansion Plan
 
-Expand the arcade with five single-player games:
+Expand the arcade with these single-player games:
 
 - Countdown Numbers
 - Countdown Letters
 - Boggle
 - Wordle
 - Sudoku
+- Minesweeper
+- 2048
+- Lights Out
+- 15-Puzzle
+
+The website already has UI implementations for Tic-Tac-Toe and Connect Four, which remain part of the arcade but are not new arcade work in this plan.
 
 Countdown Numbers and Countdown Letters are separate game modes, but can share a Countdown shell in the UI. The game logic should be added to the `@oathompsonjones/mini-games` package, while the website remains responsible for presentation, configuration, timing, and user interaction.
 
@@ -14,7 +20,7 @@ Countdown Numbers and Countdown Letters are separate game modes, but can share a
 
 - Keep the first release single-player.
 - Keep the games stateless: no accounts, persistent scores, leaderboards, or server-side game sessions are required initially.
-- Keep game rules, validation, and solving logic in the mini-games package.
+- Keep the games' rules, validation, and solving logic in the mini-games package.
 - Keep timers in the UI unless the controller already has a suitable event-emitter pattern.
 - Make the games configurable without making the default experience complicated.
 - Use the same allowed-word rules for Countdown Letters and Boggle, with Wordle using the same underlying dictionary infrastructure where practical.
@@ -23,6 +29,7 @@ Countdown Numbers and Countdown Letters are separate game modes, but can share a
 - Investigate and resolve the current blocking behaviour when the CPU is making a move while working in the mini-games package.
 - Where a solver can run asynchronously, support cancellation so resetting or abandoning a game cannot leave stale solver results updating a newer game.
 - Prefer shared infrastructure between the arcade and relevant tools. For example, the Wordle tool can reuse the same dictionary and Wordle evaluation logic as the Arcade Wordle implementation.
+- Treat the mini-games package as reusable game-engine code rather than website-specific UI code.
 
 ## Countdown
 
@@ -215,6 +222,87 @@ This should be treated as a future UI/vision feature rather than part of the ini
 
 The recognition step should never silently alter the puzzle: the user should be able to review and correct recognised cells before solving.
 
+## Minesweeper
+
+### Game Rules
+
+- Support configurable board dimensions and mine counts/difficulty presets.
+- Generate a valid board with hidden mines.
+- Reveal cells and automatically reveal connected empty regions.
+- Flag suspected mines.
+- Detect win and loss states.
+- Ensure the first move can be configured to be safe, if desired.
+
+### Package Responsibilities
+
+- Generate boards deterministically from a seed.
+- Track revealed and flagged cells independently from the underlying mine layout.
+- Calculate adjacent mine counts.
+- Apply reveal/flood-fill rules.
+- Validate moves and determine game completion.
+- Expose solver information that can identify cells that are logically guaranteed safe or guaranteed to contain mines where the current board permits such deductions.
+
+## 2048
+
+### Game Rules
+
+- Use the standard 4x4 board by default.
+- Support configurable board sizes where practical.
+- Support the four directional moves.
+- Merge equal adjacent tiles according to standard 2048 rules.
+- Track score and game-over state.
+- Allow restarting and, if desired, undoing moves.
+
+### Package Responsibilities
+
+- Represent and mutate game state through reusable move operations.
+- Generate new tiles deterministically from an injected random source.
+- Detect legal moves and game-over states.
+- Expose move results in a form the UI can render.
+- Provide a reusable state evaluator/search API if an AI/solver is added.
+
+The initial Arcade release does not require an automated 2048 player, but the engine should avoid making one impossible later.
+
+## Lights Out
+
+### Game Rules
+
+- Support a configurable rectangular grid, with a sensible default.
+- Pressing a cell toggles the cell and its orthogonal neighbours.
+- Provide a generated starting state.
+- Detect when all lights are off.
+- Allow reset/new puzzle.
+
+### Package Responsibilities
+
+- Represent board states compactly.
+- Apply moves deterministically.
+- Generate solvable puzzle states.
+- Validate completion.
+- Solve a board where possible.
+- Expose a solution as a sequence or set of moves.
+
+The solver can use the mathematical structure of Lights Out rather than generic game-tree search.
+
+## 15-Puzzle
+
+### Game Rules
+
+- Support the standard 4x4 puzzle.
+- Allow configurable board sizes if the engine can support them cleanly.
+- Generate valid, solvable shuffled states.
+- Allow tiles to slide into the empty space.
+- Detect completion.
+- Track move count.
+
+### Package Responsibilities
+
+- Represent puzzle states and legal moves.
+- Generate solvable shuffled boards.
+- Validate moves and completion.
+- Provide a solver based on an appropriate search strategy, such as A* with an admissible heuristic.
+- Return a reproducible solution path that the UI can animate.
+
 ## Timing
 
 The preferred initial design is for the UI to own timers:
@@ -228,7 +316,7 @@ If the existing event-emitter architecture makes it more natural for the control
 
 ## CPU and Solver Behaviour
 
-Countdown Numbers, Countdown Letters, Boggle, Wordle, and Sudoku can use package solvers as required for validation, hints, or end-of-game reveals. The CPU does not need to act as an opponent in the first release.
+Countdown Numbers, Countdown Letters, Boggle, Wordle, Sudoku, Minesweeper, Lights Out, and 15-Puzzle can use package solvers as required for validation, hints, or end-of-game reveals. 2048 can expose an AI/search implementation later if justified. The CPU does not need to act as an opponent in the first release.
 
 While changing the mini-games package, investigate the current blocking behaviour that occurs when the CPU is making a move. The investigation should establish:
 
@@ -272,16 +360,57 @@ This provides:
 
 A seed should not be required for ordinary play; normal games should continue to feel random.
 
+## Solver API and Reusable Architecture
+
+The mini-games package should expose reusable game engines and solvers rather than website-specific controller methods.
+
+A useful conceptual separation is:
+
+```
+Game model/state
+      |
+      +-- rules / validation
+      |
+      +-- move generation
+      |
+      +-- solver
+      |
+      +-- controller
+             |
+             +-- events / orchestration
+```
+
+The controller should coordinate a game session and emit state changes, while the model, rules, and solver remain usable independently.
+
+For games with a meaningful "next move", expose a solver operation that can analyse a supplied state without requiring a live controller instance. This is particularly important for Tools API endpoints, which should be able to accept serialisable game state and return serialisable analysis.
+
+The solver API should prefer structured results over UI-oriented strings. Depending on the game, results might contain:
+
+- Valid/invalid state.
+- Legal moves.
+- Recommended or optimal move(s).
+- Score/value/evaluation where meaningful.
+- Solution paths.
+- Distance from a target.
+- Solver metadata such as operation count.
+- A reason or deduction for hint-oriented solvers where useful.
+
+Do not force every game into one generic solver interface if the semantics become artificial. Shared interfaces should cover genuinely common concerns, while game-specific solver APIs should remain strongly typed.
+
+Controllers should be convenient for the Arcade UI; pure models, validators, move generators, and solvers should be convenient for the Tools API.
+
 ## Suggested Delivery Order
 
 ### Phase 1: Package Foundations
 
 - Inspect the mini-games package architecture and current CPU blocking behaviour.
-- Establish shared word-list and configuration types.
-- Establish a shared dictionary abstraction, while leaving the exact dictionary choice open.
+- Separate reusable game models/rules/solvers from controller-specific orchestration where the current architecture mixes them.
+- Establish shared configuration types.
+- Establish a shared word-list and dictionary abstraction, while leaving the exact dictionary choice open.
 - Add deterministic random sources or seeds for testable generation.
 - Add solver and validator test fixtures.
 - Establish cancellation semantics for expensive asynchronous solver work where appropriate.
+- Establish a consistent serialisation strategy for game state and solver results where this is useful to the Tools API.
 
 ### Phase 2: Wordle
 
@@ -320,7 +449,53 @@ A seed should not be required for ordinary play; normal games should continue to
 - Add blank-grid input and validation.
 - Add solver/hint support once the core board implementation is stable.
 
-### Phase 7: Polish
+### Phase 7: Minesweeper
+
+- Add board representation, generation, reveal/flood-fill, flags, and win/loss handling.
+- Add deterministic generation and tests.
+- Add deduction-oriented solver support.
+- Connect the Arcade UI.
+
+### Phase 8: 2048
+
+- Add reusable move/state engine.
+- Add deterministic random tile generation.
+- Connect the Arcade UI.
+- Consider AI/search only after the basic engine is stable.
+
+### Phase 9: Lights Out
+
+- Add board representation and move rules.
+- Add deterministic puzzle generation.
+- Add mathematical solver.
+- Connect the Arcade UI.
+
+### Phase 10: 15-Puzzle
+
+- Add state representation and legal moves.
+- Add solvable shuffle generation.
+- Add heuristic solver.
+- Connect the Arcade UI and solution animation.
+
+### Phase 11: Solver Tools
+
+Expose useful solver/analysis functionality through Tools APIs, reusing the mini-games package rather than duplicating algorithms.
+
+Potential tools include:
+
+- Wordle Solver.
+- Sudoku Solver.
+- Boggle Solver.
+- Minesweeper Solver.
+- Connect Four Solver.
+- Tic-Tac-Toe Solver.
+- 2048 Solver/Move Analyser.
+- Lights Out Solver.
+- 15-Puzzle Solver.
+
+The exact UI/API surface should be designed around each game's useful analysis rather than forcing every solver into the same interface.
+
+### Phase 12: Polish
 
 - Add shared configuration controls and timer presentation.
 - Add accessible keyboard and screen-reader support.
@@ -342,6 +517,8 @@ Potential shared areas include:
 - Game-specific solver utilities.
 - Deterministic random generation.
 - Search/solver infrastructure.
+- Serialisation and deserialisation of game state.
+- Common validation/error-result patterns where they genuinely apply.
 
 The website should remain responsible for presentation and interaction, while the mini-games package remains the source of truth for game rules and solving behaviour.
 
@@ -355,6 +532,10 @@ The website should remain responsible for presentation and interaction, while th
 - Should Countdown solutions be allowed to use brackets and, if so, what grammar is permitted?
 - How should Sudoku difficulty be defined and measured?
 - How should Sudoku puzzles be generated so difficulty is meaningful rather than based only on the number of removed cells?
+- What Minesweeper board presets and first-move rules should be supported?
+- Should 2048 support only the standard 4x4 game initially?
+- What default Lights Out grid size should be used?
+- How should 15-Puzzle solver performance be bounded for difficult positions?
 - Should the timer pause when the browser tab is hidden?
 - Is a Web Worker needed immediately, or only after profiling the solver?
 - What exact dictionary licence and packaging strategy is appropriate for the website and tools?
