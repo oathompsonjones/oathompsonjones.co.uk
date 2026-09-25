@@ -51,22 +51,16 @@ There should be no database, persistent tool sessions, or stored user input. Req
    - Never persist submitted input or generated output.
 
 4. **Wordle Solver**
-   - Accept known letters, excluded letters, and positional constraints.
-   - Use a bundled word list rather than a remote service.
-   - Show candidate words and explain invalid or contradictory constraints.
-   - Keep the solver usable with keyboard and screen readers.
-   - Expose the solver through a stateless API endpoint accepting the same constraints and returning candidate words.
-   - The UI should use the API endpoint for solving.
-   - Keep the word list bundled with the application rather than storing user state.
+   - Provide the Tools-facing interface for the Wordle functionality defined by the Arcade/MiniGames plan.
+   - Accept serialisable Wordle constraints and return structured candidate/analyser results.
+   - Reuse the MiniGames dictionary and Wordle evaluation/candidate logic rather than implementing a second solver.
+   - See `docs/ARCADE_PLAN.md` for the package architecture, shared dictionary strategy, and solver behaviour.
 
 5. **Sudoku Solver**
-   - Provide an accessible 9x9 input grid.
-   - Validate duplicate values and incomplete or unsolvable boards.
-   - Solve the submitted board and show the resulting board.
-   - Consider a step-by-step mode later, but keep the first version focused.
-   - Expose the solver through a stateless API endpoint accepting a board and returning the solution or validation result.
-   - The UI should use the API endpoint for solving.
-   - Do not create or persist server-side puzzle sessions.
+   - Provide the Tools-facing interface for the Sudoku functionality defined by the Arcade/MiniGames plan.
+   - Accept a serialisable 9x9 board and return structured validation, solution, uniqueness, or solver information as supported by the package.
+   - Reuse the MiniGames Sudoku board, validator, and solver rather than implementing a second Sudoku engine.
+   - See `docs/ARCADE_PLAN.md` for puzzle generation, difficulty, solving, hints, and package architecture.
 
 6. **Website Screenshotter**
    - Accept a URL and capture a screenshot of the rendered page.
@@ -202,6 +196,41 @@ These tools are intentionally UI-focused. They are primarily demonstrations of a
     - Expose text diff generation through a stateless API endpoint.
     - The UI should use the API endpoint for the actual diff calculation.
     - Consider syntax-aware highlighting later, but keep the initial implementation language-agnostic.
+
+## Mini-Games Solver Tools
+
+The Arcade plan is the source of truth for game rules, reusable game engines, solver algorithms, state models, and solver result semantics. This plan only defines how selected MiniGames capabilities are exposed as stateless website Tools.
+
+Where a game already exists in the MiniGames package or Arcade, the corresponding Tool must reuse that package implementation rather than duplicate the algorithm in the website. The Tool API should accept serialisable game state/configuration, invoke the relevant package solver, and return serialisable structured results.
+
+Potential solver Tools include:
+
+- Wordle Solver
+- Sudoku Solver
+- Boggle Solver
+- Minesweeper Solver
+- Connect Four Solver
+- Tic-Tac-Toe Solver
+- 2048 Move Analyser / Solver, if the package exposes useful search functionality
+- Lights Out Solver
+- 15-Puzzle Solver
+- Countdown Numbers / Letters analysis, if a useful standalone Tool surface emerges
+
+Not every Arcade game requires a Tool. Add a solver Tool when the analysis is independently useful or makes a meaningful interactive developer/puzzle utility. Do not create a Tool merely to mirror every Arcade game.
+
+For each solver Tool:
+
+- Keep the API stateless: all required state and configuration must be supplied in the request.
+- Return structured solver results rather than UI-specific strings.
+- Use the MiniGames package as the source of truth for game rules and solving.
+- Keep API route handlers thin: validate/normalise input, invoke the package, and serialise the result.
+- Apply resource and execution limits appropriate to the solver.
+- Use cancellation or bounded execution where the underlying solver supports it.
+- Do not persist puzzles, game state, solver jobs, or user input.
+- The UI should call the same API endpoint for API-backed solver operations rather than maintaining a second implementation.
+- Link back to the relevant Arcade/game documentation where useful.
+
+The exact endpoint names, request/response schemas, and UI presentation should be defined when each Tool is implemented. Avoid duplicating the detailed game-specific solver design here; refer to `docs/ARCADE_PLAN.md` and the MiniGames package as the implementation source of truth.
 
 ## API Design
 
