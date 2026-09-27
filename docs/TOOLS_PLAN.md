@@ -34,12 +34,27 @@ There should be no database, persistent tool sessions, or stored user input. Req
    - The UI should call the same API rather than maintaining a separate image-processing implementation.
    - Do not persist uploaded images after the request has completed.
 
-2. **JSON Formatter**
+2. **JSON Toolkit and Data Format Converter**
+   - Make JSON formatting, validation, and conversion a single tool/page rather than separate JSON Formatter and JSON to TypeScript tools.
+   - Accept JSON text and file input where practical.
    - Format, minify, and validate JSON.
-   - Provide clear parse errors and useful line information where possible.
-   - Include copy and download actions.
-   - Expose equivalent operations through a stateless API endpoint.
-   - The UI should use the API endpoint for the actual formatting/validation work.
+   - Provide clear parse errors and useful line/column information where possible.
+   - Support configurable indentation and optional object-key sorting.
+   - Convert JSON into useful representations including:
+     - JSON (pretty/minified)
+     - TypeScript interfaces/types
+     - XML
+     - YAML
+     - CSV
+     - JSON Schema
+   - Treat JSON as the canonical input format initially rather than attempting arbitrary conversions between every supported format.
+   - Handle nested objects, arrays, primitive values, nulls, and other JSON structures appropriately for each output format.
+   - For conversions where JSON does not map cleanly to the target format, explain or surface the relevant limitations rather than silently producing misleading output.
+   - Provide copy and download actions for generated output.
+   - Expose formatting, validation, and conversion operations through a single stateless API endpoint, with an operation/target-format field determining the requested transformation.
+   - The UI should use the same API endpoint for API-backed formatting, validation, and conversion rather than maintaining duplicate transformation logic.
+   - Keep trivial local UI state such as editor contents and selection state client-side.
+   - Do not persist submitted JSON or generated output.
 
 3. **Hash and Encoding Toolkit**
    - Support Base64, URL encoding/decoding, hexadecimal, and common hashes.
@@ -143,13 +158,6 @@ There should be no database, persistent tool sessions, or stored user input. Req
     - The UI should use the API for server-side hashing, with appropriate upload and resource limits.
     - Do not retain uploaded files after processing.
 
-15. **JSON to TypeScript Generator**
-    - Accept JSON and generate TypeScript `interface` or `type` definitions.
-    - Handle nested objects, arrays, primitive types, and optional properties.
-    - Support useful naming and output-format options.
-    - Provide copy and download actions.
-    - Expose JSON-to-TypeScript generation through a stateless API endpoint.
-    - The UI should use the API endpoint for generation.
 
 ### Interactive / Algorithmic Tools
 
@@ -249,7 +257,6 @@ The exact endpoint names, request/response schemas, and UI presentation should b
   - `/api/tools/markdown`
   - `/api/tools/image-metadata`
   - `/api/tools/hash-files`
-  - `/api/tools/json-to-typescript`
   - `/api/tools/diff`
 - Keep endpoints stateless: a request must contain all required input, and the response must contain the result.
 - Do not create a database, server-side user accounts, persistent sessions, or job records for tools.
@@ -282,7 +289,6 @@ The exact endpoint names, request/response schemas, and UI presentation should b
   - `/tools/markdown`
   - `/tools/image-metadata`
   - `/tools/hash-files`
-  - `/tools/json-to-typescript`
   - `/tools/pathfinding`
   - `/tools/sorting`
   - `/tools/cellular-automata`
@@ -335,6 +341,8 @@ Do not include this initially. It overlaps somewhat with the encoding/developer-
 
 ## Delivery Phases
 
+The implementation order is intentionally based primarily on increasing implementation difficulty. The aim is to ship several small, useful tools early and gradually introduce more demanding file-processing, networking, and algorithmic work.
+
 ### Phase 1: Foundation
 
 - Add the `/tools` page and navigation entry.
@@ -342,44 +350,57 @@ Do not include this initially. It overlaps somewhat with the encoding/developer-
 - Establish route, component, utility-module, and API conventions.
 - Establish a consistent API error and validation format.
 - Establish the pattern of using API endpoints as the source of truth for server-suitable tool operations.
-- Add responsive and accessibility patterns.
+- Establish responsive and accessibility patterns.
 
-### Phase 2: Core Developer Tools
+### Phase 2: Very Easy Tools
 
-- Implement JSON Formatter.
-- Implement Hash and Encoding Toolkit.
-- Implement Wordle Solver.
-- Implement Sudoku Solver.
-- Implement Colour Palette and Contrast Tool.
-- Implement Regex Tester.
-- Implement Cron Expression Explainer.
-- Implement URL Inspector.
-- Add and document the corresponding stateless API endpoints.
+1. **JSON Toolkit and Data Format Converter**
+   - Build the shared JSON input/validation/formatting/conversion surface first.
+   - Start with JSON formatting and validation, then add TypeScript, XML, YAML, CSV, and JSON Schema output.
+2. **Hash and Encoding Toolkit**
+3. **Markdown Previewer**
+4. **Colour Palette and Contrast Tool**
+5. **Regex Tester**
+6. **Cron Expression Explainer**
 
-### Phase 3: File, Rendering, and Networking Tools
+These should establish the basic patterns for editors, structured output, validation, copy/download actions, and stateless API-backed operations.
 
-- Implement Image Converter and Manipulator, including seam carving.
-- Add its stateless API endpoint and make the UI use it.
-- Implement Website Screenshotter with server-side browser automation and SSRF/resource protections.
-- Add its stateless API endpoint and API documentation.
-- Implement Image Metadata Inspector.
-- Implement File Hash and Duplicate Checker.
-- Implement Markdown Previewer.
-- Implement JSON to TypeScript Generator.
-- Implement HTTP Request Builder without arbitrary server-side request execution.
-- Implement Diff Tool.
+### Phase 3: Easy-to-Medium Tools
 
-### Phase 4: Interactive Algorithm Visualisations
+7. **JSON to TypeScript functionality within the JSON Toolkit**
+   - This is not a separate page or API.
+   - Expand the JSON Toolkit's type inference and generation capabilities as part of the same implementation.
+8. **Diff Tool**
+9. **Image Metadata Inspector**
+10. **File Hash and Duplicate Checker**
+11. **URL Inspector**
 
-- Implement Pathfinding Visualiser.
-- Implement Sorting Algorithm Visualiser.
-- Implement Cellular Automata.
-- Implement Binary / Bitboard Visualiser.
-- Keep these primarily UI-focused and document why a conventional API endpoint is unnecessary or limited for each one.
+### Phase 4: Medium Tools
 
-### Phase 5: Quality and Documentation
+12. **Image Converter and Manipulator**
+   - Start with ordinary format conversion, resizing, and compression.
+   - Add seam carving once the basic image-processing pipeline is stable.
+13. **HTTP Request Builder**
+   - Construction and inspection only; no unrestricted server-side request execution.
 
-- Add unit tests for parsers, validators, solvers, algorithms, and transformation helpers.
+### Phase 5: Harder Server-Side Tool
+
+14. **Website Screenshotter**
+   - Add server-side browser automation.
+   - Implement SSRF protections, timeouts, resource limits, and robust failure handling.
+
+### Phase 6: Interactive Algorithmic Tools
+
+15. **Sorting Algorithm Visualiser**
+16. **Pathfinding Visualiser**
+17. **Binary / Bitboard Visualiser**
+18. **Cellular Automata**
+
+These are deliberately ordered so the visualisation work grows from simple state transitions into more complex algorithms and simulation.
+
+### Phase 7: Quality and Documentation
+
+- Add unit tests for parsers, validators, algorithms, and transformation helpers.
 - Add API tests covering valid requests, invalid input, size limits, and error responses.
 - Add tests for the API/UI contract so the website does not accidentally diverge from the public API behaviour.
 - Test keyboard navigation, focus management, error states, and reduced-transparency preferences.
@@ -389,6 +410,10 @@ Do not include this initially. It overlaps somewhat with the encoding/developer-
 - Add concise help text and examples where a tool's input format is not obvious.
 - Add API documentation and example requests/responses for every API-backed tool.
 - Add links from the tools page to the relevant source repositories where appropriate.
+
+### MiniGames Work
+
+The MiniGames architecture and Arcade implementation remain a separate later workstream. See `docs/ARCADE_PLAN.md` for the game implementation order and architecture. The standalone game solver Tools should be considered only after the corresponding reusable MiniGames engines exist.
 
 ## Acceptance Criteria
 
