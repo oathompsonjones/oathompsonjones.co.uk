@@ -145,6 +145,14 @@ After the initial catalogue is working:
 - Consider future Sudoku camera scanning separately from the core game.
 - Add further Tools or Arcade games only when they provide a clear use case or portfolio value.
 
+## Phase 11 — Franchises
+
+Only after the Tools and Arcade roadmap has been substantially completed, take on the separate Franchises project described in docs/FRANCHISES_PLAN.md.
+
+This is intentionally last because it is a much larger data-modelling and content-curation project rather than a natural extension of the Tools or Arcade implementation work.
+
+The Franchises project should begin with a small, well-structured dataset and prove the reusable data model with more than one franchise before expanding the catalogue.
+
 ## Recommended Working Pattern
 
 For each project:
