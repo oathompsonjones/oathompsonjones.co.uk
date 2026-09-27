@@ -6,7 +6,6 @@ import type { Repo } from "actions/github";
 
 export type FeaturedProject = {
     description: string;
-    links: ReadonlyArray<{ label: string; url: string; }>;
     name: string;
     repo: Repo;
 };
@@ -41,7 +40,6 @@ export const FEATURED_REPOSITORIES = [
             "The mod shipped on the Fabric API with a working set of socks, each granting its wearer a ",
             "distinct ability.",
         ].join(""),
-        links: [{ label: "More of my mods", url: "https://modrinth.com/user/oathompsonjones" }],
         name: "Rock Your Socks Off",
         repository: "rock-your-socks-off",
     },
@@ -121,18 +119,6 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps): ReactNode
                                         View project
                                     </Button>
                                 )}
-                                {project.links.map(({ label, url }) => (
-                                    <Button
-                                        href={url}
-                                        key={url}
-                                        rel="noreferrer"
-                                        size="small"
-                                        startIcon={<OpenInNew />}
-                                        target="_blank"
-                                    >
-                                        {label}
-                                    </Button>
-                                ))}
                             </Card.Actions>
                         </Card>
                     </Grid>
