@@ -6,7 +6,7 @@ import {
     CardHeader,
     CardMedia,
     CardRoot,
-} from "components/card.client";
+} from "./card.client";
 import type { CardProps } from "@mui/material";
 import type { ReactNode } from "react";
 
