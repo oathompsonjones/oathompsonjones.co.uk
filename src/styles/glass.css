@@ -3,7 +3,7 @@
 }
 
 .glass-enabled {
-    backdrop-filter: blur(5px) saturate(180%);
+    backdrop-filter: blur(3px) saturate(180%) brightness(75%);
     background-color: rgba(255, 255, 255, 0.05);
     clip-path: inset(0 round 2rem);
     isolation: isolate;
