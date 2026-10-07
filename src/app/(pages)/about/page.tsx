@@ -2,8 +2,7 @@
 
 import { ArrowDropDown, FileDownload } from "@mui/icons-material";
 import { Button, ButtonGroup, Menu, MenuItem, Typography } from "@mui/material";
-import type { MouseEvent, ReactNode } from "react";
-import { useCallback, useState } from "react";
+import { type ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import { Experience } from "components/pages/about/experience";
 import { Qualifications } from "components/pages/about/qualifications";
 import { Skills } from "components/pages/about/skills";
@@ -16,25 +15,33 @@ import { Volunteering } from "components/pages/about/volunteering";
  * @returns My CV.
  */
 export default function About(): ReactNode {
-    const [downloadMenuAnchor, setDownloadMenuAnchor] = useState<HTMLElement | null>(null);
-    const handleDownloadMenuOpen = useCallback(
-        (event: MouseEvent<HTMLElement>): void => setDownloadMenuAnchor(event.currentTarget),
-        [],
-    );
-    const handleDownloadMenuClose = useCallback((): void => setDownloadMenuAnchor(null), []);
+    const buttonGroupRef = useRef<HTMLDivElement>(null);
+    const [downloadMenuOpen, setDownloadMenuOpen] = useState(false);
+    const handleDownloadMenuOpen = useCallback((): void => setDownloadMenuOpen(true), []);
+    const handleDownloadMenuClose = useCallback((): void => setDownloadMenuOpen(false), []);
+
+    // Scrolling is not locked while the menu is open, so close it when the page scrolls instead.
+    useEffect(() => {
+        if (!downloadMenuOpen)
+            return (): void => { /* Nothing to clean up. */ };
+
+        window.addEventListener("scroll", handleDownloadMenuClose, { passive: true });
+
+        return (): void => window.removeEventListener("scroll", handleDownloadMenuClose);
+    }, [downloadMenuOpen, handleDownloadMenuClose]);
 
     return (
         <Stack sx={{ gap: 2 }}>
             <Typography align="center" sx={{ flex: 1 }} variant="h2">
                 About Me
             </Typography>
-            <ButtonGroup size="small" sx={{ alignSelf: "center" }}>
+            <ButtonGroup ref={buttonGroupRef} size="small" sx={{ alignSelf: "center" }}>
                 <Button LinkComponent="a" href="/cv" startIcon={<FileDownload />}>
                     Download CV
                 </Button>
                 <Button
-                    aria-controls={downloadMenuAnchor === null ? undefined : "cv-download-menu"}
-                    aria-expanded={downloadMenuAnchor === null ? undefined : "true"}
+                    aria-controls={downloadMenuOpen ? "cv-download-menu" : undefined}
+                    aria-expanded={downloadMenuOpen ? "true" : undefined}
                     aria-haspopup="menu"
                     aria-label="More CV download options"
                     onClick={handleDownloadMenuOpen}
@@ -43,10 +50,14 @@ export default function About(): ReactNode {
                 </Button>
             </ButtonGroup>
             <Menu
-                anchorEl={downloadMenuAnchor}
+                anchorEl={buttonGroupRef.current}
+                anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
+                disableScrollLock
                 id="cv-download-menu"
                 onClose={handleDownloadMenuClose}
-                open={downloadMenuAnchor !== null}
+                open={downloadMenuOpen}
+                slotProps={{ list: { disablePadding: true } }}
+                transformOrigin={{ horizontal: "center", vertical: "top" }}
             >
                 <MenuItem component="a" href="/cv?singlePage" onClick={handleDownloadMenuClose}>
                     Download single-page CV
