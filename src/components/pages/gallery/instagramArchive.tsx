@@ -4,10 +4,13 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import type { InfinitePaginationPage } from "hooks/useInfinitePagination";
 import type { InstagramPage } from "actions/instagram";
 import { InstagramPost } from "components/pages/gallery/instagramPost";
-import { Masonry } from "@mui/lab";
 import type { ReactNode } from "react";
+import { SkeletonMasonry } from "components/skeletonMasonry";
 import { useCallback } from "react";
 import { useInfinitePagination } from "hooks/useInfinitePagination";
+
+const SKELETON_COUNT = 8;
+const COLUMNS = { lg: 5, md: 4, sm: 3, xl: 6, xs: 1 };
 
 type InstagramPageResponse =
     | {
@@ -37,23 +40,19 @@ function toPaginationPage(
 
 /**
  * Renders a gallery archive with infinite scrolling.
- * @param props - Component properties.
- * @param props.initialPage - The first server-rendered page of posts.
  * @returns A client-side archive with incremental loading.
  */
-export function InstagramArchive({ initialPage }: {
-    readonly initialPage: InstagramPage;
-}): ReactNode {
+export function InstagramArchive(): ReactNode {
     type Post = InstagramPage["posts"][number];
 
     // Fetches the next page of Instagram posts.
     const fetchPage = useCallback(async ({ cursor }: {
         cursor: string | null;
     }): Promise<InfinitePaginationPage<Post>> => {
-        if (cursor === null)
-            return toPaginationPage(initialPage);
+        const params = new URLSearchParams();
 
-        const params = new URLSearchParams({ after: cursor });
+        if (cursor !== null)
+            params.set("after", cursor);
 
         const response = await fetch(`/api/instagram/posts?${params.toString()}`);
         const payload = await response.json() as InstagramPageResponse;
@@ -62,12 +61,11 @@ export function InstagramArchive({ initialPage }: {
             throw new Error(payload.success ? "Failed to load posts." : payload.error);
 
         return toPaginationPage(payload.data);
-    }, [initialPage]);
+    }, []);
 
     const { items: posts, hasNextPage, isLoading, error, retry } = useInfinitePagination<Post>({
         fetchPage,
         getItemKey: (post) => post.id,
-        initialPage: toPaginationPage(initialPage),
     });
 
     const imageCount = posts.reduce((count, post) => {
@@ -83,9 +81,16 @@ export function InstagramArchive({ initialPage }: {
 
     return (
         <Stack sx={{ gap: 2 }}>
-            <Masonry columns={{ lg: 5, md: 4, sm: 3, xl: 6, xs: 1 }}>
+            <SkeletonMasonry
+                columns={COLUMNS}
+                count={SKELETON_COUNT}
+                fallbackCount={12}
+                loading={isLoading}
+                maxRatio={1.4}
+                minRatio={0.8}
+            >
                 {posts.map((post) => (<InstagramPost key={post.id} post={post} />))}
-            </Masonry>
+            </SkeletonMasonry>
 
             <Box
                 sx={{
@@ -97,7 +102,7 @@ export function InstagramArchive({ initialPage }: {
             >
                 <Typography color="text.secondary" variant="caption">
                     {isLoading
-                        ? "Loading more posts..."
+                        ? `Loading ${posts.length === 0 ? "" : "more "}posts...`
                         : `Showing ${hasNextPage ? "" : "all "}${posts.length} posts (${imageCount} images)`}
                 </Typography>
             </Box>

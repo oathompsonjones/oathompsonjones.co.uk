@@ -11,7 +11,7 @@ export type InfinitePaginationFetchParams = {
 };
 
 export type UseInfinitePaginationOptions<T> = {
-    initialPage: InfinitePaginationPage<T>;
+    initialPage?: InfinitePaginationPage<T>;
     fetchPage: (
         params: InfinitePaginationFetchParams,
     ) => Promise<InfinitePaginationPage<T>>;
@@ -21,12 +21,35 @@ export type UseInfinitePaginationOptions<T> = {
 export type UseInfinitePaginationResult<T> = {
     items: T[];
     hasNextPage: boolean;
+    isInitialLoading: boolean;
     isLoading: boolean;
     error: string | null;
     loadMore: () => void;
     retry: () => void;
     reset: (page: InfinitePaginationPage<T>) => void;
 };
+
+/**
+ * Determines whether the document is currently at its bottom.
+ * A document which is shorter than the viewport is considered to be at the bottom too.
+ * @returns Whether the bottom of the document is in view.
+ */
+function isAtBottom(): boolean {
+    const documentHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+
+    return documentHeight <= window.innerHeight || window.scrollY + window.innerHeight >= documentHeight - 2;
+}
+
+/**
+ * Determines whether the document is too short to scroll.
+ *
+ * Being at the bottom is not enough to keep loading: when placeholders are replaced by
+ * items, the document can shrink for a moment, which clamps the scroll position to the bottom.
+ * @returns Whether the document fits within the viewport.
+ */
+function isViewportUnderfilled(): boolean {
+    return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) <= window.innerHeight;
+}
 
 /**
  * Provides cursor-based infinite scrolling pagination.
@@ -36,7 +59,7 @@ export type UseInfinitePaginationResult<T> = {
  * is loaded when the user reaches the bottom.
  * @template T - The type of the items being paginated.
  * @param options - Pagination configuration.
- * @param options.initialPage - The first page of results.
+ * @param options.initialPage - The first page of results. When omitted, the first page is fetched on mount.
  * @param options.fetchPage - Function used to fetch subsequent pages.
  * @param options.getItemKey - Optional function used to remove duplicates.
  * @returns Infinite pagination state and controls.
@@ -46,13 +69,16 @@ export function useInfinitePagination<T>({
     fetchPage,
     getItemKey,
 }: UseInfinitePaginationOptions<T>): UseInfinitePaginationResult<T> {
-    const [items, setItems] = useState<T[]>(initialPage.items);
-    const [hasNextPage, setHasNextPage] = useState(initialPage.hasNextPage);
-    const [isLoading, setIsLoading] = useState(false);
+    const [items, setItems] = useState<T[]>(initialPage?.items ?? []);
+    const [hasNextPage, setHasNextPage] = useState(initialPage?.hasNextPage ?? true);
+    const [isLoading, setIsLoading] = useState(initialPage === undefined);
+    const [isInitialLoading, setIsInitialLoading] = useState(initialPage === undefined);
     const [error, setError] = useState<string | null>(null);
 
-    const cursorRef = useRef<string | null>(initialPage.endCursor);
-    const hasNextPageRef = useRef(initialPage.hasNextPage);
+    const cursorRef = useRef<string | null>(initialPage?.endCursor ?? null);
+    const hasNextPageRef = useRef(initialPage?.hasNextPage ?? true);
+    // Until the first page has loaded there is no cursor, but fetching is still allowed.
+    const pendingInitialRef = useRef(initialPage === undefined);
     const loadingRef = useRef(false);
     const fillingRef = useRef(false);
     const mountedRef = useRef(true);
@@ -64,18 +90,6 @@ export function useInfinitePagination<T>({
         return (): void => {
             mountedRef.current = false;
         };
-    }, []);
-
-    /**
-     * Determines whether the document is currently at its bottom.
-     *
-     * A document which is shorter than the viewport is considered to be
-     * at the bottom too.
-     */
-    const isAtBottom = useCallback((): boolean => {
-        const documentHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
-
-        return documentHeight <= window.innerHeight || window.scrollY + window.innerHeight >= documentHeight - 2;
     }, []);
 
     /**
@@ -95,7 +109,7 @@ export function useInfinitePagination<T>({
      * @returns Whether the page was loaded successfully.
      */
     const fetchNextPage = useCallback(async (): Promise<boolean> => {
-        if (loadingRef.current || !hasNextPageRef.current || cursorRef.current === null)
+        if (loadingRef.current || !hasNextPageRef.current || cursorRef.current === null && !pendingInitialRef.current)
             return Promise.resolve(false);
 
         loadingRef.current = true;
@@ -122,6 +136,7 @@ export function useInfinitePagination<T>({
 
                 cursorRef.current = page.endCursor;
                 hasNextPageRef.current = page.hasNextPage;
+                pendingInitialRef.current = false;
 
                 setHasNextPage(page.hasNextPage);
 
@@ -142,8 +157,10 @@ export function useInfinitePagination<T>({
             .finally(() => {
                 loadingRef.current = false;
 
-                if (mountedRef.current)
+                if (mountedRef.current) {
                     setIsLoading(false);
+                    setIsInitialLoading(false);
+                }
             });
     }, [fetchPage, getItemKey]);
 
@@ -158,11 +175,12 @@ export function useInfinitePagination<T>({
         fillingRef.current = true;
 
         const loadUntilViewportFilled = async (): Promise<void> => {
-            if (!mountedRef.current || !hasNextPageRef.current || cursorRef.current === null)
+            if (!mountedRef.current || !hasNextPageRef.current ||
+                cursorRef.current === null && !pendingInitialRef.current)
                 return Promise.resolve();
 
             return waitForRender().then(async (): Promise<void> => {
-                if (!mountedRef.current || !isAtBottom())
+                if (!mountedRef.current || !isViewportUnderfilled())
                     return;
 
                 const loaded = await fetchNextPage();
@@ -175,17 +193,18 @@ export function useInfinitePagination<T>({
         return loadUntilViewportFilled().finally(() => {
             fillingRef.current = false;
         });
-    }, [fetchNextPage, isAtBottom, waitForRender]);
+    }, [fetchNextPage, waitForRender]);
 
     /**
      * Loads more items when the user reaches the bottom.
      */
     const loadMore = useCallback((): void => {
-        if (loadingRef.current || fillingRef.current || !hasNextPageRef.current || cursorRef.current === null)
+        if (loadingRef.current || fillingRef.current || !hasNextPageRef.current ||
+            cursorRef.current === null && !pendingInitialRef.current)
             return;
 
-        void fillViewport();
-    }, [fillViewport]);
+        void fetchNextPage().then(fillViewport);
+    }, [fetchNextPage, fillViewport]);
 
     /**
      * Resets the pagination state to a new initial page.
@@ -196,7 +215,9 @@ export function useInfinitePagination<T>({
     const reset = useCallback((page: InfinitePaginationPage<T>): void => {
         cursorRef.current = page.endCursor;
         hasNextPageRef.current = page.hasNextPage;
+        pendingInitialRef.current = false;
 
+        setIsInitialLoading(false);
         setItems(page.items);
         setHasNextPage(page.hasNextPage);
         setIsLoading(false);
@@ -210,8 +231,18 @@ export function useInfinitePagination<T>({
      */
     const retry = useCallback((): void => {
         setError(null);
+
+        if (pendingInitialRef.current)
+            setIsInitialLoading(true);
+
         void fillViewport();
     }, [fillViewport]);
+
+    // Fetches the first page when none was provided.
+    useEffect(() => {
+        if (pendingInitialRef.current)
+            void fetchNextPage();
+    }, [fetchNextPage]);
 
     /**
      * Automatically fills an under-filled viewport after the initial
@@ -221,19 +252,24 @@ export function useInfinitePagination<T>({
         void fillViewport();
     }, [fillViewport, items.length]);
 
-    /**
-     * Loads another page when the user reaches the bottom.
-     */
+    // Loads another page when the user reaches the bottom.
     useEffect(() => {
+        let lastY = window.scrollY;
+
+        /** Only react to scrolling down, since layout changes can clamp the scroll position upwards. */
         const onScroll = (): void => {
-            if (isAtBottom())
+            const previousY = lastY;
+
+            lastY = window.scrollY;
+
+            if (lastY > previousY && isAtBottom())
                 loadMore();
         };
 
         window.addEventListener("scroll", onScroll, { passive: true });
 
         return (): void => window.removeEventListener("scroll", onScroll);
-    }, [isAtBottom, loadMore]);
+    }, [loadMore]);
 
     /**
      * Re-checks whether the viewport needs filling after a resize.
@@ -247,11 +283,12 @@ export function useInfinitePagination<T>({
         window.addEventListener("resize", onResize);
 
         return (): void => window.removeEventListener("resize", onResize);
-    }, [isAtBottom, loadMore]);
+    }, [loadMore]);
 
     return {
         error,
         hasNextPage,
+        isInitialLoading,
         isLoading,
         items,
         loadMore,

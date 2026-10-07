@@ -2,10 +2,11 @@
 
 import type { BeholdPost, Post } from "actions/instagram";
 import { ChatBubble, Favorite, Instagram } from "@mui/icons-material";
-import { type ReactNode, useCallback, useState } from "react";
-import { Stack, Typography, Zoom } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
+import { useCallback, useState } from "react";
 import { Card } from "components/card";
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 /**
  * Renders an Instagram post.
@@ -36,89 +37,87 @@ export function InstagramPost({ post }: { readonly post: BeholdPost | Post; }): 
 
     // All other posts are displayed as a single image.
     return (
-        <Zoom in timeout={500}>
-            <Card onMouseEnter={handleHover} onMouseLeave={handleHover} sx={{ position: "relative" }}>
-                <Card.ActionArea
-                    centerRipple sx={{
+        <Card onMouseEnter={handleHover} onMouseLeave={handleHover} sx={{ position: "relative" }}>
+            <Card.ActionArea
+                centerRipple sx={{
+                    height: "100%",
+                    position: "absolute",
+                    transition: "opacity 0.25s linear",
+                    width: "100%",
+                }}
+            >
+                <Stack
+                    component={Link}
+                    href={post.permalink}
+                    sx={{
+                        alignItems: "center",
+                        // Ensure overlay content scales to fit small images
+                        boxSizing: "border-box",
+                        color: "white",
+                        gap: 1.5,
                         height: "100%",
-                        position: "absolute",
+                        justifyContent: "center",
+                        opacity: hover ? "100%" : "0%",
+                        padding: 1,
+                        textDecoration: "none",
                         transition: "opacity 0.25s linear",
-                        width: "100%",
                     }}
                 >
-                    <Stack
-                        component={Link}
-                        href={post.permalink}
-                        sx={{
+                    <Instagram sx={{ fontSize: "clamp(28px, 6vw, 64px)" }} />
+                    <div
+                        style={{
                             alignItems: "center",
-                            // Ensure overlay content scales to fit small images
-                            boxSizing: "border-box",
-                            color: "white",
-                            gap: 1.5,
-                            height: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: 12,
                             justifyContent: "center",
-                            opacity: hover ? "100%" : "0%",
-                            padding: 1,
-                            textDecoration: "none",
-                            transition: "opacity 0.25s linear",
+                            maxHeight: "80%",
+                            overflow: "visible",
+                            padding: "0.25rem 0",
                         }}
                     >
-                        <Instagram sx={{ fontSize: "clamp(28px, 6vw, 64px)" }} />
-                        <div
-                            style={{
-                                alignItems: "center",
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: 12,
-                                justifyContent: "center",
-                                maxHeight: "80%",
-                                overflow: "visible",
-                                padding: "0.25rem 0",
-                            }}
-                        >
-                            {post.like_count !== undefined && (
-                                <Stack
-                                    direction="row"
-                                    sx={{ alignItems: "center", gap: 1.25, justifyContent: "center", lineHeight: 1 }}
+                        {post.like_count !== undefined && (
+                            <Stack
+                                direction="row"
+                                sx={{ alignItems: "center", gap: 1.25, justifyContent: "center", lineHeight: 1 }}
+                            >
+                                <Favorite sx={{ fontSize: "clamp(16px, 3.5vw, 28px)", lineHeight: 1 }} />
+                                <Typography
+                                    color="white"
+                                    sx={{ fontSize: "clamp(14px, 4vw, 24px)", lineHeight: 1, m: 0 }}
                                 >
-                                    <Favorite sx={{ fontSize: "clamp(16px, 3.5vw, 28px)", lineHeight: 1 }} />
-                                    <Typography
-                                        color="white"
-                                        sx={{ fontSize: "clamp(14px, 4vw, 24px)", lineHeight: 1, m: 0 }}
-                                    >
-                                        {post.like_count}
-                                    </Typography>
-                                </Stack>
-                            )}
-                            {post.comments_count !== undefined && (
-                                <Stack
-                                    direction="row"
-                                    sx={{ alignItems: "center", gap: 1.25, justifyContent: "center", lineHeight: 1 }}
+                                    {post.like_count}
+                                </Typography>
+                            </Stack>
+                        )}
+                        {post.comments_count !== undefined && (
+                            <Stack
+                                direction="row"
+                                sx={{ alignItems: "center", gap: 1.25, justifyContent: "center", lineHeight: 1 }}
+                            >
+                                <ChatBubble sx={{ fontSize: "clamp(16px, 3.5vw, 28px)", lineHeight: 1 }} />
+                                <Typography
+                                    color="white"
+                                    sx={{ fontSize: "clamp(14px, 4vw, 24px)", lineHeight: 1, m: 0 }}
                                 >
-                                    <ChatBubble sx={{ fontSize: "clamp(16px, 3.5vw, 28px)", lineHeight: 1 }} />
-                                    <Typography
-                                        color="white"
-                                        sx={{ fontSize: "clamp(14px, 4vw, 24px)", lineHeight: 1, m: 0 }}
-                                    >
-                                        {post.comments_count}
-                                    </Typography>
-                                </Stack>
-                            )}
-                        </div>
-                    </Stack>
-                </Card.ActionArea>
-                <Card.Media
-                    component="img"
-                    image={isBehold ? post.mediaUrl : post.media_url}
-                    onLoad={handleLoad}
-                    style={{
-                        aspectRatio: loaded ? undefined : "1 / 1",
-                        margin: "-1rem",
-                        objectFit: loaded ? undefined : "cover",
-                        width: "calc(100% + 2rem)",
-                    }}
-                />
-            </Card>
-        </Zoom>
+                                    {post.comments_count}
+                                </Typography>
+                            </Stack>
+                        )}
+                    </div>
+                </Stack>
+            </Card.ActionArea>
+            <Card.Media
+                component="img"
+                image={isBehold ? post.mediaUrl : post.media_url}
+                onLoad={handleLoad}
+                style={{
+                    aspectRatio: loaded ? undefined : "1 / 1",
+                    margin: "-1rem",
+                    objectFit: loaded ? undefined : "cover",
+                    width: "calc(100% + 2rem)",
+                }}
+            />
+        </Card>
     );
 }

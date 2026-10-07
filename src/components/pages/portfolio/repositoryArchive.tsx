@@ -1,12 +1,13 @@
 "use client";
 
 import { Box, Button, Stack, Typography } from "@mui/material";
-import { type ChangeEvent, type MouseEvent, type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
+import type { ChangeEvent, MouseEvent, ReactNode } from "react";
 import type { Repo, RepoPage } from "actions/github";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { GitHubRepo } from "components/pages/portfolio/githubRepo";
 import type { InfinitePaginationPage } from "hooks/useInfinitePagination";
-import { Masonry } from "@mui/lab";
 import { RepositoryArchiveControls } from "components/pages/portfolio/repositoryArchiveControls";
+import { SkeletonMasonry } from "components/skeletonMasonry";
 import { useInfinitePagination } from "hooks/useInfinitePagination";
 
 type RepoFilters = {
@@ -14,9 +15,8 @@ type RepoFilters = {
     topic: string;
 };
 
-type RepositoryArchiveProps = {
-    readonly initialPage: RepoPage;
-};
+const SKELETON_COUNT = 8;
+const COLUMNS = { lg: 4, md: 3, sm: 2, xl: 5, xs: 1 };
 
 const EMPTY_FILTERS: RepoFilters = { language: "", topic: "" };
 
@@ -77,11 +77,9 @@ function toPaginationPage(page: RepoPage): InfinitePaginationPage<Repo> {
 
 /**
  * Renders an infinite-scroll repository archive.
- * @param props - Component properties.
- * @param props.initialPage - The first server-rendered page of repositories.
  * @returns An element which renders the repository archive.
  */
-export function RepositoryArchive({ initialPage }: RepositoryArchiveProps): ReactNode {
+export function RepositoryArchive(): ReactNode {
     const [searchTerm, setSearchTerm] = useState("");
     const [filters, setFilters] = useState<RepoFilters>(EMPTY_FILTERS);
     const [activeSearch, setActiveSearch] = useState("");
@@ -134,11 +132,11 @@ export function RepositoryArchive({ initialPage }: RepositoryArchiveProps): Reac
         return toPaginationPage(payload.data);
     }, [activeSearch]);
 
-    const { items: repos, hasNextPage, isLoading, error, retry, reset } = useInfinitePagination<Repo>({
-        fetchPage,
-        getItemKey: (repo) => repo.nameWithOwner,
-        initialPage: toPaginationPage(initialPage),
-    });
+    const { items: repos, hasNextPage, isInitialLoading, isLoading, error, retry, reset } =
+        useInfinitePagination<Repo>({
+            fetchPage,
+            getItemKey: (repo) => repo.nameWithOwner,
+        });
 
     const fetchSearchResults = useCallback(async (): Promise<void> => {
         const search = buildSearchQuery(searchTerm, filters);
@@ -200,15 +198,22 @@ export function RepositoryArchive({ initialPage }: RepositoryArchiveProps): Reac
                 updateTopic={updateTopic}
             />
 
-            {repos.length === 0 && !isLoading && error === null && (
+            {repos.length === 0 && !isInitialLoading && !isLoading && error === null && (
                 <Typography color="text.secondary" variant="caption">
                     No repositories found.
                 </Typography>
             )}
 
-            <Masonry columns={{ lg: 4, md: 3, sm: 2, xl: 5, xs: 1 }}>
+            <SkeletonMasonry
+                columns={COLUMNS}
+                count={SKELETON_COUNT}
+                fallbackCount={12}
+                loading={isLoading}
+                maxRatio={1.5}
+                minRatio={0.8}
+            >
                 {repos.map((repo) => (<GitHubRepo key={repo.nameWithOwner} repo={repo} />))}
-            </Masonry>
+            </SkeletonMasonry>
 
             <Box
                 sx={{

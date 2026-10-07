@@ -1,4 +1,4 @@
-import { Button, Grid, Stack, Typography } from "@mui/material";
+import { Button, Grid, Skeleton, Stack, Typography } from "@mui/material";
 import { GitHub, OpenInNew } from "@mui/icons-material";
 import { Card } from "components/card";
 import type { ReactNode } from "react";
@@ -7,11 +7,11 @@ import type { Repo } from "actions/github";
 export type FeaturedProject = {
     description: string;
     name: string;
-    repo: Repo;
+    repo?: Repo;
 };
 
 export type FeaturedProjectsProps = {
-    readonly projects: FeaturedProject[];
+    readonly projects?: FeaturedProject[];
 };
 
 export const FEATURED_REPOSITORIES = [
@@ -65,50 +65,74 @@ export const FEATURED_REPOSITORIES = [
  * @returns The featured project cards.
  */
 export function FeaturedProjects({ projects }: FeaturedProjectsProps): ReactNode {
+    // Without API data, render the static content with placeholders for the dynamic parts.
+    const items: FeaturedProject[] = projects ?? FEATURED_REPOSITORIES.map(({ description, name }) => ({
+        description,
+        name,
+    }));
+
     return (
         <Stack sx={{ gap: 2 }}>
             <Typography variant="h4">Featured Projects</Typography>
 
             <Grid container spacing={2}>
-                {projects.map((project) => (
-                    <Grid key={project.repo.nameWithOwner} size={{ md: 4, xs: 12 }}>
+                {items.map((project) => (
+                    <Grid key={project.name} size={{ md: 4, xs: 12 }}>
                         <Card sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-                            <Card.Media
-                                component="img"
-                                image={project.repo.image}
-                                sx={{ aspectRatio: "2 / 1", objectFit: "cover" }}
-                            />
+                            {project.repo
+                                ? (
+                                    <Card.Media
+                                        component="img"
+                                        image={project.repo.image}
+                                        sx={{ aspectRatio: "2 / 1", objectFit: "cover" }}
+                                    />
+                                )
+                                : (
+                                    <Skeleton
+                                        sx={{ aspectRatio: "2 / 1", borderRadius: "1rem", height: "auto" }}
+                                        variant="rectangular"
+                                    />
+                                )}
                             <Card.Content
                                 sx={{ display: "flex", flexDirection: "column", flexGrow: 1, gap: 1 }}
                             >
                                 <Typography variant="h5">{project.name}</Typography>
                                 <Typography color="text.secondary" variant="body2">{project.description}</Typography>
                                 <Stack direction="row" sx={{ flexWrap: "wrap", gap: 0.75, mt: "auto", pt: 1 }}>
-                                    {[
-                                        project.repo.primaryLanguage?.name,
-                                        ...project.repo.languages.nodes.map((language) => language.name),
-                                    ]
-                                        .filter((language, index, languages) => language !== undefined &&
+                                    {project.repo === undefined && <Skeleton variant="text" width={120} />}
+                                    {project.repo
+                                        ? [
+                                            project.repo.primaryLanguage?.name,
+                                            ...project.repo.languages.nodes.map((language) => language.name),
+                                        ]
+                                            .filter((language, index, languages) => language !== undefined &&
                                             languages.indexOf(language) === index)
-                                        .slice(0, 4)
-                                        .map((language) => (
-                                            <Typography color="text.secondary" key={language} variant="caption">
-                                                {language}
-                                            </Typography>
-                                        ))}
+                                            .slice(0, 4)
+                                            .map((language) => (
+                                                <Typography color="text.secondary" key={language} variant="caption">
+                                                    {language}
+                                                </Typography>
+                                            ))
+                                        : null}
                                 </Stack>
                             </Card.Content>
                             <Card.Actions>
-                                <Button
-                                    href={project.repo.url}
-                                    rel="noreferrer"
-                                    size="small"
-                                    startIcon={<GitHub />}
-                                    target="_blank"
-                                >
-                                    View code
-                                </Button>
-                                {project.repo.homepageUrl?.trim() !== "" && project.repo.homepageUrl !== null && (
+                                {project.repo === undefined && (
+                                    <Skeleton height={30} variant="rounded" width={100} />
+                                )}
+                                {project.repo !== undefined && (
+                                    <Button
+                                        href={project.repo.url}
+                                        rel="noreferrer"
+                                        size="small"
+                                        startIcon={<GitHub />}
+                                        target="_blank"
+                                    >
+                                        View code
+                                    </Button>
+                                )}
+                                {project.repo?.homepageUrl !== undefined && project.repo.homepageUrl !== null &&
+                                    project.repo.homepageUrl.trim() !== "" && (
                                     <Button
                                         href={project.repo.homepageUrl}
                                         rel="noreferrer"
