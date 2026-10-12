@@ -56,7 +56,10 @@ export default function About(): ReactNode {
                 id="cv-download-menu"
                 onClose={handleDownloadMenuClose}
                 open={downloadMenuOpen}
-                slotProps={{ list: { disablePadding: true } }}
+                slotProps={{
+                    list: { disablePadding: true },
+                    paper: { sx: { borderRadius: "2rem" } },
+                }}
                 transformOrigin={{ horizontal: "center", vertical: "top" }}
             >
                 <MenuItem component="a" href="/cv?singlePage" onClick={handleDownloadMenuClose}>

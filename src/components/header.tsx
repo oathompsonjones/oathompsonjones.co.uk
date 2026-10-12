@@ -1,7 +1,7 @@
 "use client";
 
 import { AppBar, BottomNavigation, BottomNavigationAction, Box } from "@mui/material";
-import { Apps, Article, Collections, ContactPage, Contrast, Home } from "@mui/icons-material";
+import { Apps, Article, Collections, ContactPage, Contrast, Handyman, Home } from "@mui/icons-material";
 import { IconButton, Toolbar, useMediaQuery, useTheme } from "@mui/material";
 import { Info, Science, VideogameAsset } from "@mui/icons-material";
 import { useCallback, useContext } from "react";
@@ -26,13 +26,15 @@ export function Header(): ReactNode {
     const isMobile = useMediaQuery("(max-width: 700px)");
     const size = isMobile ? 42 : 56;
     const iconStyles = { fontSize: { md: "1.5rem", sm: "1.25rem", xs: "1.1rem" } };
-    // Without labels, each action is a square that shrinks evenly, so its hover shape stays circular.
+    const edgeRadius = `${size / 2}px`;
+    const getRadius = (index: number, count: number): string => {
+        const left = index === 0 ? edgeRadius : 0;
+        const right = index === count - 1 ? edgeRadius : 0;
+
+        return `${left} ${right} ${right} ${left}`;
+    };
     const iconOnlyActionStyles = {
-        alignSelf: "center",
-        aspectRatio: "1",
         flex: "1 1 0",
-        height: "auto",
-        maxWidth: size,
         minWidth: 0,
         padding: 0,
     };
@@ -57,6 +59,7 @@ export function Header(): ReactNode {
         { icon: <Home />, label: "Home", link: "/" },
         { icon: <Info />, label: "About Me", link: "/about" },
         { icon: <Apps />, label: "Portfolio", link: "/portfolio" },
+        { icon: <Handyman />, label: "Tools", link: "/tools" },
         { icon: <Article />, label: "Articles", link: "/articles" },
         { icon: <VideogameAsset />, label: "Arcade", link: "/arcade" },
         { icon: <Collections />, label: "Gallery", link: "/gallery" },
@@ -101,10 +104,9 @@ export function Header(): ReactNode {
                             flex: { md: "0 1 auto", xs: "1 1 0" },
                             gap: { md: "0.5rem", sm: "0.15rem", xs: 0 },
                             height: size,
-                            justifyContent: isMobile ? "space-evenly" : undefined,
                             maxWidth: { md: "max-content", sm: "none", xs: "none" },
                             minWidth: 0,
-                            padding: isMobile ? "0 0.25rem !important" : "0 !important",
+                            padding: "0 !important",
                         }}
                         value={currentPath}
                     >
@@ -116,7 +118,7 @@ export function Header(): ReactNode {
                                 label={isMobile ? undefined : page.label}
                                 sx={{
                                     ...hoverStyles,
-                                    borderRadius: "100vh",
+                                    borderRadius: getRadius(i, pages.length),
                                     transition: "background-color 0.3s ease-in-out",
                                 }}
                                 value={page.link}

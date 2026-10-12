@@ -2,10 +2,9 @@
 
 import { Button, IconButton, Typography } from "@mui/material";
 import { type ChangeEvent, type ReactNode, useCallback, useEffect, useState } from "react";
+import { Code, CodeWrapper } from "components/code";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { getProblem, getSolution, getUtils } from "actions/projectEuler";
-import { Code } from "components/pages/project-euler/code";
-import { CodeWrapper } from "components/pages/project-euler/codeWrapper";
 import Link from "next/link";
 import hljs from "highlight.js/lib/common";
 
@@ -106,15 +105,6 @@ export function ProjectEulerClient({ initialProblem }: { readonly initialProblem
 
     return (
         <>
-            {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-            <link
-                href="https://fonts.googleapis.com/css?family=Fira Code&display=optional"
-                rel="stylesheet"
-            />
-            <link
-                href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
-                rel="stylesheet"
-            />
             <style>{/* CSS */`
                 .plain-input {
                     background: none;

@@ -270,6 +270,17 @@ The exact endpoint names, request/response schemas, and UI presentation should b
 - Keep API behaviour deterministic where practical; explicitly document operations that depend on external state, such as website screenshots.
 - Consider lightweight rate limiting or request limits for resource-intensive endpoints, particularly the Website Screenshotter and image-processing tools, without introducing persistent application state.
 
+### Shared API Convention
+
+- Put tool pages under `src/app/(pages)/tools/<tool>/` and tool API routes under `src/app/api/tools/<tool>/route.ts`.
+- Keep shared tool UI in `src/components/pages/tools/` and reusable tool logic/schemas in `src/tools/`.
+- Use `parseToolRequest` in `src/tools/api-server.ts` to require JSON, apply the endpoint's Zod schema, and return structured validation errors before running the operation. Pass `maxBytes` for endpoints with a bounded request size.
+- Return successful results with `toolSuccess(data)` and failures with `toolError(code, message, status, details?)`.
+- Success responses use `{ "success": true, "data": ... }`. Errors use `{ "success": false, "error": { "code": "...", "message": "...", "details": ... } }`; `details` is optional and intended for structured field errors, not submitted input.
+- Use stable error codes such as `UNSUPPORTED_MEDIA_TYPE` (415), `PAYLOAD_TOO_LARGE` (413), `INVALID_JSON` (400), and `VALIDATION_ERROR` (400). Give tool-specific operational failures their own codes and appropriate status.
+- Have client components call the endpoint through `requestToolApi`, providing the expected output schema. This keeps the API operation authoritative and checks the response contract at runtime.
+- Requests must contain all operation input; do not persist input, results, or jobs. Do not include tool input in URLs or logs.
+
 ## Page Structure
 
 - Add a top-level `/tools` route and navigation entry.
@@ -298,6 +309,7 @@ The exact endpoint names, request/response schemas, and UI presentation should b
 - Add a shared tool shell for title, description, input area, output area, errors, reset, and copy/download actions.
 - Where an API exists, include concise API documentation and example requests/responses on the relevant tool page.
 - Use query parameters only when they improve sharing or reproducibility and do not expose sensitive input.
+- Use `ToolPage` and `ToolSection` in `src/components/pages/tools/` for consistent page hierarchy and labelled semantic sections. Use `ToolActions` for reset, copy, and download controls where they fit the tool.
 
 ## Implementation Shape
 
@@ -351,6 +363,7 @@ The implementation order is intentionally based primarily on increasing implemen
 - Establish a consistent API error and validation format.
 - Establish the pattern of using API endpoints as the source of truth for server-suitable tool operations.
 - Establish responsive and accessibility patterns.
+- The shared API contract and helper modules live in `src/tools/api.ts` and `src/tools/api-server.ts`; tool UI primitives live in `src/components/pages/tools/`.
 
 ### Phase 2: Very Easy Tools
 

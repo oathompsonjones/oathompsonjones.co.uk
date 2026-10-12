@@ -39,6 +39,9 @@
             "actions/*": [
                 "./src/actions/*"
             ],
+            "tools/*": [
+                "./src/tools/*"
+            ],
             "styles/*": [
                 "./src/styles/*"
             ],

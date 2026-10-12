@@ -51,7 +51,8 @@ export function ThemeContextProvider({ children }: { readonly children: ReactNod
             MuiContainer: { styleOverrides: { root: { padding: "0" } } },
             MuiDivider: { styleOverrides: { root: { margin: "1.25% 0" } } },
             MuiInputBase: { styleOverrides: { root: { borderRadius: "1rem !important" } } },
-            MuiMenuItem: { styleOverrides: { root: { borderRadius: "100vh" } } },
+            MuiMenu: { styleOverrides: { paper: { borderRadius: "1rem" } } },
+            MuiMenuItem: { styleOverrides: { root: { borderRadius: 0 } } },
             MuiPaper: {
                 styleOverrides: {
                     root: {

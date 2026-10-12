@@ -1,4 +1,5 @@
 import "@mui/material-pigment-css/styles.css";
+import "highlight.js/styles/atom-one-dark.css";
 import "styles/layout.css";
 import "styles/transitions.css";
 import "styles/typography.css";

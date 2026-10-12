@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code&display=swap");
+
 a {
     color: var(--mui-palette-primary-main);
     cursor: pointer;
@@ -6,5 +8,4 @@ a {
 
 .monospace {
     font-family: "Fira Code", monospace !important;
-    font-variant-ligatures: "contextual" !important;
 }

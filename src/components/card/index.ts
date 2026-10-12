@@ -1,13 +1,13 @@
-import {
-    CardAccordion,
-    CardActionArea,
-    CardActions,
-    CardContent,
-    CardHeader,
-    CardMedia,
-    CardRoot,
-} from "./card.client";
+"use client";
+
+import { CardAccordion } from "./cardAccordion";
+import { CardActionArea } from "./cardActionArea";
+import { CardActions } from "./cardActions";
+import { CardContent } from "./cardContent";
+import { CardHeader } from "./cardHeader";
+import { CardMedia } from "./cardMedia";
 import type { CardProps } from "@mui/material";
+import { CardRoot } from "./cardRoot";
 import type { ReactNode } from "react";
 
 type CardComponent = ((props: CardProps) => ReactNode) & {
