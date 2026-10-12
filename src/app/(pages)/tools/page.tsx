@@ -1,4 +1,5 @@
 import { Stack, Typography } from "@mui/material";
+import { BetaChip } from "components/pages/tools/betaChip";
 import { Masonry } from "@mui/lab";
 import type { ReactNode } from "react";
 import { ToolCard } from "components/pages/tools/toolCard";
@@ -12,8 +13,9 @@ const plannedTools = [
     },
     {
         description: "Work with common encodings and generate one-way hashes.",
+        href: "/tools/hash-encoding",
         name: "Hash and Encoding",
-        status: "Planned",
+        status: "Available",
     },
     {
         description: "Write Markdown and preview the rendered result.",
@@ -44,7 +46,10 @@ const plannedTools = [
 export default function Tools(): ReactNode {
     return (
         <Stack spacing={3}>
-            <Typography variant="h2">Tools</Typography>
+            <Stack direction="row" spacing={2} sx={{ alignItems: "center", flexWrap: "wrap" }}>
+                <Typography variant="h2">Tools</Typography>
+                <BetaChip />
+            </Stack>
             <Stack aria-labelledby="tools-list-heading" spacing={2}>
                 <Typography id="tools-list-heading" variant="h4">
                     Browse tools

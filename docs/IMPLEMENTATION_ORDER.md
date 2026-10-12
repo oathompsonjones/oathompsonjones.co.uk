@@ -36,8 +36,11 @@ At the end of this phase, adding a small API-backed tool should be straightforwa
 
 Build the easiest useful tools first, using them to establish the conventions that later tools can follow.
 
-1. **JSON Toolkit and Data Format Converter**
-2. **Hash and Encoding Toolkit**
+1. **JSON Toolkit and Data Format Converter** — ✅ Done. Format, minify, validate, file loading, and conversion to
+   TypeScript, XML, YAML, CSV, and JSON Schema, backed by `/api/tools/json`. This also completes the plan's Phase 3
+   "JSON to TypeScript" item.
+2. **Hash and Encoding Toolkit** — ✅ Done. Encodings, hashes, HMAC, and ciphers (including AES-256-GCM) backed by
+   `/api/tools/hash-encoding`, with Vitest API tests and file loading.
 3. **Markdown Previewer**
 4. **Colour Palette and Contrast Tool**
 5. **Regex Tester**

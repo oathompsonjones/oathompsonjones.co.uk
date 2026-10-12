@@ -57,12 +57,15 @@ There should be no database, persistent tool sessions, or stored user input. Req
    - Do not persist submitted JSON or generated output.
 
 3. **Hash and Encoding Toolkit**
-   - Support Base64, URL encoding/decoding, hexadecimal, and common hashes.
+   - Support Base64, Base32, Ascii85, URL, hexadecimal, binary, octal, decimal, HTML entities, Unicode escapes, Morse, and ROT13 encoding/decoding.
+   - Support a wide range of hashes (MD5, SHA-1, SHA-2, SHA-3, BLAKE2, RIPEMD-160, CRC32) and HMAC signatures.
+   - Support encryption/decryption with classical ciphers (Atbash, Caesar, Vigenère, Beaufort, Affine, Rail fence, XOR) and AES-256-GCM.
    - Use established cryptographic APIs/libraries for supported operations.
-   - Distinguish encoding, hashing, encryption, and signing in the UI.
+   - Distinguish encoding, hashing, signing, and encryption in the UI.
    - Warn that the tools are not a substitute for a reviewed production security design.
    - Expose equivalent operations through a stateless API endpoint.
    - The UI should use the API endpoint for the actual operation.
+   - Accept text input or a loaded text file, within documented limits.
    - Never persist submitted input or generated output.
 
 4. **Wordle Solver**
@@ -245,7 +248,7 @@ The exact endpoint names, request/response schemas, and UI presentation should b
 - Give tools with meaningful server-side operations documented API endpoints under a consistent namespace, for example:
   - `/api/tools/image-converter`
   - `/api/tools/json`
-  - `/api/tools/encoding`
+  - `/api/tools/hash-encoding`
   - `/api/tools/wordle`
   - `/api/tools/sudoku`
   - `/api/tools/website-screenshotter`
@@ -288,7 +291,7 @@ The exact endpoint names, request/response schemas, and UI presentation should b
 - Give each tool its own route, for example:
   - `/tools/image-converter`
   - `/tools/json`
-  - `/tools/encoding`
+  - `/tools/hash-encoding`
   - `/tools/wordle`
   - `/tools/sudoku`
   - `/tools/website-screenshotter`

@@ -1,4 +1,5 @@
 import { Stack, Typography } from "@mui/material";
+import { BetaChip } from "./betaChip";
 import type { ReactNode } from "react";
 
 /**
@@ -21,7 +22,10 @@ export function ToolPage({
     return (
         <Stack component="article" spacing={3} sx={{ marginInline: "auto", maxWidth: "72rem", width: "100%" }}>
             <Stack spacing={1}>
-                <Typography component="h1" variant="h2">{title}</Typography>
+                <Stack direction="row" spacing={2} sx={{ alignItems: "center", flexWrap: "wrap" }}>
+                    <Typography component="h1" variant="h2">{title}</Typography>
+                    <BetaChip />
+                </Stack>
                 <Typography color="text.secondary">{description}</Typography>
             </Stack>
             {children}
