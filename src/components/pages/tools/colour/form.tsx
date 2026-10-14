@@ -3,7 +3,7 @@
 import { Alert, Button, Stack, TextField } from "@mui/material";
 import type { ChangeEvent, ReactNode } from "react";
 import { RestartAlt } from "@mui/icons-material";
-import { useCallback, useState } from "react";
+import { useEffect, useState } from "react";
 import { requestToolApi } from "tools/api";
 import { z } from "zod";
 import type { ColourToolResult } from "tools/colour-tool";
@@ -28,10 +28,13 @@ const resultSchema = z.object({
 
 /**
  * Input controls for choosing a colour and requesting its analysis.
- * @param props - The result callback.
+ * @param props - The selected palette colour and result callback.
  * @returns The colour input form.
  */
-export function ColourToolForm({ onResult }: { onResult: (result: ColourToolResult) => void }): ReactNode {
+export function ColourToolForm({ selectedColour, onResult }: {
+    selectedColour: string | null;
+    onResult: (result: ColourToolResult) => void;
+}): ReactNode {
     const [colour, setColour] = useState("#336699");
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
@@ -51,14 +54,24 @@ export function ColourToolForm({ onResult }: { onResult: (result: ColourToolResu
         }
     }
 
-    const updateColour = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-        setColour(event.target.value);
-    }, []);
+    useEffect(() => {
+        if (selectedColour !== null) {
+            setColour(selectedColour);
+            void calculate(selectedColour);
+        }
+    // selectedColour changes only when a palette swatch is chosen.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedColour]);
 
-    const updatePicker = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-        setColour(event.target.value.toUpperCase());
-        void calculate(event.target.value);
-    }, []);
+    function updateColour(event: ChangeEvent<HTMLInputElement>): void {
+        setColour(event.target.value);
+    }
+
+    function updatePicker(event: ChangeEvent<HTMLInputElement>): void {
+        const value = event.target.value.toUpperCase();
+        setColour(value);
+        void calculate(value);
+    }
 
     return (
         <Stack spacing={2}>
@@ -78,7 +91,7 @@ export function ColourToolForm({ onResult }: { onResult: (result: ColourToolResu
                         id="colour-picker"
                         onChange={updatePicker}
                         type="color"
-                        value={/^#[\\da-f]{6}$/i.test(colour) ? colour : "#336699"}
+                        value={/^#[\da-f]{6}$/i.test(colour) ? colour : "#336699"}
                     />
                 </Stack>
                 <Button
