@@ -97,6 +97,7 @@ There should be no database, persistent tool sessions, or stored user input. Req
    - Accept individual colours or palettes.
    - Calculate WCAG contrast ratios and indicate relevant accessibility thresholds.
    - Generate useful colour relationships such as tints, shades, complementary colours, and analogous palettes.
+   - For a chosen background colour, recommend a readable text colour by comparing black and white against it. Show both contrast ratios, identify the higher-contrast option, and indicate whether either meets relevant WCAG contrast thresholds. Treat this as a contrast-based recommendation rather than relying on perceived colour brightness alone.
    - Provide copyable CSS values, CSS variables, or other useful output.
    - Expose meaningful colour calculations through a stateless API endpoint.
    - Use the API endpoint from the UI for calculations.
