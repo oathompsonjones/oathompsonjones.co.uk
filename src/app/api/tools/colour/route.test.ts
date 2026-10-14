@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { POST } from "./route";
+import { POST as post } from "./route";
 
 /**
  * Sends a POST request with a JSON payload to the colour tool API.
@@ -7,7 +7,7 @@ import { POST } from "./route";
  * @returns A Promise resolving to the HTTP response.
  */
 async function postJson(payload: unknown): Promise<Response> {
-    return POST(new Request("http://localhost/api/tools/colour", {
+    return post(new Request("http://localhost/api/tools/colour", {
         body: JSON.stringify(payload),
         headers: new Headers([["Content-Type", "application/json"]]),
         method: "POST",
@@ -31,6 +31,7 @@ describe("POST /api/tools/colour", () => {
                     white: 1,
                     whiteMeetsAA: false,
                 },
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 palette: expect.arrayContaining([{ hex: "#FFFFFF", label: "Base" }]),
             },
             success: true,

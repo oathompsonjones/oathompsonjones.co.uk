@@ -2,11 +2,12 @@
 
 import { Alert, Button, Stack, TextField } from "@mui/material";
 import type { ChangeEvent, ReactNode } from "react";
+import { useCallback, useEffect, useState } from "react";
+import type { ColourToolResult } from "tools/colour-tool";
+import { Glass } from "components/glass";
 import { RestartAlt } from "@mui/icons-material";
-import { useEffect, useState } from "react";
 import { requestToolApi } from "tools/api";
 import { z } from "zod";
-import type { ColourToolResult } from "tools/colour-tool";
 
 const resultSchema = z.object({
     colour: z.string(),
@@ -29,22 +30,30 @@ const resultSchema = z.object({
 /**
  * Input controls for choosing a colour and requesting its analysis.
  * @param props - The selected palette colour and result callback.
+ * @param props.selectedColour - The currently selected colour from the palette.
+ * @param props.onResult - Callback invoked with the analysis result when available.
  * @returns The colour input form.
  */
-export function ColourToolForm({ selectedColour, onResult }: {
+export function ColourToolForm({ selectedColour, onResult }: Readonly<{
     selectedColour: string | null;
     onResult: (result: ColourToolResult) => void;
-}): ReactNode {
-    const [colour, setColour] = useState("#336699");
+}>): ReactNode {
+    const defaultColour = "#1C7EEA";
+    const [colour, setColour] = useState(defaultColour);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
+    /**
+     * Calculates the colour analysis for the given value.
+     * @param value - The colour value to calculate the analysis for. If not provided, the current colour state is used.
+     */
     async function calculate(value = colour): Promise<void> {
         setLoading(true);
         setError(null);
 
         try {
             const next = await requestToolApi("/api/tools/colour", { colour: value }, resultSchema);
+
             setColour(next.hex);
             onResult(next);
         } catch (caught) {
@@ -54,68 +63,43 @@ export function ColourToolForm({ selectedColour, onResult }: {
         }
     }
 
-    useEffect(() => {
-        if (selectedColour !== null) {
-            setColour(selectedColour);
-            void calculate(selectedColour);
-        }
-    // selectedColour changes only when a palette swatch is chosen.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedColour]);
-
-    function updateColour(event: ChangeEvent<HTMLInputElement>): void {
+    const updateColour = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
         setColour(event.target.value);
-    }
+    }, []);
 
-    function updatePicker(event: ChangeEvent<HTMLInputElement>): void {
+    const updatePicker = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
         const value = event.target.value.toUpperCase();
+
         setColour(value);
         void calculate(value);
-    }
+    }, [calculate]);
+
+    const resetColour = useCallback((): void => {
+        setColour(defaultColour);
+        void calculate(defaultColour);
+    }, [calculate]);
+
+    useEffect(() => {
+        if (selectedColour !== null)
+            setColour(selectedColour);
+
+        void calculate(selectedColour ?? defaultColour);
+    }, [selectedColour]);
 
     return (
-        <Stack spacing={2}>
-            <Stack direction={{ sm: "row", xs: "column" }} spacing={2} alignItems="center">
-                <TextField
-                    fullWidth
-                    helperText="Enter a 3- or 6-digit hex colour, with or without #."
-                    label="Hex colour"
-                    onChange={updateColour}
-                    value={colour}
+        <Glass>
+            <Stack direction={{ sm: "row", xs: "column" }} spacing={2} sx={{ alignItems: "center" }}>
+                <TextField fullWidth label="Hex colour" onChange={updateColour} value={colour} />
+                <input
+                    disabled={loading}
+                    id="colour-picker"
+                    onChange={updatePicker}
+                    type="color"
+                    value={(/^#[\da-f]{6}$/i).test(colour) ? colour : defaultColour}
                 />
-                <Stack direction="row" spacing={1} alignItems="center">
-                    <label htmlFor="colour-picker">Choose colour</label>
-                    <input
-                        aria-label="Choose colour"
-                        disabled={loading}
-                        id="colour-picker"
-                        onChange={updatePicker}
-                        type="color"
-                        value={/^#[\da-f]{6}$/i.test(colour) ? colour : "#336699"}
-                    />
-                </Stack>
-                <Button
-                    disabled={loading}
-                    onClick={() => void calculate()}
-                    sx={{ minHeight: 56, minWidth: 140 }}
-                    variant="contained"
-                >
-                    {loading ? "Calculating…" : "Generate"}
-                </Button>
-                <Button
-                    aria-label="Reset colour"
-                    disabled={loading}
-                    onClick={() => {
-                        setColour("#336699");
-                        void calculate("#336699");
-                    }}
-                    startIcon={<RestartAlt />}
-                    sx={{ minHeight: 56 }}
-                >
-                    Reset
-                </Button>
+                <Button disabled={loading} onClick={resetColour} startIcon={<RestartAlt />}>Reset</Button>
             </Stack>
             {error !== null && <Alert severity="error">{error}</Alert>}
-        </Stack>
+        </Glass>
     );
 }

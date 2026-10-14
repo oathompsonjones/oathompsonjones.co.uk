@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { ColourToolForm } from "components/pages/tools/colour/form";
+import type { ColourToolResult } from "tools/colour-tool";
+import { ColourToolResults } from "components/pages/tools/colour/results";
 import type { ReactNode } from "react";
 import { ToolPage } from "components/pages/tools";
-import { ColourToolForm } from "components/pages/tools/colour/form";
-import { ColourToolResults } from "components/pages/tools/colour/results";
-import type { ColourToolResult } from "tools/colour-tool";
+import { useState } from "react";
 
 /**
  * Presents the colour palette and contrast utility.
