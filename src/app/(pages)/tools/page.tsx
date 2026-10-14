@@ -18,13 +18,14 @@ const plannedTools = [
         status: "Available",
     },
     {
-        description: "Write Markdown and preview the rendered result.",
-        name: "Markdown Previewer",
-        status: "Planned",
+        description: "Explore colour palettes and check accessible contrast.",
+        href: "/tools/colour",
+        name: "Colour and Contrast",
+        status: "Available",
     },
     {
-        description: "Explore colour palettes and check accessible contrast.",
-        name: "Colour and Contrast",
+        description: "Write Markdown and preview the rendered result.",
+        name: "Markdown Previewer",
         status: "Planned",
     },
     {
