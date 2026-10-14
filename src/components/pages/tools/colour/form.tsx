@@ -1,9 +1,9 @@
 "use client";
 
-import { ContentCopy, RestartAlt } from "@mui/icons-material";
 import { Alert, Button, Chip, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-import type { ReactNode } from "react";
+import type { ChangeEvent, ReactNode } from "react";
+import { ContentCopy, RestartAlt } from "@mui/icons-material";
+import { useCallback, useState } from "react";
 import { ToolSection } from "components/pages/tools/toolSection";
 import { requestToolApi } from "tools/api";
 import { z } from "zod";
@@ -30,7 +30,11 @@ type ColourResult = z.infer<typeof resultSchema>;
 
 const ratio = (value: number): string => `${value.toFixed(2)}:1`;
 
-/** Interactive UI for colour relationships and WCAG contrast checks. */
+/**
+ * Interactive UI for colour relationships and WCAG contrast checks.
+ * @returns ReactNode representing the colour tool form.
+ */
+// eslint-disable-next-line max-lines-per-function
 export function ColourToolForm(): ReactNode {
     const [colour, setColour] = useState("#336699");
     const [result, setResult] = useState<ColourResult | null>(null);
@@ -38,12 +42,17 @@ export function ColourToolForm(): ReactNode {
     const [loading, setLoading] = useState(false);
     const [copied, setCopied] = useState<string | null>(null);
 
+    /**
+     * Calculate the colour relationships and WCAG contrast for the given colour.
+     * @param value - The hex colour value to calculate. Defaults to the current colour state.
+     */
     async function calculate(value = colour): Promise<void> {
         setLoading(true);
         setError(null);
 
         try {
             const next = await requestToolApi("/api/tools/colour", { colour: value }, resultSchema);
+
             setResult(next);
             setColour(next.hex);
         } catch (caught) {
@@ -53,6 +62,10 @@ export function ColourToolForm(): ReactNode {
         }
     }
 
+    /**
+     * Copy the given value to the clipboard.
+     * @param value - The value to copy to the clipboard.
+     */
     async function copy(value: string): Promise<void> {
         try {
             await navigator.clipboard.writeText(value);
@@ -62,15 +75,19 @@ export function ColourToolForm(): ReactNode {
         }
     }
 
+    const updateColour = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+        setColour(event.target.value);
+    }, []);
+
     return (
         <Stack spacing={3}>
             <ToolSection title="Choose a colour">
-                <Stack direction={{ sm: "row", xs: "column" }} spacing={2} alignItems={{ sm: "flex-start" }}>
+                <Stack direction={{ sm: "row", xs: "column" }} spacing={2}>
                     <TextField
                         fullWidth
-                        label="Hex colour"
                         helperText="Enter a 3- or 6-digit hex colour, with or without #."
-                        onChange={(event) => setColour(event.target.value)}
+                        label="Hex colour"
+                        onChange={updateColour}
                         value={colour}
                     />
                     <Button
@@ -99,8 +116,15 @@ export function ColourToolForm(): ReactNode {
 
             {result !== null && <>
                 <ToolSection title="Colour details">
-                    <Stack direction="row" spacing={2} alignItems="center">
-                        <Paper aria-label={result.hex} sx={{ backgroundColor: result.hex, border: 1, borderColor: "divider", height: 72, width: 72 }} />
+                    <Stack direction="row" spacing={2}>
+                        <Paper sx={{
+                            backgroundColor: result.hex,
+                            border: 1,
+                            borderColor: "divider",
+                            height: 72,
+                            width: 72,
+                        }}
+                        />
                         <Stack spacing={0.5} sx={{ minWidth: 0 }}>
                             <Typography variant="h5">{result.hex}</Typography>
                             <Typography color="text.secondary" variant="body2">
@@ -122,8 +146,8 @@ export function ColourToolForm(): ReactNode {
                     <Grid container spacing={2}>
                         {(["black", "white"] as const).map((foreground) => {
                             const contrast = result.contrast[foreground];
-                            const passesAA = result.contrast[`${foreground}MeetsAA` as "blackMeetsAA" | "whiteMeetsAA"];
-                            const passesLarge = result.contrast[`${foreground}MeetsAALarge` as "blackMeetsAALarge" | "whiteMeetsAALarge"];
+                            const passesAA = result.contrast[`${foreground}MeetsAA`];
+                            const passesLarge = result.contrast[`${foreground}MeetsAALarge`];
 
                             return (
                                 <Grid key={foreground} size={{ md: 6, xs: 12 }}>

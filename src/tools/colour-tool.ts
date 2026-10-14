@@ -1,7 +1,8 @@
 import { z } from "zod";
 
 export const colourToolRequestSchema = z.object({
-    colour: z.string().trim().min(1).max(32),
+    colour: z.string().trim().min(1)
+        .max(32),
 });
 
 export type ColourToolRequest = z.infer<typeof colourToolRequestSchema>;
@@ -24,14 +25,18 @@ export type ColourToolResult = {
         whiteMeetsAA: boolean;
         whiteMeetsAALarge: boolean;
     };
-    palette: { hex: string; label: string; }[];
+    palette: Array<{ hex: string; label: string; }>;
 };
 
 const clamp = (value: number, min: number, max: number): number => Math.min(max, Math.max(min, value));
 
-/** Parses a CSS-style hexadecimal colour (#RGB or #RRGGBB). */
+/**
+ * Parses a CSS-style hexadecimal colour (#RGB or #RRGGBB).
+ * @param input - The hexadecimal colour string to parse.
+ * @returns The parsed RGB colour, or null if the input is not a valid hexadecimal colour.
+ */
 export function parseHexColour(input: string): RGB | null {
-    const match = /^#?([\da-f]{3}|[\da-f]{6})$/i.exec(input.trim());
+    const match = (/^#?([\da-f]{3}|[\da-f]{6})$/i).exec(input.trim());
 
     if (match === null)
         return null;
@@ -43,27 +48,47 @@ export function parseHexColour(input: string): RGB | null {
 
     const value = Number.parseInt(hex, 16);
 
-    return { b: value & 255, g: (value >> 8) & 255, r: (value >> 16) & 255 };
+    return { b: value & 255, g: value >> 8 & 255, r: value >> 16 & 255 };
 }
 
-/** Formats an RGB colour as a six-digit hexadecimal value. */
+/**
+ * Formats an RGB colour as a six-digit hexadecimal value.
+ * @param colour - The RGB colour to format.
+ * @param colour.b - The blue channel (0-255).
+ * @param colour.g - The green channel (0-255).
+ * @param colour.r - The red channel (0-255).
+ * @returns The formatted hexadecimal colour string.
+ */
 export function rgbToHex({ b, g, r }: RGB): string {
     return `#${[r, g, b].map((channel) => channel.toString(16).padStart(2, "0")).join("")}`.toUpperCase();
 }
 
-/** Converts an sRGB channel to its linear-light value for WCAG luminance. */
+/**
+ * Converts an sRGB channel to its linear-light value for WCAG luminance.
+ * @param channel - The sRGB channel value (0-255).
+ * @returns The linear-light value of the channel.
+ */
 function linearise(channel: number): number {
     const value = channel / 255;
 
     return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
 }
 
-/** Calculates WCAG relative luminance for an opaque sRGB colour. */
+/**
+ * Calculates WCAG relative luminance for an opaque sRGB colour.
+ * @param rgb - The RGB colour to calculate relative luminance for.
+ * @returns The relative luminance of the colour.
+ */
 export function relativeLuminance(rgb: RGB): number {
     return 0.2126 * linearise(rgb.r) + 0.7152 * linearise(rgb.g) + 0.0722 * linearise(rgb.b);
 }
 
-/** Calculates the WCAG contrast ratio between two relative luminance values. */
+/**
+ * Calculates the WCAG contrast ratio between two relative luminance values.
+ * @param first - The relative luminance of the first colour.
+ * @param second - The relative luminance of the second colour.
+ * @returns The WCAG contrast ratio between the two colours.
+ */
 export function contrastRatio(first: number, second: number): number {
     const lighter = Math.max(first, second);
     const darker = Math.min(first, second);
@@ -71,6 +96,14 @@ export function contrastRatio(first: number, second: number): number {
     return (lighter + 0.05) / (darker + 0.05);
 }
 
+/**
+ * Converts an RGB colour to its HSL representation.
+ * @param colour - The RGB colour to convert to HSL.
+ * @param colour.b - The blue channel (0-255).
+ * @param colour.g - The green channel (0-255).
+ * @param colour.r - The red channel (0-255).
+ * @returns The corresponding HSL colour.
+ */
 export function rgbToHsl({ b, g, r }: RGB): HSL {
     const [red, green, blue] = [r / 255, g / 255, b / 255];
     const max = Math.max(red, green, blue);
@@ -80,7 +113,7 @@ export function rgbToHsl({ b, g, r }: RGB): HSL {
 
     if (delta !== 0) {
         if (max === red)
-            h = 60 * (((green - blue) / delta) % 6);
+            h = 60 * ((green - blue) / delta % 6);
         else if (max === green)
             h = 60 * ((blue - red) / delta + 2);
         else
@@ -96,28 +129,50 @@ export function rgbToHsl({ b, g, r }: RGB): HSL {
     return { h, l: l * 100, s: s * 100 };
 }
 
+/**
+ * Converts an HSL colour to its RGB representation.
+ * @param hsl - The HSL colour to convert to RGB.
+ * @param hsl.h - The hue component (0-360).
+ * @param hsl.l - The lightness component (0-100).
+ * @param hsl.s - The saturation component (0-100).
+ * @returns The corresponding RGB colour.
+ */
 export function hslToRgb({ h, l, s }: HSL): RGB {
     const saturation = clamp(s / 100, 0, 1);
     const lightness = clamp(l / 100, 0, 1);
     const chroma = (1 - Math.abs(2 * lightness - 1)) * saturation;
-    const x = chroma * (1 - Math.abs((h / 60) % 2 - 1));
+    const x = chroma * (1 - Math.abs(h / 60 % 2 - 1));
     const m = lightness - chroma / 2;
-    const sector = ((h % 360) + 360) % 360;
-    const channels = sector < 60 ? [chroma, x, 0]
-        : sector < 120 ? [x, chroma, 0]
-            : sector < 180 ? [0, chroma, x]
-                : sector < 240 ? [0, x, chroma]
-                    : sector < 300 ? [x, 0, chroma]
-                        : [chroma, 0, x];
+    const sector = (h % 360 + 360) % 360;
+    let channels: [number, number, number];
+
+    if (sector < 60)
+        channels = [chroma, x, 0];
+    else if (sector < 120)
+        channels = [x, chroma, 0];
+    else if (sector < 180)
+        channels = [0, chroma, x];
+    else if (sector < 240)
+        channels = [0, x, chroma];
+    else if (sector < 300)
+        channels = [x, 0, chroma];
+    else
+        channels = [chroma, 0, x];
 
     return {
-        b: Math.round((channels[2]! + m) * 255),
-        g: Math.round((channels[1]! + m) * 255),
-        r: Math.round((channels[0]! + m) * 255),
+        b: Math.round((channels[2] + m) * 255),
+        g: Math.round((channels[1] + m) * 255),
+        r: Math.round((channels[0] + m) * 255),
     };
 }
 
-/** Calculates contrast and a small palette from an opaque hex sRGB colour. */
+/**
+ * Calculates contrast and a small palette from an opaque hex sRGB colour.
+ * @param colour - The request object containing the colour to analyse.
+ * @param colour.colour - The hexadecimal colour string to analyse.
+ * @returns The result of the colour analysis, including contrast ratios and a palette.
+ * @throws Will throw an error if the provided colour is not a valid hexadecimal string.
+ */
 export function runColourTool({ colour }: ColourToolRequest): ColourToolResult {
     const rgb = parseHexColour(colour);
 

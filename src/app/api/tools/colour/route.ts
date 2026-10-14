@@ -1,8 +1,12 @@
-import { parseToolRequest, toolError, toolSuccess } from "tools/api-server";
 import { colourToolRequestSchema, runColourTool } from "tools/colour-tool";
+import { parseToolRequest, toolError, toolSuccess } from "tools/api-server";
 import type { NextResponse } from "next/server";
 
-/** Calculates WCAG contrast and colour relationships for a hex sRGB colour. */
+/**
+ * Calculates WCAG contrast and colour relationships for a hex sRGB colour.
+ * @param request - The incoming HTTP request containing the colour data.
+ * @returns A NextResponse containing the calculation results or an error.
+ */
 export async function POST(request: Request): Promise<NextResponse> {
     const parsed = await parseToolRequest(request, colourToolRequestSchema, { maxBytes: 1024 });
 
