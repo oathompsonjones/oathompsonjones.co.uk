@@ -8,8 +8,8 @@ import {
     parseHexColour,
     rgbToHex,
 } from "tools/colour/colour-tool";
-import { requestToolApi } from "tools/api";
 import { ToolSection } from "components/pages/tools/toolSection";
+import { requestToolApi } from "tools/api";
 
 const MAX_PALETTE_COLOURS = 12;
 const PALETTE_LABELS = [
