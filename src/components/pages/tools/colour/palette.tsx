@@ -1,7 +1,7 @@
 "use client";
 
 import { Alert, Grid, Stack, Typography } from "@mui/material";
-import { PaletteColourCard, type PaletteEntry } from "components/pages/tools/colour/paletteColourCard";
+import { PaletteColourCard } from "components/pages/tools/colour/paletteColourCard";
 import { MAX_PALETTE_COLOURS } from "tools/colour/palette";
 import { PaletteContrast } from "components/pages/tools/colour/paletteContrast";
 import { PaletteControls } from "components/pages/tools/colour/paletteControls";
