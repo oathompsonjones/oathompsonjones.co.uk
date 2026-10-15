@@ -1,6 +1,6 @@
+import { describe, expect, it } from "vitest";
 import { MAX_PALETTE_COLOURS, createPaletteCssVariables, parsePaletteInput } from "./palette";
 import { runColourTool } from "./colour-tool";
-import { describe, expect, it } from "vitest";
 
 describe("colour palette helpers", () => {
     it("normalises different colour formats and preserves commas inside colour functions", () => {
