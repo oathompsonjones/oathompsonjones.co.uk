@@ -1,5 +1,5 @@
 import { Button, Stack } from "@mui/material";
-import { type ReactNode, useCallback } from "react";
+import { useCallback, type ReactNode } from "react";
 import type { PaletteEntry } from "components/pages/tools/colour/paletteColourCard";
 
 type PaletteColourActionsProps = Readonly<{
