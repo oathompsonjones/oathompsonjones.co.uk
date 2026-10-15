@@ -1,4 +1,4 @@
-import { createPaletteCssVariables, MAX_PALETTE_COLOURS, parsePaletteInput } from "./palette";
+import { MAX_PALETTE_COLOURS, createPaletteCssVariables, parsePaletteInput } from "./palette";
 import { describe, expect, it } from "vitest";
 import { runColourTool } from "./colour-tool";
 
