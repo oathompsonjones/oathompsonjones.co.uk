@@ -38,6 +38,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
     onResult: (result: ColourToolResult) => void;
 }>): ReactNode {
     const [colour, setColour] = useState(DEFAULT_COLOUR);
+    const [pickerColour, setPickerColour] = useState(DEFAULT_COLOUR);
     const [format, setFormat] = useState<InputFormat>("hex");
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
@@ -89,7 +90,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
         }
 
         try {
-            const hex = normaliseColour(colour, format);
+            const hex = format === "css" ? pickerColour : normaliseColour(colour, format);
             const nextColour = nextFormat === "css"
                 ? ""
                 : formatColour(hex, nextFormat);
@@ -105,7 +106,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
             setColour("");
             setError(caught instanceof Error ? caught.message : "Enter a valid colour to convert formats.");
         }
-    }, [calculate, colour, format]);
+    }, [calculate, colour, format, pickerColour]);
 
     const updatePicker = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
         const value = event.target.value.toUpperCase();
