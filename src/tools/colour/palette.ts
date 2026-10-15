@@ -61,7 +61,9 @@ export function normalisePaletteColour(input: string): string {
  * @throws If the input is empty, too long, or contains invalid colours.
  */
 export function parsePaletteInput(input: string): string[] {
-    const colours = input.split(/[\n,;]+/).map((colour) => colour.trim()).filter(Boolean);
+    const colours = input.split(/[\n;]+/)
+        .flatMap((line) => line.split(/,(?![^()]*\))/))
+        .map((colour) => colour.trim()).filter(Boolean);
 
     if (colours.length === 0)
         throw new Error("Enter at least one colour.");
