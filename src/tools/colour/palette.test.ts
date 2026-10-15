@@ -1,4 +1,3 @@
-/* eslint-disable sort-imports, @stylistic/padding-line-between-statements */
 import { MAX_PALETTE_COLOURS, createPaletteCssVariables, parsePaletteInput } from "./palette";
 import { describe, expect, it } from "vitest";
 import { runColourTool } from "./colour-tool";
@@ -43,9 +42,9 @@ describe("colour palette helpers", () => {
     });
 });
 
-
 describe("palette harmonies and pairwise contrast", () => {
     it("generates the expected number of colours for each harmony", async () => {
+        
         const { generateHarmonyPalette } = await import("./palette");
         expect(generateHarmonyPalette("#336699", "complementary")).toHaveLength(2);
         expect(generateHarmonyPalette("#336699", "analogous")).toHaveLength(3);
@@ -55,6 +54,7 @@ describe("palette harmonies and pairwise contrast", () => {
     });
 
     it("reports WCAG AA and AAA status for each unique colour pair", async () => {
+        
         const { getPaletteContrast } = await import("./palette");
         const pairs = getPaletteContrast([
             runColourTool({ colour: "#000000" }),
@@ -62,7 +62,7 @@ describe("palette harmonies and pairwise contrast", () => {
             runColourTool({ colour: "#777777" }),
         ]);
         expect(pairs).toHaveLength(3);
-        expect(pairs[0]).toMatchObject({ ratio: 21, meetsAA: true, meetsAAA: true });
+        expect(pairs[0]).toMatchObject({ meetsAA: true, meetsAAA: true, ratio: 21 });
         expect(pairs[2]!.meetsAA).toBe(false);
         expect(pairs[2]!.meetsAAA).toBe(false);
     });
