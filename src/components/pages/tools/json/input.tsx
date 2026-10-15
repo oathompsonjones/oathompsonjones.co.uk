@@ -3,7 +3,7 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import type { ChangeEvent, ReactNode } from "react";
 import { useCallback, useId, useRef } from "react";
-import { JSON_TOOL_MAX_INPUT_LENGTH } from "tools/json-toolkit";
+import { JSON_TOOL_MAX_INPUT_LENGTH } from "tools/json/json-toolkit";
 import { ToolSection } from "components/pages/tools/toolSection";
 
 type JsonToolkitInputProps = {
