@@ -121,11 +121,12 @@ function variationName(label: string): string {
  * @param results - The analysed colours.
  * @returns A CSS :root block containing the variables.
  */
-export function createPaletteCssVariables(results: readonly ColourToolResult[]): string {
+export function createPaletteCssVariables(results: readonly ColourToolResult[], names?: readonly string[]): string {
     const lines = [":root {"];
 
     results.forEach((result, index) => {
-        const name = PALETTE_LABELS[index] ?? `colour-${index + 1}`;
+        const suppliedName = names?.[index]?.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+        const name = suppliedName || PALETTE_LABELS[index] || `colour-${index + 1}`;
 
         result.palette.forEach(({ hex, label }) => {
             lines.push(`  --colour-${name}-${variationName(label)}: ${hex};`);
