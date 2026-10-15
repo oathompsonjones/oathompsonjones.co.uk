@@ -4,7 +4,7 @@ import { Alert, Button, Grid, Paper, Stack, TextField, Typography } from "@mui/m
 import { requestToolApi } from "tools/api";
 import { colourToolResultSchema, parseHexColour, rgbToHex } from "tools/colour/colour-tool";
 import type { ColourToolResult } from "tools/colour/colour-tool";
-import type { ReactNode } from "react";
+import type { ChangeEvent, ReactNode } from "react";
 import { useCallback, useState } from "react";
 import { ToolSection } from "components/pages/tools/toolSection";
 
@@ -152,7 +152,7 @@ export function ColourPaletteInput(): ReactNode {
         });
     }, [copyCss]);
 
-    const handleInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
+    const handleInputChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
         setInput(event.target.value);
     }, []);
 
