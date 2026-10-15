@@ -5,8 +5,8 @@ import { type ChangeEvent, type ReactNode, useCallback, useState } from "react";
 import { type ColourToolResult, colourToolResultSchema } from "tools/colour/colour-tool";
 import { MAX_PALETTE_COLOURS, createPaletteCssVariables, parsePaletteInput } from "tools/colour/palette";
 import { Card } from "components/card";
-import { requestToolApi } from "tools/api";
 import { ToolSection } from "components/pages/tools/toolSection";
+import { requestToolApi } from "tools/api";
 
 /**
  * Builds a multi-colour palette and exports its colour variables as CSS.
@@ -100,7 +100,7 @@ export function ColourPaletteInput(): ReactNode {
                         <Grid container spacing={1.5}>
                             {results.map((result, index) => (
                                 <Grid key={result.hex + index} size={{ lg: 3, md: 4, sm: 6, xs: 12 }}>
-                                    <Card sx={{ overflow: "hidden", height: "100%" }}>
+                                    <Card sx={{ height: "100%", overflow: "hidden" }}>
                                         <Card.Media style={{ backgroundColor: result.hex, height: 120 }} />
                                         <Card.Header
                                             subheader={result.hex}
