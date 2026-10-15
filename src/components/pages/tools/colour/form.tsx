@@ -103,6 +103,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
 
             setFormat(nextFormat);
             setColour(nextColour);
+            setPickerColour(hex);
             setError(null);
 
             if (nextFormat !== "css")
