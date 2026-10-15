@@ -61,6 +61,7 @@ describe("palette harmonies and pairwise contrast", () => {
             runColourTool({ colour: "#FFFFFF" }),
             runColourTool({ colour: "#777777" }),
         ]);
+
         expect(pairs).toHaveLength(3);
         expect(pairs[0]).toMatchObject({ meetsAA: true, meetsAAA: true, ratio: 21 });
         expect(pairs[2]!.meetsAA).toBe(false);
