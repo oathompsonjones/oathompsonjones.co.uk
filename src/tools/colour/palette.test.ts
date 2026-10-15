@@ -1,5 +1,5 @@
-import { MAX_PALETTE_COLOURS, createPaletteCssVariables, parsePaletteInput } from "./palette";
 import { describe, expect, it } from "vitest";
+import { MAX_PALETTE_COLOURS, createPaletteCssVariables, parsePaletteInput } from "./palette";
 import { runColourTool } from "./colour-tool";
 
 describe("colour palette helpers", () => {
