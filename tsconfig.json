@@ -61,7 +61,6 @@
         "**/*.ts",
         "**/*.tsx",
         ".next/types/**/*.ts",
-        // "react"
     ],
     "exclude": [
         "node_modules",
