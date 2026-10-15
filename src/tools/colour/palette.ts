@@ -45,15 +45,15 @@ export function normalisePaletteColour(input: string): string {
 
     let format: InputFormat;
 
-    if ((/^rgb\\(/i).test(value))
+    if ((/^rgb\(/i).test(value))
         format = "rgb";
-    else if ((/^hsl\\(/i).test(value))
+    else if ((/^hsl\(/i).test(value))
         format = "hsl";
-    else if ((/^hsv\\(/i).test(value))
+    else if ((/^hsv\(/i).test(value))
         format = "hsv";
-    else if ((/^hwb\\(/i).test(value))
+    else if ((/^hwb\(/i).test(value))
         format = "hwb";
-    else if ((/^cmyk\\(/i).test(value))
+    else if ((/^cmyk\(/i).test(value))
         format = "cmyk";
     else
         format = "css";
