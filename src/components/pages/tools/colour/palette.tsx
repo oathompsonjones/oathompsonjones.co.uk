@@ -130,7 +130,7 @@ export function ColourPaletteInput(): ReactNode {
                     placeholder={"#1C7EEA\n#7B2CBF\n#E63946"}
                     value={input}
                 />
-                <Stack alignItems="center" direction="row" flexWrap="wrap" gap={1}>
+                <Stack direction="row" spacing={1} sx={{ alignItems: "center", flexWrap: "wrap", gap: 1 }}>
                     <Button disabled={loading} onClick={() => void analyse()} variant="contained">
                         {loading ? "Analysing…" : "Analyse palette"}
                     </Button>
@@ -149,8 +149,8 @@ export function ColourPaletteInput(): ReactNode {
                                 <Grid key={result.hex + index} size={{ md: 4, sm: 6, xs: 12 }}>
                                     <Paper sx={{ overflow: "hidden" }}>
                                         <Paper square sx={{ backgroundColor: result.hex, height: 88 }} />
-                                        <Stack p={1.5} spacing={0.5}>
-                                            <Typography fontWeight={600}>
+                                        <Stack spacing={0.5} sx={{ p: 1.5 }}>
+                                            <Typography sx={{ fontWeight: 600 }}>
                                                 {PALETTE_LABELS[index] ?? `Colour ${index + 1}`}
                                             </Typography>
                                             <Typography variant="body2">{result.hex}</Typography>
