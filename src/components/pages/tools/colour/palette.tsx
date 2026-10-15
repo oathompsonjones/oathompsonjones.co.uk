@@ -1,16 +1,20 @@
 "use client";
 
-import { Alert, Button, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
-import { type ChangeEvent, type ReactNode, useCallback, useState } from "react";
-import { type ColourToolResult, colourToolResultSchema } from "tools/colour/colour-tool";
-import { MAX_PALETTE_COLOURS, createPaletteCssVariables, parsePaletteInput } from "tools/colour/palette";
+import { Alert, Box, Button, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
+import type { ChangeEvent, ReactNode } from "react";
+import { useCallback, useState } from "react";
+import { Card } from "components/card";
 import { ToolSection } from "components/pages/tools/toolSection";
 import { requestToolApi } from "tools/api";
+import type { ColourToolResult } from "tools/colour/colour-tool";
+import { colourToolResultSchema } from "tools/colour/colour-tool";
+import { MAX_PALETTE_COLOURS, createPaletteCssVariables, parsePaletteInput } from "tools/colour/palette";
 
 /**
- * Accepts a palette of hexadecimal colours and exports all generated variants as CSS custom properties.
- * @returns The multi-colour input and CSS export section.
+ * Builds a multi-colour palette and exports its colour variables as CSS.
+ * @returns The palette input, swatches, and CSS export.
  */
+// eslint-disable-next-line max-lines-per-function
 export function ColourPaletteInput(): ReactNode {
     const [input, setInput] = useState("#1C7EEA\n#7B2CBF\n#E63946");
     const [results, setResults] = useState<ColourToolResult[]>([]);
@@ -19,12 +23,12 @@ export function ColourPaletteInput(): ReactNode {
     const [copied, setCopied] = useState(false);
 
     const analyse = useCallback(async (): Promise<void> => {
-        let normalised: string[];
+        let colours: string[];
 
         try {
-            normalised = parsePaletteInput(input);
+            colours = parsePaletteInput(input);
         } catch (caught) {
-            setError(caught instanceof Error ? caught.message : "Enter valid hexadecimal colours.");
+            setError(caught instanceof Error ? caught.message : "Enter valid colour values.");
 
             return;
         }
@@ -34,16 +38,9 @@ export function ColourPaletteInput(): ReactNode {
         setCopied(false);
 
         try {
-            const loadResult = async (colour: string): Promise<ColourToolResult> => {
-                const result = await requestToolApi(
-                    "/api/tools/colour",
-                    { colour },
-                    colourToolResultSchema,
-                );
-
-                return result;
-            };
-            const next = await Promise.all(normalised.map(async (colour) => loadResult(colour)));
+            const next = await Promise.all(colours.map(async (colour) =>
+                requestToolApi("/api/tools/colour", { colour }, colourToolResultSchema),
+            ));
 
             setResults(next);
         } catch (caught) {
@@ -64,15 +61,11 @@ export function ColourPaletteInput(): ReactNode {
     }, [results]);
 
     const handleAnalyse = useCallback((): void => {
-        analyse().catch((caught: unknown) => {
-            setError(caught instanceof Error ? caught.message : "Unable to analyse this palette.");
-        });
+        void analyse();
     }, [analyse]);
 
     const handleCopyCss = useCallback((): void => {
-        copyCss().catch((caught: unknown) => {
-            setError(caught instanceof Error ? caught.message : "Unable to copy CSS.");
-        });
+        void copyCss();
     }, [copyCss]);
 
     const handleInputChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
@@ -83,24 +76,25 @@ export function ColourPaletteInput(): ReactNode {
         <ToolSection title="Build a palette">
             <Stack spacing={2}>
                 <Typography color="text.secondary" variant="body2">
-                    Paste up to {MAX_PALETTE_COLOURS} hexadecimal colours, separated by new lines, commas,
-                    or semicolons. Each colour gets its own contrast analysis and set of related shades.
+                    Enter up to {MAX_PALETTE_COLOURS} colours, one per line. HEX, RGB, HSL, HSV, HWB,
+                    CMYK, and CSS named colours are supported.
                 </Typography>
                 <TextField
                     fullWidth
-                    label="Palette colours"
+                    helperText="Examples: #1C7EEA, rgb(28, 126, 234), hsl(211, 83%, 51%), cornflowerblue"
+                    label="Colour values"
                     minRows={3}
                     multiline
                     onChange={handleInputChange}
-                    placeholder={"#1C7EEA\n#7B2CBF\n#E63946"}
+                    placeholder={"#1C7EEA\nrgb(123, 44, 191)\ncornflowerblue"}
                     value={input}
                 />
                 <Stack direction="row" spacing={1} sx={{ alignItems: "center", flexWrap: "wrap", gap: 1 }}>
                     <Button disabled={loading} onClick={handleAnalyse} variant="contained">
-                        {loading ? "Analysing…" : "Analyse palette"}
+                        {loading ? "Analysing…" : "Generate palette"}
                     </Button>
                     <Button disabled={loading || results.length === 0} onClick={handleCopyCss}>
-                        {copied ? "CSS copied" : "Copy CSS variables"}
+                        {copied ? "CSS copied" : "Copy CSS"}
                     </Button>
                 </Stack>
                 {error !== null && <Alert severity="error">{error}</Alert>}
@@ -108,31 +102,41 @@ export function ColourPaletteInput(): ReactNode {
                     <>
                         <Grid container spacing={1.5}>
                             {results.map((result, index) => (
-                                <Grid key={result.hex + index} size={{ md: 4, sm: 6, xs: 12 }}>
-                                    <Paper sx={{ overflow: "hidden" }}>
-                                        <Paper square sx={{ backgroundColor: result.hex, height: 88 }} />
-                                        <Stack spacing={0.5} sx={{ p: 1.5 }}>
-                                            <Typography sx={{ fontWeight: 600 }}>
-                                                {`Colour ${index + 1}`}
-                                            </Typography>
-                                            <Typography variant="body2">{result.hex}</Typography>
+                                <Grid key={result.hex + index} size={{ lg: 3, md: 4, sm: 6, xs: 12 }}>
+                                    <Card sx={{ overflow: "hidden", height: "100%" }}>
+                                        <Card.Media style={{ backgroundColor: result.hex, height: 120 }} />
+                                        <Card.Header
+                                            subheader={result.hex}
+                                            title={`Colour ${index + 1}`}
+                                        />
+                                        <Card.Content>
                                             <Typography color="text.secondary" variant="body2">
                                                 Black {result.contrast.black.toFixed(2)}:1 · White{" "}
                                                 {result.contrast.white.toFixed(2)}:1
                                             </Typography>
-                                        </Stack>
-                                    </Paper>
+                                        </Card.Content>
+                                    </Card>
                                 </Grid>
                             ))}
                         </Grid>
-                        <TextField
-                            fullWidth
-                            label="CSS custom properties"
-                            minRows={Math.min(results.length * 8 + 2, 20)}
-                            multiline
-                            slotProps={{ htmlInput: { readOnly: true } }}
-                            value={createPaletteCssVariables(results)}
-                        />
+                        <Box>
+                            <Typography component="h3" gutterBottom variant="h6">CSS custom properties</Typography>
+                            <Paper
+                                component="pre"
+                                sx={{
+                                    fontFamily: "monospace",
+                                    fontSize: "0.875rem",
+                                    lineHeight: 1.6,
+                                    m: 0,
+                                    maxHeight: 420,
+                                    overflow: "auto",
+                                    p: 2,
+                                    whiteSpace: "pre",
+                                }}
+                            >
+                                <code>{createPaletteCssVariables(results)}</code>
+                            </Paper>
+                        </Box>
                     </>
                 )}
             </Stack>
