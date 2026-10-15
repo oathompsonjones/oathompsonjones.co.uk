@@ -208,7 +208,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
                     disabled={loading}
                     onChange={updatePicker}
                     type="color"
-                    value={(/^#[\da-f]{6}$/i).test(colour) ? colour : DEFAULT_COLOUR}
+                    value={pickerColour}
                 />
                 <Button disabled={loading || colour.trim() === ""} onClick={submit}>Analyse</Button>
                 <Button disabled={loading} onClick={resetColour} startIcon={<RestartAlt />}>Reset</Button>
