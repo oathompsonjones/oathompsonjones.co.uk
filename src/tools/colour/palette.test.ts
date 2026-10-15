@@ -1,20 +1,20 @@
 import { MAX_PALETTE_COLOURS, createPaletteCssVariables, parsePaletteInput } from "./palette";
-import { describe, expect, it } from "vitest";
 import { runColourTool } from "./colour-tool";
+import { describe, expect, it } from "vitest";
 
 describe("colour palette helpers", () => {
-    it("normalises HEX colours separated by newlines, commas, or semicolons", () => {
-        expect(parsePaletteInput(" #369\n#7B2CBF, E63946; #FFFFFF ")).toEqual([
+    it("normalises different colour formats and preserves commas inside colour functions", () => {
+        expect(parsePaletteInput(" #369\nrgb(28, 126, 234), hsl(0, 78%, 56%); #FFFFFF ")).toEqual([
             "#336699",
-            "#7B2CBF",
-            "#E63946",
+            "#1C7EEA",
+            "#E84343",
             "#FFFFFF",
         ]);
     });
 
     it("rejects empty palettes, invalid colours, and more than the supported limit", () => {
         expect(() => parsePaletteInput(" \n , ; ")).toThrow(/at least one/);
-        expect(() => parsePaletteInput("#123, nope")).toThrow(/Invalid hexadecimal colour: nope/);
+        expect(() => parsePaletteInput("#123, definitely-not-a-colour")).toThrow(/Invalid colour/);
         expect(() => parsePaletteInput(Array.from(
             { length: MAX_PALETTE_COLOURS + 1 },
             () => "#123",
