@@ -7,9 +7,9 @@ import {
     colourToolResultSchema,
     formatColour,
     normaliseColour,
-} from "tools/colour-tool";
+} from "tools/colour/colour-tool";
 import type { ChangeEvent, KeyboardEvent, ReactNode } from "react";
-import type { ColourToolResult, InputFormat } from "tools/colour-tool";
+import type { ColourToolResult, InputFormat } from "tools/colour/colour-tool";
 import { useCallback, useEffect, useState } from "react";
 import { Glass } from "components/glass";
 import type { MenuProps } from "@mui/material/Menu";
