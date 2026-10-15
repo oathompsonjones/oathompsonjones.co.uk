@@ -1,7 +1,6 @@
 "use client";
 
 import { Alert, Button, MenuItem, Stack, TextField } from "@mui/material";
-import type { MenuProps } from "@mui/material/Menu";
 import {
     CSS_NAMED_COLOURS,
     DEFAULT_COLOUR,
@@ -13,6 +12,7 @@ import type { ChangeEvent, KeyboardEvent, ReactNode } from "react";
 import type { ColourToolResult, InputFormat } from "tools/colour-tool";
 import { useCallback, useEffect, useState } from "react";
 import { Glass } from "components/glass";
+import type { MenuProps } from "@mui/material/Menu";
 import { RestartAlt } from "@mui/icons-material";
 import { requestToolApi } from "tools/api";
 
@@ -181,7 +181,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
                             label="Colour value"
                             onChange={updateColour}
                             onKeyDown={submitOnEnter}
-                            placeholder={placeholder[format]}
+                            placeholder={placeholder}
                             sx={{ minWidth: 300 }}
                             value={colour}
                         />
