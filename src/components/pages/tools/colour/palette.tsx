@@ -11,6 +11,7 @@ import { ToolSection } from "components/pages/tools/toolSection";
 import { runColourTool, type ColourToolResult } from "tools/colour/colour-tool";
 import {
     MAX_PALETTE_COLOURS,
+    createPaletteCssVariables,
     generateHarmonyPalette,
     getPaletteContrast,
     normalisePaletteColour,
@@ -131,8 +132,6 @@ export function ColourPaletteInput(): ReactNode {
         }
 
         try {
-            const { createPaletteCssVariables } = await import("tools/colour/palette");
-
             await navigator.clipboard.writeText(createPaletteCssVariables(
                 results,
                 entries.map(({ name }) => name),
