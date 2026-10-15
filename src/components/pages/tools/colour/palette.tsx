@@ -180,7 +180,7 @@ export function ColourPaletteInput(): ReactNode {
                                                     {results[index]!.hex} · Black {results[index]!.contrast.black.toFixed(2)}:1 · White {results[index]!.contrast.white.toFixed(2)}:1
                                                 </Typography>
                                             )}
-                                            <Stack direction="row" spacing={0.5} justifyContent="space-between">
+                                            <Stack direction="row" spacing={0.5} sx={{ justifyContent: "space-between" }}>
                                                 <Stack direction="row" spacing={0.5}>
                                                     <Button size="small" disabled={index === 0} onClick={() => moveEntry(index, -1)}>Move up</Button>
                                                     <Button size="small" disabled={index === entries.length - 1} onClick={() => moveEntry(index, 1)}>Move down</Button>
