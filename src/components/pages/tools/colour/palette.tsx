@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/member-delimiter-style, @typescript-eslint/no-unnecessary-type-assertion, @typescript-eslint/naming-convention, @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/sort-type-constituents, @typescript-eslint/strict-boolean-expressions, jsdoc/require-jsdoc, jsdoc/require-param, jsdoc/require-returns, jsdoc/require-throws, max-len, max-lines-per-function, multiline-ternary, newline-after-var, newline-before-return, newline-per-chained-call, no-confusing-arrow, no-multiple-empty-lines, react/jsx-closing-bracket-location, react/jsx-first-prop-new-line, react/jsx-max-depth, react/jsx-no-bind, react/jsx-no-leaked-render, react/jsx-sort-props, sort-imports, sort-keys, @stylistic/member-delimiter-style, @stylistic/padding-line-between-statements */
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion, @typescript-eslint/naming-convention, @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/sort-type-constituents, @typescript-eslint/strict-boolean-expressions, jsdoc/require-jsdoc, jsdoc/require-param, jsdoc/require-returns, jsdoc/require-throws, max-len, max-lines-per-function, multiline-ternary, newline-after-var, newline-before-return, newline-per-chained-call, no-confusing-arrow, no-multiple-empty-lines, react/jsx-closing-bracket-location, react/jsx-first-prop-new-line, react/jsx-max-depth, react/jsx-no-bind, react/jsx-no-leaked-render, react/jsx-sort-props, sort-imports, sort-keys, @stylistic/member-delimiter-style, @stylistic/padding-line-between-statements */
+
 "use client";
 
 import { Alert, Box, Button, Grid, MenuItem, Stack, TextField, Typography } from "@mui/material";
@@ -128,7 +129,7 @@ export function ColourPaletteInput(): ReactNode {
         } catch {
             setError("Clipboard access failed. You can select and copy the CSS manually.");
         }
-    }, [results, valid]);
+    }, [entries, results, valid]);
 
     const handleHarmonyChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
         setHarmony(event.target.value as HarmonyMode);
@@ -236,7 +237,7 @@ export function ColourPaletteInput(): ReactNode {
                         <Box>
                             <Typography component="h3" gutterBottom variant="h6">CSS custom properties</Typography>
                             <Code language="css" sx={{ "& pre": { maxHeight: 420 } }}>
-                                {createPaletteCssVariables(results)}
+                                {createPaletteCssVariables(results, entries.map(({ name }) => name))}
                             </Code>
                         </Box>
                     </>
