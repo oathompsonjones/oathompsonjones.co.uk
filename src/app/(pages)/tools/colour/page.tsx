@@ -1,5 +1,6 @@
 "use client";
 
+import { ColourToolApiDocs } from "components/pages/tools/colour/apiDocs";
 import { ColourToolForm } from "components/pages/tools/colour/form";
 import type { ColourToolResult } from "tools/colour-tool";
 import { ColourToolResults } from "components/pages/tools/colour/results";
@@ -27,6 +28,7 @@ export default function ColourToolPage(): ReactNode {
             {result !== null && (
                 <ColourToolResults onSelectColour={setSelectedColour} result={result} />
             )}
+            <ColourToolApiDocs />
         </ToolPage>
     );
 }
