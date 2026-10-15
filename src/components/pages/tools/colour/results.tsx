@@ -18,6 +18,8 @@ function colourFormats(result: ColourToolResult): Array<{ label: string; value: 
     const hue = delta === 0 ? 0 : max === red ? 60 * ((green - blue) / delta % 6)
         : max === green ? 60 * ((blue - red) / delta + 2) : 60 * ((red - green) / delta + 4);
     const hsvS = max === 0 ? 0 : delta / max * 100;
+    const whiteness = min * 100;
+    const blackness = (1 - max) * 100;
     const k = 1 - max;
     const cmyk = max === 0 ? [0, 0, 0, 100]
         : [(1 - red - k) / (1 - k) * 100, (1 - green - k) / (1 - k) * 100,
@@ -28,6 +30,7 @@ function colourFormats(result: ColourToolResult): Array<{ label: string; value: 
         { label: "RGB", value: `rgb(${r}, ${g}, ${b})` },
         { label: "HSL", value: `hsl(${h.toFixed(1)}, ${s.toFixed(1)}%, ${l.toFixed(1)}%)` },
         { label: "HSV", value: `hsv(${((hue + 360) % 360).toFixed(1)}, ${hsvS.toFixed(1)}%, ${(max * 100).toFixed(1)}%)` },
+        { label: "HWB", value: `hwb(${((hue + 360) % 360).toFixed(1)} ${whiteness.toFixed(1)}% ${blackness.toFixed(1)}%)` },
         { label: "CMYK", value: `cmyk(${cmyk.map((n) => n.toFixed(1) + "%").join(", ")})` },
         { label: "CSS", value: `rgb(${r} ${g} ${b})` },
     ];
