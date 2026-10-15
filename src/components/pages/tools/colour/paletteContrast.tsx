@@ -1,6 +1,6 @@
 import { Box, Grid, Typography } from "@mui/material";
-import { PaletteContrastPair } from "components/pages/tools/colour/paletteContrastPair";
 import type { PaletteEntry } from "components/pages/tools/colour/paletteColourCard";
+import { PaletteContrastPair } from "components/pages/tools/colour/paletteContrastPair";
 import type { ReactNode } from "react";
 import type { PaletteContrast as PaletteContrastResult } from "tools/colour/palette";
 import { normalisePaletteColour } from "tools/colour/palette";
