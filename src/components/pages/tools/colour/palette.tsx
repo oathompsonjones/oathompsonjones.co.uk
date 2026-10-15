@@ -2,13 +2,13 @@
 
 import { Alert, Grid, Stack, Typography } from "@mui/material";
 import { PaletteColourCard, type PaletteEntry } from "components/pages/tools/colour/paletteColourCard";
+import { MAX_PALETTE_COLOURS } from "tools/colour/palette";
 import { PaletteContrast } from "components/pages/tools/colour/paletteContrast";
 import { PaletteControls } from "components/pages/tools/colour/paletteControls";
 import { PaletteCssExport } from "components/pages/tools/colour/paletteCssExport";
-import { usePaletteBuilder } from "components/pages/tools/colour/usePaletteBuilder";
-import { ToolSection } from "components/pages/tools/toolSection";
 import type { ReactNode } from "react";
-import { MAX_PALETTE_COLOURS } from "tools/colour/palette";
+import { ToolSection } from "components/pages/tools/toolSection";
+import { usePaletteBuilder } from "components/pages/tools/colour/usePaletteBuilder";
 
 /**
  * Builds and edits a multi-colour palette, explores colour harmonies, and checks
@@ -42,8 +42,8 @@ export function ColourPaletteInput(): ReactNode {
                     colour format, or generate a harmony from the first colour.
                 </Typography>
                 <PaletteControls
-                    copied={copied}
                     colourCount={entries.length}
+                    copied={copied}
                     harmony={harmony}
                     maxColours={MAX_PALETTE_COLOURS}
                     onAddColour={addEntry}
@@ -68,7 +68,7 @@ export function ColourPaletteInput(): ReactNode {
                         </Grid>
                     ))}
                 </Grid>
-                {error !== null ? <Alert severity="error">{error}</Alert> : null}
+                {error !== null && <Alert severity="error">{error}</Alert>}
                 {valid && (
                     <Stack spacing={3}>
                         <PaletteContrast entries={entries} pairs={contrastPairs} />
