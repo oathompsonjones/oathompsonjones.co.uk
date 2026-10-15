@@ -1,4 +1,4 @@
-import { type ColourToolResult, type InputFormat, normaliseColour, runColourTool } from "./colour-tool";
+import { contrastRatio, hslToRgb, parseHexColour, relativeLuminance, rgbToHex, rgbToHsl, type ColourToolResult, type InputFormat, normaliseColour, runColourTool } from "./colour-tool";
 
 export const MAX_PALETTE_COLOURS = 12;
 
@@ -145,3 +145,45 @@ export function createPaletteCssVariables(results: readonly ColourToolResult[]):
 export function analysePalette(input: string): ColourToolResult[] {
     return parsePaletteInput(input).map((colour) => runColourTool({ colour }));
 }
+
+export type HarmonyMode = "complementary" | "analogous" | "triadic" | "split-complementary" | "tetradic";
+export type PaletteContrast = { first: string; second: string; ratio: number; meetsAA: boolean; meetsAAA: boolean };
+
+/** Generates a colour harmony from a seed colour using HSL hue rotation. */
+export function generateHarmonyPalette(seed: string, mode: HarmonyMode): string[] {
+    const rgb = parseHexColour(seed);
+    if (rgb === null)
+        throw new Error("Enter a valid hexadecimal seed colour.");
+
+    const hsl = rgbToHsl(rgb);
+    const offsets: Record<HarmonyMode, number[]> = {
+        complementary: [0, 180],
+        analogous: [0, 30, 330],
+        triadic: [0, 120, 240],
+        "split-complementary": [0, 150, 210],
+        tetradic: [0, 90, 180, 270],
+    };
+
+    return offsets[mode].map((offset) => rgbToHex(hslToRgb({ ...hsl, h: (hsl.h + offset) % 360 })));
+}
+
+/** Calculates pairwise WCAG contrast ratios for every unique colour pair. */
+export function getPaletteContrast(results: readonly ColourToolResult[]): PaletteContrast[] {
+    const pairs: PaletteContrast[] = [];
+    for (let i = 0; i < results.length; i++) {
+        for (let j = i + 1; j < results.length; j++) {
+            const first = results[i]!;
+            const second = results[j]!;
+            const ratio = contrastRatio(first.luminance, second.luminance);
+            pairs.push({
+                first: first.hex,
+                second: second.hex,
+                ratio,
+                meetsAA: ratio >= 4.5,
+                meetsAAA: ratio >= 7,
+            });
+        }
+    }
+    return pairs;
+}
+
