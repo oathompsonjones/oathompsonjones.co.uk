@@ -1,16 +1,18 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
-import type { ReactNode } from "react";
 import { Card } from "components/card";
+import { PaletteColourActions } from "components/pages/tools/colour/paletteColourActions";
+import type { ReactNode, ChangeEvent } from "react";
+import { useCallback } from "react";
 import type { ColourToolResult } from "tools/colour/colour-tool";
 import { normalisePaletteColour } from "tools/colour/palette";
 
-export type PaletteEntry = {
+export type PaletteEntry = Readonly<{
     id: number;
     name: string;
     value: string;
-};
+}>;
 
-type PaletteColourCardProps = {
+type PaletteColourCardProps = Readonly<{
     entry: PaletteEntry;
     index: number;
     total: number;
@@ -19,57 +21,26 @@ type PaletteColourCardProps = {
     onDuplicate: (entry: PaletteEntry) => void;
     onRemove: (id: number) => void;
     onMove: (index: number, direction: -1 | 1) => void;
-};
+}>;
 
-type PaletteColourActionsProps = Pick<
-    PaletteColourCardProps,
-    "entry" | "index" | "total" | "onDuplicate" | "onRemove" | "onMove"
->;
+/**
+ * Renders an editable card for one palette colour.
+ * @param props - The palette entry, analysis, and update actions.
+ * @returns The editable palette colour card.
+ */
+export function PaletteColourCard(props: PaletteColourCardProps): ReactNode {
+    const updateName = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+        props.onUpdate(props.entry.id, "name", event.target.value);
+    }, [props]);
 
-/** Renders the controls for rearranging, duplicating, and removing a palette colour. */
-function PaletteColourActions({
-    entry,
-    index,
-    total,
-    onDuplicate,
-    onRemove,
-    onMove,
-}: PaletteColourActionsProps): ReactNode {
-    return (
-        <Stack direction="row" spacing={0.5} sx={{ justifyContent: "space-between" }}>
-            <Stack direction="row" spacing={0.5}>
-                <Button disabled={index === 0} onClick={() => onMove(index, -1)} size="small">
-                    Move up
-                </Button>
-                <Button disabled={index === total - 1} onClick={() => onMove(index, 1)} size="small">
-                    Move down
-                </Button>
-            </Stack>
-            <Stack direction="row" spacing={0.5}>
-                <Button onClick={() => onDuplicate(entry)} size="small">Duplicate</Button>
-                <Button color="error" disabled={total === 1} onClick={() => onRemove(entry.id)} size="small">
-                    Remove
-                </Button>
-            </Stack>
-        </Stack>
-    );
-}
+    const updateValue = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+        props.onUpdate(props.entry.id, "value", event.target.value);
+    }, [props]);
 
-/** Renders an editable card for one palette colour. */
-export function PaletteColourCard({
-    entry,
-    index,
-    total,
-    result,
-    onUpdate,
-    onDuplicate,
-    onRemove,
-    onMove,
-}: PaletteColourCardProps): ReactNode {
     let swatch = "#808080";
 
     try {
-        swatch = normalisePaletteColour(entry.value);
+        swatch = normalisePaletteColour(props.entry.value);
     } catch {
         // Keep a neutral swatch while the user corrects an invalid value.
     }
@@ -82,33 +53,33 @@ export function PaletteColourCard({
                     <TextField
                         fullWidth
                         label="Colour name"
-                        onChange={(event) => onUpdate(entry.id, "name", event.target.value)}
+                        onChange={updateName}
                         size="small"
-                        value={entry.name}
+                        value={props.entry.name}
                     />
                     <TextField
                         fullWidth
                         helperText="HEX, RGB, HSL, HSV, HWB, CMYK, or CSS name"
                         label="Colour value"
-                        onChange={(event) => onUpdate(entry.id, "value", event.target.value)}
+                        onChange={updateValue}
                         size="small"
-                        value={entry.value}
+                        value={props.entry.value}
                     />
-                    {result
+                    {props.result
                         ? (
                             <Typography color="text.secondary" variant="body2">
-                                {result.hex} · Black {result.contrast.black.toFixed(2)}:1 ·
-                                White {result.contrast.white.toFixed(2)}:1
+                                {props.result.hex} · Black {props.result.contrast.black.toFixed(2)}:1 ·
+                                White {props.result.contrast.white.toFixed(2)}:1
                             </Typography>
                         )
                         : null}
                     <PaletteColourActions
-                        entry={entry}
-                        index={index}
-                        onDuplicate={onDuplicate}
-                        onMove={onMove}
-                        onRemove={onRemove}
-                        total={total}
+                        entry={props.entry}
+                        index={props.index}
+                        onDuplicate={props.onDuplicate}
+                        onMove={props.onMove}
+                        onRemove={props.onRemove}
+                        total={props.total}
                     />
                 </Stack>
             </Card.Content>
