@@ -33,6 +33,7 @@ const SELECT_MENU_PROPS: Partial<MenuProps> = {
  * @param props.onResult - Callback invoked with the analysis result when available.
  * @returns The colour input form.
  */
+// eslint-disable-next-line max-lines-per-function
 export function ColourToolForm({ selectedColour, onResult }: Readonly<{
     selectedColour: string | null;
     onResult: (result: ColourToolResult) => void;
@@ -72,8 +73,10 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
     }, [selectedColour, calculate]);
 
     const updateColour = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
-        const value = event.target.value;
+        const { value } = event.target;
+
         setColour(value);
+
         try {
             setPickerColour(normaliseColour(value, format));
         } catch {
@@ -132,6 +135,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
         if (value !== "") {
             try {
                 const hex = normaliseColour(value, "css");
+
                 setPickerColour(hex);
                 void calculate(hex, "hex");
             } catch (caught) {
