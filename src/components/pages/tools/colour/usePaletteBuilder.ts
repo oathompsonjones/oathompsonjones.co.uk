@@ -1,6 +1,6 @@
+import type { PaletteEntry } from "components/pages/tools/colour/paletteColourCard";
 import { useCallback, useMemo, useState } from "react";
 import type { ChangeEvent } from "react";
-import type { PaletteEntry } from "components/pages/tools/colour/paletteColourCard";
 import { runColourTool } from "tools/colour/colour-tool";
 import type { ColourToolResult } from "tools/colour/colour-tool";
 import {
