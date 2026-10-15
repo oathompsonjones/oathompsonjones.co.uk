@@ -1,5 +1,6 @@
 "use client";
 
+import { ColourPaletteInput } from "components/pages/tools/colour/palette";
 import { ColourToolApiDocs } from "components/pages/tools/colour/apiDocs";
 import { ColourToolForm } from "components/pages/tools/colour/form";
 import type { ColourToolResult } from "tools/colour/colour-tool";
@@ -24,6 +25,7 @@ export default function ColourToolPage(): ReactNode {
             }
             title="Colour Palette and Contrast"
         >
+            <ColourPaletteInput />
             <ColourToolForm onResult={setResult} selectedColour={selectedColour} />
             {result !== null && (
                 <ColourToolResults onSelectColour={setSelectedColour} result={result} />
