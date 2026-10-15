@@ -1,5 +1,5 @@
 import { expect as assert, describe, it } from "vitest";
-import { CODEC_NAMES } from "tools/encoding-codecs";
+import { CODEC_NAMES } from "tools/hash-encoding/encoding-codecs";
 import { POST as post } from "./route";
 
 /**
