@@ -8,6 +8,14 @@ import { Glass } from "components/glass";
 import { RestartAlt } from "@mui/icons-material";
 import { requestToolApi } from "tools/api";
 import { z } from "zod";
+import {
+    CSS_NAMED_COLOURS,
+    DEFAULT_COLOUR,
+    formatColour,
+    normaliseColour,
+} from "tools/colour-tool";
+import type { InputFormat } from "tools/colour-tool";
+
 
 const resultSchema = z.object({
     colour: z.string(),
@@ -26,14 +34,6 @@ const resultSchema = z.object({
     palette: z.array(z.object({ hex: z.string(), label: z.string() })),
     rgb: z.object({ b: z.number(), g: z.number(), r: z.number() }),
 });
-
-import {
-    CSS_NAMED_COLOURS,
-    DEFAULT_COLOUR,
-    formatColour,
-    normaliseColour,
-} from "tools/colour-tool";
-import type { InputFormat } from "tools/colour-tool";
 
 /**
  * Input controls for choosing a colour and requesting its analysis.
