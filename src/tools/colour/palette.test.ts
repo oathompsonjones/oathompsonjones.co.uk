@@ -44,8 +44,8 @@ describe("colour palette helpers", () => {
 
 describe("palette harmonies and pairwise contrast", () => {
     it("generates the expected number of colours for each harmony", async () => {
-        
         const { generateHarmonyPalette } = await import("./palette");
+
         expect(generateHarmonyPalette("#336699", "complementary")).toHaveLength(2);
         expect(generateHarmonyPalette("#336699", "analogous")).toHaveLength(3);
         expect(generateHarmonyPalette("#336699", "triadic")).toHaveLength(3);
@@ -54,8 +54,8 @@ describe("palette harmonies and pairwise contrast", () => {
     });
 
     it("reports WCAG AA and AAA status for each unique colour pair", async () => {
-        
         const { getPaletteContrast } = await import("./palette");
+
         const pairs = getPaletteContrast([
             runColourTool({ colour: "#000000" }),
             runColourTool({ colour: "#FFFFFF" }),
