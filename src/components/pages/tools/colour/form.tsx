@@ -3,21 +3,17 @@
 import { Alert, Button, MenuItem, Stack, TextField } from "@mui/material";
 import type { ChangeEvent, ReactNode } from "react";
 import { useCallback, useEffect, useState } from "react";
-import type { ColourToolResult } from "tools/colour-tool";
 import { Glass } from "components/glass";
 import { RestartAlt } from "@mui/icons-material";
 import { requestToolApi } from "tools/api";
-import { z } from "zod";
 import {
     CSS_NAMED_COLOURS,
+    colourToolResultSchema,
     DEFAULT_COLOUR,
     formatColour,
     normaliseColour,
-    colourToolResultSchema,
 } from "tools/colour-tool";
-import type { InputFormat } from "tools/colour-tool";
-
-
+import type { ColourToolResult, InputFormat } from "tools/colour-tool";
 
 
 /**
