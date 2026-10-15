@@ -1,6 +1,6 @@
 import {
     CSS_NAMED_COLOURS, colourFormats, contrastRatio, formatColour, normaliseColour,
-    parseHexColour, relativeLuminance, rgbToHex, runColourTool,
+    colourToolRequestSchema, colourToolResultSchema, parseHexColour, relativeLuminance, rgbToHex, runColourTool,
 } from "./colour-tool";
 import { describe, expect, it } from "vitest";
 
@@ -75,6 +75,20 @@ describe("colour tool", () => {
         expect(() => normaliseColour("rgb(1, 2)", "rgb")).toThrow(/3 numeric components/);
         expect(() => normaliseColour("cmyk(1, 2, nope, 4)", "cmyk")).toThrow(/numeric components/);
         expect(() => runColourTool({ colour: "not-a-colour" })).toThrow(/hexadecimal colour/);
+    });
+
+    it("validates colour tool requests and generated results", () => {
+        expect(colourToolRequestSchema.safeParse({ colour: "  #369  " }).success).toBe(true);
+        expect(colourToolRequestSchema.safeParse({ colour: "" }).success).toBe(false);
+        expect(colourToolRequestSchema.safeParse({ colour: "x".repeat(33) }).success).toBe(false);
+        expect(colourToolResultSchema.safeParse(runColourTool({ colour: "#369" })).success).toBe(true);
+        expect(colourToolResultSchema.safeParse({ colour: "#369" }).success).toBe(false);
+    });
+
+    it("clamps RGB and CMYK components to their supported ranges", () => {
+        expect(normaliseColour("rgb(300, -10, 128)", "rgb")).toBe("#FF0080");
+        expect(normaliseColour("cmyk(0%, 0%, 0%, 0%)", "cmyk")).toBe("#FFFFFF");
+        expect(normaliseColour("cmyk(0%, 0%, 0%, 100%)", "cmyk")).toBe("#000000");
     });
 
     it("handles achromatic colours and out-of-range HWB components", () => {
