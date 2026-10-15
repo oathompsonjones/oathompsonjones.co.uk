@@ -411,8 +411,8 @@ export function normaliseColour(input: string, format: InputFormat): string {
     }
 
     if (format === "rgb" || format === "hsl" || format === "hsv" || format === "hwb" || format === "cmyk") {
-        const match = (/^(?:rgb|rgba|hsl|hsla|hsv|hwb|cmyk)\\(\\s*([^)]*)\\)$/i).exec(value);
-        const parts = (match?.[1] ?? value).split(/[\\s,/%]+/).filter(Boolean).map(Number);
+        const match = (/^(?:rgb|rgba|hsl|hsla|hsv|hwb|cmyk)\(\s*([^)]*)\)$/i).exec(value);
+        const parts = (match?.[1] ?? value).split(/[\s,/%]+/).filter(Boolean).map(Number);
         const expectedParts = format === "cmyk" ? 4 : 3;
 
         if (parts.length !== expectedParts || parts.some((n) => !Number.isFinite(n)))
