@@ -2,7 +2,7 @@
 
 import { Button, Stack, Typography } from "@mui/material";
 import { type ChangeEvent, type ReactNode, useCallback, useRef, useState } from "react";
-import { HASH_ENCODING_MAX_INPUT_LENGTH } from "tools/hash-encoding-toolkit";
+import { HASH_ENCODING_MAX_INPUT_LENGTH } from "tools/hash-encoding/hash-encoding-toolkit";
 
 type FileLoaderProps = {
     readonly onLoad: (text: string) => void;
