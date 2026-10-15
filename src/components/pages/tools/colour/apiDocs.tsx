@@ -1,5 +1,5 @@
 import { Code } from "components/code";
-import { DEFAULT_COLOUR } from "tools/colour-tool";
+import { DEFAULT_COLOUR } from "tools/colour/colour-tool";
 import type { ReactNode } from "react";
 import { ToolSection } from "components/pages/tools/toolSection";
 import { Typography } from "@mui/material";
