@@ -1,38 +1,27 @@
 "use client";
 
-import { Alert, Box, Button, Grid, MenuItem, Stack, TextField, Typography } from "@mui/material";
+import { Alert, Grid, Stack, Typography } from "@mui/material";
 import type { ChangeEvent, ReactNode } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { PaletteColourCard, type PaletteEntry } from "components/pages/tools/colour/paletteColourCard";
+import { PaletteContrast } from "components/pages/tools/colour/paletteContrast";
+import { PaletteControls } from "components/pages/tools/colour/paletteControls";
+import { PaletteCssExport } from "components/pages/tools/colour/paletteCssExport";
+import { ToolSection } from "components/pages/tools/toolSection";
+import { runColourTool, type ColourToolResult } from "tools/colour/colour-tool";
 import {
     MAX_PALETTE_COLOURS,
-    createPaletteCssVariables,
     generateHarmonyPalette,
     getPaletteContrast,
     normalisePaletteColour,
+    type HarmonyMode,
 } from "tools/colour/palette";
-import { useCallback, useMemo, useState } from "react";
-import { Card } from "components/card";
-import { Code } from "components/code";
-import type { ColourToolResult } from "tools/colour/colour-tool";
-import type { HarmonyMode } from "tools/colour/palette";
-import { ToolSection } from "components/pages/tools/toolSection";
-import { runColourTool } from "tools/colour/colour-tool";
-
-type PaletteEntry = { id: number; name: string; value: string; };
-
-const HARMONY_OPTIONS: Array<{ label: string; value: HarmonyMode; }> = [
-    { label: "Complementary", value: "complementary" },
-    { label: "Analogous", value: "analogous" },
-    { label: "Triadic", value: "triadic" },
-    { label: "Split-complementary", value: "split-complementary" },
-    { label: "Tetradic", value: "tetradic" },
-];
 
 /**
  * Builds and edits a multi-colour palette, explores colour harmonies, and checks
  * pairwise WCAG contrast before exporting CSS custom properties.
  * @returns The interactive palette builder.
  */
-// eslint-disable-next-line max-lines-per-function
 export function ColourPaletteInput(): ReactNode {
     const [entries, setEntries] = useState<PaletteEntry[]>([
         { id: 1, name: "Primary", value: "#1C7EEA" },
@@ -67,7 +56,11 @@ export function ColourPaletteInput(): ReactNode {
             return;
         }
 
-        setEntries((current) => [...current, { id: nextId, name: `Colour ${current.length + 1}`, value: "#336699" }]);
+        setEntries((current) => [...current, {
+            id: nextId,
+            name: `Colour ${current.length + 1}`,
+            value: "#336699",
+        }]);
         setNextId((current) => current + 1);
         setError(null);
     }, [entries.length, nextId]);
@@ -138,7 +131,12 @@ export function ColourPaletteInput(): ReactNode {
         }
 
         try {
-            await navigator.clipboard.writeText(createPaletteCssVariables(results, entries.map(({ name }) => name)));
+            const { createPaletteCssVariables } = await import("tools/colour/palette");
+
+            await navigator.clipboard.writeText(createPaletteCssVariables(
+                results,
+                entries.map(({ name }) => name),
+            ));
             setCopied(true);
             setError(null);
         } catch {
@@ -154,7 +152,7 @@ export function ColourPaletteInput(): ReactNode {
         void copyCss();
     }, [copyCss]);
 
-    const applyHarmonyClick = useCallback((): void => {
+    const handleGenerateHarmony = useCallback((): void => {
         applyHarmony();
     }, [applyHarmony]);
 
@@ -165,220 +163,46 @@ export function ColourPaletteInput(): ReactNode {
                     Edit, name, duplicate, remove, and reorder up to {MAX_PALETTE_COLOURS} colours. Use any supported
                     colour format, or generate a harmony from the first colour.
                 </Typography>
-                <Stack direction="row" spacing={1} sx={{ alignItems: "center", flexWrap: "wrap", gap: 1 }}>
-                    <TextField
-                        label="Harmony"
-                        onChange={handleHarmonyChange}
-                        select
-                        size="small"
-                        sx={{ minWidth: 220 }}
-                        value={harmony}
-                    >
-                        {HARMONY_OPTIONS.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                                {option.label}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                    <Button onClick={applyHarmonyClick} variant="outlined">Generate harmony from first colour</Button>
-                    <Button disabled={entries.length >= MAX_PALETTE_COLOURS} onClick={addEntry} variant="contained">
-                        Add colour
-                    </Button>
-                    <Button disabled={!valid} onClick={handleCopyCss}>{copied ? "CSS copied" : "Copy CSS"}</Button>
-                </Stack>
+                <PaletteControls
+                    copied={copied}
+                    harmony={harmony}
+                    colourCount={entries.length}
+                    maxColours={MAX_PALETTE_COLOURS}
+                    onAddColour={addEntry}
+                    onCopyCss={handleCopyCss}
+                    onGenerateHarmony={handleGenerateHarmony}
+                    onHarmonyChange={handleHarmonyChange}
+                    valid={valid}
+                />
                 <Grid container spacing={1.5}>
-                    {entries.map((entry, index) => {
-                        let swatch = "#808080";
-
-                        try {
-                            swatch = normalisePaletteColour(entry.value);
-                        } catch {
-                            // Keep a neutral swatch while the user corrects an invalid value.
-                        }
-
-                        return (
-                            <Grid key={entry.id} size={{ lg: 4, md: 6, xs: 12 }}>
-                                <Card sx={{ height: "100%", overflow: "hidden" }}>
-                                    <Card.Media style={{ backgroundColor: swatch, height: 96 }} />
-                                    <Card.Content>
-                                        <Stack spacing={1.5}>
-                                            <TextField
-                                                fullWidth
-                                                label="Colour name"
-                                                onChange={(event) => updateEntry(entry.id, "name", event.target.value)}
-                                                size="small"
-                                                value={entry.name}
-                                            />
-                                            <TextField
-                                                fullWidth
-                                                helperText="HEX, RGB, HSL, HSV, HWB, CMYK, or CSS name"
-                                                label="Colour value"
-                                                onChange={(event) => updateEntry(entry.id, "value", event.target.value)}
-                                                size="small"
-                                                value={entry.value}
-                                            />
-                                            {valid && results[index]
-                                                ? (
-                                                    <Typography color="text.secondary" variant="body2">
-                                                        {results[index].hex} ·
-                                                        Black {results[index].contrast.black.toFixed(2)}:1 ·
-                                                        White {results[index].contrast.white.toFixed(2)}:1
-                                                    </Typography>
-                                                )
-                                                : null}
-                                            <Stack
-                                                direction="row"
-                                                spacing={0.5}
-                                                sx={{ justifyContent: "space-between" }}
-                                            >
-                                                <Stack direction="row" spacing={0.5}>
-                                                    {/* eslint-disable-next-line react/jsx-max-depth */}
-                                                    <Button
-                                                        disabled={index === 0}
-                                                        onClick={() => moveEntry(index, -1)}
-                                                        size="small"
-                                                    >
-                                                        Move up
-                                                    </Button>
-                                                    {/* eslint-disable-next-line react/jsx-max-depth */}
-                                                    <Button
-                                                        disabled={index === entries.length - 1}
-                                                        onClick={() => moveEntry(index, 1)}
-                                                        size="small"
-                                                    >
-                                                        Move down
-                                                    </Button>
-                                                </Stack>
-                                                <Stack direction="row" spacing={0.5}>
-                                                    {/* eslint-disable-next-line react/jsx-max-depth */}
-                                                    <Button onClick={() => duplicateEntry(entry)} size="small">
-                                                        Duplicate
-                                                    </Button>
-                                                    {/* eslint-disable-next-line react/jsx-max-depth */}
-                                                    <Button
-                                                        color="error"
-                                                        disabled={entries.length === 1}
-                                                        onClick={() => removeEntry(entry.id)}
-                                                        size="small"
-                                                    >
-                                                        Remove
-                                                    </Button>
-                                                </Stack>
-                                            </Stack>
-                                        </Stack>
-                                    </Card.Content>
-                                </Card>
-                            </Grid>
-                        );
-                    })}
+                    {entries.map((entry, index) => (
+                        <Grid key={entry.id} size={{ lg: 4, md: 6, xs: 12 }}>
+                            <PaletteColourCard
+                                entry={entry}
+                                index={index}
+                                onDuplicate={duplicateEntry}
+                                onMove={moveEntry}
+                                onRemove={removeEntry}
+                                onUpdate={updateEntry}
+                                result={valid ? results[index] : undefined}
+                                total={entries.length}
+                            />
+                        </Grid>
+                    ))}
                 </Grid>
-                {error !== null && <Alert severity="error">{error}</Alert>}
+                {error !== null ? <Alert severity="error">{error}</Alert> : null}
                 {valid
                     ? (
-                        <>
-                            <Box>
-                                <Typography component="h3" gutterBottom variant="h6">Palette contrast</Typography>
-                                <Typography color="text.secondary" gutterBottom variant="body2">
-                                    Pairwise WCAG contrast ratios for the palette colours.
-                                    AA requires 4.5:1 for normal text; AAA requires 7:1.
-                                </Typography>
-                                {contrastPairs.length === 0
-                                    ? (
-                                        <Typography color="text.secondary" variant="body2">
-                                            Add a second colour to compare contrast between palette colours.
-                                        </Typography>
-                                    )
-                                    : (
-                                        <Grid container spacing={1}>
-                                            {contrastPairs.map((pair) => (
-                                                <Grid
-                                                    key={`${pair.first}-${pair.second}`}
-                                                    size={{ lg: 4, md: 6, xs: 12 }}
-                                                >
-                                                    <Card sx={{ height: "100%" }}>
-                                                        <Card.Content>
-                                                            <Stack
-                                                                direction="row"
-                                                                spacing={1}
-                                                                sx={{ alignItems: "center" }}
-                                                            >
-                                                                <Box sx={{
-                                                                    bgcolor: pair.first,
-                                                                    border: 1,
-                                                                    borderColor: "divider",
-                                                                    borderRadius: 1,
-                                                                    flexShrink: 0,
-                                                                    height: 24,
-                                                                    width: 24,
-                                                                }}
-                                                                />
-                                                                <Typography variant="body2">
-                                                                    {entries.find((entry) => results.find((result) => result.hex === pair.first)?.hex === pair.first && normalisePaletteColourSafe(entry.value) === pair.first)?.name ?? pair.first}
-                                                                </Typography>
-                                                                <Typography color="text.secondary" variant="body2">
-                                                                    /
-                                                                </Typography>
-                                                                <Box sx={{
-                                                                    bgcolor: pair.second,
-                                                                    border: 1,
-                                                                    borderColor: "divider",
-                                                                    borderRadius: 1,
-                                                                    flexShrink: 0,
-                                                                    height: 24,
-                                                                    width: 24,
-                                                                }}
-                                                                />
-                                                                <Typography variant="body2">
-                                                                    {entries.find((entry) => normalisePaletteColourSafe(entry.value) === pair.second)?.name ?? pair.second}
-                                                                </Typography>
-                                                            </Stack>
-                                                            <Typography sx={{ mt: 1 }} variant="body2">
-                                                                {pair.ratio.toFixed(2)}:1
-                                                            </Typography>
-                                                            <Stack direction="row" spacing={1} sx={{ mt: 0.5 }}>
-                                                                <Typography
-                                                                    color={pair.meetsAA ? "success.main" : "error.main"}
-                                                                    variant="caption"
-                                                                >
-                                                                    AA {pair.meetsAA ? "Pass" : "Fail"}
-                                                                </Typography>
-                                                                <Typography
-                                                                    color={pair.meetsAAA ? "success.main" : "error.main"}
-                                                                    variant="caption"
-                                                                >
-                                                                    AAA {pair.meetsAAA ? "Pass" : "Fail"}
-                                                                </Typography>
-                                                            </Stack>
-                                                        </Card.Content>
-                                                    </Card>
-                                                </Grid>
-                                            ))}
-                                        </Grid>
-                                    )}
-                            </Box>
-                            <Box>
-                                <Typography component="h3" gutterBottom variant="h6">CSS custom properties</Typography>
-                                <Code language="css">
-                                    {createPaletteCssVariables(results, entries.map(({ name }) => name))}
-                                </Code>
-                            </Box>
-                        </>
+                        <Stack spacing={3}>
+                            <PaletteContrast entries={entries} pairs={contrastPairs} />
+                            <Stack spacing={1}>
+                                <Typography component="h3" variant="h6">CSS custom properties</Typography>
+                                <PaletteCssExport entries={entries} results={results} />
+                            </Stack>
+                        </Stack>
                     )
                     : null}
             </Stack>
         </ToolSection>
     );
-}
-
-/**
- * Normalises a palette colour value safely, returning an empty string if an error occurs.
- * @param value - The palette colour value to normalise.
- * @returns The normalised palette colour value, or an empty string if an error occurs.
- */
-function normalisePaletteColourSafe(value: string): string {
-    try {
-        return normalisePaletteColour(value);
-    } catch {
-        return "";
-    }
 }
