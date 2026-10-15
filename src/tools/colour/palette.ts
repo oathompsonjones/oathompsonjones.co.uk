@@ -1,4 +1,4 @@
-import { parseHexColour, rgbToHex } from "./colour-tool";
+import { normaliseColour, runColourTool } from "./colour-tool";
 import type { ColourToolResult } from "./colour-tool";
 
 export const MAX_PALETTE_COLOURS = 12;
@@ -30,7 +30,32 @@ const VARIATION_NAMES: ReadonlyArray<readonly [string, string]> = [
 ];
 
 /**
- * Parses and normalises a list of HEX colours for palette analysis.
+ * Parses a single CSS colour value and normalises it to six-digit HEX.
+ * @param input - A HEX, RGB, HSL, HSV, HWB, CMYK, or CSS named colour.
+ * @returns The normalised six-digit HEX colour.
+ * @throws If the value is not a supported valid colour.
+ */
+export function normalisePaletteColour(input: string): string {
+    const value = input.trim();
+
+    if (value === "")
+        throw new Error("Enter a colour value.");
+
+    if (/^#?[\da-f]{3}(?:[\da-f]{3})?$/i.test(value))
+        return normaliseColour(value, "hex");
+
+    const format = (/^rgb\(/i).test(value) ? "rgb"
+        : (/^hsl\(/i).test(value) ? "hsl"
+            : (/^hsv\(/i).test(value) ? "hsv"
+                : (/^hwb\(/i).test(value) ? "hwb"
+                    : (/^cmyk\(/i).test(value) ? "cmyk"
+                        : "css"));
+
+    return normaliseColour(value, format);
+}
+
+/**
+ * Parses and normalises a list of colour values for palette analysis.
  * @param input - Colours separated by newlines, commas, or semicolons.
  * @returns Normalised six-digit HEX colours.
  * @throws If the input is empty, too long, or contains invalid colours.
@@ -39,18 +64,17 @@ export function parsePaletteInput(input: string): string[] {
     const colours = input.split(/[\n,;]+/).map((colour) => colour.trim()).filter(Boolean);
 
     if (colours.length === 0)
-        throw new Error("Enter at least one hexadecimal colour.");
+        throw new Error("Enter at least one colour.");
 
     if (colours.length > MAX_PALETTE_COLOURS)
         throw new Error(`Enter no more than ${MAX_PALETTE_COLOURS} colours at a time.`);
 
     return colours.map((colour) => {
-        const parsed = parseHexColour(colour);
-
-        if (parsed === null)
-            throw new Error(`Invalid hexadecimal colour: ${colour}. Use #RGB or #RRGGBB.`);
-
-        return rgbToHex(parsed);
+        try {
+            return normalisePaletteColour(colour);
+        } catch {
+            throw new Error(`Invalid colour: ${colour}. Use HEX, RGB, HSL, HSV, HWB, CMYK, or a CSS named colour.`);
+        }
     });
 }
 
@@ -83,4 +107,13 @@ export function createPaletteCssVariables(results: readonly ColourToolResult[]):
     lines.push("}");
 
     return lines.join("\n");
+}
+
+/**
+ * Analyses a list of CSS colour values without requiring browser APIs.
+ * @param input - Colours separated by newlines, commas, or semicolons.
+ * @returns Each input colour's analysis result.
+ */
+export function analysePalette(input: string): ColourToolResult[] {
+    return parsePaletteInput(input).map((colour) => runColourTool({ colour }));
 }
