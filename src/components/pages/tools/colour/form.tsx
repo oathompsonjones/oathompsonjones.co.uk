@@ -145,7 +145,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
                     label="Input format"
                     onChange={updateFormat}
                     select
-                    sx={{ minWidth: 120 }}
+                    sx={{ minWidth: 150 }}
                     value={format}
                 >
                     <MenuItem value="hex">HEX</MenuItem>
@@ -162,7 +162,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
                             label="CSS named colour"
                             onChange={updateNamedColour}
                             select
-                            sx={{ minWidth: 240 }}
+                            sx={{ minWidth: 300 }}
                             value={colour}
                         >
                             <MenuItem value=""><em>Select a colour</em></MenuItem>
@@ -177,7 +177,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
                             onChange={updateColour}
                             onKeyDown={submitOnEnter}
                             placeholder={placeholder[format]}
-                            sx={{ minWidth: 120 }}
+                            sx={{ minWidth: 300 }}
                             value={colour}
                         />
                     )}

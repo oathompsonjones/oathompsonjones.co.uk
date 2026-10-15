@@ -426,6 +426,7 @@ export function normaliseColour(input: string, format: InputFormat): string {
                 throw new Error("Enter four CMYK components.");
 
             const [c, m, y, k] = parts.map((n) => clamp(n / 100, 0, 1));
+
             return hex([(1 - c!) * (1 - k!) * 255, (1 - m!) * (1 - k!) * 255, (1 - y!) * (1 - k!) * 255]);
         }
 
@@ -436,19 +437,24 @@ export function normaliseColour(input: string, format: InputFormat): string {
 
         if (format === "hsl") {
             const rgb = hslToRgb({ h, l: b, s: a });
+
             return hex([rgb.r, rgb.g, rgb.b]);
         }
 
         if (format === "hwb") {
             const whiteness = clamp(a / 100, 0, 1);
             const blackness = clamp(b / 100, 0, 1);
+
             if (whiteness + blackness >= 1) {
                 const grey = whiteness / (whiteness + blackness) * 255;
+
                 return hex([grey, grey, grey]);
             }
-            const pure = hslToRgb({ h, s: 100, l: 50 });
-            return hex([pure.r, pure.g, pure.b].map((channel) =>
-                channel * (1 - whiteness - blackness) + 255 * whiteness));
+
+            const pure = hslToRgb({ h, l: 50, s: 100 });
+
+            return hex([pure.r, pure.g, pure.b]
+                .map((channel) => channel * (1 - whiteness - blackness) + 255 * whiteness));
         }
 
         const saturation = clamp(a / 100, 0, 1);
@@ -530,11 +536,13 @@ export function formatColour(hex: string, format: Exclude<InputFormat, "css">): 
     if (format === "hsl") {
         const lightness = (max + min) / 2;
         const saturation = delta === 0 ? 0 : delta / (1 - Math.abs(2 * lightness - 1));
+
         return `hsl(${h.toFixed(1)}, ${(saturation * 100).toFixed(1)}%, ${(lightness * 100).toFixed(1)}%)`;
     }
 
     if (format === "hsv") {
         const saturation = max === 0 ? 0 : delta / max;
+
         return `hsv(${h.toFixed(1)}, ${(saturation * 100).toFixed(1)}%, ${(max * 100).toFixed(1)}%)`;
     }
 
@@ -542,9 +550,15 @@ export function formatColour(hex: string, format: Exclude<InputFormat, "css">): 
         return `hwb(${h.toFixed(1)} ${(min * 100).toFixed(1)}% ${((1 - max) * 100).toFixed(1)}%)`;
 
     const k = 1 - max;
-    const cmyk = max === 0 ? [0, 0, 0, 100]
-        : [(1 - r - k) / (1 - k) * 100, (1 - g - k) / (1 - k) * 100,
-            (1 - b - k) / (1 - k) * 100, k * 100];
+    const cmyk = max === 0
+        ? [0, 0, 0, 100]
+        : [
+            (1 - r - k) / (1 - k) * 100,
+            (1 - g - k) / (1 - k) * 100,
+            (1 - b - k) / (1 - k) * 100,
+            k * 100,
+        ];
+
     return `cmyk(${cmyk.map((n) => `${n.toFixed(1)}%`).join(", ")})`;
 }
 
