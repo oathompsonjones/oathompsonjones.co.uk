@@ -1,14 +1,13 @@
 "use client";
 
 import { Box, Tab, Tabs } from "@mui/material";
-import { ColourPaletteInput } from "components/pages/tools/colour/palette";
+import { ToolPage } from "components/pages/tools";
 import { ColourToolApiDocs } from "components/pages/tools/colour/apiDocs";
 import { ColourToolForm } from "components/pages/tools/colour/form";
 import { ColourToolResults } from "components/pages/tools/colour/results";
-import { ToolPage } from "components/pages/tools";
+import { ColourPaletteInput } from "components/pages/tools/colour/palette";
+import { type ReactNode, useCallback, useState } from "react";
 import type { ColourToolResult } from "tools/colour/colour-tool";
-import type { ReactNode } from "react";
-import { useState } from "react";
 
 /**
  * Presents the colour palette and contrast utility.
@@ -18,6 +17,9 @@ export default function ColourToolPage(): ReactNode {
     const [result, setResult] = useState<ColourToolResult | null>(null);
     const [selectedColour, setSelectedColour] = useState<string | null>(null);
     const [tab, setTab] = useState(0);
+    const handleTabChange = useCallback((_event: React.SyntheticEvent, value: number): void => {
+        setTab(value);
+    }, []);
 
     return (
         <ToolPage
@@ -30,12 +32,12 @@ export default function ColourToolPage(): ReactNode {
             <Box>
                 <Tabs
                     aria-label="Colour tools"
-                    onChange={(_event, value: number) => setTab(value)}
+                    onChange={handleTabChange}
                     value={tab}
                     variant="fullWidth"
                 >
-                    <Tab id="colour-tab-single" aria-controls="colour-panel-single" label="Single colour" />
-                    <Tab id="colour-tab-palette" aria-controls="colour-panel-palette" label="Build a palette" />
+                    <Tab aria-controls="colour-panel-single" id="colour-tab-single" label="Single colour" />
+                    <Tab aria-controls="colour-panel-palette" id="colour-tab-palette" label="Build a palette" />
                 </Tabs>
                 {tab === 0 && (
                     <Box
