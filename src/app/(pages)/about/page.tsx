@@ -51,16 +51,9 @@ export default function About(): ReactNode {
             </ButtonGroup>
             <Menu
                 anchorEl={buttonGroupRef.current}
-                anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
-                disableScrollLock
                 id="cv-download-menu"
                 onClose={handleDownloadMenuClose}
                 open={downloadMenuOpen}
-                slotProps={{
-                    list: { disablePadding: true },
-                    paper: { sx: { borderRadius: "2rem" } },
-                }}
-                transformOrigin={{ horizontal: "center", vertical: "top" }}
             >
                 <MenuItem component="a" href="/cv?singlePage" onClick={handleDownloadMenuClose}>
                     Download single-page CV

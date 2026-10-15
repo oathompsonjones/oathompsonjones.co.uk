@@ -3,7 +3,6 @@
 import type { ChangeEvent, ReactNode } from "react";
 import { MenuItem, Stack, TextField } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
-import type { MenuProps } from "@mui/material/Menu";
 import type { SelectProps } from "@mui/material/Select";
 import { ToolSection } from "components/pages/tools/toolSection";
 
@@ -14,16 +13,6 @@ type FormatMode = "minify" | "pretty";
 type ConversionTarget = "csv" | "json" | "schema" | "typescript" | "xml" | "yaml";
 
 type SelectMenu = "format" | "indent" | "operation" | "sort" | "target";
-
-const SELECT_MENU_PROPS: Partial<MenuProps> = {
-    anchorOrigin: { horizontal: "center", vertical: "bottom" },
-    disableScrollLock: true,
-    slotProps: {
-        list: { disablePadding: true },
-        paper: { sx: { borderRadius: "1rem" } },
-    },
-    transformOrigin: { horizontal: "center", vertical: "top" },
-};
 
 type JsonToolkitOptionsProps = {
     readonly indent: "2" | "4";
@@ -83,9 +72,8 @@ export function JsonToolkitOptions({
 
     const selectMenuProps = (menu: SelectMenu): Pick<
         SelectProps,
-        "MenuProps" | "onClose" | "onOpen" | "open"
+        "onClose" | "onOpen" | "open"
     > => ({
-        MenuProps: SELECT_MENU_PROPS,
         onClose: (): void => setOpenMenu(null),
         onOpen: (): void => setOpenMenu(menu),
         open: openMenu === menu,

@@ -40,16 +40,6 @@ export const DEFAULT_OPTIONS: ToolOptions = {
     mode: "encode",
 };
 
-const SELECT_MENU_PROPS = {
-    anchorOrigin: { horizontal: "center", vertical: "bottom" },
-    disableScrollLock: true,
-    slotProps: {
-        list: { disablePadding: true },
-        paper: { sx: { borderRadius: "1rem" } },
-    },
-    transformOrigin: { horizontal: "center", vertical: "top" },
-} as const;
-
 /**
  * Builds the API request body for the selected options.
  * @param options - The selected options.
@@ -141,7 +131,6 @@ export function HashEncodingOptions({ onChange, options }: HashEncodingOptionsPr
         )
         : null;
     const algorithms = options.mode === "hmac" ? HMAC_ALGORITHMS : HASH_ALGORITHMS;
-    const selectProps = { select: { MenuProps: SELECT_MENU_PROPS } };
 
     return (
         <>
@@ -151,7 +140,6 @@ export function HashEncodingOptions({ onChange, options }: HashEncodingOptionsPr
                 label="Operation"
                 onChange={handleMode}
                 select
-                slotProps={selectProps}
                 value={options.mode}
             >
                 {MODES.map(({ label, value }) => <MenuItem key={value} value={value}>{label}</MenuItem>)}
@@ -162,7 +150,6 @@ export function HashEncodingOptions({ onChange, options }: HashEncodingOptionsPr
                     label="Hash algorithm"
                     onChange={handleAlgorithm}
                     select
-                    slotProps={selectProps}
                     value={options.algorithm}
                 >
                     {algorithms.map(({ label, value }) => (
@@ -185,7 +172,6 @@ export function HashEncodingOptions({ onChange, options }: HashEncodingOptionsPr
                     label="Format"
                     onChange={handleFormat}
                     select
-                    slotProps={selectProps}
                     value={options.format}
                 >
                     {CODEC_NAMES.map((name) => <MenuItem key={name} value={name}>{CODECS[name].label}</MenuItem>)}
@@ -198,7 +184,6 @@ export function HashEncodingOptions({ onChange, options }: HashEncodingOptionsPr
                         label="Cipher"
                         onChange={handleCipher}
                         select
-                        slotProps={selectProps}
                         value={options.cipher}
                     >
                         {CIPHER_OPTIONS.map(({ label, value }) => (
