@@ -14,7 +14,7 @@ type PaletteColourCardProps = {
     entry: PaletteEntry;
     index: number;
     total: number;
-    result?: ColourToolResult;
+    result: ColourToolResult | undefined;
     onUpdate: (id: number, field: "name" | "value", value: string) => void;
     onDuplicate: (entry: PaletteEntry) => void;
     onRemove: (id: number) => void;
