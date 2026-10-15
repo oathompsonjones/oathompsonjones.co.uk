@@ -1,6 +1,6 @@
-import { CIPHER_MAX_KEY_LENGTH, CIPHER_NAMES } from "tools/cipher-options";
-import { HASH_ALGORITHMS, HASH_ENCODING_MAX_INPUT_LENGTH } from "tools/hash-encoding-toolkit";
-import { CODEC_NAMES } from "tools/encoding-codecs";
+import { CIPHER_MAX_KEY_LENGTH, CIPHER_NAMES } from "tools/hash-encoding/cipher-options";
+import { HASH_ALGORITHMS, HASH_ENCODING_MAX_INPUT_LENGTH } from "tools/hash-encoding/hash-encoding-toolkit";
+import { CODEC_NAMES } from "tools/hash-encoding/encoding-codecs";
 import { Code } from "components/code";
 import type { ReactNode } from "react";
 import { ToolSection } from "components/pages/tools/toolSection";

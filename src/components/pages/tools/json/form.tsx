@@ -5,12 +5,12 @@ import type { FormEvent, ReactNode } from "react";
 import { ToolApiError, requestToolApi } from "tools/api";
 import { useCallback, useRef, useState } from "react";
 import { Glass } from "components/glass";
-import type { JsonToolResult } from "tools/json-toolkit";
+import type { JsonToolResult } from "tools/json/json-toolkit";
 import { JsonToolkitInput } from "./input";
 import { JsonToolkitOptions } from "./options";
 import { JsonToolkitOutput } from "./output";
 import { RestartAlt } from "@mui/icons-material";
-import { jsonToolResultSchema } from "tools/json-toolkit";
+import { jsonToolResultSchema } from "tools/json/json-toolkit";
 
 type Operation = "convert" | "format" | "validate";
 

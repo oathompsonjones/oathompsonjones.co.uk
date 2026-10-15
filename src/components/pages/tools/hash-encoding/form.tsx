@@ -9,7 +9,7 @@ import {
     buildRequest,
     getDownloadFilename,
 } from "./options";
-import { HASH_ENCODING_MAX_INPUT_LENGTH, hashEncodingResultSchema } from "tools/hash-encoding-toolkit";
+import { HASH_ENCODING_MAX_INPUT_LENGTH, hashEncodingResultSchema } from "tools/hash-encoding/hash-encoding-toolkit";
 import { ToolApiError, requestToolApi } from "tools/api";
 import { useCallback, useRef, useState } from "react";
 import { Code } from "components/code";

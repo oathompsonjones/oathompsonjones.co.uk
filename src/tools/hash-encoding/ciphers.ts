@@ -1,6 +1,6 @@
-import type { CipherMode, CipherName } from "tools/cipher-options";
+import type { CipherMode, CipherName } from "tools/hash-encoding/cipher-options";
 import { createCipheriv, createDecipheriv, randomBytes, scryptSync } from "node:crypto";
-import { InvalidEncodingError } from "tools/encoding-codecs";
+import { InvalidEncodingError } from "tools/hash-encoding/encoding-codecs";
 
 const ALPHABET_SIZE = 26;
 const UPPER_A = 65;

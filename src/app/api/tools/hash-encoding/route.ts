@@ -2,7 +2,7 @@ import {
     HASH_TOOL_MAX_REQUEST_BYTES,
     hashEncodingRequestSchema,
     runHashEncodingTool,
-} from "tools/hash-encoding-toolkit";
+} from "tools/hash-encoding/hash-encoding-toolkit";
 import { parseToolRequest, toolError, toolSuccess } from "tools/api-server";
 import type { NextResponse } from "next/server";
 

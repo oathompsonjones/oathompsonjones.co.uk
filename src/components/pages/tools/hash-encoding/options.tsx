@@ -1,7 +1,7 @@
-import { CIPHER_OPTIONS, type CipherName } from "tools/cipher-options";
-import { CODECS, CODEC_NAMES, type CodecName } from "tools/encoding-codecs";
+import { CIPHER_OPTIONS, type CipherName } from "tools/hash-encoding/cipher-options";
+import { CODECS, CODEC_NAMES, type CodecName } from "tools/hash-encoding/encoding-codecs";
 import { type ChangeEvent, type ReactNode, useCallback } from "react";
-import { HASH_ALGORITHMS, HMAC_ALGORITHMS, type HashAlgorithm } from "tools/hash-encoding-toolkit";
+import { HASH_ALGORITHMS, HMAC_ALGORITHMS, type HashAlgorithm } from "tools/hash-encoding/hash-encoding-toolkit";
 import { MenuItem, TextField } from "@mui/material";
 
 const MODES = [

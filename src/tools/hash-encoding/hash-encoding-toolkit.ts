@@ -1,8 +1,8 @@
-import { CIPHER_MAX_KEY_LENGTH, CIPHER_MODES, CIPHER_NAMES } from "tools/cipher-options";
-import { CODECS, CODEC_NAMES, type CodecName, InvalidEncodingError } from "tools/encoding-codecs";
+import { CIPHER_MAX_KEY_LENGTH, CIPHER_MODES, CIPHER_NAMES } from "tools/hash-encoding/cipher-options";
+import { CODECS, CODEC_NAMES, type CodecName, InvalidEncodingError } from "tools/hash-encoding/encoding-codecs";
 import { createHash, createHmac } from "node:crypto";
 import { crc32 } from "node:zlib";
-import { runCipher } from "tools/ciphers";
+import { runCipher } from "tools/hash-encoding/ciphers";
 import { z } from "zod";
 
 export const HASH_ENCODING_MAX_INPUT_LENGTH = 1_000_000;

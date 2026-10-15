@@ -1,5 +1,5 @@
 import { Alert } from "@mui/material";
-import type { HashAlgorithm } from "tools/hash-encoding-toolkit";
+import type { HashAlgorithm } from "tools/hash-encoding/hash-encoding-toolkit";
 import type { ReactNode } from "react";
 import type { ToolOptions } from "./options";
 

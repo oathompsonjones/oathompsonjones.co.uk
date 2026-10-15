@@ -2,7 +2,7 @@
 
 import { ColourToolApiDocs } from "components/pages/tools/colour/apiDocs";
 import { ColourToolForm } from "components/pages/tools/colour/form";
-import type { ColourToolResult } from "tools/colour-tool";
+import type { ColourToolResult } from "tools/colour/colour-tool";
 import { ColourToolResults } from "components/pages/tools/colour/results";
 import type { ReactNode } from "react";
 import { ToolPage } from "components/pages/tools";

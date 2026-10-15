@@ -1,6 +1,6 @@
 import { Alert, Stack } from "@mui/material";
 import { Code } from "components/code";
-import type { JsonToolResult } from "tools/json-toolkit";
+import type { JsonToolResult } from "tools/json/json-toolkit";
 import type { ReactNode } from "react";
 import { ToolSection } from "components/pages/tools/toolSection";
 

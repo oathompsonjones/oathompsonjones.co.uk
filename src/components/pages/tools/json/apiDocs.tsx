@@ -1,5 +1,5 @@
 import { Code } from "components/code";
-import { JSON_TOOL_MAX_INPUT_LENGTH } from "tools/json-toolkit";
+import { JSON_TOOL_MAX_INPUT_LENGTH } from "tools/json/json-toolkit";
 import type { ReactNode } from "react";
 import { ToolSection } from "components/pages/tools/toolSection";
 import { Typography } from "@mui/material";
