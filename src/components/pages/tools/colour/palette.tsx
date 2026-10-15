@@ -69,15 +69,17 @@ export function ColourPaletteInput(): ReactNode {
                     ))}
                 </Grid>
                 {error !== null && <Alert severity="error">{error}</Alert>}
-                {valid && (
-                    <Stack spacing={3}>
-                        <PaletteContrast entries={entries} pairs={contrastPairs} />
-                        <Stack spacing={1}>
-                            <Typography component="h3" variant="h6">CSS custom properties</Typography>
-                            <PaletteCssExport entries={entries} results={results} />
+                {valid
+                    ? (
+                        <Stack spacing={3}>
+                            <PaletteContrast entries={entries} pairs={contrastPairs} />
+                            <Stack spacing={1}>
+                                <Typography component="h3" variant="h6">CSS custom properties</Typography>
+                                <PaletteCssExport entries={entries} results={results} />
+                            </Stack>
                         </Stack>
-                    </Stack>
-                )}
+                    )
+                    : null}
             </Stack>
         </ToolSection>
     );
