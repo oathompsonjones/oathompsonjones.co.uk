@@ -1,6 +1,7 @@
 "use client";
 
 import { Alert, Button, MenuItem, Stack, TextField } from "@mui/material";
+import type { MenuProps } from "@mui/material/Menu";
 import {
     CSS_NAMED_COLOURS,
     DEFAULT_COLOUR,
@@ -14,6 +15,16 @@ import { useCallback, useEffect, useState } from "react";
 import { Glass } from "components/glass";
 import { RestartAlt } from "@mui/icons-material";
 import { requestToolApi } from "tools/api";
+
+const SELECT_MENU_PROPS: Partial<MenuProps> = {
+    anchorOrigin: { horizontal: "center", vertical: "bottom" },
+    disableScrollLock: true,
+    slotProps: {
+        list: { disablePadding: true },
+        paper: { sx: { borderRadius: "1rem" } },
+    },
+    transformOrigin: { horizontal: "center", vertical: "top" },
+};
 
 /**
  * Input controls for choosing a colour and requesting its analysis.
@@ -128,15 +139,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
             submit();
     }, [submit]);
 
-    const placeholder: Record<InputFormat, string> = {
-        cmyk: "cmyk(0%, 33.3%, 66.7%, 40%)",
-        css: "Choose a named colour",
-        hex: "#336699",
-        hsl: "hsl(210, 50%, 40%)",
-        hsv: "hsv(210, 67%, 60%)",
-        hwb: "hwb(210 20% 40%)",
-        rgb: "rgb(51, 102, 153)",
-    };
+    const placeholder = format === "css" ? "Choose a named colour" : formatColour(DEFAULT_COLOUR, format);
 
     return (
         <Glass>
@@ -145,6 +148,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
                     label="Input format"
                     onChange={updateFormat}
                     select
+                    slotProps={{ select: { MenuProps: SELECT_MENU_PROPS } }}
                     sx={{ minWidth: 150 }}
                     value={format}
                 >
@@ -162,6 +166,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
                             label="CSS named colour"
                             onChange={updateNamedColour}
                             select
+                            slotProps={{ select: { MenuProps: SELECT_MENU_PROPS } }}
                             sx={{ minWidth: 300 }}
                             value={colour}
                         >
