@@ -1,6 +1,6 @@
 import { Code } from "components/code";
-import type { ReactNode } from "react";
 import type { ColourToolResult } from "tools/colour/colour-tool";
+import type { ReactNode } from "react";
 import { createPaletteCssVariables } from "tools/colour/palette";
 
 type PaletteCssExportProps = Readonly<{
