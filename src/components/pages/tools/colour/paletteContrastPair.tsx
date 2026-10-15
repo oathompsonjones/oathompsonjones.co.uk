@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { Card } from "components/card";
-import type { ReactNode } from "react";
 import type { PaletteContrast as PaletteContrastResult } from "tools/colour/palette";
+import type { ReactNode } from "react";
 
 type PaletteContrastPairProps = Readonly<{
     firstName: string;
