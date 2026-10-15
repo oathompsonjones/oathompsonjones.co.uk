@@ -7,7 +7,7 @@ describe("colour palette helpers", () => {
         expect(parsePaletteInput(" #369\nrgb(28, 126, 234), hsl(0, 78%, 56%); #FFFFFF ")).toEqual([
             "#336699",
             "#1C7EEA",
-            "#E84343",
+            "#E63737",
             "#FFFFFF",
         ]);
     });
