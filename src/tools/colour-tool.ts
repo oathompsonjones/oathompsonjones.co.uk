@@ -7,6 +7,24 @@ export const colourToolRequestSchema = z.object({
 
 export type ColourToolRequest = z.infer<typeof colourToolRequestSchema>;
 
+export const colourToolResultSchema = z.object({
+    colour: z.string(),
+    contrast: z.object({
+        black: z.number(),
+        blackMeetsAA: z.boolean(),
+        blackMeetsAALarge: z.boolean(),
+        recommended: z.enum(["black", "white"]),
+        white: z.number(),
+        whiteMeetsAA: z.boolean(),
+        whiteMeetsAALarge: z.boolean(),
+    }),
+    hex: z.string(),
+    hsl: z.object({ h: z.number(), l: z.number(), s: z.number() }),
+    luminance: z.number(),
+    palette: z.array(z.object({ hex: z.string(), label: z.string() })),
+    rgb: z.object({ b: z.number(), g: z.number(), r: z.number() }),
+});
+
 export type RGB = { b: number; g: number; r: number; };
 export type HSL = { h: number; l: number; s: number; };
 
