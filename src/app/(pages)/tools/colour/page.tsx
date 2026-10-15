@@ -2,8 +2,8 @@
 
 import { Box, Tab, Tabs } from "@mui/material";
 import { type ReactNode, type SyntheticEvent, useCallback, useState } from "react";
-import { ColourPaletteInput } from "components/pages/tools/colour/palette";
 import { ColourToolApiDocs } from "components/pages/tools/colour/apiDocs";
+import { ColourPaletteInput } from "components/pages/tools/colour/palette";
 import { ColourToolForm } from "components/pages/tools/colour/form";
 import type { ColourToolResult } from "tools/colour/colour-tool";
 import { ColourToolResults } from "components/pages/tools/colour/results";
