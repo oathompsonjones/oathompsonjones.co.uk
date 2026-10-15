@@ -56,7 +56,7 @@ export function PaletteControls({
                 SelectProps={{
                     MenuProps: {
                         MenuListProps: {
-                            sx: { py: 0 },
+                            disablePadding: true,
                         },
                     },
                 }}
