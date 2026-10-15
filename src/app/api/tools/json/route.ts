@@ -1,4 +1,4 @@
-import { JSON_TOOL_MAX_REQUEST_BYTES, jsonToolRequestSchema, runJsonTool } from "tools/json-toolkit";
+import { JSON_TOOL_MAX_REQUEST_BYTES, jsonToolRequestSchema, runJsonTool } from "tools/json/json-toolkit";
 import { parseToolRequest, toolError, toolSuccess } from "tools/api-server";
 import type { NextResponse } from "next/server";
 
