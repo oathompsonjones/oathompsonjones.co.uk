@@ -1,6 +1,6 @@
-import { runColourTool } from "./colour-tool";
 import { createPaletteCssVariables, MAX_PALETTE_COLOURS, parsePaletteInput } from "./palette";
 import { describe, expect, it } from "vitest";
+import { runColourTool } from "./colour-tool";
 
 describe("colour palette helpers", () => {
     it("normalises HEX colours separated by newlines, commas, or semicolons", () => {
