@@ -3,7 +3,7 @@
 import { Alert, Button, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
 import { type ChangeEvent, type ReactNode, useCallback, useState } from "react";
 import { type ColourToolResult, colourToolResultSchema } from "tools/colour/colour-tool";
-import { createPaletteCssVariables, MAX_PALETTE_COLOURS, parsePaletteInput } from "tools/colour/palette";
+import { MAX_PALETTE_COLOURS, createPaletteCssVariables, parsePaletteInput } from "tools/colour/palette";
 import { ToolSection } from "components/pages/tools/toolSection";
 import { requestToolApi } from "tools/api";
 
