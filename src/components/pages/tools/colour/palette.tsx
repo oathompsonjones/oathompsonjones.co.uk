@@ -1,14 +1,14 @@
 "use client";
 
 import { Alert, Grid, Stack, Typography } from "@mui/material";
+import { MAX_PALETTE_COLOURS } from "tools/colour/palette";
 import { PaletteColourCard } from "components/pages/tools/colour/paletteColourCard";
 import { PaletteContrast } from "components/pages/tools/colour/paletteContrast";
 import { PaletteControls } from "components/pages/tools/colour/paletteControls";
 import { PaletteCssExport } from "components/pages/tools/colour/paletteCssExport";
+import type { ReactNode } from "react";
 import { ToolSection } from "components/pages/tools/toolSection";
 import { usePaletteBuilder } from "components/pages/tools/colour/usePaletteBuilder";
-import type { ReactNode } from "react";
-import { MAX_PALETTE_COLOURS } from "tools/colour/palette";
 
 /**
  * Builds and edits a multi-colour palette, explores colour harmonies, and checks
