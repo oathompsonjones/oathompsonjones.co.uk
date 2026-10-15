@@ -1,20 +1,17 @@
 "use client";
 
 import { Alert, Box, Button, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
-import type { ChangeEvent, ReactNode } from "react";
-import { useCallback, useState } from "react";
 import { Card } from "components/card";
 import { ToolSection } from "components/pages/tools/toolSection";
+import { type ChangeEvent, type ReactNode, useCallback, useState } from "react";
 import { requestToolApi } from "tools/api";
-import type { ColourToolResult } from "tools/colour/colour-tool";
-import { colourToolResultSchema } from "tools/colour/colour-tool";
+import { type ColourToolResult, colourToolResultSchema } from "tools/colour/colour-tool";
 import { MAX_PALETTE_COLOURS, createPaletteCssVariables, parsePaletteInput } from "tools/colour/palette";
 
 /**
  * Builds a multi-colour palette and exports its colour variables as CSS.
  * @returns The palette input, swatches, and CSS export.
  */
-// eslint-disable-next-line max-lines-per-function
 export function ColourPaletteInput(): ReactNode {
     const [input, setInput] = useState("#1C7EEA\n#7B2CBF\n#E63946");
     const [results, setResults] = useState<ColourToolResult[]>([]);
@@ -38,7 +35,7 @@ export function ColourPaletteInput(): ReactNode {
         setCopied(false);
 
         try {
-            const next = await Promise.all(colours.map(async (colour) =>
+            const next = await Promise.all(colours.map((colour) =>
                 requestToolApi("/api/tools/colour", { colour }, colourToolResultSchema),
             ));
 
@@ -128,6 +125,7 @@ export function ColourPaletteInput(): ReactNode {
                                     fontSize: "0.875rem",
                                     lineHeight: 1.6,
                                     m: 0,
+                                    height: "auto",
                                     maxHeight: 420,
                                     overflow: "auto",
                                     p: 2,
