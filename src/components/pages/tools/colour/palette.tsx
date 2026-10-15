@@ -5,8 +5,8 @@ import { type ChangeEvent, type ReactNode, useCallback, useState } from "react";
 import { type ColourToolResult, colourToolResultSchema } from "tools/colour/colour-tool";
 import { MAX_PALETTE_COLOURS, createPaletteCssVariables, parsePaletteInput } from "tools/colour/palette";
 import { Card } from "components/card";
-import { ToolSection } from "components/pages/tools/toolSection";
 import { requestToolApi } from "tools/api";
+import { ToolSection } from "components/pages/tools/toolSection";
 
 /**
  * Builds a multi-colour palette and exports its colour variables as CSS.
