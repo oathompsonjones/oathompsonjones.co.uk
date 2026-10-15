@@ -1,4 +1,4 @@
-import { colourToolRequestSchema, runColourTool } from "tools/colour-tool";
+import { colourToolRequestSchema, runColourTool } from "tools/colour/colour-tool";
 import { parseToolRequest, toolError, toolSuccess } from "tools/api-server";
 import type { NextResponse } from "next/server";
 
