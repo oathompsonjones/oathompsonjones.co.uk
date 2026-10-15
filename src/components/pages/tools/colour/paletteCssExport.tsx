@@ -5,7 +5,7 @@ import { createPaletteCssVariables } from "tools/colour/palette";
 
 type PaletteCssExportProps = Readonly<{
     results: readonly ColourToolResult[];
-    entries: readonly Readonly<{ name: string; }>[];
+    entries: ReadonlyArray<Readonly<{ name: string; }>>;
 }>;
 
 /**
