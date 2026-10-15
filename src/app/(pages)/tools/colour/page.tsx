@@ -30,22 +30,12 @@ export default function ColourToolPage(): ReactNode {
             title="Colour Palette and Contrast"
         >
             <Box>
-                <Tabs
-                    aria-label="Colour tools"
-                    onChange={handleTabChange}
-                    value={tab}
-                    variant="fullWidth"
-                >
-                    <Tab aria-controls="colour-panel-single" id="colour-tab-single" label="Single colour" />
-                    <Tab aria-controls="colour-panel-palette" id="colour-tab-palette" label="Build a palette" />
+                <Tabs onChange={handleTabChange} value={tab} variant="fullWidth">
+                    <Tab label="Single colour" />
+                    <Tab label="Build a palette" />
                 </Tabs>
                 {tab === 0 && (
-                    <Box
-                        aria-labelledby="colour-tab-single"
-                        id="colour-panel-single"
-                        role="tabpanel"
-                        sx={{ pt: 2 }}
-                    >
+                    <Box sx={{ pt: 2 }}>
                         <ColourToolForm onResult={setResult} selectedColour={selectedColour} />
                         {result !== null && (
                             <Box sx={{ mt: 3 }}>
@@ -55,12 +45,7 @@ export default function ColourToolPage(): ReactNode {
                     </Box>
                 )}
                 {tab === 1 && (
-                    <Box
-                        aria-labelledby="colour-tab-palette"
-                        id="colour-panel-palette"
-                        role="tabpanel"
-                        sx={{ pt: 2 }}
-                    >
+                    <Box sx={{ pt: 2 }}>
                         <ColourPaletteInput />
                     </Box>
                 )}
