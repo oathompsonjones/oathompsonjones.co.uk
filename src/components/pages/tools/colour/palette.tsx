@@ -122,7 +122,7 @@ export function ColourPaletteInput(): ReactNode {
             return;
         }
         try {
-            await navigator.clipboard.writeText(createPaletteCssVariables(results));
+            await navigator.clipboard.writeText(createPaletteCssVariables(results, entries.map(({ name }) => name)));
             setCopied(true);
             setError(null);
         } catch {
