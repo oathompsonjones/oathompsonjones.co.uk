@@ -1,8 +1,8 @@
-import { useCallback, type ChangeEvent, type ReactNode } from "react";
 import { Stack, TextField, Typography } from "@mui/material";
+import { useCallback, type ChangeEvent, type ReactNode } from "react";
 import { Card } from "components/card";
-import type { ColourToolResult } from "tools/colour/colour-tool";
 import { PaletteColourActions } from "components/pages/tools/colour/paletteColourActions";
+import type { ColourToolResult } from "tools/colour/colour-tool";
 import { normalisePaletteColour } from "tools/colour/palette";
 
 export type PaletteEntry = Readonly<{
