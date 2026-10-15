@@ -2,10 +2,13 @@
 
 import { Alert, Button, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
 import { requestToolApi } from "tools/api";
-import { colourToolResultSchema, parseHexColour, rgbToHex } from "tools/colour/colour-tool";
-import type { ColourToolResult } from "tools/colour/colour-tool";
-import type { ChangeEvent, ReactNode } from "react";
-import { useCallback, useState } from "react";
+import {
+    colourToolResultSchema,
+    parseHexColour,
+    rgbToHex,
+    type ColourToolResult,
+} from "tools/colour/colour-tool";
+import { useCallback, useState, type ChangeEvent, type ReactNode } from "react";
 import { ToolSection } from "components/pages/tools/toolSection";
 
 const MAX_PALETTE_COLOURS = 12;
@@ -41,8 +44,8 @@ const VARIATION_NAMES: ReadonlyArray<readonly [string, string]> = [
  * @returns A kebab-case suffix for the CSS variable.
  */
 function variationName(label: string): string {
-    return VARIATION_NAMES.find(([name]) => name === label)?.[1]
-        ?? label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    return VARIATION_NAMES.find(([name]) => name === label)?.[1] ??
+        label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 }
 
 /**
@@ -70,7 +73,6 @@ export function createPaletteCssVariables(results: readonly ColourToolResult[]):
  * Accepts a palette of hexadecimal colours and exports all generated variants as CSS custom properties.
  * @returns The multi-colour input and CSS export section.
  */
-// eslint-disable-next-line max-lines-per-function
 export function ColourPaletteInput(): ReactNode {
     const [input, setInput] = useState("#1C7EEA\n#7B2CBF\n#E63946");
     const [results, setResults] = useState<ColourToolResult[]>([]);
