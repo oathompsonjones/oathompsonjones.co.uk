@@ -40,7 +40,7 @@ export function normalisePaletteColour(input: string): string {
     if (value === "")
         throw new Error("Enter a colour value.");
 
-    if (/^#?[\da-f]{3}(?:[\da-f]{3})?$/i.test(value))
+    if ((/^#?[\da-f]{3}(?:[\da-f]{3})?$/i).test(value))
         return normaliseColour(value, "hex");
 
     let format: InputFormat;
@@ -78,7 +78,7 @@ export function parsePaletteInput(input: string): string[] {
         else if (character === ")")
             depth = Math.max(0, depth - 1);
 
-        if ((character === "," && depth === 0) || character === "\n" || character === ";") {
+        if (character === "," && depth === 0 || character === "\n" || character === ";") {
             values.push(current);
             current = "";
         } else {
