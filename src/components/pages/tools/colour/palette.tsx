@@ -126,7 +126,7 @@ export function ColourPaletteInput(): ReactNode {
                                 }}
                             >
                                 {createPaletteCssVariables(results)}
-                            </Code>                    </Paper>
+                            </Code>
                         </Box>
                     </>
                 )}
