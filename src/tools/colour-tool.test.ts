@@ -17,7 +17,7 @@ describe("colour tool", () => {
 
     it("calculates known WCAG contrast ratios", () => {
         expect(contrastRatio(1, 0)).toBe(21);
-        expect(contrastRatio(relativeLuminance({ b: 119, g: 119, r: 119 }), 0)).toBeCloseTo(4.478, 2);
+        expect(contrastRatio(relativeLuminance({ b: 119, g: 119, r: 119 }), 1)).toBeCloseTo(4.478, 2);
     });
 
     it("recommends the higher-contrast text and reports WCAG AA thresholds", () => {
