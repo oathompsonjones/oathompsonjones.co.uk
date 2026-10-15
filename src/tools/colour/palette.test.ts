@@ -41,3 +41,28 @@ describe("colour palette helpers", () => {
         expect(createPaletteCssVariables([])).toBe(":root {\n}");
     });
 });
+
+
+describe("palette harmonies and pairwise contrast", () => {
+    it("generates the expected number of colours for each harmony", async () => {
+        const { generateHarmonyPalette } = await import("./palette");
+        expect(generateHarmonyPalette("#336699", "complementary")).toHaveLength(2);
+        expect(generateHarmonyPalette("#336699", "analogous")).toHaveLength(3);
+        expect(generateHarmonyPalette("#336699", "triadic")).toHaveLength(3);
+        expect(generateHarmonyPalette("#336699", "split-complementary")).toHaveLength(3);
+        expect(generateHarmonyPalette("#336699", "tetradic")).toHaveLength(4);
+    });
+
+    it("reports WCAG AA and AAA status for each unique colour pair", async () => {
+        const { getPaletteContrast } = await import("./palette");
+        const pairs = getPaletteContrast([
+            runColourTool({ colour: "#000000" }),
+            runColourTool({ colour: "#FFFFFF" }),
+            runColourTool({ colour: "#777777" }),
+        ]);
+        expect(pairs).toHaveLength(3);
+        expect(pairs[0]).toMatchObject({ ratio: 21, meetsAA: true, meetsAAA: true });
+        expect(pairs[1]!.meetsAA).toBe(false);
+        expect(pairs[1]!.meetsAAA).toBe(false);
+    });
+});
