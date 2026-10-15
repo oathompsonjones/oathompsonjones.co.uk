@@ -2,12 +2,12 @@
 
 import { Box, Tab, Tabs } from "@mui/material";
 import { type ReactNode, type SyntheticEvent, useCallback, useState } from "react";
-import { ToolPage } from "components/pages/tools";
+import { ColourPaletteInput } from "components/pages/tools/colour/palette";
 import { ColourToolApiDocs } from "components/pages/tools/colour/apiDocs";
 import { ColourToolForm } from "components/pages/tools/colour/form";
-import { ColourPaletteInput } from "components/pages/tools/colour/palette";
-import { ColourToolResults } from "components/pages/tools/colour/results";
 import type { ColourToolResult } from "tools/colour/colour-tool";
+import { ColourToolResults } from "components/pages/tools/colour/results";
+import { ToolPage } from "components/pages/tools";
 
 /**
  * Presents the colour palette and contrast utility.
