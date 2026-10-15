@@ -1,5 +1,4 @@
 import { type ChangeEvent, useCallback, useMemo, useState } from "react";
-import type { PaletteEntry } from "components/pages/tools/colour/paletteColourCard";
 import {
     type ColourToolResult,
     runColourTool,
@@ -12,6 +11,7 @@ import {
     getPaletteContrast,
     normalisePaletteColour,
 } from "tools/colour/palette";
+import type { PaletteEntry } from "components/pages/tools/colour/paletteColourCard";
 
 type PaletteBuilderState = Readonly<{
     addEntry: () => void;
