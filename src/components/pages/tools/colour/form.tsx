@@ -12,19 +12,8 @@ import type { ChangeEvent, KeyboardEvent, ReactNode } from "react";
 import type { ColourToolResult, InputFormat } from "tools/colour/colour-tool";
 import { useCallback, useEffect, useState } from "react";
 import { Glass } from "components/glass";
-import type { MenuProps } from "@mui/material/Menu";
 import { RestartAlt } from "@mui/icons-material";
 import { requestToolApi } from "tools/api";
-
-const SELECT_MENU_PROPS: Partial<MenuProps> = {
-    anchorOrigin: { horizontal: "center", vertical: "bottom" },
-    disableScrollLock: true,
-    slotProps: {
-        list: { disablePadding: true },
-        paper: { sx: { borderRadius: "1rem" } },
-    },
-    transformOrigin: { horizontal: "center", vertical: "top" },
-};
 
 /**
  * Input controls for choosing a colour and requesting its analysis.
@@ -169,7 +158,6 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
                     label="Input format"
                     onChange={updateFormat}
                     select
-                    slotProps={{ select: { MenuProps: SELECT_MENU_PROPS } }}
                     sx={{ minWidth: 150 }}
                     value={format}
                 >
@@ -187,7 +175,6 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
                             label="CSS named colour"
                             onChange={updateNamedColour}
                             select
-                            slotProps={{ select: { MenuProps: SELECT_MENU_PROPS } }}
                             sx={{ minWidth: 300 }}
                             value={colour}
                         >

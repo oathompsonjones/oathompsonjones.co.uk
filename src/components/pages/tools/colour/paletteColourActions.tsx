@@ -13,13 +13,13 @@ type PaletteColourActionsProps = Readonly<{
 
 /**
  * Renders the controls for rearranging, duplicating, and removing a palette colour.
- * @param root0 - The entry and its palette actions.
- * @param root0.entry - The palette entry being controlled.
- * @param root0.index - The entry's current position.
- * @param root0.total - The total number of palette entries.
- * @param root0.onDuplicate - Duplicates the entry.
- * @param root0.onRemove - Removes the entry.
- * @param root0.onMove - Moves the entry up or down.
+ * @param props - The entry and its palette actions.
+ * @param props.entry - The palette entry being controlled.
+ * @param props.index - The entry's current position.
+ * @param props.total - The total number of palette entries.
+ * @param props.onDuplicate - Duplicates the entry.
+ * @param props.onRemove - Removes the entry.
+ * @param props.onMove - Moves the entry up or down.
  * @returns The palette colour action controls.
  */
 export function PaletteColourActions({
@@ -47,13 +47,13 @@ export function PaletteColourActions({
     }, [entry.id, onRemove]);
 
     return (
-        <Stack spacing={0.5} sx={{ width: "100%", maxWidth: "100%" }}>
-            <Stack direction="row" spacing={0.5} sx={{ width: "100%", maxWidth: "100%" }}>
+        <Stack spacing={0.5} sx={{ maxWidth: "100%", width: "100%" }}>
+            <Stack direction="row" spacing={0.5} sx={{ maxWidth: "100%", width: "100%" }}>
                 <Button
                     disabled={index === 0}
                     onClick={moveUp}
                     size="small"
-                    sx={{ flex: 1, minWidth: 0, maxWidth: "100%" }}
+                    sx={{ flex: 1, maxWidth: "100%", minWidth: 0 }}
                 >
                     Move up
                 </Button>
@@ -61,16 +61,16 @@ export function PaletteColourActions({
                     disabled={index === total - 1}
                     onClick={moveDown}
                     size="small"
-                    sx={{ flex: 1, minWidth: 0, maxWidth: "100%" }}
+                    sx={{ flex: 1, maxWidth: "100%", minWidth: 0 }}
                 >
                     Move down
                 </Button>
             </Stack>
-            <Stack direction="row" spacing={0.5} sx={{ width: "100%", maxWidth: "100%" }}>
+            <Stack direction="row" spacing={0.5} sx={{ maxWidth: "100%", width: "100%" }}>
                 <Button
                     onClick={duplicate}
                     size="small"
-                    sx={{ flex: 1, minWidth: 0, maxWidth: "100%" }}
+                    sx={{ flex: 1, maxWidth: "100%", minWidth: 0 }}
                 >
                     Duplicate
                 </Button>
@@ -79,7 +79,7 @@ export function PaletteColourActions({
                     disabled={total === 1}
                     onClick={remove}
                     size="small"
-                    sx={{ flex: 1, minWidth: 0, maxWidth: "100%" }}
+                    sx={{ flex: 1, maxWidth: "100%", minWidth: 0 }}
                 >
                     Remove
                 </Button>

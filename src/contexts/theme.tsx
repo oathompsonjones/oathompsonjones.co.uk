@@ -84,6 +84,12 @@ export function ThemeContextProvider({ children }: { readonly children: ReactNod
                     MuiButton: { variant: "contained" },
                     MuiDivider: { variant: "middle" },
                     MuiFab: { color: "primary" },
+                    MuiMenu: {
+                        anchorOrigin: { horizontal: "center", vertical: "bottom" },
+                        disableScrollLock: true,
+                        transformOrigin: { horizontal: "center", vertical: "top" },
+                    },
+                    MuiMenuList: { disablePadding: true },
                     MuiPaper: { elevation: 5 },
                     MuiTextField: { slotProps: { input: { disableUnderline: true } }, variant: "filled" },
                 }}

@@ -53,13 +53,6 @@ export function PaletteControls({
                 label="Harmony"
                 onChange={onHarmonyChange}
                 select
-                SelectProps={{
-                    MenuProps: {
-                        MenuListProps: {
-                            disablePadding: true,
-                        },
-                    },
-                }}
                 size="small"
                 sx={{ minWidth: 220 }}
                 value={harmony}
