@@ -30,6 +30,29 @@ const resultSchema = z.object({
 type InputFormat = "hex" | "rgb" | "hsl" | "hsv" | "css";
 const DEFAULT_COLOUR = "#1C7EEA";
 const clamp = (n: number, min: number, max: number): number => Math.min(max, Math.max(min, n));
+const CSS_NAMED_COLOURS = [
+    "aliceblue", "antiquewhite", "aqua", "aquamarine", "azure", "beige", "bisque", "black",
+    "blanchedalmond", "blue", "blueviolet", "brown", "burlywood", "cadetblue", "chartreuse",
+    "chocolate", "coral", "cornflowerblue", "cornsilk", "crimson", "cyan", "darkblue", "darkcyan",
+    "darkgoldenrod", "darkgray", "darkgreen", "darkgrey", "darkkhaki", "darkmagenta", "darkolivegreen",
+    "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue",
+    "darkslategray", "darkslategrey", "darkturquoise", "darkviolet", "deeppink", "deepskyblue",
+    "dimgray", "dimgrey", "dodgerblue", "firebrick", "floralwhite", "forestgreen", "fuchsia",
+    "gainsboro", "ghostwhite", "gold", "goldenrod", "gray", "green", "greenyellow", "grey",
+    "honeydew", "hotpink", "indianred", "indigo", "ivory", "khaki", "lavender", "lavenderblush",
+    "lawngreen", "lemonchiffon", "lightblue", "lightcoral", "lightcyan", "lightgoldenrodyellow",
+    "lightgray", "lightgreen", "lightgrey", "lightpink", "lightsalmon", "lightseagreen",
+    "lightskyblue", "lightslategray", "lightslategrey", "lightsteelblue", "lightyellow", "lime",
+    "limegreen", "linen", "magenta", "maroon", "mediumaquamarine", "mediumblue", "mediumorchid",
+    "mediumpurple", "mediumseagreen", "mediumslateblue", "mediumspringgreen", "mediumturquoise",
+    "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin", "navajowhite", "navy",
+    "oldlace", "olive", "olivedrab", "orange", "orangered", " orchid", "palegoldenrod", "palegreen",
+    "paleturquoise", "palevioletred", "papayawhip", "peachpuff", "peru", "pink", "plum", "powderblue",
+    "purple", "rebeccapurple", "red", "rosybrown", "royalblue", "saddlebrown", "salmon", "sandybrown",
+    "seagreen", "seashell", " sienna", "silver", "skyblue", "slateblue", "slategray", "slategrey",
+    "snow", "springgreen", "steelblue", "tan", "teal", "thistle", "tomato", "turquoise", "violet",
+    "wheat", "white", "whitesmoke", "yellow", "yellowgreen",
+].map((colour) => colour.trim());
 
 function hslToRgb(h: number, s: number, l: number): number[] {
     const saturation = clamp(s / 100, 0, 1);
@@ -88,7 +111,7 @@ function normaliseColour(input: string, format: InputFormat): string {
     }
 
     if (!CSS.supports("color", value))
-        throw new Error("Enter a valid CSS colour name or CSS colour value.");
+        throw new Error("Choose a valid CSS named colour.");
     const probe = document.createElement("span");
     probe.style.color = value;
     document.body.append(probe);
@@ -98,6 +121,29 @@ function normaliseColour(input: string, format: InputFormat): string {
     if (match === null)
         throw new Error("This CSS colour cannot be converted to opaque sRGB.");
     return hex(match.slice(1).map(Number));
+}
+
+function formatColour(hex: string, format: Exclude<InputFormat, "css">): string {
+    const digits = hex.replace("#", "");
+    const rgb = [0, 2, 4].map((i) => parseInt(digits.slice(i, i + 2), 16));
+    const [r, g, b] = rgb.map((channel) => channel / 255);
+    if (format === "hex")
+        return hex;
+    if (format === "rgb")
+        return `rgb(${rgb.join(", ")})`;
+
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    const delta = max - min;
+    const hue = delta === 0 ? 0 : max === r ? 60 * (((g - b) / delta) % 6)
+        : max === g ? 60 * ((b - r) / delta + 2) : 60 * ((r - g) / delta + 4);
+    const h = (hue + 360) % 360;
+    if (format === "hsl") {
+        const lightness = (max + min) / 2;
+        const saturation = delta === 0 ? 0 : delta / (1 - Math.abs(2 * lightness - 1));
+        return `hsl(${h.toFixed(1)}, ${(saturation * 100).toFixed(1)}%, ${(lightness * 100).toFixed(1)}%)`;
+    }
+    const saturation = max === 0 ? 0 : delta / max;
+    return `hsv(${h.toFixed(1)}, ${(saturation * 100).toFixed(1)}%, ${(max * 100).toFixed(1)}%)`;
 }
 
 /**
@@ -122,8 +168,6 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
         try {
             const normalised = normaliseColour(input, inputFormat);
             const next = await requestToolApi("/api/tools/colour", { colour: normalised }, resultSchema);
-            setColour(next.hex);
-            setFormat("hex");
             onResult(next);
         } catch (caught) {
             setError(caught instanceof Error ? caught.message : "Unable to calculate this colour.");
@@ -133,8 +177,13 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
     }, [onResult]);
 
     useEffect(() => {
+        void calculate(DEFAULT_COLOUR, "hex");
+    }, [calculate]);
+
+    useEffect(() => {
         if (selectedColour !== null) {
             setColour(selectedColour);
+            setFormat("hex");
             void calculate(selectedColour, "hex");
         }
     }, [selectedColour, calculate]);
@@ -143,11 +192,47 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
         setColour(event.target.value);
     }, []);
 
+    const updateFormat = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+        const nextFormat = event.target.value as InputFormat;
+        if (nextFormat === format)
+            return;
+
+        if (nextFormat === "css" && format !== "css") {
+            setFormat(nextFormat);
+            setColour("");
+            setError(null);
+            return;
+        }
+
+        try {
+            const hex = normaliseColour(colour, format);
+            const nextColour = nextFormat === "css"
+                ? ""
+                : formatColour(hex, nextFormat);
+            setFormat(nextFormat);
+            setColour(nextColour);
+            setError(null);
+            if (nextFormat !== "css")
+                void calculate(nextColour, nextFormat);
+        } catch (caught) {
+            setFormat(nextFormat);
+            setColour("");
+            setError(caught instanceof Error ? caught.message : "Enter a valid colour to convert formats.");
+        }
+    }, [calculate, colour, format]);
+
     const updatePicker = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
         const value = event.target.value.toUpperCase();
         setColour(value);
         setFormat("hex");
         void calculate(value, "hex");
+    }, [calculate]);
+
+    const updateNamedColour = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+        const value = event.target.value;
+        setColour(value);
+        if (value !== "")
+            void calculate(value, "css");
     }, [calculate]);
 
     const resetColour = useCallback((): void => {
@@ -161,7 +246,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
     }, [calculate, colour, format]);
 
     const placeholder: Record<InputFormat, string> = {
-        css: "cornflowerblue or rebeccapurple",
+        css: "Choose a named colour",
         hex: "#336699",
         hsl: "hsl(210, 50%, 40%)",
         hsv: "hsv(210, 67%, 60%)",
@@ -174,7 +259,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
                 <TextField
                     fullWidth
                     label="Input format"
-                    onChange={(event) => setFormat(event.target.value as InputFormat)}
+                    onChange={updateFormat}
                     select
                     value={format}
                 >
@@ -182,16 +267,31 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
                     <MenuItem value="rgb">RGB</MenuItem>
                     <MenuItem value="hsl">HSL</MenuItem>
                     <MenuItem value="hsv">HSV</MenuItem>
-                    <MenuItem value="css">CSS colour (including named colours)</MenuItem>
+                    <MenuItem value="css">CSS named colour</MenuItem>
                 </TextField>
-                <TextField
-                    fullWidth
-                    label="Colour value"
-                    onChange={updateColour}
-                    onKeyDown={(event) => { if (event.key === "Enter") submit(); }}
-                    placeholder={placeholder[format]}
-                    value={colour}
-                />
+                {format === "css" ? (
+                    <TextField
+                        fullWidth
+                        label="CSS named colour"
+                        onChange={updateNamedColour}
+                        select
+                        value={colour}
+                    >
+                        <MenuItem value=""><em>Select a colour</em></MenuItem>
+                        {CSS_NAMED_COLOURS.map((name) => (
+                            <MenuItem key={name} value={name}>{name}</MenuItem>
+                        ))}
+                    </TextField>
+                ) : (
+                    <TextField
+                        fullWidth
+                        label="Colour value"
+                        onChange={updateColour}
+                        onKeyDown={(event) => { if (event.key === "Enter") submit(); }}
+                        placeholder={placeholder[format]}
+                        value={colour}
+                    />
+                )}
                 <input
                     aria-label="Choose colour"
                     disabled={loading}
@@ -199,7 +299,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
                     type="color"
                     value={(/^#[\da-f]{6}$/i).test(colour) ? colour : DEFAULT_COLOUR}
                 />
-                <Button disabled={loading} onClick={submit}>Analyse</Button>
+                <Button disabled={loading || colour.trim() === ""} onClick={submit}>Analyse</Button>
                 <Button disabled={loading} onClick={resetColour} startIcon={<RestartAlt />}>Reset</Button>
             </Stack>
             {error !== null && <Alert severity="error">{error}</Alert>}
