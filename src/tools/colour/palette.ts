@@ -1,4 +1,4 @@
-import { normaliseColour, runColourTool, type ColourToolResult, type InputFormat } from "./colour-tool";
+import { type ColourToolResult, type InputFormat, normaliseColour, runColourTool } from "./colour-tool";
 
 export const MAX_PALETTE_COLOURS = 12;
 
