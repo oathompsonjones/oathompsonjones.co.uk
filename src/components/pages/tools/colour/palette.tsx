@@ -1,22 +1,23 @@
 "use client";
 
 import { Alert, Grid, Stack, Typography } from "@mui/material";
-import type { ChangeEvent, ReactNode } from "react";
-import { useCallback, useMemo, useState } from "react";
 import { PaletteColourCard, type PaletteEntry } from "components/pages/tools/colour/paletteColourCard";
 import { PaletteContrast } from "components/pages/tools/colour/paletteContrast";
 import { PaletteControls } from "components/pages/tools/colour/paletteControls";
 import { PaletteCssExport } from "components/pages/tools/colour/paletteCssExport";
 import { ToolSection } from "components/pages/tools/toolSection";
-import { runColourTool, type ColourToolResult } from "tools/colour/colour-tool";
+import type { ChangeEvent, ReactNode } from "react";
+import { useCallback, useMemo, useState } from "react";
+import type { ColourToolResult } from "tools/colour/colour-tool";
+import { runColourTool } from "tools/colour/colour-tool";
 import {
     MAX_PALETTE_COLOURS,
     createPaletteCssVariables,
     generateHarmonyPalette,
     getPaletteContrast,
     normalisePaletteColour,
-    type HarmonyMode,
 } from "tools/colour/palette";
+import type { HarmonyMode } from "tools/colour/palette";
 
 /**
  * Builds and edits a multi-colour palette, explores colour harmonies, and checks
@@ -100,7 +101,13 @@ export function ColourPaletteInput(): ReactNode {
 
             const next = [...current];
 
-            [next[index], next[destination]] = [next[destination]!, next[index]!];
+            [
+                next[index],
+                next[destination],
+            ] = [
+                next[destination]!,
+                next[index]!,
+            ];
 
             return next;
         });
@@ -164,8 +171,8 @@ export function ColourPaletteInput(): ReactNode {
                 </Typography>
                 <PaletteControls
                     copied={copied}
-                    harmony={harmony}
                     colourCount={entries.length}
+                    harmony={harmony}
                     maxColours={MAX_PALETTE_COLOURS}
                     onAddColour={addEntry}
                     onCopyCss={handleCopyCss}
