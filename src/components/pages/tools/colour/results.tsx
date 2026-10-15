@@ -4,37 +4,13 @@ import { Alert, Button, Chip, Grid, Paper, Stack, Typography } from "@mui/materi
 import type { MouseEvent, ReactNode } from "react";
 import { useCallback, useState } from "react";
 import { Card } from "components/card";
+import { colourFormats } from "tools/colour-tool";
 import type { ColourToolResult } from "tools/colour-tool";
 import { ToolSection } from "components/pages/tools/toolSection";
 
 const ratio = (value: number): string => `${value.toFixed(2)}:1`;
 
-function colourFormats(result: ColourToolResult): Array<{ label: string; value: string }> {
-    const { b, g, r } = result.rgb;
-    const { h, l, s } = result.hsl;
-    const red = r / 255, green = g / 255, blue = b / 255;
-    const max = Math.max(red, green, blue), min = Math.min(red, green, blue);
-    const delta = max - min;
-    const hue = delta === 0 ? 0 : max === red ? 60 * ((green - blue) / delta % 6)
-        : max === green ? 60 * ((blue - red) / delta + 2) : 60 * ((red - green) / delta + 4);
-    const hsvS = max === 0 ? 0 : delta / max * 100;
-    const whiteness = min * 100;
-    const blackness = (1 - max) * 100;
-    const k = 1 - max;
-    const cmyk = max === 0 ? [0, 0, 0, 100]
-        : [(1 - red - k) / (1 - k) * 100, (1 - green - k) / (1 - k) * 100,
-            (1 - blue - k) / (1 - k) * 100, k * 100];
 
-    return [
-        { label: "HEX", value: result.hex },
-        { label: "RGB", value: `rgb(${r}, ${g}, ${b})` },
-        { label: "HSL", value: `hsl(${h.toFixed(1)}, ${s.toFixed(1)}%, ${l.toFixed(1)}%)` },
-        { label: "HSV", value: `hsv(${((hue + 360) % 360).toFixed(1)}, ${hsvS.toFixed(1)}%, ${(max * 100).toFixed(1)}%)` },
-        { label: "HWB", value: `hwb(${((hue + 360) % 360).toFixed(1)} ${whiteness.toFixed(1)}% ${blackness.toFixed(1)}%)` },
-        { label: "CMYK", value: `cmyk(${cmyk.map((n) => n.toFixed(1) + "%").join(", ")})` },
-        { label: "CSS", value: `rgb(${r} ${g} ${b})` },
-    ];
-}
 
 /**
  * Displays colour measurements, contrast guidance, and generated palette swatches.
