@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState, type ChangeEvent } from "react";
+import { type ChangeEvent, useCallback, useMemo, useState } from "react";
 import {
     type ColourToolResult,
     runColourTool,
