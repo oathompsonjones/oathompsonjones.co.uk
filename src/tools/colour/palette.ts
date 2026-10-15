@@ -68,8 +68,26 @@ export function normalisePaletteColour(input: string): string {
  * @throws If the input is empty, too long, or contains invalid colours.
  */
 export function parsePaletteInput(input: string): string[] {
-    const lines = input.split((/[\n;]+/));
-    const values = lines.flatMap((line) => line.split((/,(?![^()]*\))/));
+    const values: string[] = [];
+    let current = "";
+    let depth = 0;
+
+    for (const character of input) {
+        if (character === "(")
+            depth++;
+        else if (character === ")")
+            depth = Math.max(0, depth - 1);
+
+        if ((character === "," && depth === 0) || character === "\n" || character === ";") {
+            values.push(current);
+            current = "";
+        } else {
+            current += character;
+        }
+    }
+
+    values.push(current);
+
     const colours = values.map((colour) => colour.trim())
         .filter(Boolean);
 
