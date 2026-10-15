@@ -6,8 +6,8 @@ import type { PaletteContrast as PaletteContrastResult } from "tools/colour/pale
 import { normalisePaletteColour } from "tools/colour/palette";
 
 type PaletteContrastProps = Readonly<{
-    entries: ReadonlyArray<PaletteEntry>;
-    pairs: ReadonlyArray<PaletteContrastResult>;
+    entries: readonly PaletteEntry[];
+    pairs: readonly PaletteContrastResult[];
 }>;
 
 /**
@@ -16,7 +16,7 @@ type PaletteContrastProps = Readonly<{
  * @param hex - The normalised hexadecimal colour.
  * @returns The matching palette name, or the hexadecimal value if no name matches.
  */
-function getColourName(entries: ReadonlyArray<PaletteEntry>, hex: string): string {
+function getColourName(entries: readonly PaletteEntry[], hex: string): string {
     const entry = entries.find((candidate) => {
         try {
             return normalisePaletteColour(candidate.value) === hex;
@@ -29,18 +29,18 @@ function getColourName(entries: ReadonlyArray<PaletteEntry>, hex: string): strin
 }
 
 /**
- * Renders pairwise WCAG contrast results for the current palette.
+ * Renders the contrast results for each unique pair of palette colours.
  * @param root0 - The palette entries and their contrast pairs.
  * @param root0.entries - The palette entries.
  * @param root0.pairs - The calculated pairwise contrast results.
- * @returns The palette contrast section.
+ * @returns A heading and the contrast result for each colour pair.
  */
 export function PaletteContrast({ entries, pairs }: PaletteContrastProps): ReactNode {
     return (
         <Box>
             <Typography component="h3" gutterBottom variant="h6">Palette contrast</Typography>
             <Typography color="text.secondary" gutterBottom variant="body2">
-                Pairwise WCAG contrast ratios for the palette colours. AA requires 4.5:1 for normal text; AAA requires 7:1.
+                Pairwise WCAG contrast ratios. AA requires 4.5:1 for normal text; AAA requires 7:1.
             </Typography>
             {pairs.length === 0
                 ? (
