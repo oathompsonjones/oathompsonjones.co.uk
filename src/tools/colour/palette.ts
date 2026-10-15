@@ -1,4 +1,4 @@
-import { contrastRatio, hslToRgb, parseHexColour, relativeLuminance, rgbToHex, rgbToHsl, type ColourToolResult, type InputFormat, normaliseColour, runColourTool } from "./colour-tool";
+import { contrastRatio, hslToRgb, parseHexColour, rgbToHex, rgbToHsl, type ColourToolResult, type InputFormat, normaliseColour, runColourTool } from "./colour-tool";
 
 export const MAX_PALETTE_COLOURS = 12;
 
