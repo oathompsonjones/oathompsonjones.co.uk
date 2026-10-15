@@ -1,8 +1,7 @@
 import { Stack, TextField, Typography } from "@mui/material";
 import { Card } from "components/card";
 import { PaletteColourActions } from "components/pages/tools/colour/paletteColourActions";
-import { useCallback } from "react";
-import type { ChangeEvent, ReactNode } from "react";
+import { useCallback, type ChangeEvent, type ReactNode } from "react";
 import type { ColourToolResult } from "tools/colour/colour-tool";
 import { normalisePaletteColour } from "tools/colour/palette";
 
@@ -16,11 +15,11 @@ type PaletteColourCardProps = Readonly<{
     entry: PaletteEntry;
     index: number;
     total: number;
-    result: undefined | ColourToolResult;
+    result: ColourToolResult | undefined;
     onUpdate: (id: number, field: "name" | "value", value: string) => void;
     onDuplicate: (entry: PaletteEntry) => void;
     onRemove: (id: number) => void;
-    onMove: (index: number, direction: 1 | -1) => void;
+    onMove: (index: number, direction: -1 | 1) => void;
 }>;
 
 /**
