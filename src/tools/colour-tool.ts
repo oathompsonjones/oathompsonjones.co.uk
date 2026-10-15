@@ -233,149 +233,354 @@ export function runColourTool({ colour }: ColourToolRequest): ColourToolResult {
     };
 }
 
-
-export type InputFormat = "hex" | "rgb" | "hsl" | "hsv" | "css";
+export type InputFormat = "css" | "hex" | "hsl" | "hsv" | "rgb";
 export const DEFAULT_COLOUR = "#1C7EEA";
 export const CSS_NAMED_COLOURS = [
-    "aliceblue", "antiquewhite", "aqua", "aquamarine", "azure", "beige", "bisque", "black",
-    "blanchedalmond", "blue", "blueviolet", "brown", "burlywood", "cadetblue", "chartreuse",
-    "chocolate", "coral", "cornflowerblue", "cornsilk", "crimson", "cyan", "darkblue", "darkcyan",
-    "darkgoldenrod", "darkgray", "darkgreen", "darkgrey", "darkkhaki", "darkmagenta", "darkolivegreen",
-    "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue",
-    "darkslategray", "darkslategrey", "darkturquoise", "darkviolet", "deeppink", "deepskyblue",
-    "dimgray", "dimgrey", "dodgerblue", "firebrick", "floralwhite", "forestgreen", "fuchsia",
-    "gainsboro", "ghostwhite", "gold", "goldenrod", "gray", "green", "greenyellow", "grey",
-    "honeydew", "hotpink", "indianred", "indigo", "ivory", "khaki", "lavender", "lavenderblush",
-    "lawngreen", "lemonchiffon", "lightblue", "lightcoral", "lightcyan", "lightgoldenrodyellow",
-    "lightgray", "lightgreen", "lightgrey", "lightpink", "lightsalmon", "lightseagreen",
-    "lightskyblue", "lightslategray", "lightslategrey", "lightsteelblue", "lightyellow", "lime",
-    "limegreen", "linen", "magenta", "maroon", "mediumaquamarine", "mediumblue", "mediumorchid",
-    "mediumpurple", "mediumseagreen", "mediumslateblue", "mediumspringgreen", "mediumturquoise",
-    "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin", "navajowhite", "navy",
-    "oldlace", "olive", "olivedrab", "orange", "orangered", "orchid", "palegoldenrod", "palegreen",
-    "paleturquoise", "palevioletred", "papayawhip", "peachpuff", "peru", "pink", "plum", "powderblue",
-    "purple", "rebeccapurple", "red", "rosybrown", "royalblue", "saddlebrown", "salmon", "sandybrown",
-    "seagreen", "seashell", "sienna", "silver", "skyblue", "slateblue", "slategray", "slategrey",
-    "snow", "springgreen", "steelblue", "tan", "teal", "thistle", "tomato", "turquoise", "violet",
-    "wheat", "white", "whitesmoke", "yellow", "yellowgreen",
+    "aliceblue",
+    "antiquewhite",
+    "aqua",
+    "aquamarine",
+    "azure",
+    "beige",
+    "bisque",
+    "black",
+    "blanchedalmond",
+    "blue",
+    "blueviolet",
+    "brown",
+    "burlywood",
+    "cadetblue",
+    "chartreuse",
+    "chocolate",
+    "coral",
+    "cornflowerblue",
+    "cornsilk",
+    "crimson",
+    "cyan",
+    "darkblue",
+    "darkcyan",
+    "darkgoldenrod",
+    "darkgray",
+    "darkgreen",
+    "darkgrey",
+    "darkkhaki",
+    "darkmagenta",
+    "darkolivegreen",
+    "darkorange",
+    "darkorchid",
+    "darkred",
+    "darksalmon",
+    "darkseagreen",
+    "darkslateblue",
+    "darkslategray",
+    "darkslategrey",
+    "darkturquoise",
+    "darkviolet",
+    "deeppink",
+    "deepskyblue",
+    "dimgray",
+    "dimgrey",
+    "dodgerblue",
+    "firebrick",
+    "floralwhite",
+    "forestgreen",
+    "fuchsia",
+    "gainsboro",
+    "ghostwhite",
+    "gold",
+    "goldenrod",
+    "gray",
+    "green",
+    "greenyellow",
+    "grey",
+    "honeydew",
+    "hotpink",
+    "indianred",
+    "indigo",
+    "ivory",
+    "khaki",
+    "lavender",
+    "lavenderblush",
+    "lawngreen",
+    "lemonchiffon",
+    "lightblue",
+    "lightcoral",
+    "lightcyan",
+    "lightgoldenrodyellow",
+    "lightgray",
+    "lightgreen",
+    "lightgrey",
+    "lightpink",
+    "lightsalmon",
+    "lightseagreen",
+    "lightskyblue",
+    "lightslategray",
+    "lightslategrey",
+    "lightsteelblue",
+    "lightyellow",
+    "lime",
+    "limegreen",
+    "linen",
+    "magenta",
+    "maroon",
+    "mediumaquamarine",
+    "mediumblue",
+    "mediumorchid",
+    "mediumpurple",
+    "mediumseagreen",
+    "mediumslateblue",
+    "mediumspringgreen",
+    "mediumturquoise",
+    "mediumvioletred",
+    "midnightblue",
+    "mintcream",
+    "mistyrose",
+    "moccasin",
+    "navajowhite",
+    "navy",
+    "oldlace",
+    "olive",
+    "olivedrab",
+    "orange",
+    "orangered",
+    "orchid",
+    "palegoldenrod",
+    "palegreen",
+    "paleturquoise",
+    "palevioletred",
+    "papayawhip",
+    "peachpuff",
+    "peru",
+    "pink",
+    "plum",
+    "powderblue",
+    "purple",
+    "rebeccapurple",
+    "red",
+    "rosybrown",
+    "royalblue",
+    "saddlebrown",
+    "salmon",
+    "sandybrown",
+    "seagreen",
+    "seashell",
+    "sienna",
+    "silver",
+    "skyblue",
+    "slateblue",
+    "slategray",
+    "slategrey",
+    "snow",
+    "springgreen",
+    "steelblue",
+    "tan",
+    "teal",
+    "thistle",
+    "tomato",
+    "turquoise",
+    "violet",
+    "wheat",
+    "white",
+    "whitesmoke",
+    "yellow",
+    "yellowgreen",
 ].map((colour) => colour.trim());
 
-function hslToRgb(h: number, s: number, l: number): number[] {
-    const saturation = clamp(s / 100, 0, 1);
-    const lightness = clamp(l / 100, 0, 1);
-    const chroma = (1 - Math.abs(2 * lightness - 1)) * saturation;
-    const x = chroma * (1 - Math.abs(h / 60 % 2 - 1));
-    const m = lightness - chroma / 2;
-    const sector = ((h % 360) + 360) % 360;
-    const channels = sector < 60 ? [chroma, x, 0]
-        : sector < 120 ? [x, chroma, 0]
-            : sector < 180 ? [0, chroma, x]
-                : sector < 240 ? [0, x, chroma]
-                    : sector < 300 ? [x, 0, chroma] : [chroma, 0, x];
-    return channels.map((channel) => Math.round((channel + m) * 255));
-}
-
+/**
+ * Normalises a colour input to a hexadecimal string.
+ * @param input - The colour input string.
+ * @param format - The format of the input colour ("hex", "rgb", "hsl", or "hsv").
+ * @returns The normalised hexadecimal colour string.
+ * @throws Will throw an error if the input colour is invalid or cannot be normalised.
+ */
+// eslint-disable-next-line max-statements
 export function normaliseColour(input: string, format: InputFormat): string {
     const value = input.trim();
-    const hex = (rgb: number[]): string =>
-        `#${rgb.map((n) => clamp(Math.round(n), 0, 255).toString(16).padStart(2, "0")).join("")}`.toUpperCase();
+    const hex = (rgb: number[]): string => `#${rgb.map((n) => clamp(Math.round(n), 0, 255)
+        .toString(16).padStart(2, "0")).join("")}`.toUpperCase();
 
     if (format === "hex") {
-        if (!/^#?(?:[\da-f]{3}|[\da-f]{6})$/i.test(value))
+        if (!(/^#?(?:[\da-f]{3}|[\da-f]{6})$/i).test(value))
             throw new Error("Enter a 3- or 6-digit hexadecimal colour.");
+
         const digits = value.replace(/^#/, "");
+
         return hex(digits.length === 3
             ? [...digits].map((d) => parseInt(d + d, 16))
             : [0, 2, 4].map((i) => parseInt(digits.slice(i, i + 2), 16)));
     }
 
     if (format === "rgb" || format === "hsl" || format === "hsv") {
-        const match = /^(?:rgb|rgba|hsl|hsla|hsv)\(\s*([^)]*)\)$/i.exec(value);
+        const match = (/^(?:rgb|rgba|hsl|hsla|hsv)\(\s*([^)]*)\)$/i).exec(value);
         const parts = (match?.[1] ?? value).split(/[\s,/%]+/).filter(Boolean).map(Number);
+
         if (parts.length !== 3 || parts.some((n) => !Number.isFinite(n)))
             throw new Error(`Enter three numeric components for ${format.toUpperCase()}.`);
+
         if (format === "rgb")
             return hex(parts);
+
         const [h, a, b] = parts;
+
         if (h === undefined || a === undefined || b === undefined)
             throw new Error("Enter three colour components.");
-        if (format === "hsl")
-            return hex(hslToRgb(h, a, b));
+
+        if (format === "hsl") {
+            const rgb = hslToRgb({ h, l: b, s: a });
+
+            return hex([rgb.r, rgb.g, rgb.b]);
+        }
 
         const saturation = clamp(a / 100, 0, 1);
         const valueComponent = clamp(b / 100, 0, 1);
         const chroma = valueComponent * saturation;
         const x = chroma * (1 - Math.abs(h / 60 % 2 - 1));
         const m = valueComponent - chroma;
-        const sector = ((h % 360) + 360) % 360;
-        const channels = sector < 60 ? [chroma, x, 0]
-            : sector < 120 ? [x, chroma, 0]
-                : sector < 180 ? [0, chroma, x]
-                    : sector < 240 ? [0, x, chroma]
-                        : sector < 300 ? [x, 0, chroma] : [chroma, 0, x];
+        const sector = (h % 360 + 360) % 360;
+        let channels: number[];
+
+        if (sector < 60)
+            channels = [chroma, x, 0];
+        else if (sector < 120)
+            channels = [x, chroma, 0];
+        else if (sector < 180)
+            channels = [0, chroma, x];
+        else if (sector < 240)
+            channels = [0, x, chroma];
+        else if (sector < 300)
+            channels = [x, 0, chroma];
+        else
+            channels = [chroma, 0, x];
+
         return hex(channels.map((n) => (n + m) * 255));
     }
 
     if (!CSS.supports("color", value))
         throw new Error("Choose a valid CSS named colour.");
+
     const probe = document.createElement("span");
+
     probe.style.color = value;
     document.body.append(probe);
     const computed = getComputedStyle(probe).color;
+
     probe.remove();
-    const match = /^rgba?\(\s*(\d+)\D+(\d+)\D+(\d+)/i.exec(computed);
+    const match = (/^rgba?\(\s*(\d+)\D+(\d+)\D+(\d+)/i).exec(computed);
+
     if (match === null)
         throw new Error("This CSS colour cannot be converted to opaque sRGB.");
+
     return hex(match.slice(1).map(Number));
 }
 
+/**
+ * Formats a hexadecimal colour string into the specified colour format.
+ * @param hex - The hexadecimal colour string to format.
+ * @param format - The target colour format ("hex", "rgb", "hsl", or "hsv").
+ * @returns The colour string formatted in the specified format.
+ * @throws Will throw an error if the hexadecimal colour string is invalid.
+ */
 export function formatColour(hex: string, format: Exclude<InputFormat, "css">): string {
     const digits = hex.replace("#", "");
     const rgb = [0, 2, 4].map((i) => parseInt(digits.slice(i, i + 2), 16));
-    const [r, g, b] = rgb.map((channel) => channel / 255);
+    const [r, g, b] = rgb.map((channel) => channel / 255) as [number, number, number];
+
     if (format === "hex")
         return hex;
+
     if (format === "rgb")
         return `rgb(${rgb.join(", ")})`;
 
-    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
     const delta = max - min;
-    const hue = delta === 0 ? 0 : max === r ? 60 * (((g - b) / delta) % 6)
-        : max === g ? 60 * ((b - r) / delta + 2) : 60 * ((r - g) / delta + 4);
+    let hue = 0;
+
+    if (delta !== 0) {
+        if (max === r)
+            hue = 60 * ((g - b) / delta % 6);
+        else if (max === g)
+            hue = 60 * ((b - r) / delta + 2);
+        else
+            hue = 60 * ((r - g) / delta + 4);
+    }
+
     const h = (hue + 360) % 360;
+
     if (format === "hsl") {
         const lightness = (max + min) / 2;
         const saturation = delta === 0 ? 0 : delta / (1 - Math.abs(2 * lightness - 1));
+
         return `hsl(${h.toFixed(1)}, ${(saturation * 100).toFixed(1)}%, ${(lightness * 100).toFixed(1)}%)`;
     }
+
     const saturation = max === 0 ? 0 : delta / max;
+
     return `hsv(${h.toFixed(1)}, ${(saturation * 100).toFixed(1)}%, ${(max * 100).toFixed(1)}%)`;
 }
 
-
-export function colourFormats(result: ColourToolResult): Array<{ label: string; value: string }> {
+/**
+ * Returns an array of colour representations in various formats.
+ * @param result - The colour tool result containing various colour representations.
+ * @returns An array of objects, each containing a label and the corresponding colour value in that format.
+ */
+export function colourFormats(result: ColourToolResult): Array<{ label: string; value: string; }> {
     const { b, g, r } = result.rgb;
     const { h, l, s } = result.hsl;
-    const red = r / 255, green = g / 255, blue = b / 255;
-    const max = Math.max(red, green, blue), min = Math.min(red, green, blue);
+    const red = r / 255;
+    const green = g / 255;
+    const blue = b / 255;
+    const max = Math.max(red, green, blue);
+    const min = Math.min(red, green, blue);
     const delta = max - min;
-    const hue = delta === 0 ? 0 : max === red ? 60 * ((green - blue) / delta % 6)
-        : max === green ? 60 * ((blue - red) / delta + 2) : 60 * ((red - green) / delta + 4);
+    let hue = 0;
+
+    if (delta !== 0) {
+        if (max === red)
+            hue = 60 * ((green - blue) / delta % 6);
+        else if (max === green)
+            hue = 60 * ((blue - red) / delta + 2);
+        else
+            hue = 60 * ((red - green) / delta + 4);
+    }
+
     const hsvS = max === 0 ? 0 : delta / max * 100;
     const whiteness = min * 100;
     const blackness = (1 - max) * 100;
     const k = 1 - max;
-    const cmyk = max === 0 ? [0, 0, 0, 100]
-        : [(1 - red - k) / (1 - k) * 100, (1 - green - k) / (1 - k) * 100,
-            (1 - blue - k) / (1 - k) * 100, k * 100];
+    const cmyk = max === 0
+        ? [0, 0, 0, 100]
+        : [
+            (1 - red - k) / (1 - k) * 100,
+            (1 - green - k) / (1 - k) * 100,
+            (1 - blue - k) / (1 - k) * 100,
+            k * 100,
+        ];
 
     return [
-        { label: "HEX", value: result.hex },
-        { label: "RGB", value: `rgb(${r}, ${g}, ${b})` },
-        { label: "HSL", value: `hsl(${h.toFixed(1)}, ${s.toFixed(1)}%, ${l.toFixed(1)}%)` },
-        { label: "HSV", value: `hsv(${((hue + 360) % 360).toFixed(1)}, ${hsvS.toFixed(1)}%, ${(max * 100).toFixed(1)}%)` },
-        { label: "HWB", value: `hwb(${((hue + 360) % 360).toFixed(1)} ${whiteness.toFixed(1)}% ${blackness.toFixed(1)}%)` },
-        { label: "CMYK", value: `cmyk(${cmyk.map((n) => n.toFixed(1) + "%").join(", ")})` },
-        { label: "CSS", value: `rgb(${r} ${g} ${b})` },
+        {
+            label: "HEX",
+            value: result.hex,
+        },
+        {
+            label: "RGB",
+            value: `rgb(${r}, ${g}, ${b})`,
+        },
+        {
+            label: "HSL",
+            value: `hsl(${h.toFixed(1)}, ${s.toFixed(1)}%, ${l.toFixed(1)}%)`,
+        },
+        {
+            label: "HSV",
+            value: `hsv(${((hue + 360) % 360).toFixed(1)}, ${hsvS.toFixed(1)}%, ${(max * 100).toFixed(1)}%)`,
+        },
+        {
+            label: "HWB",
+            value: `hwb(${((hue + 360) % 360).toFixed(1)} ${whiteness.toFixed(1)}% ${blackness.toFixed(1)}%)`,
+        },
+        {
+            label: "CMYK",
+            value: `cmyk(${cmyk.map((n) => `${n.toFixed(1)}%`).join(", ")})`,
+        },
     ];
 }

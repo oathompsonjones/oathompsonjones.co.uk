@@ -1,20 +1,19 @@
 "use client";
 
 import { Alert, Button, MenuItem, Stack, TextField } from "@mui/material";
-import type { ChangeEvent, ReactNode } from "react";
+import {
+    CSS_NAMED_COLOURS,
+    DEFAULT_COLOUR,
+    colourToolResultSchema,
+    formatColour,
+    normaliseColour,
+} from "tools/colour-tool";
+import type { ChangeEvent, KeyboardEvent, ReactNode } from "react";
+import type { ColourToolResult, InputFormat } from "tools/colour-tool";
 import { useCallback, useEffect, useState } from "react";
 import { Glass } from "components/glass";
 import { RestartAlt } from "@mui/icons-material";
 import { requestToolApi } from "tools/api";
-import {
-    CSS_NAMED_COLOURS,
-    colourToolResultSchema,
-    DEFAULT_COLOUR,
-    formatColour,
-    normaliseColour,
-} from "tools/colour-tool";
-import type { ColourToolResult, InputFormat } from "tools/colour-tool";
-
 
 /**
  * Input controls for choosing a colour and requesting its analysis.
@@ -35,9 +34,11 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
     const calculate = useCallback(async (input: string, inputFormat: InputFormat): Promise<void> => {
         setLoading(true);
         setError(null);
+
         try {
             const normalised = normaliseColour(input, inputFormat);
             const next = await requestToolApi("/api/tools/colour", { colour: normalised }, colourToolResultSchema);
+
             onResult(next);
         } catch (caught) {
             setError(caught instanceof Error ? caught.message : "Unable to calculate this colour.");
@@ -64,6 +65,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
 
     const updateFormat = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
         const nextFormat = event.target.value as InputFormat;
+
         if (nextFormat === format)
             return;
 
@@ -71,6 +73,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
             setFormat(nextFormat);
             setColour("");
             setError(null);
+
             return;
         }
 
@@ -79,9 +82,11 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
             const nextColour = nextFormat === "css"
                 ? ""
                 : formatColour(hex, nextFormat);
+
             setFormat(nextFormat);
             setColour(nextColour);
             setError(null);
+
             if (nextFormat !== "css")
                 void calculate(nextColour, nextFormat);
         } catch (caught) {
@@ -93,14 +98,17 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
 
     const updatePicker = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
         const value = event.target.value.toUpperCase();
+
         setColour(value);
         setFormat("hex");
         void calculate(value, "hex");
     }, [calculate]);
 
     const updateNamedColour = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
-        const value = event.target.value;
+        const { value } = event.target;
+
         setColour(value);
+
         if (value !== "")
             void calculate(value, "css");
     }, [calculate]);
@@ -115,6 +123,11 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
         void calculate(colour, format);
     }, [calculate, colour, format]);
 
+    const submitOnEnter = useCallback((event: KeyboardEvent<HTMLInputElement>): void => {
+        if (event.key === "Enter")
+            submit();
+    }, [submit]);
+
     const placeholder: Record<InputFormat, string> = {
         css: "Choose a named colour",
         hex: "#336699",
@@ -127,10 +140,10 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
         <Glass>
             <Stack direction={{ sm: "row", xs: "column" }} spacing={2} sx={{ alignItems: "center" }}>
                 <TextField
-                    fullWidth
                     label="Input format"
                     onChange={updateFormat}
                     select
+                    sx={{ minWidth: 120 }}
                     value={format}
                 >
                     <MenuItem value="hex">HEX</MenuItem>
@@ -139,29 +152,31 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
                     <MenuItem value="hsv">HSV</MenuItem>
                     <MenuItem value="css">CSS named colour</MenuItem>
                 </TextField>
-                {format === "css" ? (
-                    <TextField
-                        fullWidth
-                        label="CSS named colour"
-                        onChange={updateNamedColour}
-                        select
-                        value={colour}
-                    >
-                        <MenuItem value=""><em>Select a colour</em></MenuItem>
-                        {CSS_NAMED_COLOURS.map((name) => (
-                            <MenuItem key={name} value={name}>{name}</MenuItem>
-                        ))}
-                    </TextField>
-                ) : (
-                    <TextField
-                        fullWidth
-                        label="Colour value"
-                        onChange={updateColour}
-                        onKeyDown={(event) => { if (event.key === "Enter") submit(); }}
-                        placeholder={placeholder[format]}
-                        value={colour}
-                    />
-                )}
+                {format === "css"
+                    ? (
+                        <TextField
+                            label="CSS named colour"
+                            onChange={updateNamedColour}
+                            select
+                            sx={{ minWidth: 240 }}
+                            value={colour}
+                        >
+                            <MenuItem value=""><em>Select a colour</em></MenuItem>
+                            {CSS_NAMED_COLOURS.map((name) => (
+                                <MenuItem key={name} value={name}>{name}</MenuItem>
+                            ))}
+                        </TextField>
+                    )
+                    : (
+                        <TextField
+                            label="Colour value"
+                            onChange={updateColour}
+                            onKeyDown={submitOnEnter}
+                            placeholder={placeholder[format]}
+                            sx={{ minWidth: 120 }}
+                            value={colour}
+                        />
+                    )}
                 <input
                     aria-label="Choose colour"
                     disabled={loading}

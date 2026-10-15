@@ -1,4 +1,7 @@
-import { CSS_NAMED_COLOURS, contrastRatio, formatColour, normaliseColour, parseHexColour, relativeLuminance, rgbToHex, runColourTool } from "./colour-tool";
+import {
+    CSS_NAMED_COLOURS, contrastRatio, formatColour, normaliseColour,
+    parseHexColour, relativeLuminance, rgbToHex, runColourTool,
+} from "./colour-tool";
 import { describe, expect, it } from "vitest";
 
 describe("colour tool", () => {
