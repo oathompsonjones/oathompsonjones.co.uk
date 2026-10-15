@@ -4,9 +4,9 @@ import { Box, Tab, Tabs } from "@mui/material";
 import { ToolPage } from "components/pages/tools";
 import { ColourToolApiDocs } from "components/pages/tools/colour/apiDocs";
 import { ColourToolForm } from "components/pages/tools/colour/form";
-import { ColourToolResults } from "components/pages/tools/colour/results";
 import { ColourPaletteInput } from "components/pages/tools/colour/palette";
-import { type ReactNode, useCallback, useState } from "react";
+import { ColourToolResults } from "components/pages/tools/colour/results";
+import { type ReactNode, type SyntheticEvent, useCallback, useState } from "react";
 import type { ColourToolResult } from "tools/colour/colour-tool";
 
 /**
@@ -17,7 +17,7 @@ export default function ColourToolPage(): ReactNode {
     const [result, setResult] = useState<ColourToolResult | null>(null);
     const [selectedColour, setSelectedColour] = useState<string | null>(null);
     const [tab, setTab] = useState(0);
-    const handleTabChange = useCallback((_event: React.SyntheticEvent, value: number): void => {
+    const handleTabChange = useCallback((_event: SyntheticEvent, value: number): void => {
         setTab(value);
     }, []);
 
