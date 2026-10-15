@@ -62,7 +62,7 @@ describe("palette harmonies and pairwise contrast", () => {
         ]);
         expect(pairs).toHaveLength(3);
         expect(pairs[0]).toMatchObject({ ratio: 21, meetsAA: true, meetsAAA: true });
-        expect(pairs[1]!.meetsAA).toBe(false);
-        expect(pairs[1]!.meetsAAA).toBe(false);
+        expect(pairs[2]!.meetsAA).toBe(false);
+        expect(pairs[2]!.meetsAAA).toBe(false);
     });
 });
