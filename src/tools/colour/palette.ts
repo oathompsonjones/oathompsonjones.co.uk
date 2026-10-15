@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention, @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/sort-type-constituents, @typescript-eslint/strict-boolean-expressions, jsdoc/require-param, jsdoc/require-returns, jsdoc/require-throws, max-len, newline-after-var, newline-before-return, newline-per-chained-call, sort-imports, sort-keys, @stylistic/member-delimiter-style, @stylistic/padding-line-between-statements */
 import { contrastRatio, hslToRgb, parseHexColour, rgbToHex, rgbToHsl, type ColourToolResult, type InputFormat, normaliseColour, runColourTool } from "./colour-tool";
 
 export const MAX_PALETTE_COLOURS = 12;
