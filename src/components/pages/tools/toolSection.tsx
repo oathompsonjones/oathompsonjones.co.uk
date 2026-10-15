@@ -14,7 +14,7 @@ import { useId } from "react";
 export function ToolSection({ children, glass = true, title }: Readonly<{
     children: ReactNode;
     glass?: boolean;
-    title: string;
+    title?: string;
 }>): ReactNode {
     const headingId = useId();
     const section = (

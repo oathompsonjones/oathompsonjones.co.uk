@@ -36,17 +36,14 @@ At the end of this phase, adding a small API-backed tool should be straightforwa
 
 Build the easiest useful tools first, using them to establish the conventions that later tools can follow.
 
-1. **JSON Toolkit and Data Format Converter** — ✅ Done. Format, minify, validate, file loading, and conversion to
-   TypeScript, XML, YAML, CSV, and JSON Schema, backed by `/api/tools/json`. This also completes the plan's Phase 3
-   "JSON to TypeScript" item.
-2. **Hash and Encoding Toolkit** — ✅ Done. Encodings, hashes, HMAC, and ciphers (including AES-256-GCM) backed by
-   `/api/tools/hash-encoding`, with Vitest API tests and file loading.
-3. **Markdown Previewer**
-4. **Colour Palette and Contrast Tool**
+1. **JSON Toolkit and Data Format Converter** — ✅ Done. Format, minify, validate, file loading, and conversion to TypeScript, XML, YAML, CSV, and JSON Schema, backed by `/api/tools/json`. This also completes the plan's Phase 3 "JSON to TypeScript" item.
+2. **Hash and Encoding Toolkit** — ✅ Done. Encodings, hashes, HMAC, and ciphers (including AES-256-GCM) backed by `/api/tools/hash-encoding`, with Vitest API tests and file loading.
+3. **Colour Palette and Contrast Tool** — implementation started in this PR. Complete the colour parsing, WCAG contrast, palette relationships, and UI polish.
+4. **Markdown Previewer**
 5. **Regex Tester**
 6. **Cron Expression Explainer**
 
-The JSON Toolkit comes first because it is substantial enough to establish the core editor, validation, API, conversion, copy, and download patterns without introducing significant infrastructure.
+The JSON Toolkit established the core editor, validation, API, conversion, copy, and download patterns. The Colour tool is now next because it is a compact, visual utility with a clear accessibility-focused calculation core. The Markdown Previewer follows it.
 
 ## Phase 3 — Medium Tools
 
@@ -152,7 +149,7 @@ After the initial catalogue is working:
 
 Only after the Tools and Arcade roadmap has been substantially completed, take on the separate Franchises project described in docs/FRANCHISES_PLAN.md.
 
-This is intentionally last because it is a much larger data-modelling and content-curation project rather than a natural extension of the Tools or Arcade implementation work.
+This is intentionally last because it is a much larger data-modelling and content-curation project rather than a natural extension of the Tools or Arcade work.
 
 The Franchises project should begin with a small, well-structured dataset and prove the reusable data model with more than one franchise before expanding the catalogue.
 
