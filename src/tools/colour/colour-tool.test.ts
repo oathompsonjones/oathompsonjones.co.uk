@@ -1,5 +1,5 @@
 import {
-    CSS_NAMED_COLOURS, contrastRatio, formatColour, normaliseColour,
+    CSS_NAMED_COLOURS, colourFormats, contrastRatio, formatColour, normaliseColour,
     parseHexColour, relativeLuminance, rgbToHex, runColourTool,
 } from "./colour-tool";
 import { describe, expect, it } from "vitest";
@@ -56,8 +56,7 @@ describe("colour tool", () => {
         expect(light.contrast.recommended).toBe("black");
         expect(light.contrast.blackMeetsAA).toBe(true);
     });
-    it("formats all representations from the analysis result", async () => {
-        const { colourFormats } = await import("./colour-tool");
+    it("formats all representations from the analysis result", () => {
         const formats = colourFormats(runColourTool({ colour: "#336699" }));
 
         expect(formats.map(({ label }) => label)).toEqual(["HEX", "RGB", "HSL", "HSV", "HWB", "CMYK"]);
@@ -83,5 +82,4 @@ describe("colour tool", () => {
         expect(normaliseColour("hsl(0, 0%, 0%)", "hsl")).toBe("#000000");
         expect(normaliseColour("hsl(0, 0%, 100%)", "hsl")).toBe("#FFFFFF");
     });
-
 });
