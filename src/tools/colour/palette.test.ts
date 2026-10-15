@@ -1,3 +1,4 @@
+/* eslint-disable sort-imports, @stylistic/padding-line-between-statements */
 import { MAX_PALETTE_COLOURS, createPaletteCssVariables, parsePaletteInput } from "./palette";
 import { describe, expect, it } from "vitest";
 import { runColourTool } from "./colour-tool";
