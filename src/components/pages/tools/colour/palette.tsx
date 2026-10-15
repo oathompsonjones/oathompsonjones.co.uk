@@ -123,9 +123,9 @@ export function ColourPaletteInput(): ReactNode {
                                 sx={{
                                     fontFamily: "monospace",
                                     fontSize: "0.875rem",
+                                    height: "auto",
                                     lineHeight: 1.6,
                                     m: 0,
-                                    height: "auto",
                                     maxHeight: 420,
                                     overflow: "auto",
                                     p: 2,
