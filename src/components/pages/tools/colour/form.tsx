@@ -46,10 +46,10 @@ const CSS_NAMED_COLOURS = [
     "limegreen", "linen", "magenta", "maroon", "mediumaquamarine", "mediumblue", "mediumorchid",
     "mediumpurple", "mediumseagreen", "mediumslateblue", "mediumspringgreen", "mediumturquoise",
     "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin", "navajowhite", "navy",
-    "oldlace", "olive", "olivedrab", "orange", "orangered", " orchid", "palegoldenrod", "palegreen",
+    "oldlace", "olive", "olivedrab", "orange", "orangered", "orchid", "palegoldenrod", "palegreen",
     "paleturquoise", "palevioletred", "papayawhip", "peachpuff", "peru", "pink", "plum", "powderblue",
     "purple", "rebeccapurple", "red", "rosybrown", "royalblue", "saddlebrown", "salmon", "sandybrown",
-    "seagreen", "seashell", " sienna", "silver", "skyblue", "slateblue", "slategray", "slategrey",
+    "seagreen", "seashell", "sienna", "silver", "skyblue", "slateblue", "slategray", "slategrey",
     "snow", "springgreen", "steelblue", "tan", "teal", "thistle", "tomato", "turquoise", "violet",
     "wheat", "white", "whitesmoke", "yellow", "yellowgreen",
 ].map((colour) => colour.trim());
