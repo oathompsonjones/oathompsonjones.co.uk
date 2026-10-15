@@ -1,7 +1,8 @@
 "use client";
 
-import { Alert, Box, Button, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Grid, Stack, TextField, Typography } from "@mui/material";
 import { type ChangeEvent, type ReactNode, useCallback, useState } from "react";
+import { Code } from "components/code";
 import { type ColourToolResult, colourToolResultSchema } from "tools/colour/colour-tool";
 import { MAX_PALETTE_COLOURS, createPaletteCssVariables, parsePaletteInput } from "tools/colour/palette";
 import { Card } from "components/card";
@@ -118,22 +119,14 @@ export function ColourPaletteInput(): ReactNode {
                         </Grid>
                         <Box>
                             <Typography component="h3" gutterBottom variant="h6">CSS custom properties</Typography>
-                            <Paper
-                                component="pre"
+                            <Code
+                                language="css"
                                 sx={{
-                                    fontFamily: "monospace",
-                                    fontSize: "0.875rem",
-                                    height: "auto",
-                                    lineHeight: 1.6,
-                                    m: 0,
-                                    maxHeight: 420,
-                                    overflow: "auto",
-                                    p: 2,
-                                    whiteSpace: "pre",
+                                    "& pre": { maxHeight: 420 },
                                 }}
                             >
-                                <code>{createPaletteCssVariables(results)}</code>
-                            </Paper>
+                                {createPaletteCssVariables(results)}
+                            </Code>                    </Paper>
                         </Box>
                     </>
                 )}
