@@ -10,7 +10,7 @@ const HARMONY_OPTIONS: Array<{ label: string; value: HarmonyMode; }> = [
     { label: "Tetradic", value: "tetradic" },
 ];
 
-type PaletteControlsProps = {
+type PaletteControlsProps = Readonly<{
     harmony: HarmonyMode;
     colourCount: number;
     maxColours: number;
@@ -20,29 +20,23 @@ type PaletteControlsProps = {
     onGenerateHarmony: () => void;
     onAddColour: () => void;
     onCopyCss: () => void;
-};
+}>;
 
-/** Displays the palette's harmony, add-colour, and export controls. */
-export function PaletteControls({
-    harmony,
-    colourCount,
-    maxColours,
-    valid,
-    copied,
-    onHarmonyChange,
-    onGenerateHarmony,
-    onAddColour,
-    onCopyCss,
-}: PaletteControlsProps): ReactNode {
+/**
+ * Displays the palette's harmony, add-colour, and export controls.
+ * @param props - The current state and palette control callbacks.
+ * @returns The palette control row.
+ */
+export function PaletteControls(props: PaletteControlsProps): ReactNode {
     return (
         <Stack direction="row" spacing={1} sx={{ alignItems: "center", flexWrap: "wrap", gap: 1 }}>
             <TextField
                 label="Harmony"
-                onChange={onHarmonyChange}
+                onChange={props.onHarmonyChange}
                 select
                 size="small"
                 sx={{ minWidth: 220 }}
-                value={harmony}
+                value={props.harmony}
             >
                 {HARMONY_OPTIONS.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -50,11 +44,17 @@ export function PaletteControls({
                     </MenuItem>
                 ))}
             </TextField>
-            <Button onClick={onGenerateHarmony} variant="outlined">Generate harmony from first colour</Button>
-            <Button disabled={colourCount >= maxColours} onClick={onAddColour} variant="contained">
+            <Button onClick={props.onGenerateHarmony} variant="outlined">Generate harmony from first colour</Button>
+            <Button
+                disabled={props.colourCount >= props.maxColours}
+                onClick={props.onAddColour}
+                variant="contained"
+            >
                 Add colour
             </Button>
-            <Button disabled={!valid} onClick={onCopyCss}>{copied ? "CSS copied" : "Copy CSS"}</Button>
+            <Button disabled={!props.valid} onClick={props.onCopyCss}>
+                {props.copied ? "CSS copied" : "Copy CSS"}
+            </Button>
         </Stack>
     );
 }
