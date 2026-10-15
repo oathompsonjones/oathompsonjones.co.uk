@@ -31,8 +31,8 @@ function getColourName(entries: readonly PaletteEntry[], hex: string): string {
 /**
  * Renders the contrast results for each unique pair of palette colours.
  * @param root0 - The palette entries and their contrast pairs.
- * @param root0.entries - The palette entries.
- * @param root0.pairs - The calculated pairwise contrast results.
+ * @param root0.entries - All colour names and values.
+ * @param root0.pairs - The ratios and compliance status for each unique pair.
  * @returns A heading and the contrast result for each colour pair.
  */
 export function PaletteContrast({ entries, pairs }: PaletteContrastProps): ReactNode {
