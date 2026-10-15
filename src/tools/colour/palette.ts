@@ -1,5 +1,4 @@
-import { normaliseColour, runColourTool } from "./colour-tool";
-import type { ColourToolResult } from "./colour-tool";
+import { normaliseColour, runColourTool, type ColourToolResult, type InputFormat } from "./colour-tool";
 
 export const MAX_PALETTE_COLOURS = 12;
 
@@ -44,12 +43,20 @@ export function normalisePaletteColour(input: string): string {
     if (/^#?[\da-f]{3}(?:[\da-f]{3})?$/i.test(value))
         return normaliseColour(value, "hex");
 
-    const format = (/^rgb\(/i).test(value) ? "rgb"
-        : (/^hsl\(/i).test(value) ? "hsl"
-            : (/^hsv\(/i).test(value) ? "hsv"
-                : (/^hwb\(/i).test(value) ? "hwb"
-                    : (/^cmyk\(/i).test(value) ? "cmyk"
-                        : "css";
+    let format: InputFormat;
+
+    if ((/^rgb\\(/i).test(value))
+        format = "rgb";
+    else if ((/^hsl\\(/i).test(value))
+        format = "hsl";
+    else if ((/^hsv\\(/i).test(value))
+        format = "hsv";
+    else if ((/^hwb\\(/i).test(value))
+        format = "hwb";
+    else if ((/^cmyk\\(/i).test(value))
+        format = "cmyk";
+    else
+        format = "css";
 
     return normaliseColour(value, format);
 }
