@@ -4,8 +4,8 @@ import type { ColourToolResult } from "tools/colour/colour-tool";
 import { createPaletteCssVariables } from "tools/colour/palette";
 
 type PaletteCssExportProps = Readonly<{
-    results: ReadonlyArray<ColourToolResult>;
-    entries: ReadonlyArray<Readonly<{ name: string; }>>;
+    results: readonly ColourToolResult[];
+    entries: readonly Readonly<{ name: string; }>[];
 }>;
 
 /**
