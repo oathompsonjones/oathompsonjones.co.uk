@@ -1,7 +1,6 @@
 import { Button, Stack } from "@mui/material";
+import { useCallback, type ReactNode } from "react";
 import type { PaletteEntry } from "components/pages/tools/colour/paletteColourCard";
-import { useCallback } from "react";
-import type { ReactNode } from "react";
 
 type PaletteColourActionsProps = Readonly<{
     entry: PaletteEntry;
@@ -9,7 +8,7 @@ type PaletteColourActionsProps = Readonly<{
     total: number;
     onDuplicate: (entry: PaletteEntry) => void;
     onRemove: (id: number) => void;
-    onMove: (index: number, direction: 1 | -1) => void;
+    onMove: (index: number, direction: -1 | 1) => void;
 }>;
 
 /**
