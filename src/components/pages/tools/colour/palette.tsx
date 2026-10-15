@@ -1,14 +1,14 @@
 "use client";
 
 import { Alert, Button, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
-import { requestToolApi } from "tools/api";
 import {
+    type ColourToolResult,
     colourToolResultSchema,
     parseHexColour,
     rgbToHex,
-    type ColourToolResult,
 } from "tools/colour/colour-tool";
-import { useCallback, useState, type ChangeEvent, type ReactNode } from "react";
+import { type ChangeEvent, type ReactNode, useCallback, useState } from "react";
+import { requestToolApi } from "tools/api";
 import { ToolSection } from "components/pages/tools/toolSection";
 
 const MAX_PALETTE_COLOURS = 12;
