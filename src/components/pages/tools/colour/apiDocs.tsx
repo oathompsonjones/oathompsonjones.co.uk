@@ -16,7 +16,7 @@ export function ColourToolApiDocs(): ReactNode {
                 the colour details, WCAG contrast results, and generated palette.
             </Typography>
             <Code language="bash">
-                {`curl -X POST https://oathompsonjones.co.uk/api/tools/colour \\\n  -H 'Content-Type: application/json' \\\n  -d '{"colour":"#336699}'`}
+                {`curl -X POST https://oathompsonjones.co.uk/api/tools/colour \\\n  -H 'Content-Type: application/json' \\\n  -d '{"colour":"#336699"}'`}
             </Code>
             <Typography variant="body2">
                 Successful responses use the shared <code>{'{ success: true, data: ... }'}</code> envelope.
