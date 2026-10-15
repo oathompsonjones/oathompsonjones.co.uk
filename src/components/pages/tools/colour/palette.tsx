@@ -5,8 +5,8 @@ import { PaletteColourCard, type PaletteEntry } from "components/pages/tools/col
 import { PaletteContrast } from "components/pages/tools/colour/paletteContrast";
 import { PaletteControls } from "components/pages/tools/colour/paletteControls";
 import { PaletteCssExport } from "components/pages/tools/colour/paletteCssExport";
-import { ToolSection } from "components/pages/tools/toolSection";
 import { usePaletteBuilder } from "components/pages/tools/colour/usePaletteBuilder";
+import { ToolSection } from "components/pages/tools/toolSection";
 import type { ReactNode } from "react";
 import { MAX_PALETTE_COLOURS } from "tools/colour/palette";
 
