@@ -13,27 +13,12 @@ import {
     DEFAULT_COLOUR,
     formatColour,
     normaliseColour,
+    colourToolResultSchema,
 } from "tools/colour-tool";
 import type { InputFormat } from "tools/colour-tool";
 
 
-const resultSchema = z.object({
-    colour: z.string(),
-    contrast: z.object({
-        black: z.number(),
-        blackMeetsAA: z.boolean(),
-        blackMeetsAALarge: z.boolean(),
-        recommended: z.enum(["black", "white"]),
-        white: z.number(),
-        whiteMeetsAA: z.boolean(),
-        whiteMeetsAALarge: z.boolean(),
-    }),
-    hex: z.string(),
-    hsl: z.object({ h: z.number(), l: z.number(), s: z.number() }),
-    luminance: z.number(),
-    palette: z.array(z.object({ hex: z.string(), label: z.string() })),
-    rgb: z.object({ b: z.number(), g: z.number(), r: z.number() }),
-});
+
 
 /**
  * Input controls for choosing a colour and requesting its analysis.
@@ -56,7 +41,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
         setError(null);
         try {
             const normalised = normaliseColour(input, inputFormat);
-            const next = await requestToolApi("/api/tools/colour", { colour: normalised }, resultSchema);
+            const next = await requestToolApi("/api/tools/colour", { colour: normalised }, colourToolResultSchema);
             onResult(next);
         } catch (caught) {
             setError(caught instanceof Error ? caught.message : "Unable to calculate this colour.");
