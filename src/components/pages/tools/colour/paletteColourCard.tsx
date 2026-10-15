@@ -1,4 +1,4 @@
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import { Stack, TextField, Typography } from "@mui/material";
 import { Card } from "components/card";
 import { PaletteColourActions } from "components/pages/tools/colour/paletteColourActions";
 import type { ChangeEvent, ReactNode } from "react";
