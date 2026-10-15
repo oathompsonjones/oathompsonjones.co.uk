@@ -49,7 +49,7 @@ export function normalisePaletteColour(input: string): string {
             : (/^hsv\(/i).test(value) ? "hsv"
                 : (/^hwb\(/i).test(value) ? "hwb"
                     : (/^cmyk\(/i).test(value) ? "cmyk"
-                        : "css"));
+                        : "css";
 
     return normaliseColour(value, format);
 }
