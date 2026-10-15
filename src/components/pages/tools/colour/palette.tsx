@@ -113,7 +113,7 @@ export function ColourPaletteInput(): ReactNode {
                                         <Paper square sx={{ backgroundColor: result.hex, height: 88 }} />
                                         <Stack spacing={0.5} sx={{ p: 1.5 }}>
                                             <Typography sx={{ fontWeight: 600 }}>
-                                                {PALETTE_LABELS[index] ?? `Colour ${index + 1}`}
+                                                {`Colour ${index + 1}`}
                                             </Typography>
                                             <Typography variant="body2">{result.hex}</Typography>
                                             <Typography color="text.secondary" variant="body2">
