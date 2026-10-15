@@ -1,31 +1,30 @@
 "use client";
 
-import { Alert, Button, Stack, TextField } from "@mui/material";
-import type { ChangeEvent, ReactNode } from "react";
+import { Alert, Button, MenuItem, Stack, TextField } from "@mui/material";
+import {
+    CSS_NAMED_COLOURS,
+    DEFAULT_COLOUR,
+    colourToolResultSchema,
+    formatColour,
+    normaliseColour,
+} from "tools/colour-tool";
+import type { ChangeEvent, KeyboardEvent, ReactNode } from "react";
+import type { ColourToolResult, InputFormat } from "tools/colour-tool";
 import { useCallback, useEffect, useState } from "react";
-import type { ColourToolResult } from "tools/colour-tool";
 import { Glass } from "components/glass";
+import type { MenuProps } from "@mui/material/Menu";
 import { RestartAlt } from "@mui/icons-material";
 import { requestToolApi } from "tools/api";
-import { z } from "zod";
 
-const resultSchema = z.object({
-    colour: z.string(),
-    contrast: z.object({
-        black: z.number(),
-        blackMeetsAA: z.boolean(),
-        blackMeetsAALarge: z.boolean(),
-        recommended: z.enum(["black", "white"]),
-        white: z.number(),
-        whiteMeetsAA: z.boolean(),
-        whiteMeetsAALarge: z.boolean(),
-    }),
-    hex: z.string(),
-    hsl: z.object({ h: z.number(), l: z.number(), s: z.number() }),
-    luminance: z.number(),
-    palette: z.array(z.object({ hex: z.string(), label: z.string() })),
-    rgb: z.object({ b: z.number(), g: z.number(), r: z.number() }),
-});
+const SELECT_MENU_PROPS: Partial<MenuProps> = {
+    anchorOrigin: { horizontal: "center", vertical: "bottom" },
+    disableScrollLock: true,
+    slotProps: {
+        list: { disablePadding: true },
+        paper: { sx: { borderRadius: "1rem" } },
+    },
+    transformOrigin: { horizontal: "center", vertical: "top" },
+};
 
 /**
  * Input controls for choosing a colour and requesting its analysis.
@@ -34,69 +33,188 @@ const resultSchema = z.object({
  * @param props.onResult - Callback invoked with the analysis result when available.
  * @returns The colour input form.
  */
+// eslint-disable-next-line max-lines-per-function
 export function ColourToolForm({ selectedColour, onResult }: Readonly<{
     selectedColour: string | null;
     onResult: (result: ColourToolResult) => void;
 }>): ReactNode {
-    const defaultColour = "#1C7EEA";
-    const [colour, setColour] = useState(defaultColour);
+    const [colour, setColour] = useState(DEFAULT_COLOUR);
+    const [pickerColour, setPickerColour] = useState(DEFAULT_COLOUR);
+    const [format, setFormat] = useState<InputFormat>("hex");
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
-    /**
-     * Calculates the colour analysis for the given value.
-     * @param value - The colour value to calculate the analysis for. If not provided, the current colour state is used.
-     */
-    async function calculate(value = colour): Promise<void> {
+    const calculate = useCallback(async (input: string, inputFormat: InputFormat): Promise<void> => {
         setLoading(true);
         setError(null);
 
         try {
-            const next = await requestToolApi("/api/tools/colour", { colour: value }, resultSchema);
+            const normalised = normaliseColour(input, inputFormat);
+            const next = await requestToolApi("/api/tools/colour", { colour: normalised }, colourToolResultSchema);
 
-            setColour(next.hex);
             onResult(next);
         } catch (caught) {
             setError(caught instanceof Error ? caught.message : "Unable to calculate this colour.");
         } finally {
             setLoading(false);
         }
-    }
+    }, [onResult]);
+
+    useEffect(() => {
+        void calculate(DEFAULT_COLOUR, "hex");
+    }, [calculate]);
+
+    useEffect(() => {
+        if (selectedColour !== null) {
+            setColour(selectedColour);
+            setFormat("hex");
+            void calculate(selectedColour, "hex");
+        }
+    }, [selectedColour, calculate]);
 
     const updateColour = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
-        setColour(event.target.value);
+        const { value } = event.target;
+
+        setColour(value);
+
+        try {
+            setPickerColour(normaliseColour(value, format));
+        } catch {
+            // Preserve the last valid colour while the input is incomplete.
+        }
     }, []);
+
+    const updateFormat = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+        const nextFormat = event.target.value as InputFormat;
+
+        if (nextFormat === format)
+            return;
+
+        if (nextFormat === "css" && format !== "css") {
+            setFormat(nextFormat);
+            setColour("");
+            setError(null);
+
+            return;
+        }
+
+        try {
+            const hex = format === "css" ? pickerColour : normaliseColour(colour, format);
+            const nextColour = nextFormat === "css"
+                ? ""
+                : formatColour(hex, nextFormat);
+
+            setFormat(nextFormat);
+            setColour(nextColour);
+            setPickerColour(hex);
+            setError(null);
+
+            if (nextFormat !== "css")
+                void calculate(nextColour, nextFormat);
+        } catch (caught) {
+            setFormat(nextFormat);
+            setColour("");
+            setError(caught instanceof Error ? caught.message : "Enter a valid colour to convert formats.");
+        }
+    }, [calculate, colour, format, pickerColour]);
 
     const updatePicker = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
         const value = event.target.value.toUpperCase();
 
         setColour(value);
-        void calculate(value);
+        setPickerColour(value);
+        setFormat("hex");
+        void calculate(value, "hex");
+    }, [calculate]);
+
+    const updateNamedColour = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
+        const { value } = event.target;
+
+        setColour(value);
+
+        if (value !== "") {
+            try {
+                const hex = normaliseColour(value, "css");
+
+                setPickerColour(hex);
+                void calculate(hex, "hex");
+            } catch (caught) {
+                setError(caught instanceof Error ? caught.message : "Choose a valid CSS named colour.");
+            }
+        }
     }, [calculate]);
 
     const resetColour = useCallback((): void => {
-        setColour(defaultColour);
-        void calculate(defaultColour);
+        setColour(DEFAULT_COLOUR);
+        setPickerColour(DEFAULT_COLOUR);
+        setFormat("hex");
+        void calculate(DEFAULT_COLOUR, "hex");
     }, [calculate]);
 
-    useEffect(() => {
-        if (selectedColour !== null)
-            setColour(selectedColour);
+    const submit = useCallback((): void => {
+        void calculate(colour, format);
+    }, [calculate, colour, format]);
 
-        void calculate(selectedColour ?? defaultColour);
-    }, [selectedColour]);
+    const submitOnEnter = useCallback((event: KeyboardEvent<HTMLInputElement>): void => {
+        if (event.key === "Enter")
+            submit();
+    }, [submit]);
+
+    const placeholder = format === "css" ? "Choose a named colour" : formatColour(DEFAULT_COLOUR, format);
 
     return (
         <Glass>
             <Stack direction={{ sm: "row", xs: "column" }} spacing={2} sx={{ alignItems: "center" }}>
-                <TextField fullWidth label="Hex colour" onChange={updateColour} value={colour} />
+                <TextField
+                    label="Input format"
+                    onChange={updateFormat}
+                    select
+                    slotProps={{ select: { MenuProps: SELECT_MENU_PROPS } }}
+                    sx={{ minWidth: 150 }}
+                    value={format}
+                >
+                    <MenuItem value="hex">HEX</MenuItem>
+                    <MenuItem value="rgb">RGB</MenuItem>
+                    <MenuItem value="hsl">HSL</MenuItem>
+                    <MenuItem value="hsv">HSV</MenuItem>
+                    <MenuItem value="hwb">HWB</MenuItem>
+                    <MenuItem value="cmyk">CMYK</MenuItem>
+                    <MenuItem value="css">CSS named colour</MenuItem>
+                </TextField>
+                {format === "css"
+                    ? (
+                        <TextField
+                            label="CSS named colour"
+                            onChange={updateNamedColour}
+                            select
+                            slotProps={{ select: { MenuProps: SELECT_MENU_PROPS } }}
+                            sx={{ minWidth: 300 }}
+                            value={colour}
+                        >
+                            <MenuItem value=""><em>Select a colour</em></MenuItem>
+                            {CSS_NAMED_COLOURS.map((name) => (
+                                <MenuItem key={name} value={name}>{name}</MenuItem>
+                            ))}
+                        </TextField>
+                    )
+                    : (
+                        <TextField
+                            label="Colour value"
+                            onChange={updateColour}
+                            onKeyDown={submitOnEnter}
+                            placeholder={placeholder}
+                            sx={{ minWidth: 300 }}
+                            value={colour}
+                        />
+                    )}
                 <input
+                    aria-label="Choose colour"
                     disabled={loading}
-                    id="colour-picker"
                     onChange={updatePicker}
                     type="color"
-                    value={(/^#[\da-f]{6}$/i).test(colour) ? colour : defaultColour}
+                    value={pickerColour}
                 />
+                <Button disabled={loading || colour.trim() === ""} onClick={submit}>Analyse</Button>
                 <Button disabled={loading} onClick={resetColour} startIcon={<RestartAlt />}>Reset</Button>
             </Stack>
             {error !== null && <Alert severity="error">{error}</Alert>}

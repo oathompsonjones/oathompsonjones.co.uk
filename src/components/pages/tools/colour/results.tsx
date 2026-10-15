@@ -5,8 +5,8 @@ import type { MouseEvent, ReactNode } from "react";
 import { useCallback, useState } from "react";
 import { Card } from "components/card";
 import type { ColourToolResult } from "tools/colour-tool";
-import { ContentCopy } from "@mui/icons-material";
 import { ToolSection } from "components/pages/tools/toolSection";
+import { colourFormats } from "tools/colour-tool";
 
 const ratio = (value: number): string => `${value.toFixed(2)}:1`;
 
@@ -24,10 +24,6 @@ export function ColourToolResults({ result, onSelectColour }: {
     const [copied, setCopied] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    /**
-     * Copies the given value to the clipboard.
-     * @param value - The value to copy to the clipboard.
-     */
     const copy = useCallback(async (value: string): Promise<void> => {
         try {
             await navigator.clipboard.writeText(value);
@@ -56,32 +52,21 @@ export function ColourToolResults({ result, onSelectColour }: {
         <Stack spacing={3}>
             {error !== null && <Alert severity="error">{error}</Alert>}
             <ToolSection title="Colour details">
-                <Stack direction="row" spacing={2}>
-                    <Paper sx={{
-                        backgroundColor: result.hex,
-                        border: 1,
-                        borderColor: "divider",
-                        height: 72,
-                        width: 72,
-                    }}
-                    />
-                    <Stack spacing={0.5} sx={{ minWidth: 0 }}>
-                        <Typography variant="h5">{result.hex}</Typography>
-                        <Typography color="text.secondary" variant="body2">
-                            RGB({result.rgb.r}, {result.rgb.g}, {result.rgb.b}) ·
-                            HSL({result.hsl.h.toFixed(1)}°, {result.hsl.s.toFixed(1)}%, {result.hsl.l.toFixed(1)}%)
-                        </Typography>
-                        <Button
-                            data-copy-value={result.hex}
-                            onClick={handleCopy}
-                            size="small"
-                            startIcon={<ContentCopy />}
-                            sx={{ alignSelf: "flex-start" }}
-                        >
-                            {copied === result.hex ? "Copied" : "Copy hex"}
-                        </Button>
-                    </Stack>
-                </Stack>
+                <Paper sx={{ backgroundColor: result.hex, border: 1, borderColor: "divider", height: 72 }} />
+                <Grid container spacing={2}>
+                    {colourFormats(result).map(({ label, value }) => (
+                        <Grid key={label} size={{ md: 4, sm: 6, xs: 12 }}>
+                            <Button
+                                data-copy-value={value}
+                                fullWidth
+                                onClick={handleCopy}
+                                variant="text"
+                            >
+                                {value}
+                            </Button>
+                        </Grid>
+                    ))}
+                </Grid>
             </ToolSection>
 
             <ToolSection title="Black or white text?">
@@ -110,16 +95,14 @@ export function ColourToolResults({ result, onSelectColour }: {
                                     <Typography variant="body2">Contrast ratio on {result.hex}</Typography>
                                     <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap", mt: 1 }}>
                                         {result.contrast.recommended === foreground &&
-                                            <Chip color="primary" label="Recommended" size="small" />}
+                                        <Chip color="primary" label="Recommended" size="small" />}
                                         <Chip
                                             color={passesAA ? "success" : "default"}
-                                            label={passesAA ? "AA normal text" : "Fails AA normal"}
-                                            size="small"
+                                            label={passesAA ? "AA normal text" : "Fails AA normal"} size="small"
                                         />
                                         <Chip
                                             color={passesLarge ? "success" : "default"}
-                                            label={passesLarge ? "AA large text" : "Fails AA large"}
-                                            size="small"
+                                            label={passesLarge ? "AA large text" : "Fails AA large"} size="small"
                                         />
                                     </Stack>
                                 </Paper>
@@ -128,8 +111,8 @@ export function ColourToolResults({ result, onSelectColour }: {
                     })}
                 </Grid>
                 <Typography color="text.secondary" variant="body2">
-                    WCAG AA requires 4.5:1 for normal text and 3:1
-                    for large text (at least 18 pt regular or 14 pt bold).
+                    WCAG AA requires 4.5:1 for normal text and 3:1 for large text
+                    (at least 18 pt regular or 14 pt bold).
                 </Typography>
             </ToolSection>
 
@@ -153,7 +136,6 @@ export function ColourToolResults({ result, onSelectColour }: {
                                         data-copy-value={hex}
                                         onClick={handleCopy}
                                         size="small"
-                                        startIcon={<ContentCopy />}
                                         sx={{ width: "100%" }}
                                     >
                                         {copied === hex ? "Copied" : "Copy"}
