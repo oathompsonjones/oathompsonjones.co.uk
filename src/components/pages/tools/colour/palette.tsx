@@ -13,7 +13,6 @@ import {
     generateHarmonyPalette,
     getPaletteContrast,
     normalisePaletteColour,
-    parsePaletteInput,
 } from "tools/colour/palette";
 
 type PaletteEntry = { id: number; name: string; value: string };
