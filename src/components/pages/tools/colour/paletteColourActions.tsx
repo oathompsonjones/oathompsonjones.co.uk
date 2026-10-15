@@ -47,18 +47,40 @@ export function PaletteColourActions({
     }, [entry.id, onRemove]);
 
     return (
-        <Stack direction="row" spacing={0.5} sx={{ justifyContent: "space-between" }}>
-            <Stack direction="row" spacing={0.5}>
-                <Button disabled={index === 0} onClick={moveUp} size="small">
+        <Stack spacing={0.5} sx={{ width: "100%", maxWidth: "100%" }}>
+            <Stack direction="row" spacing={0.5} sx={{ width: "100%", maxWidth: "100%" }}>
+                <Button
+                    disabled={index === 0}
+                    onClick={moveUp}
+                    size="small"
+                    sx={{ flex: 1, minWidth: 0, maxWidth: "100%" }}
+                >
                     Move up
                 </Button>
-                <Button disabled={index === total - 1} onClick={moveDown} size="small">
+                <Button
+                    disabled={index === total - 1}
+                    onClick={moveDown}
+                    size="small"
+                    sx={{ flex: 1, minWidth: 0, maxWidth: "100%" }}
+                >
                     Move down
                 </Button>
             </Stack>
-            <Stack direction="row" spacing={0.5}>
-                <Button onClick={duplicate} size="small">Duplicate</Button>
-                <Button color="error" disabled={total === 1} onClick={remove} size="small">
+            <Stack direction="row" spacing={0.5} sx={{ width: "100%", maxWidth: "100%" }}>
+                <Button
+                    onClick={duplicate}
+                    size="small"
+                    sx={{ flex: 1, minWidth: 0, maxWidth: "100%" }}
+                >
+                    Duplicate
+                </Button>
+                <Button
+                    color="error"
+                    disabled={total === 1}
+                    onClick={remove}
+                    size="small"
+                    sx={{ flex: 1, minWidth: 0, maxWidth: "100%" }}
+                >
                     Remove
                 </Button>
             </Stack>
