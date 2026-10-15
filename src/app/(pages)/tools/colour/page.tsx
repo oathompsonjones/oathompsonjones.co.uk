@@ -5,9 +5,9 @@ import { type ReactNode, type SyntheticEvent, useCallback, useState } from "reac
 import { ColourPaletteInput } from "components/pages/tools/colour/palette";
 import { ColourToolApiDocs } from "components/pages/tools/colour/apiDocs";
 import { ColourToolForm } from "components/pages/tools/colour/form";
+import type { ColourToolResult } from "tools/colour/colour-tool";
 import { ColourToolResults } from "components/pages/tools/colour/results";
 import { ToolPage } from "components/pages/tools";
-import type { ColourToolResult } from "tools/colour/colour-tool";
 
 /**
  * Presents the colour palette and contrast utility.
