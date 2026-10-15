@@ -1,22 +1,41 @@
+import { type ChangeEvent, useCallback, useMemo, useState } from "react";
 import type { PaletteEntry } from "components/pages/tools/colour/paletteColourCard";
-import { useCallback, useMemo, useState } from "react";
-import type { ChangeEvent } from "react";
-import { runColourTool } from "tools/colour/colour-tool";
-import type { ColourToolResult } from "tools/colour/colour-tool";
 import {
+    type ColourToolResult,
+    runColourTool,
+} from "tools/colour/colour-tool";
+import {
+    type HarmonyMode,
     MAX_PALETTE_COLOURS,
     createPaletteCssVariables,
     generateHarmonyPalette,
     getPaletteContrast,
     normalisePaletteColour,
 } from "tools/colour/palette";
-import type { HarmonyMode } from "tools/colour/palette";
+
+type PaletteBuilderState = Readonly<{
+    addEntry: () => void;
+    contrastPairs: ReturnType<typeof getPaletteContrast>;
+    copied: boolean;
+    duplicateEntry: (entry: PaletteEntry) => void;
+    entries: PaletteEntry[];
+    error: string | null;
+    handleCopyCss: () => void;
+    handleGenerateHarmony: () => void;
+    handleHarmonyChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    harmony: HarmonyMode;
+    moveEntry: (index: number, direction: -1 | 1) => void;
+    removeEntry: (id: number) => void;
+    results: ColourToolResult[];
+    updateEntry: (id: number, field: "name" | "value", value: string) => void;
+    valid: boolean;
+}>;
 
 /**
  * Owns the palette editor state, validation, harmony generation, and CSS export.
  * @returns The palette state and actions used by the palette UI.
  */
-export function usePaletteBuilder() {
+export function usePaletteBuilder(): PaletteBuilderState {
     const [entries, setEntries] = useState<PaletteEntry[]>([
         { id: 1, name: "Primary", value: "#1C7EEA" },
         { id: 2, name: "Secondary", value: "#7B2CBF" },
@@ -50,11 +69,14 @@ export function usePaletteBuilder() {
             return;
         }
 
-        setEntries((current) => [...current, {
-            id: nextId,
-            name: `Colour ${current.length + 1}`,
-            value: "#336699",
-        }]);
+        setEntries((current) => [
+            ...current,
+            {
+                id: nextId,
+                name: `Colour ${current.length + 1}`,
+                value: "#336699",
+            },
+        ]);
         setNextId((current) => current + 1);
         setError(null);
     }, [entries.length, nextId]);
@@ -84,7 +106,7 @@ export function usePaletteBuilder() {
         setError(null);
     }, []);
 
-    const moveEntry = useCallback((index: number, direction: 1 | -1): void => {
+    const moveEntry = useCallback((index: number, direction: -1 | 1): void => {
         setEntries((current) => {
             const destination = index + direction;
 
@@ -152,8 +174,8 @@ export function usePaletteBuilder() {
 
     return {
         addEntry,
-        copied,
         contrastPairs,
+        copied,
         duplicateEntry,
         entries,
         error,
