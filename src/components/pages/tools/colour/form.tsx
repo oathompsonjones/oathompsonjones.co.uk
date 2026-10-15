@@ -129,10 +129,12 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
     }, [submit]);
 
     const placeholder: Record<InputFormat, string> = {
+        cmyk: "cmyk(0%, 33.3%, 66.7%, 40%)",
         css: "Choose a named colour",
         hex: "#336699",
         hsl: "hsl(210, 50%, 40%)",
         hsv: "hsv(210, 67%, 60%)",
+        hwb: "hwb(210 20% 40%)",
         rgb: "rgb(51, 102, 153)",
     };
 
@@ -150,6 +152,8 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
                     <MenuItem value="rgb">RGB</MenuItem>
                     <MenuItem value="hsl">HSL</MenuItem>
                     <MenuItem value="hsv">HSV</MenuItem>
+                    <MenuItem value="hwb">HWB</MenuItem>
+                    <MenuItem value="cmyk">CMYK</MenuItem>
                     <MenuItem value="css">CSS named colour</MenuItem>
                 </TextField>
                 {format === "css"
