@@ -4,9 +4,9 @@ import { Alert, Button, Chip, Grid, Paper, Stack, Typography } from "@mui/materi
 import type { MouseEvent, ReactNode } from "react";
 import { useCallback, useState } from "react";
 import { Card } from "components/card";
-import type { ColourToolResult } from "tools/colour-tool";
+import type { ColourToolResult } from "tools/colour/colour-tool";
 import { ToolSection } from "components/pages/tools/toolSection";
-import { colourFormats } from "tools/colour-tool";
+import { colourFormats } from "tools/colour/colour-tool";
 
 const ratio = (value: number): string => `${value.toFixed(2)}:1`;
 
