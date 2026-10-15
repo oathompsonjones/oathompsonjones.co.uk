@@ -163,8 +163,8 @@ export function usePaletteBuilder() {
         harmony,
         moveEntry,
         removeEntry,
-        updateEntry,
         results,
+        updateEntry,
         valid,
     };
 }
