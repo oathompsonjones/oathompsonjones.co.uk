@@ -1,5 +1,5 @@
 import { expect as assert, describe, it } from "vitest";
-import { JSON_TOOL_MAX_REQUEST_BYTES } from "tools/json-toolkit";
+import { JSON_TOOL_MAX_REQUEST_BYTES } from "tools/json/json-toolkit";
 import { POST as post } from "./route";
 
 /**
