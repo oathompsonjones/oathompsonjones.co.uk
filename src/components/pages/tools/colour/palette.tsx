@@ -35,7 +35,9 @@ export function ColourPaletteInput(): ReactNode {
         setCopied(false);
 
         try {
-            const next = await Promise.all(colours.map(async (colour) => requestToolApi("/api/tools/colour", { colour }, colourToolResultSchema)));
+            const next = await Promise.all(
+                colours.map(async (colour) => requestToolApi("/api/tools/colour", { colour }, colourToolResultSchema)),
+            );
 
             setResults(next);
         } catch (caught) {
