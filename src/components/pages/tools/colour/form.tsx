@@ -72,7 +72,13 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
     }, [selectedColour, calculate]);
 
     const updateColour = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
-        setColour(event.target.value);
+        const value = event.target.value;
+        setColour(value);
+        try {
+            setPickerColour(normaliseColour(value, format));
+        } catch {
+            // Preserve the last valid colour while the input is incomplete.
+        }
     }, []);
 
     const updateFormat = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
@@ -112,6 +118,7 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
         const value = event.target.value.toUpperCase();
 
         setColour(value);
+        setPickerColour(value);
         setFormat("hex");
         void calculate(value, "hex");
     }, [calculate]);
@@ -121,12 +128,20 @@ export function ColourToolForm({ selectedColour, onResult }: Readonly<{
 
         setColour(value);
 
-        if (value !== "")
-            void calculate(value, "css");
+        if (value !== "") {
+            try {
+                const hex = normaliseColour(value, "css");
+                setPickerColour(hex);
+                void calculate(hex, "hex");
+            } catch (caught) {
+                setError(caught instanceof Error ? caught.message : "Choose a valid CSS named colour.");
+            }
+        }
     }, [calculate]);
 
     const resetColour = useCallback((): void => {
         setColour(DEFAULT_COLOUR);
+        setPickerColour(DEFAULT_COLOUR);
         setFormat("hex");
         void calculate(DEFAULT_COLOUR, "hex");
     }, [calculate]);
