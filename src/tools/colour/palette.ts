@@ -1,4 +1,8 @@
-import { contrastRatio, hslToRgb, parseHexColour, rgbToHex, rgbToHsl, type ColourToolResult, type InputFormat, normaliseColour, runColourTool } from "./colour-tool";
+import type { ColourToolResult, InputFormat } from "./colour-tool";
+import {
+    contrastRatio, hslToRgb, normaliseColour,
+    parseHexColour, rgbToHex, rgbToHsl, runColourTool,
+} from "./colour-tool";
 
 export const MAX_PALETTE_COLOURS = 12;
 
@@ -119,14 +123,16 @@ function variationName(label: string): string {
 /**
  * Serialises analysed palette colours and their variants as CSS custom properties.
  * @param results - The analysed colours.
+ * @param names - Optional names for the colours, used as CSS variable identifiers.
  * @returns A CSS :root block containing the variables.
  */
 export function createPaletteCssVariables(results: readonly ColourToolResult[], names?: readonly string[]): string {
     const lines = [":root {"];
 
     results.forEach((result, index) => {
-        const suppliedName = names?.[index]?.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-        const name = suppliedName || PALETTE_LABELS[index] || `colour-${index + 1}`;
+        const suppliedName = names?.[index]?.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-|-$/g, "");
+        const name = suppliedName ?? PALETTE_LABELS[index] ?? `colour-${index + 1}`;
 
         result.palette.forEach(({ hex, label }) => {
             lines.push(`  --colour-${name}-${variationName(label)}: ${hex};`);
@@ -147,44 +153,59 @@ export function analysePalette(input: string): ColourToolResult[] {
     return parsePaletteInput(input).map((colour) => runColourTool({ colour }));
 }
 
-export type HarmonyMode = "complementary" | "analogous" | "triadic" | "split-complementary" | "tetradic";
-export type PaletteContrast = { first: string; second: string; ratio: number; meetsAA: boolean; meetsAAA: boolean };
+export type HarmonyMode = "analogous" | "complementary" | "split-complementary" | "tetradic" | "triadic";
+export type PaletteContrast = { first: string; second: string; ratio: number; meetsAA: boolean; meetsAAA: boolean; };
 
-/** Generates a colour harmony from a seed colour using HSL hue rotation. */
+/**
+ * Generates a colour harmony from a seed colour using HSL hue rotation.
+ * @param seed - The seed colour in hexadecimal format.
+ * @param mode - The harmony mode to generate.
+ * @returns An array of hexadecimal colour strings representing the harmony palette.
+ * @throws Will throw an error if the seed colour is not a valid hexadecimal colour.
+ */
 export function generateHarmonyPalette(seed: string, mode: HarmonyMode): string[] {
     const rgb = parseHexColour(seed);
+
     if (rgb === null)
         throw new Error("Enter a valid hexadecimal seed colour.");
 
     const hsl = rgbToHsl(rgb);
     const offsets: Record<HarmonyMode, number[]> = {
-        complementary: [0, 180],
         analogous: [0, 30, 330],
-        triadic: [0, 120, 240],
+        complementary: [0, 180],
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         "split-complementary": [0, 150, 210],
         tetradic: [0, 90, 180, 270],
+        triadic: [0, 120, 240],
     };
 
     return offsets[mode].map((offset) => rgbToHex(hslToRgb({ ...hsl, h: (hsl.h + offset) % 360 })));
 }
 
-/** Calculates pairwise WCAG contrast ratios for every unique colour pair. */
+/**
+ * Calculates pairwise WCAG contrast ratios for every unique colour pair.
+ * @param results - The analysed palette colours.
+ * @returns An array of contrast information for each unique colour pair.
+ */
 export function getPaletteContrast(results: readonly ColourToolResult[]): PaletteContrast[] {
     const pairs: PaletteContrast[] = [];
+
     for (let i = 0; i < results.length; i++) {
         for (let j = i + 1; j < results.length; j++) {
             const first = results[i]!;
             const second = results[j]!;
             const ratio = contrastRatio(first.luminance, second.luminance);
+
             pairs.push({
                 first: first.hex,
-                second: second.hex,
                 meetsAA: ratio >= 4.5,
                 meetsAAA: ratio >= 7,
                 ratio,
+                second: second.hex,
             });
         }
     }
+
     return pairs;
 }
 
