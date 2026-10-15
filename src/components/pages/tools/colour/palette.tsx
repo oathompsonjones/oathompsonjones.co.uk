@@ -2,72 +2,10 @@
 
 import { Alert, Button, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
 import { type ChangeEvent, type ReactNode, useCallback, useState } from "react";
-import {
-    type ColourToolResult,
-    colourToolResultSchema,
-    parseHexColour,
-    rgbToHex,
-} from "tools/colour/colour-tool";
+import { type ColourToolResult, colourToolResultSchema } from "tools/colour/colour-tool";
+import { createPaletteCssVariables, MAX_PALETTE_COLOURS, parsePaletteInput } from "tools/colour/palette";
 import { ToolSection } from "components/pages/tools/toolSection";
 import { requestToolApi } from "tools/api";
-
-const MAX_PALETTE_COLOURS = 12;
-const PALETTE_LABELS = [
-    "primary",
-    "secondary",
-    "tertiary",
-    "quaternary",
-    "quinary",
-    "senary",
-    "septenary",
-    "octonary",
-    "nonary",
-    "denary",
-    "eleventh",
-    "twelfth",
-] as const;
-
-const VARIATION_NAMES: ReadonlyArray<readonly [string, string]> = [
-    ["Analogous +30°", "analogous-plus-30"],
-    ["Analogous -30°", "analogous-minus-30"],
-    ["Base", "base"],
-    ["Complementary", "complementary"],
-    ["Dark", "dark"],
-    ["Light", "light"],
-    ["Shade", "shade"],
-    ["Tint", "tint"],
-];
-
-/**
- * Generates a CSS custom-property name for a palette variation.
- * @param label - The generated variation label.
- * @returns A kebab-case suffix for the CSS variable.
- */
-function variationName(label: string): string {
-    return VARIATION_NAMES.find(([name]) => name === label)?.[1] ??
-        label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-}
-
-/**
- * Serialises analysed palette colours and their variants as CSS custom properties.
- * @param results - The analysed colours.
- * @returns A CSS :root block containing the variables.
- */
-export function createPaletteCssVariables(results: readonly ColourToolResult[]): string {
-    const lines = [":root {"];
-
-    results.forEach((result, index) => {
-        const name = PALETTE_LABELS[index] ?? `colour-${index + 1}`;
-
-        result.palette.forEach(({ hex, label }) => {
-            lines.push(`  --colour-${name}-${variationName(label)}: ${hex};`);
-        });
-    });
-
-    lines.push("}");
-
-    return lines.join("\n");
-}
 
 /**
  * Accepts a palette of hexadecimal colours and exports all generated variants as CSS custom properties.
@@ -81,29 +19,12 @@ export function ColourPaletteInput(): ReactNode {
     const [copied, setCopied] = useState(false);
 
     const analyse = useCallback(async (): Promise<void> => {
-        const colours = input.split(/[\n,;]+/).map((colour) => colour.trim()).filter(Boolean);
+        let normalised: string[];
 
-        if (colours.length === 0) {
-            setError("Enter at least one hexadecimal colour.");
-
-            return;
-        }
-
-        if (colours.length > MAX_PALETTE_COLOURS) {
-            setError(`Enter no more than ${MAX_PALETTE_COLOURS} colours at a time.`);
-
-            return;
-        }
-
-        const normalised = colours.map((colour) => {
-            const parsed = parseHexColour(colour);
-
-            return parsed === null ? null : rgbToHex(parsed);
-        });
-        const invalid = colours.filter((_, index) => normalised[index] === null);
-
-        if (invalid.length > 0) {
-            setError(`Invalid hexadecimal colour(s): ${invalid.join(", ")}. Use #RGB or #RRGGBB.`);
+        try {
+            normalised = parsePaletteInput(input);
+        } catch (caught) {
+            setError(caught instanceof Error ? caught.message : "Enter valid hexadecimal colours.");
 
             return;
         }
@@ -122,7 +43,7 @@ export function ColourPaletteInput(): ReactNode {
 
                 return result;
             };
-            const next = await Promise.all(normalised.map(async (colour) => loadResult(colour!)));
+            const next = await Promise.all(normalised.map(async (colour) => loadResult(colour)));
 
             setResults(next);
         } catch (caught) {
