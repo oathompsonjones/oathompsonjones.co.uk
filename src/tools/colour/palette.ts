@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/member-delimiter-style, @typescript-eslint/naming-convention, @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/sort-type-constituents, @typescript-eslint/strict-boolean-expressions, jsdoc/require-param, jsdoc/require-returns, jsdoc/require-throws, max-len, newline-after-var, newline-before-return, newline-per-chained-call, sort-imports, sort-keys, @stylistic/member-delimiter-style, @stylistic/padding-line-between-statements */
+/* eslint-disable @typescript-eslint/naming-convention, @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/sort-type-constituents, @typescript-eslint/strict-boolean-expressions, jsdoc/require-param, jsdoc/require-returns, jsdoc/require-throws, max-len, newline-after-var, newline-before-return, newline-per-chained-call, sort-imports, sort-keys, @stylistic/member-delimiter-style, @stylistic/padding-line-between-statements */
 import { contrastRatio, hslToRgb, parseHexColour, rgbToHex, rgbToHsl, type ColourToolResult, type InputFormat, normaliseColour, runColourTool } from "./colour-tool";
 
 export const MAX_PALETTE_COLOURS = 12;
@@ -180,9 +180,9 @@ export function getPaletteContrast(results: readonly ColourToolResult[]): Palett
             pairs.push({
                 first: first.hex,
                 second: second.hex,
-                ratio,
                 meetsAA: ratio >= 4.5,
                 meetsAAA: ratio >= 7,
+                ratio,
             });
         }
     }
