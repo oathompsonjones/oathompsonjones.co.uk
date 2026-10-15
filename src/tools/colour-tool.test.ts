@@ -17,9 +17,13 @@ describe("colour tool", () => {
         expect(normaliseColour("rgb(51, 102, 153)", "rgb")).toBe("#336699");
         expect(normaliseColour("hsl(210, 50%, 40%)", "hsl")).toBe("#336699");
         expect(normaliseColour("hsv(210, 66.7%, 60%)", "hsv")).toBe("#336699");
+        expect(normaliseColour("hwb(210 20% 40%)", "hwb")).toBe("#336699");
+        expect(normaliseColour("cmyk(66.7%, 33.3%, 0%, 40%)", "cmyk")).toBe("#336699");
         expect(formatColour("#336699", "rgb")).toBe("rgb(51, 102, 153)");
         expect(formatColour("#336699", "hsl")).toBe("hsl(210.0, 50.0%, 40.0%)");
         expect(formatColour("#336699", "hsv")).toBe("hsv(210.0, 66.7%, 60.0%)");
+        expect(formatColour("#336699", "hwb")).toBe("hwb(210.0 20.0% 40.0%)");
+        expect(formatColour("#336699", "cmyk")).toBe("cmyk(66.7%, 33.3%, 0.0%, 40.0%)");
     });
 
     it("provides the CSS named colour options", () => {
