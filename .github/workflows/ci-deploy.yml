@@ -76,13 +76,13 @@ jobs:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USER }}
         run: |
-          ssh "$VPS_USER@$VPS_HOST" "bash -s" <<'REMOTE'
+          ssh "$VPS_USER@$VPS_HOST" "DEPLOY_SHA='$GITHUB_SHA' bash -s" <<'REMOTE'
           set -euo pipefail
           export NVM_DIR="$HOME/.nvm"
           [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
           cd /home/ollie/oathompsonjones.co.uk
           git fetch origin master
-          git reset --hard origin/master
+          git reset --hard "$DEPLOY_SHA"
           pnpm install --frozen-lockfile
           pnpm build
           pm2 reload oathompsonjones.co.uk --update-env
