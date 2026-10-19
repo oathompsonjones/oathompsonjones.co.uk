@@ -17,7 +17,7 @@
     "license": "MIT",
     "devDependencies": {
         "@million/lint": "^1.0.14",
-        "@oathompsonjones/eslint-config": "^1.5.9",
+        "@oathompsonjones/eslint-config": "^1.5.10",
         "@oathompsonjones/ts-config": "^1.0.0",
         "@pigment-css/nextjs-plugin": "^0.0.31",
         "@types/http-proxy": "^1.17.17",
