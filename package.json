@@ -22,7 +22,7 @@
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
         "typescript": "^7.0.2",
-        "vitest": "^5.0.4"
+        "vitest": "^5.0.5"
     },
     "dependencies": {
         "@emotion/cache": "^11.14.0",
@@ -42,9 +42,9 @@
         "highlight.js": "^11.12.0",
         "http-proxy": "^1.18.1",
         "md5": "^2.3.0",
-        "next": "^16.4.1",
+        "next": "^16.4.2",
         "node-pdflatex": "^0.3.0",
-        "nodemailer": "^10.1.1",
+        "nodemailer": "^10.1.6",
         "react": "^19.3.1",
         "react-dom": "^19.3.1",
         "react-google-recaptcha-v3": "^1.11.0",
