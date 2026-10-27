@@ -48,11 +48,11 @@ export default function Tools(): ReactNode {
     return (
         <Stack spacing={3}>
             <Stack direction="row" spacing={2} sx={{ alignItems: "center", flexWrap: "wrap" }}>
-                <Typography variant="h2">Tools</Typography>
+                <Typography component="h1" variant="h2">Tools</Typography>
                 <BetaChip />
             </Stack>
             <Stack aria-labelledby="tools-list-heading" spacing={2}>
-                <Typography id="tools-list-heading" variant="h4">
+                <Typography component="h2" id="tools-list-heading" variant="h4">
                     Browse tools
                 </Typography>
                 <Masonry columns={{ md: 3, sm: 2, xs: 1 }} spacing={2}>

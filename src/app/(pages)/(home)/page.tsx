@@ -1,8 +1,18 @@
 import { Button, Typography } from "@mui/material";
-import { GRAVATAR_URL } from "utils";
+import { GRAVATAR_URL, pageMetadata } from "utils";
 import Image from "next/image";
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Stack } from "@mui/system";
+
+export const metadata: Metadata = pageMetadata(
+    "Software Developer",
+    [
+        "Oliver Jones is a London-based software developer. Explore his projects,",
+        "technical articles, CV, and browser-based tools.",
+    ].join(" "),
+    "/",
+);
 
 /**
  * This is the home page.
@@ -25,10 +35,10 @@ export default function Home(): ReactNode {
                 width={400}
             />
             <Typography align="center" variant="h1">Oliver Jones</Typography>
-            <Typography align="center" color="text.secondary" variant="h3">
+            <Typography align="center" color="text.secondary" component="h2" variant="h3">
                 Software Developer | Park Place Technologies
             </Typography>
-            <Typography align="center" color="text.secondary" variant="h4">
+            <Typography align="center" color="text.secondary" component="p" variant="h4">
                 BSc Computer Science | The University of Edinburgh
             </Typography>
             <Stack direction={{ sm: "row", xs: "column" }} spacing={2} sx={{ justifyContent: "center", p: 1 }}>

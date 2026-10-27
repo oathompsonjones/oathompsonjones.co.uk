@@ -28,7 +28,7 @@ export default async function Articles(): Promise<ReactNode> {
 
     return (
         <div>
-            <Typography align="center" gutterBottom variant="h2">Articles</Typography>
+            <Typography align="center" component="h1" gutterBottom variant="h2">Articles</Typography>
             <Masonry columns={columns}>
                 {[...localArticles, ...remoteArticles].map((article) => (
                     <Article

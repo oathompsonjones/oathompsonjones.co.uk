@@ -20,7 +20,7 @@ export function Experience(): ReactNode {
 
     return (
         <div>
-            <Typography align="center" variant="h3">Experience</Typography>
+            <Typography align="center" component="h2" variant="h3">Experience</Typography>
             <Divider />
             <Glass>
                 {experiences.map(({ description, heading }, i) => (

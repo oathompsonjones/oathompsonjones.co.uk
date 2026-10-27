@@ -86,10 +86,10 @@ export default function Connect4Game(): ReactNode {
 
     return (
         <div>
-            <Typography align="center" variant="h2">Connect 4</Typography>
+            <Typography align="center" component="h1" variant="h2">Connect 4</Typography>
             <Grid closed height={6} onClick={onClick} renderCell={renderCell} width={7} />
             {statusText !== "" && (
-                <Typography align="center" color="text.secondary" variant="h3">
+                <Typography align="center" color="text.secondary" component="h2" variant="h3">
                     {statusText} <Button onClick={startGame}>Play Again</Button>
                 </Typography>
             )}

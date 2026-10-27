@@ -28,7 +28,7 @@ export default function ProjectEuler(): ReactNode {
                     {" "}<Link href="https://projecteuler.net/">Project Euler website</Link>{" "}
                     in March 2026.
                 </Typography>
-                <Typography variant="h3">
+                <Typography component="h2" variant="h3">
                     What is Project Euler?
                 </Typography>
                 <Typography variant="body1">
@@ -41,7 +41,7 @@ export default function ProjectEuler(): ReactNode {
                     inquiring mind to delve into unfamiliar areas and learn new concepts in a fun and recreational
                     context.
                 </Typography>
-                <Typography variant="h3">
+                <Typography component="h2" variant="h3">
                     Who are the problems aimed at?
                 </Typography>
                 <Typography variant="body1">
@@ -54,7 +54,7 @@ export default function ProjectEuler(): ReactNode {
                     locations throughout the world, and collectively using 114 different programming languages to solve
                     the problems.
                 </Typography>
-                <Typography variant="h3">
+                <Typography component="h2" variant="h3">
                     Can anyone solve the problems?
                 </Typography>
                 <Typography variant="body1">

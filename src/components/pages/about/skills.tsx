@@ -40,7 +40,7 @@ export function Skills(): ReactNode {
 
     return (
         <div>
-            <Typography align="center" variant="h3">Skills</Typography>
+            <Typography align="center" component="h2" variant="h3">Skills</Typography>
             <Divider />
             <Glass>
                 <Stack spacing={3}>

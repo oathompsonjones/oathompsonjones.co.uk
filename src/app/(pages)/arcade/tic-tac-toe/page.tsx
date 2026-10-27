@@ -89,10 +89,10 @@ export default function TicTacToeGame(): ReactNode {
 
     return (
         <div>
-            <Typography align="center" variant="h2">Tic Tac Toe</Typography>
+            <Typography align="center" component="h1" variant="h2">Tic Tac Toe</Typography>
             <Grid height={3} onClick={onClick} renderCell={renderCell} width={3} />
             {statusText !== "" && (
-                <Typography align="center" color="text.secondary" variant="h3">
+                <Typography align="center" color="text.secondary" component="h2" variant="h3">
                     {statusText} <Button onClick={startGame}>Play Again</Button>
                 </Typography>
             )}

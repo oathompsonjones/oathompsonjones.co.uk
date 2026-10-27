@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { layout } from "components/layout";
-import { title } from "utils";
+import { pageMetadata } from "utils";
 
-export const metadata: Metadata = {
-    description: "Explore colour palettes and calculate WCAG text contrast ratios.",
-    title: title("Colour Palette and Contrast"),
-};
+export const metadata: Metadata = pageMetadata(
+    "Colour Palette and Contrast",
+    "Build colour palettes, inspect colour values, and check WCAG text contrast ratios in your browser.",
+    "/tools/colour",
+);
 
 export default layout();

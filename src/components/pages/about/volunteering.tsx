@@ -20,7 +20,7 @@ export function Volunteering(): ReactNode {
 
     return (
         <div>
-            <Typography align="center" variant="h3">Volunteer Experience</Typography>
+            <Typography align="center" component="h2" variant="h3">Volunteer Experience</Typography>
             <Divider />
             <Glass>
                 {volunteering.map(({ description, heading }, i) => (

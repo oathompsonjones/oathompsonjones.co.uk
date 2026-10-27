@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import md5 from "md5";
 
 /**
@@ -30,6 +31,36 @@ export const title = (pageTitle: string): string => {
 
     return `${devPrefix}Oliver Jones | ${pageTitle}`;
 };
+
+/**
+ * Builds page-specific search and social metadata.
+ * @param pageTitle - The human-readable page title.
+ * @param description - A concise summary of the page.
+ * @param pathname - The canonical path for the page.
+ * @returns Metadata for a public page.
+ */
+export function pageMetadata(pageTitle: string, description: string, pathname: string): Metadata {
+    const pageTitleWithBrand = title(pageTitle);
+
+    return {
+        alternates: { canonical: pathname },
+        description,
+        openGraph: {
+            description,
+            images: [{ alt: "Oliver Jones", height: 1200, url: gravatarURL(1200), width: 1200 }],
+            title: pageTitleWithBrand,
+            type: "website",
+            url: pathname,
+        },
+        title: pageTitleWithBrand,
+        twitter: {
+            card: "summary_large_image",
+            description,
+            images: [gravatarURL(1200)],
+            title: pageTitleWithBrand,
+        },
+    };
+}
 
 /**
  * Normalises Next.js search parameter values into a single value.

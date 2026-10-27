@@ -31,7 +31,7 @@ export function Article({ title, summary, image }: {
                     />
                 )}
                 <Card.Content>
-                    <Typography variant="h6">{title}</Typography>
+                    <Typography component="h2" variant="h6">{title}</Typography>
                     {typeof summary === "string" ? <Typography variant="body1">{summary}</Typography> : summary}
                 </Card.Content>
                 <Card.Actions>

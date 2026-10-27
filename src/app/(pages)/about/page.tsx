@@ -32,7 +32,7 @@ export default function About(): ReactNode {
 
     return (
         <Stack sx={{ gap: 2 }}>
-            <Typography align="center" sx={{ flex: 1 }} variant="h2">
+            <Typography align="center" component="h1" sx={{ flex: 1 }} variant="h2">
                 About Me
             </Typography>
             <ButtonGroup ref={buttonGroupRef} size="small" sx={{ alignSelf: "center" }}>

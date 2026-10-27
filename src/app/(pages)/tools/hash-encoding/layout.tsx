@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { layout } from "components/layout";
-import { title } from "utils";
+import { pageMetadata } from "utils";
 
-export const metadata: Metadata = {
-    description:
-        "Encode, decode, encrypt, hash, and sign text with Base64, binary, ciphers, SHA, HMAC, and more.",
-    title: title("Hash and Encoding"),
-};
+export const metadata: Metadata = pageMetadata(
+    "Hash and Encoding",
+    "Encode and decode text, apply supported ciphers, and create hashes with this browser-based tool.",
+    "/tools/hash-encoding",
+);
 
 export default layout();

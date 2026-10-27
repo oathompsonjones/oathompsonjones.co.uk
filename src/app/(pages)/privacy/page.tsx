@@ -10,7 +10,7 @@ import { Typography } from "@mui/material";
 export default function Privacy(): ReactNode {
     return (
         <div>
-            <Typography variant="h2">Privacy Policy</Typography>
+            <Typography component="h1" variant="h2">Privacy Policy</Typography>
             <Typography>
                 I reserve the right to collect the names and email addresses of any and all users who submit the
                 contact form located <Link href="/contact">here</Link>.

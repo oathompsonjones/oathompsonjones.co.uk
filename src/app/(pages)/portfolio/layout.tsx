@@ -2,9 +2,13 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Typography } from "@mui/material";
 import { layout } from "components/layout";
-import { title } from "utils";
+import { pageMetadata } from "utils";
 
-export const metadata: Metadata = { title: title("Portfolio") };
+export const metadata: Metadata = pageMetadata(
+    "Portfolio",
+    "Explore software projects by Oliver Jones, including featured work and open source repositories.",
+    "/portfolio",
+);
 
 export default layout({
     className: "full-width",
@@ -14,7 +18,7 @@ export default layout({
         </Typography>
     ),
     header: (
-        <Typography align="center" gutterBottom variant="h2">
+        <Typography align="center" component="h1" gutterBottom variant="h2">
             Portfolio
         </Typography>
     ),
