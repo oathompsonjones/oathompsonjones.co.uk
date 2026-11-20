@@ -21,25 +21,28 @@ import keywords from "public/keywords.json";
 const personStructuredData = JSON.stringify({
     // eslint-disable-next-line @typescript-eslint/naming-convention
     "@context": "https://schema.org",
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    "@type": "Person",
     // A stable identifier allows the site and linked profiles to refer to one person.
     // eslint-disable-next-line @typescript-eslint/naming-convention
     "@id": "https://oathompsonjones.co.uk/#person",
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    "@type": "Person",
     address: {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         "@type": "PostalAddress",
         addressCountry: "GB",
         addressLocality: "London",
     },
+    alternateName: ["Oliver Jones", "Ollie Jones", "oathompsonjones"],
     alumniOf: {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         "@type": "CollegeOrUniversity",
         name: "University of Edinburgh",
         sameAs: "https://www.ed.ac.uk/",
     },
-    alternateName: ["Oliver Jones", "Ollie Jones", "oathompsonjones"],
-    description: "Oliver Andrew Thompson Jones (Ollie Jones) is a software developer and Computer Science graduate from the University of Edinburgh.",
+    description: [
+        "Oliver Andrew Thompson Jones (Ollie Jones) is a software developer and",
+        "Computer Science graduate from the University of Edinburgh.",
+    ].join(" "),
     image: gravatarURL(1200),
     jobTitle: "Software Developer",
     knowsAbout: [
@@ -63,13 +66,13 @@ const personStructuredData = JSON.stringify({
         "https://facebook.com/oathompsonjones",
         "https://modrinth.com/user/oathompsonjones",
     ],
+    url: "https://oathompsonjones.co.uk",
     worksFor: {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         "@type": "Organization",
         name: "Park Place Technologies",
         url: "https://www.parkplacetechnologies.com/",
     },
-    url: "https://oathompsonjones.co.uk",
 }).replace(/</gu, "\\u003c");
 
 // https://realfavicongenerator.net (remove the mask icon and msapplication stuff)
