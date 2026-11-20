@@ -23,22 +23,52 @@ const personStructuredData = JSON.stringify({
     "@context": "https://schema.org",
     // eslint-disable-next-line @typescript-eslint/naming-convention
     "@type": "Person",
+    // A stable identifier allows the site and linked profiles to refer to one person.
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    "@id": "https://oathompsonjones.co.uk/#person",
     address: {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         "@type": "PostalAddress",
         addressCountry: "GB",
         addressLocality: "London",
     },
-    alternateName: ["Ollie Jones", "Oliver Andrew Thompson Jones", "oathompsonjones"],
+    alumniOf: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        "@type": "CollegeOrUniversity",
+        name: "University of Edinburgh",
+        sameAs: "https://www.ed.ac.uk/",
+    },
+    alternateName: ["Oliver Jones", "Ollie Jones", "oathompsonjones"],
+    description: "Oliver Andrew Thompson Jones (Ollie Jones) is a software developer and Computer Science graduate from the University of Edinburgh.",
     image: gravatarURL(1200),
     jobTitle: "Software Developer",
-    name: "Oliver Jones",
+    knowsAbout: [
+        "Software Development",
+        "Computer Science",
+        "TypeScript",
+        "JavaScript",
+        "React",
+        "Next.js",
+        "Java",
+        "C++",
+        "Haskell",
+    ],
+    name: "Oliver Andrew Thompson Jones",
     sameAs: [
         "https://github.com/oathompsonjones",
         "https://linkedin.com/in/oathompsonjones",
         "https://stackoverflow.com/users/11840092/oathompsonjones",
         "https://x.com/oathompsonjones",
+        "https://instagram.com/oathompsonjones",
+        "https://facebook.com/oathompsonjones",
+        "https://modrinth.com/user/oathompsonjones",
     ],
+    worksFor: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        "@type": "Organization",
+        name: "Park Place Technologies",
+        url: "https://www.parkplacetechnologies.com/",
+    },
     url: "https://oathompsonjones.co.uk",
 }).replace(/</gu, "\\u003c");
 
